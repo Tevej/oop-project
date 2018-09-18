@@ -1,1 +1,10 @@
 language: Java
+
+notifications:
+    email:
+        on_success: never
+        on_failure: always
+
+    slack:
+        on_success: always
+        on_failure: always
