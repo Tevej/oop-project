@@ -6,7 +6,14 @@ notifications:
 
     slack:
         on_success: always
-        on_failure: always
+        on_failure: never
 
         rooms:
           digit1819:MI9cZ2mjZzXjEM42jwg4hJph
+
+    slack:
+        on_success: always
+        on_failure: always
+        
+        rooms:
+            digit1819:SG8nfPsbykYZdE3tR07XUUdy
