@@ -1,8 +1,7 @@
 language: Java
 
 notifications:
-    email:
-      email: false
+    email: false
 
     slack:
         on_success: always
