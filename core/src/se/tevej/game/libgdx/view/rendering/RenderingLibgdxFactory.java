@@ -1,6 +1,5 @@
 package se.tevej.game.libgdx.view.rendering;
 
-import se.tevej.game.math.TVector2;
 import se.tevej.game.view.rendering.RenderingFactory;
 import se.tevej.game.view.rendering.TBatchRenderer;
 import se.tevej.game.view.rendering.TTexture;
@@ -12,8 +11,8 @@ public class RenderingLibgdxFactory implements RenderingFactory {
         return new BatchRendererLibgdxAdapter();
     }
 
-    public CameraLibgdxAdapter createCamera(TVector2 position) {
-        return new CameraLibgdxAdapter(position);
+    public CameraLibgdxAdapter createCamera() {
+        return new CameraLibgdxAdapter();
     }
 
     @Override

@@ -1,16 +1,9 @@
 package se.tevej.game.libgdx.view.rendering;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import se.tevej.game.math.TVector2;
 import se.tevej.game.view.rendering.TCamera;
 
 public class CameraLibgdxAdapter extends OrthographicCamera implements TCamera {
-
-    public CameraLibgdxAdapter(TVector2 position){
-        this.position = position;
-    }
-
-    private TVector2 position;
 
     @Override
     public float getViewportWidth() {
@@ -39,18 +32,8 @@ public class CameraLibgdxAdapter extends OrthographicCamera implements TCamera {
     }
 
     @Override
-    public TVector2 getPosition() {
-        return null;
-    }
-
-    @Override
     public void setPosition(float x, float y) {
         super.position.set(x, y, 0);
-    }
-
-    @Override
-    public void setPosition(TVector2 position) {
-
     }
 
 }
