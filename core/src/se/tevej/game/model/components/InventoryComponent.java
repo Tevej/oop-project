@@ -4,15 +4,14 @@ import com.badlogic.ashley.core.Component;
 import se.tevej.game.exceptions.NotEnoughResourcesException;
 import se.tevej.game.model.resource.Resource;
 import se.tevej.game.model.resource.ResourceType;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashMap;
 
 public class InventoryComponent implements Component {
-    private HashMap<ResourceType, Float> resources;
+    private HashMap<ResourceType, Double> resources;
 
     public InventoryComponent() {
-        resources = new HashMap<ResourceType, Float>();
+        resources = new HashMap<ResourceType, Double>();
     }
 
     public void addResource(Resource resource) {
@@ -24,12 +23,12 @@ public class InventoryComponent implements Component {
         }
     }
 
-    public float getAmountOfResource(ResourceType type) {
-        return (float)resources.get(type);
+    public double getAmountOfResource(ResourceType type) {
+        return (double)resources.get(type);
     }
 
-    public void removeFromInventory(ResourceType type, float amount) throws Exception {
-        float currAmountOfResource = getAmountOfResource(type);
+    public void removeFromInventory(ResourceType type, double amount) throws Exception {
+        double currAmountOfResource = getAmountOfResource(type);
         if (amount > currAmountOfResource) {
             throw new NotEnoughResourcesException();
         }
