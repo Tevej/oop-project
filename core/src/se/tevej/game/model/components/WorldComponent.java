@@ -20,5 +20,6 @@ public class WorldComponent implements Component {
         if (x >= 0 && y >= 0 && x < width && y < height) {
             return tiles[x + y * width];
         }
+        return null;
     }
 }

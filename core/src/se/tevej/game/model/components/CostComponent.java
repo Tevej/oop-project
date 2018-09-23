@@ -10,9 +10,10 @@ import java.util.List;
 public class CostComponent implements Component {
     private List<Resource> resources;
 
-    public Resource getCostOfResource(ResourceType type) {
+    public double getCostOfResource(ResourceType type) {
         for (Resource resource : resources) {
-            return resource;
+            return resource.getAmount();
         }
+        return 0;
     }
 }

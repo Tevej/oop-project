@@ -6,7 +6,7 @@ public class SizeComponent implements Component {
     int width;
     int height;
 
-    public BuildingComponent(int width, int height) {
+    public SizeComponent(int width, int height) {
         this.width = width;
         this.height = height;
     }
