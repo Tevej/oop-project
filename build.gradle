@@ -55,7 +55,7 @@ project(":core") {
     apply plugin: 'findbugs'
 
     findbugs{
-        ignoreFailures = false
+        ignoreFailures = true
         effort = "max"
     }
     tasks.withType(FindBugs) {
