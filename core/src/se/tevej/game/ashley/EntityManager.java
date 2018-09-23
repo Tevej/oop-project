@@ -7,13 +7,13 @@ import com.badlogic.ashley.signals.Signal;
 
 public class EntityManager {
 
+    private final PooledEngine ENGINE;
+    private final Signal<Entity> SIGNAL;
+
     public EntityManager(){
         ENGINE = new PooledEngine();
         SIGNAL = new Signal<>();
     }
-
-    private final PooledEngine ENGINE;
-    private final Signal<Entity> SIGNAL;
 
     public void init(){
         //Add systems here
