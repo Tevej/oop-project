@@ -29,6 +29,7 @@ public class EntityManager {
             }
         });
 
+        // CreateWorldEntity also calls CreateTileEntity and adds it to the engine, this might want to be done separately
         Entity worldEntity = WorldFactory.CreateWorldEntity(100, 100, this);
         addEntityToEngine(worldEntity);
     }
