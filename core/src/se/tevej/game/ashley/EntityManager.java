@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.signals.Signal;
+import se.tevej.game.model.components.WorldComponent;
+import se.tevej.game.model.factories.WorldFactory;
 
 public class EntityManager {
 
@@ -26,6 +28,9 @@ public class EntityManager {
                 SIGNAL.add(signalListener.getSignalListener());
             }
         });
+
+        Entity worldEntity = WorldFactory.CreateWorldEntity(100, 100, this);
+        addEntityToEngine(worldEntity);
     }
 
     public void update(float deltaTime){
