@@ -9,4 +9,8 @@ public class TileComponent implements Component {
     public TileComponent() {
 
     }
+
+    public boolean isOccupied() {
+        return occupier != null;
+    }
 }
