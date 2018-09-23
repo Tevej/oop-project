@@ -1,25 +1,19 @@
-package se.tevej.game.model;
+package se.tevej.game.model.components;
 
+import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import se.tevej.game.model.components.TileComponent;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class WorldComponent {
+public class WorldComponent implements Component {
     private Entity[] tiles;
     private int width;
     private int height;
 
-    public WorldComponent(int width, int height) {
-        tiles = new Entity[width * height];
+    public WorldComponent(int width, int height, Entity[] tiles) {
+        this.tiles = tiles;
         this.width = width;
         this.height = height;
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                // Create a tile with tilefactory.
-                tiles[x + y * width] = null;
-            }
-        }
     }
 
     public Entity getTileAt(int x, int y) {
