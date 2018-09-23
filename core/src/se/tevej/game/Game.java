@@ -12,7 +12,7 @@ import se.tevej.game.view.rendering.TTexture;
 
 public class Game extends ApplicationAdapter {
 	TBatchRenderer batchRenderer;
-	TTexture texture;
+	TTexture tileTexture;
 
 	RenderingFactory renderingFactory;
 
@@ -28,7 +28,7 @@ public class Game extends ApplicationAdapter {
 		renderingFactory = new RenderingLibgdxFactory();
 
 		batchRenderer = renderingFactory.createBatchRenderer();
-		texture = renderingFactory.createTexture("badlogic.jpg");
+		tileTexture = renderingFactory.createTexture("tile.jpg");
 	}
 
 	@Override
@@ -39,7 +39,11 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batchRenderer.beginRendering();
-		batchRenderer.renderTexture(texture, 50, 50);
+		for (int i = 0; i < 640/32; i++ ) {
+			for (int j = 0; j < 640/32; j++ ) {
+				batchRenderer.renderTexture(tileTexture, i*32, j*32);
+		    }
+		}
 		batchRenderer.endRendering();
 
 	}
