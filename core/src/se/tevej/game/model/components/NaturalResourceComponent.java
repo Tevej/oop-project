@@ -8,6 +8,11 @@ public class NaturalResourceComponent implements Component {
     private ResourceType type;
     private float amount;
 
+    public NaturalResourceComponent(ResourceType type, float amount) {
+        this.type = type;
+        this.amount = amount;
+    }
+
     public float getAmountLeft() {
         return amount;
     }
