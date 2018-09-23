@@ -17,7 +17,9 @@ public class CostComponent implements Component {
 
     public double getCostOfResource(ResourceType type) {
         for (Resource resource : resources) {
-            return resource.getAmount();
+            if (type == resource.getType()) {
+                return resource.getAmount();
+            }
         }
         return 0;
     }
