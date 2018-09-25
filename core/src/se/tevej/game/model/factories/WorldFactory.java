@@ -1,7 +1,7 @@
 package se.tevej.game.model.factories;
 
 import com.badlogic.ashley.core.Entity;
-import se.tevej.game.ashley.EntityManager;
+import se.tevej.game.model.ashley.EntityManager;
 import se.tevej.game.model.components.PositionComponent;
 import se.tevej.game.model.components.TileComponent;
 import se.tevej.game.model.components.WorldComponent;

@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import se.tevej.game.ashley.EntityManager;
+import se.tevej.game.model.ashley.EntityManager;
 import se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import se.tevej.game.view.rendering.RenderingFactory;
 import se.tevej.game.view.rendering.TBatchRenderer;
