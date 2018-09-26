@@ -74,10 +74,6 @@ public class View {
         };
     }
 
-    /**
-     * I think we need to find a better way of doing this.
-     * @return
-     */
     private Map<Class<? extends Component>, EntityRenderable> getTypeToRenderables(){
         Map<Class<? extends Component>, EntityRenderable> output = new HashMap<>();
 

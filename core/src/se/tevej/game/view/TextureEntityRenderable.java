@@ -9,11 +9,9 @@ import se.tevej.game.view.rendering.TTexture;
 
 public class TextureEntityRenderable implements EntityRenderable {
 
-    private RenderingFactory renderingFactory;
     private TTexture texture;
 
     public TextureEntityRenderable(String path, RenderingFactory renderingFactory){
-        this.renderingFactory = renderingFactory;
         this.texture = renderingFactory.createTexture(path);
     }
 
