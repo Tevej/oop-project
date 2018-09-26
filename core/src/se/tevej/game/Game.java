@@ -11,14 +11,15 @@ import se.tevej.game.model.components.SizeComponent;
 import se.tevej.game.model.components.TileComponent;
 import se.tevej.game.view.View;
 import se.tevej.game.view.rendering.RenderingFactory;
-import se.tevej.game.view.rendering.TBatchRenderer;
-import se.tevej.game.view.rendering.TTexture;
+import se.tevej.game.view.rendering.ui.TButton;
+import se.tevej.game.view.rendering.ui.TTable;
 
 public class Game extends ApplicationAdapter {
 	RenderingFactory renderingFactory;
 
 	EntityManager em;
 	View view;
+	TTable table;
 
 	@Override
 	public void create () {
@@ -43,16 +44,23 @@ public class Game extends ApplicationAdapter {
 		entity.add(tc);
 
 		em.addEntityToEngine(entity);
+
+		TButton button = renderingFactory.createButton().text("This is a button").addListener(() -> System.out.println("Hej!"));
+
+		table = renderingFactory.createTable();
+		table.addElement(button).width(200).height(50);
 	}
 
 	@Override
 	public void render () {
 		em.update(1f / 60f);
 
-		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		view.render();
+
+		table.update();
+		table.render();
 	}
 	
 	@Override

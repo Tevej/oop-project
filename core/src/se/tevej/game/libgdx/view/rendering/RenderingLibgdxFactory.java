@@ -1,18 +1,16 @@
 package se.tevej.game.libgdx.view.rendering;
 
-import se.tevej.game.libgdx.view.rendering.ui.ButtonLibgdxAdapter;
-import se.tevej.game.libgdx.view.rendering.ui.LabelLibgdxAdapter;
-import se.tevej.game.libgdx.view.rendering.ui.TableLibgdxAdapter;
-import se.tevej.game.libgdx.view.rendering.ui.TextFieldLibgdxAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import se.tevej.game.libgdx.view.rendering.ui.*;
 import se.tevej.game.view.rendering.RenderingFactory;
 import se.tevej.game.view.rendering.TBatchRenderer;
 import se.tevej.game.view.rendering.TTexture;
-import se.tevej.game.view.rendering.ui.TButton;
-import se.tevej.game.view.rendering.ui.TLabel;
-import se.tevej.game.view.rendering.ui.TTable;
-import se.tevej.game.view.rendering.ui.TTextField;
+import se.tevej.game.view.rendering.ui.*;
 
 public class RenderingLibgdxFactory implements RenderingFactory {
+
+    private static final Skin SKIN = new Skin(Gdx.files.internal("skin/plain-james-ui.json"));
 
     @Override
     public TBatchRenderer createBatchRenderer() {
@@ -30,12 +28,12 @@ public class RenderingLibgdxFactory implements RenderingFactory {
 
     @Override
     public TButton createButton() {
-        return new ButtonLibgdxAdapter();
+        return new ButtonLibgdxAdapter(SKIN);
     }
 
     @Override
     public TLabel createLabel() {
-        return new LabelLibgdxAdapter("", null);
+        return new LabelLibgdxAdapter("", SKIN);
     }
 
     @Override
@@ -45,6 +43,7 @@ public class RenderingLibgdxFactory implements RenderingFactory {
 
     @Override
     public TTextField createTextField() {
-        return new TextFieldLibgdxAdapter("", null);
+        return new TextFieldLibgdxAdapter("", SKIN);
     }
+
 }

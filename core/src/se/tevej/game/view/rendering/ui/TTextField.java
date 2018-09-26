@@ -1,4 +1,4 @@
 package se.tevej.game.view.rendering.ui;
 
-public interface TTextField {
+public interface TTextField extends TUIElement {
 }
