@@ -44,7 +44,7 @@ public class Game extends ApplicationAdapter {
 
 		em.addEntityToEngine(entity);
 
-		TButton button = renderingFactory.createButton().text("This is a button").addListener(() -> System.out.println("Hej!"));
+		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
 
 		TTextField textField = renderingFactory.createTextField().addListener(value -> {
