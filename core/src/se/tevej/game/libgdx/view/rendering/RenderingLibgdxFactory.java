@@ -1,6 +1,7 @@
 package se.tevej.game.libgdx.view.rendering;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import se.tevej.game.libgdx.view.rendering.ui.*;
 import se.tevej.game.view.rendering.RenderingFactory;
@@ -44,6 +45,12 @@ public class RenderingLibgdxFactory implements RenderingFactory {
     @Override
     public TTextField createTextField() {
         return new TextFieldLibgdxAdapter(SKIN);
+    }
+
+    @Override
+    public TSelectableList createSelectableList() {
+        List<String> list = new List(SKIN);
+        return new SelectableListLibgdxAdapter(list, SKIN);
     }
 
 }
