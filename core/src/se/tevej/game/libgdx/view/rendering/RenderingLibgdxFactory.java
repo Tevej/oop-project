@@ -43,7 +43,7 @@ public class RenderingLibgdxFactory implements RenderingFactory {
 
     @Override
     public TTextField createTextField() {
-        return new TextFieldLibgdxAdapter("", SKIN);
+        return new TextFieldLibgdxAdapter(SKIN);
     }
 
 }

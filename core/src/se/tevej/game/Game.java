@@ -14,6 +14,7 @@ import se.tevej.game.view.rendering.RenderingFactory;
 import se.tevej.game.view.rendering.ui.TButton;
 import se.tevej.game.view.rendering.ui.TLabel;
 import se.tevej.game.view.rendering.ui.TTable;
+import se.tevej.game.view.rendering.ui.TTextField;
 
 public class Game extends ApplicationAdapter {
 	RenderingFactory renderingFactory;
@@ -48,15 +49,18 @@ public class Game extends ApplicationAdapter {
 
 		TButton button = renderingFactory.createButton().text("This is a button").addListener(() -> System.out.println("Hej!"));
 		TButton button2 = renderingFactory.createButton().text("This is a button 2").addListener(() -> System.out.println("Hej!"));
-		TButton button3 = renderingFactory.createButton().text("This is a button 3").addListener(() -> System.out.println("Hej!"));
+
+		TTextField textField = renderingFactory.createTextField().addListener(value -> {
+			System.out.println("New value of textfield:" + value);
+		});
 
 		TLabel label = renderingFactory.createLabel().text("This is a label");
 
-		table = renderingFactory.createTable().x(Gdx.graphics.getWidth() / 2).y(Gdx.graphics.getHeight() - 50).grid(2, 2);
+		table = renderingFactory.createTable().x(Gdx.graphics.getWidth() / 2).y(Gdx.graphics.getHeight() - 200).grid(2, 2);
 
 		table.addElement(button).width(200).height(50);
 		table.addElement(button2).width(200).height(50);
-		table.addElement(button3).width(200).height(50);
+		table.addElement(textField).width(200).height(50);
 		table.addElement(label).width(200).height(100);
 	}
 
