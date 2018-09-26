@@ -48,8 +48,8 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
-    public void update() {
-        stage.act();
+    public void update(float deltaTime) {
+        stage.act(deltaTime);
     }
 
     @Override

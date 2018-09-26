@@ -7,7 +7,7 @@ public interface TTable {
     TTable x(float x);
     TTable y(float y);
 
-    void update();
+    void update(float deltaTime);
     void render();
 
 }
