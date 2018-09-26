@@ -2,9 +2,6 @@ package se.tevej.game.model.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
-import se.tevej.game.model.components.TileComponent;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class WorldComponent implements Component {
     private Entity[] tiles;
     private int width;
