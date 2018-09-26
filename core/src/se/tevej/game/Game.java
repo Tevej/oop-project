@@ -46,9 +46,15 @@ public class Game extends ApplicationAdapter {
 		em.addEntityToEngine(entity);
 
 		TButton button = renderingFactory.createButton().text("This is a button").addListener(() -> System.out.println("Hej!"));
+		TButton button2 = renderingFactory.createButton().text("This is a button 2").addListener(() -> System.out.println("Hej!"));
+		TButton button3 = renderingFactory.createButton().text("This is a button 3").addListener(() -> System.out.println("Hej!"));
+		TButton button4 = renderingFactory.createButton().text("This is a button 4").addListener(() -> System.out.println("Hej!"));
 
-		table = renderingFactory.createTable().x(Gdx.graphics.getWidth() / 2).y(Gdx.graphics.getHeight() - 50);
+		table = renderingFactory.createTable().x(Gdx.graphics.getWidth() / 2).y(Gdx.graphics.getHeight() - 50).grid(2, 2);
+
 		table.addElement(button).width(200).height(50);
+		table.addElement(button2).width(200).height(50);
+		table.addElement(button3).width(200).height(50);
 	}
 
 	@Override

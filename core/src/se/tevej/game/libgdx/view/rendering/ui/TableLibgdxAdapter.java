@@ -4,17 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
 import se.tevej.game.view.rendering.ui.TCell;
 import se.tevej.game.view.rendering.ui.TTable;
 import se.tevej.game.view.rendering.ui.TUIElement;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class TableLibgdxAdapter extends Table implements TTable {
     private Stage stage;
+    private Map<Cell, TUIElement> cells;
 
     public TableLibgdxAdapter(){
         stage = new Stage();
+        cells = new LinkedHashMap<>();
+
         if(Gdx.input.getInputProcessor() == null){
             InputMultiplexer inputMultiplexer = new InputMultiplexer();
             inputMultiplexer.addProcessor(stage);
@@ -28,10 +35,8 @@ public class TableLibgdxAdapter extends Table implements TTable {
 
     @Override
     public TCell addElement(TUIElement element) {
-        Actor actor = (Actor) element;
-        System.out.println(element);
         CellLibgdxAdapter cellLibgdxAdapter = new CellLibgdxAdapter();
-        cellLibgdxAdapter.setCell(super.add(actor));
+        cellLibgdxAdapter.setCell(getAndSetFirstAvailableCell(element));
         return cellLibgdxAdapter;
     }
 
@@ -48,6 +53,22 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
+    public TTable grid(int rows, int columns) {
+        super.clearChildren();
+        cells.clear();
+
+        for (int column = 0; column < columns; column++) {
+            for (int row = 0; row < rows - 1; row++) {
+                cells.put(super.add(), null);
+            }
+            Cell cell = super.add();
+            cell.row();
+            cells.put(cell, null);
+        }
+        return this;
+    }
+
+    @Override
     public void update(float deltaTime) {
         stage.act(deltaTime);
     }
@@ -56,4 +77,20 @@ public class TableLibgdxAdapter extends Table implements TTable {
     public void render() {
         stage.draw();
     }
+
+    private Cell getAndSetFirstAvailableCell(TUIElement element){
+        for (Map.Entry<Cell, TUIElement> entry : cells.entrySet()) {
+            if(entry.getValue() == null){
+                Cell cell = entry.getKey();
+                cells.put(cell, element);
+                Actor actor = (Actor) element;
+                cell.setActor(actor);
+                return cell;
+            }
+        }
+        //TODO Throw exception instead
+        System.out.println("[WARN]: Table is full");
+        return null;
+    }
+
 }
