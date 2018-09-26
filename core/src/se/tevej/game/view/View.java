@@ -21,6 +21,9 @@ public class View {
      */
     private Map<Class<? extends Component>, EntityRenderable> typeToRenderable;
 
+    /**
+     * All the entities that should be rendered when render() is called
+     */
     private Map<Entity, EntityRenderable> renderPool;
 
     private TBatchRenderer tBatchRenderer;
@@ -36,6 +39,9 @@ public class View {
         entityManager.addEntityListener(getNewEntityListener());
     }
 
+    /**
+     * Goes through the renderPool and calls the EntityRenderable.
+     */
     public void render(){
         tBatchRenderer.beginRendering();
         renderPool.forEach((entity, entityRenderable) -> {
@@ -44,13 +50,16 @@ public class View {
         tBatchRenderer.endRendering();
     }
 
-    EntityListener getNewEntityListener( ){
+    /**
+     * Goes through all the components of an added entity and checks if it has a EntityRenderable for it.
+     * As soon as it finds one compatiable EntityRenderable, it stops searching and adds the entity to the render pool.
+     * @return A entity listener that adds suitable entities to Views render pool.
+     */
+    private EntityListener getNewEntityListener(){
         return new EntityListener() {
             @Override
             public void entityAdded(Entity entity) {
                 for(Component c : entity.getComponents()){
-                    System.out.println(c.getClass());
-                    System.out.println(typeToRenderable);
                     EntityRenderable entityRenderable = typeToRenderable.get(c.getClass());
                     if(entityRenderable != null){
                         renderPool.put(entity, entityRenderable);
