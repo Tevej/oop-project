@@ -47,7 +47,7 @@ public class Game extends ApplicationAdapter {
 
 		TButton button = renderingFactory.createButton().text("This is a button").addListener(() -> System.out.println("Hej!"));
 
-		table = renderingFactory.createTable();
+		table = renderingFactory.createTable().x(Gdx.graphics.getWidth() / 2).y(Gdx.graphics.getHeight() - 50);
 		table.addElement(button).width(200).height(50);
 	}
 
