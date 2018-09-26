@@ -81,22 +81,8 @@ public class View {
     private Map<Class<? extends Component>, EntityRenderable> getTypeToRenderables(){
         Map<Class<? extends Component>, EntityRenderable> output = new HashMap<>();
 
-        /**
-         * This should be cached somewhere. Maybe in a concrete implementation of RenderingFactory?
-         */
-        final TTexture tileTexture = renderingFactory.createTexture("badlogic.jpg");
-        output.put(TileComponent.class, (batchRenderer, entity) -> {
-            PositionComponent pc = entity.getComponent(PositionComponent.class);
-            SizeComponent sc = entity.getComponent(SizeComponent.class);
-
-            batchRenderer.renderTexture(tileTexture, pc.getX(), pc.getY(), sc.getWidth(), sc.getHeight());
-        });
+        output.put(TileComponent.class, new TextureEntityRenderable("hulk.jpeg", renderingFactory));
 
         return output;
     }
-
-    private interface EntityRenderable{
-        void render(TBatchRenderer batchRenderer, Entity entity);
-    }
-
 }
