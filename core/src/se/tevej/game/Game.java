@@ -12,6 +12,7 @@ import se.tevej.game.model.components.TileComponent;
 import se.tevej.game.view.View;
 import se.tevej.game.view.rendering.RenderingFactory;
 import se.tevej.game.view.rendering.ui.TButton;
+import se.tevej.game.view.rendering.ui.TLabel;
 import se.tevej.game.view.rendering.ui.TTable;
 
 public class Game extends ApplicationAdapter {
@@ -48,19 +49,22 @@ public class Game extends ApplicationAdapter {
 		TButton button = renderingFactory.createButton().text("This is a button").addListener(() -> System.out.println("Hej!"));
 		TButton button2 = renderingFactory.createButton().text("This is a button 2").addListener(() -> System.out.println("Hej!"));
 		TButton button3 = renderingFactory.createButton().text("This is a button 3").addListener(() -> System.out.println("Hej!"));
-		TButton button4 = renderingFactory.createButton().text("This is a button 4").addListener(() -> System.out.println("Hej!"));
+
+		TLabel label = renderingFactory.createLabel().text("This is a label");
 
 		table = renderingFactory.createTable().x(Gdx.graphics.getWidth() / 2).y(Gdx.graphics.getHeight() - 50).grid(2, 2);
 
 		table.addElement(button).width(200).height(50);
 		table.addElement(button2).width(200).height(50);
 		table.addElement(button3).width(200).height(50);
+		table.addElement(label).width(200).height(100);
 	}
 
 	@Override
 	public void render () {
 		em.update(1f / 60f);
 
+		Gdx.gl.glClearColor(1, 1,1 ,1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		view.render();

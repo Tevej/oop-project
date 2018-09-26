@@ -33,7 +33,7 @@ public class RenderingLibgdxFactory implements RenderingFactory {
 
     @Override
     public TLabel createLabel() {
-        return new LabelLibgdxAdapter("", SKIN);
+        return new LabelLibgdxAdapter(SKIN);
     }
 
     @Override
