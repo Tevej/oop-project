@@ -24,8 +24,8 @@ public class WorldFactory {
 
     private static Entity createTileEntity(float x, float y, EntityManager engine) {
         Entity tile = engine.createEntity();
-        tile.add(new TileComponent());
-        tile.add(new PositionComponent(x, y));
+        //tile.add(new TileComponent());
+        //tile.add(new PositionComponent(x, y));
         return tile;
     }
 }
