@@ -53,7 +53,7 @@ public class Game extends ApplicationAdapter {
 
 		TLabel label = renderingFactory.createLabel().text("This is a label");
 
-		table = renderingFactory.createTable().x(Gdx.graphics.getWidth() / 2).y(Gdx.graphics.getHeight() - 200).grid(2, 2);
+		table = renderingFactory.createTable().x(Gdx.graphics.getWidth() / 2).y(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
 
 		table.addElement(button).width(200).height(50);
 		table.addElement(textField).width(200).height(50);

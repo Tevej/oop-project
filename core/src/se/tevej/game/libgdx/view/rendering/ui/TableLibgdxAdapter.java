@@ -69,6 +69,12 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
+    public TTable debug(boolean debug) {
+        super.setDebug(true);
+        return this;
+    }
+
+    @Override
     public void update(float deltaTime) {
         stage.act(deltaTime);
     }
