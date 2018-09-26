@@ -47,7 +47,7 @@ public class Game extends ApplicationAdapter {
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
 
-		TTextField textField = renderingFactory.createTextField().addListener(value -> {
+		TTextField textField = renderingFactory.createTextField().set("Hej").addListener(value -> {
 			System.out.println("New value of textfield:" + value);
 		});
 
