@@ -9,6 +9,7 @@ import se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import se.tevej.game.model.components.PositionComponent;
 import se.tevej.game.model.components.SizeComponent;
 import se.tevej.game.model.components.TileComponent;
+import se.tevej.game.model.factories.WorldFactory;
 import se.tevej.game.view.View;
 import se.tevej.game.view.rendering.RenderingFactory;
 import se.tevej.game.view.rendering.ui.*;
@@ -28,17 +29,6 @@ public class Game extends ApplicationAdapter {
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
 
-		Entity entity = em.createEntity();
-		PositionComponent pc = new PositionComponent(50, 50);
-		SizeComponent sc = new SizeComponent(32,32);
-		TileComponent tc = new TileComponent();
-
-		entity.add(pc);
-		entity.add(sc);
-		entity.add(tc);
-
-		em.addEntityToEngine(entity);
-
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
 
@@ -54,6 +44,8 @@ public class Game extends ApplicationAdapter {
 		table.addElement(textField).width(200).height(50);
 		table.addElement(label).width(200).height(200);
 		table.addElement(selectableList).width(200).height(200);
+
+		Entity worldEntitiy = WorldFactory.createWorldEntity(100,100,em);
 	}
 
 	@Override

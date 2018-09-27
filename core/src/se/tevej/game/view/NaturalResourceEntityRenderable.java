@@ -28,7 +28,6 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
         PositionComponent pc = entity.getComponent(PositionComponent.class);
 
         SizeComponent sc = entity.getComponent(SizeComponent.class);
-
         switch (nrc.getType()) {
 
             case WATER:

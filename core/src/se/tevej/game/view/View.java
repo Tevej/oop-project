@@ -78,7 +78,7 @@ public class View {
     private Map<Class<? extends Component>, EntityRenderable> getTypeToRenderables(){
         Map<Class<? extends Component>, EntityRenderable> output = new HashMap<>();
 
-        output.put(TileComponent.class, new TextureEntityRenderable("hulk.jpeg", renderingFactory));
+        output.put(TileComponent.class, new TextureEntityRenderable("tile.jpg", renderingFactory));
         output.put(NaturalResourceComponent.class, new NaturalResourceEntityRenderable(renderingFactory));
 
         return output;
