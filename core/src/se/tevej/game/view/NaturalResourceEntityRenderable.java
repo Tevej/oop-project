@@ -21,7 +21,7 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
     }
 
     @Override
-    public void render(TBatchRenderer batchRenderer, Entity entity) {
+    public void render(TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) {
 
         NaturalResourceComponent nrc = entity.getComponent(NaturalResourceComponent.class);
 
@@ -31,13 +31,16 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
         switch (nrc.getType()) {
 
             case WATER:
-                batchRenderer.renderTexture(water, pc.getX(), pc.getY(), sc.getWidth(), sc.getHeight());
+                batchRenderer.renderTexture(water, pc.getX()*pixelPerTile, pc.getY()*pixelPerTile,
+                        sc.getWidth()*pixelPerTile, sc.getHeight()*pixelPerTile);
                 break;
             case STONE:
-                batchRenderer.renderTexture(stone, pc.getX(), pc.getY(), sc.getWidth(), sc.getHeight());
+                batchRenderer.renderTexture(stone, pc.getX()*pixelPerTile, pc.getY()*pixelPerTile,
+                        sc.getWidth()*pixelPerTile, sc.getHeight()*pixelPerTile);
                 break;
             case WOOD:
-                batchRenderer.renderTexture(wood, pc.getX(), pc.getY(), sc.getWidth(), sc.getHeight());
+                batchRenderer.renderTexture(wood, pc.getX()*pixelPerTile, pc.getY()*pixelPerTile,
+                        sc.getWidth()*pixelPerTile, sc.getHeight()*pixelPerTile);
                 break;
         }
     }
