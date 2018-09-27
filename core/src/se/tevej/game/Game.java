@@ -14,6 +14,7 @@ import se.tevej.game.view.rendering.RenderingFactory;
 import se.tevej.game.view.rendering.ui.*;
 
 public class Game extends ApplicationAdapter {
+
 	RenderingFactory renderingFactory;
 
 	EntityManager em;
