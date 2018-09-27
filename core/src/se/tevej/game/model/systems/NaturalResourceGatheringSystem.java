@@ -1,5 +1,6 @@
 package se.tevej.game.model.systems;
 
+import com.badlogic.ashley.core.EntitySystem;
 import se.tevej.game.exceptions.MissmatchedResourceException;
 import se.tevej.game.exceptions.NotEnoughResourcesException;
 import se.tevej.game.model.components.InventoryComponent;
@@ -8,7 +9,7 @@ import se.tevej.game.model.components.GathererComponent;
 
 import java.util.HashMap;
 
-public class NaturalResourceGatheringSystem {
+public class NaturalResourceGatheringSystem extends EntitySystem{
     private InventoryComponent inventoryComponent;
     private HashMap<NaturalResourceComponent, GathererComponent> gatheringInterlacementMap;
 
@@ -20,11 +21,12 @@ public class NaturalResourceGatheringSystem {
         }
     }
 
-    void update(){
+    @Override
+    public void update(float deltaTime){
         for (NaturalResourceComponent i : gatheringInterlacementMap.keySet()) {
             try {
-                i.extractResource(gatheringInterlacementMap.get(i).getResourcePerSecond());
-                inventoryComponent.addResource(gatheringInterlacementMap.get(i).getResourcePerSecond());
+                i.extractResource(gatheringInterlacementMap.get(i).getGatheredResource(deltaTime));
+                inventoryComponent.addResource(gatheringInterlacementMap.get(i).getGatheredResource(deltaTime));
 
             } catch (NotEnoughResourcesException e) {
                 System.out.println("Not enough resource left");

@@ -9,6 +9,11 @@ public class Resource {
         this.type = type;
     }
 
+    public Resource(Resource resource) {
+        this.amount = resource.getAmount();
+        this.type = resource.getType();
+    }
+
     public double getAmount() {
         return amount;
     }
