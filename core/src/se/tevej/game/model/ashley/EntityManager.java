@@ -2,6 +2,7 @@ package se.tevej.game.model.ashley;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.signals.Signal;
 import se.tevej.game.model.factories.WorldFactory;
@@ -47,6 +48,10 @@ public class EntityManager {
 
     public void addEntityToEngine(Entity entity){
         ENGINE.addEntity(entity);
+    }
+
+    public void addEntityListener(EntityListener entityListener){
+        ENGINE.addEntityListener(entityListener);
     }
 
 }

@@ -6,8 +6,11 @@ public class SizeComponent implements Component {
     private int width;
     private int height;
 
-    public SizeComponent(int width, int height) {
+    public void setWidth(int width) {
         this.width = width;
+    }
+
+    public void setHeight(int height) {
         this.height = height;
     }
 
