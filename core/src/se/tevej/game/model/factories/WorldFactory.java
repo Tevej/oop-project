@@ -2,10 +2,7 @@ package se.tevej.game.model.factories;
 
 import com.badlogic.ashley.core.Entity;
 import se.tevej.game.model.ashley.EntityManager;
-import se.tevej.game.model.components.PositionComponent;
-import se.tevej.game.model.components.SizeComponent;
-import se.tevej.game.model.components.TileComponent;
-import se.tevej.game.model.components.WorldComponent;
+import se.tevej.game.model.components.*;
 
 public class WorldFactory {
     public static Entity createWorldEntity(int width, int height, EntityManager engine) {
@@ -22,6 +19,7 @@ public class WorldFactory {
 
         Entity worldEntity = engine.createEntity();
         worldEntity.add(new WorldComponent(width, height, tiles));
+        worldEntity.add(new InventoryComponent());
         return worldEntity;
     }
 
