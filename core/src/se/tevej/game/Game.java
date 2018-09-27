@@ -66,7 +66,7 @@ public class Game extends ApplicationAdapter {
 		view.render();
 
 		table.update(1f / 60f);
-		table.render();
+		//table.render();
 	}
 	
 	@Override

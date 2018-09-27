@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import se.tevej.game.model.ashley.EntityManager;
+import se.tevej.game.model.components.NaturalResourceComponent;
 import se.tevej.game.model.components.PositionComponent;
 import se.tevej.game.model.components.SizeComponent;
 import se.tevej.game.model.components.TileComponent;
@@ -78,6 +79,7 @@ public class View {
         Map<Class<? extends Component>, EntityRenderable> output = new HashMap<>();
 
         output.put(TileComponent.class, new TextureEntityRenderable("hulk.jpeg", renderingFactory));
+        output.put(NaturalResourceComponent.class, new NaturalResourceEntityRenderable(renderingFactory));
 
         return output;
     }
