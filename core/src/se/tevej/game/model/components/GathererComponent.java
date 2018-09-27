@@ -1,5 +1,6 @@
 package se.tevej.game.model.components;
 
+import se.tevej.game.exceptions.MissmatchedResourceException;
 import se.tevej.game.model.resource.Resource;
 
 public class GathererComponent {
@@ -18,7 +19,11 @@ public class GathererComponent {
         return r;
     }
 
-    public void setResourcePerSecond(Resource newSpeed){
-        this.resourcePerSecond.setAmount(newSpeed.getAmount());
+    public void setResourcePerSecond(Resource newSpeed) throws MissmatchedResourceException{
+        if (newSpeed.getType() == resourcePerSecond.getType()) {
+            this.resourcePerSecond.setAmount(newSpeed.getAmount());
+        } else {
+            throw new MissmatchedResourceException();
+        }
     }
 }
