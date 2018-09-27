@@ -13,6 +13,8 @@ public class Resource {
         return amount;
     }
 
+    public void setAmount(double amount){this.amount = amount;}
+
     public ResourceType getType() {
         return type;
     }
