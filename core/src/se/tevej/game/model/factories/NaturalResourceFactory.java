@@ -11,24 +11,24 @@ public class NaturalResourceFactory {
     public static Entity createNaturalStoneResource(float x, float y, EntityManager engine){
         Entity stone = engine.createEntity();
         stone.add(new NaturalResourceComponent(ResourceType.STONE, 1000));
-        stone.add(new PositionComponent(x,y));
-        stone.add(new SizeComponent(1,1));
+        stone.add(new PositionComponent(x*32,y*32));
+        stone.add(new SizeComponent(1*32,1*32));
         return stone;
     }
 
     public static Entity createNaturalWoodResource(float x, float y, EntityManager engine){
         Entity wood = engine.createEntity();
         wood.add(new NaturalResourceComponent(ResourceType.WOOD, 1000));
-        wood.add(new PositionComponent(x,y));
-        wood.add(new SizeComponent(1,1));
+        wood.add(new PositionComponent(x*32,y*32));
+        wood.add(new SizeComponent(32,32));
         return wood;
     }
 
     public static Entity createNaturalWaterResource(float x, float y, EntityManager engine){
         Entity water = engine.createEntity();
         water.add(new NaturalResourceComponent(ResourceType.WATER, 1000));
-        water.add(new PositionComponent(x,y));
-        water.add(new SizeComponent(1,1));
+        water.add(new PositionComponent(x*32,y*32));
+        water.add(new SizeComponent(32,32));
         return water;
     }
 }
