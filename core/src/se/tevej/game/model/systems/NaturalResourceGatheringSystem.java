@@ -13,6 +13,10 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
     private InventoryComponent inventoryComponent;
     private HashMap<NaturalResourceComponent, GathererComponent> gatheringInterlacementMap;
 
+    public NaturalResourceGatheringSystem(InventoryComponent inventoryComponent) {
+        this.inventoryComponent = inventoryComponent;
+    }
+
     public void addGathering(NaturalResourceComponent n, GathererComponent g) throws MissmatchedResourceException{
         if (n.getType() == g.getResourcePerSecond().getType()){
             gatheringInterlacementMap.put(n,g);
