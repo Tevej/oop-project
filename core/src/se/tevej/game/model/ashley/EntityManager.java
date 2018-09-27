@@ -1,19 +1,16 @@
 package se.tevej.game.model.ashley;
 
-import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntityListener;
-import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.signals.Signal;
 import se.tevej.game.model.factories.WorldFactory;
 
 public class EntityManager {
 
-    private final PooledEngine ENGINE;
+    private final Engine ENGINE;
     private final Signal<Entity> SIGNAL;
 
     public EntityManager(){
-        ENGINE = new PooledEngine();
+        ENGINE = new Engine();
         SIGNAL = new Signal<>();
     }
 
@@ -39,11 +36,7 @@ public class EntityManager {
     }
 
     public Entity createEntity(){
-        return ENGINE.createEntity();
-    }
-
-    public <C extends Component> C createComponent(Class<C> componentType){
-        return ENGINE.createComponent(componentType);
+        return new Entity();
     }
 
     public void addEntityToEngine(Entity entity){
