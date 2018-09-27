@@ -24,4 +24,8 @@ public class NaturalResourceComponent implements Component {
 
         this.amount -= amount;
     }
+
+    public ResourceType getType() {
+        return type;
+    }
 }
