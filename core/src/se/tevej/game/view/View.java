@@ -17,6 +17,8 @@ import java.util.Map;
 
 public class View {
 
+    private final int pixelPerTile = 32;
+
     /**
      * Dictionary on how a component type should be rendered
      */
@@ -46,7 +48,7 @@ public class View {
     public void render(){
         tBatchRenderer.beginRendering();
         renderPool.forEach((entity, entityRenderable) -> {
-            entityRenderable.render(tBatchRenderer, entity);
+            entityRenderable.render(tBatchRenderer, entity, pixelPerTile);
         });
         tBatchRenderer.endRendering();
     }
