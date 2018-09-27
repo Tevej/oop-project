@@ -29,15 +29,9 @@ public class Game extends ApplicationAdapter {
 		view = new View(em, renderingFactory);
 
 		Entity entity = em.createEntity();
-		PositionComponent pc = em.createComponent(PositionComponent.class);
-		SizeComponent sc = em.createComponent(SizeComponent.class);
-		TileComponent tc = em.createComponent(TileComponent.class);
-
-		pc.setX(50);
-		pc.setY(50);
-
-		sc.setWidth(32);
-		sc.setHeight(32);
+		PositionComponent pc = new PositionComponent(50, 50);
+		SizeComponent sc = new SizeComponent(32,32);
+		TileComponent tc = new TileComponent();
 
 		entity.add(pc);
 		entity.add(sc);

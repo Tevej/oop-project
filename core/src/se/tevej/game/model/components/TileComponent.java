@@ -10,6 +10,10 @@ public class TileComponent implements Component {
 
     }
 
+    public TileComponent(Entity occupier) {
+        this.occupier = occupier;
+    }
+
     public boolean isOccupied() {
         return occupier != null;
     }
