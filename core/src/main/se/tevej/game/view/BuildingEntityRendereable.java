@@ -27,13 +27,23 @@ public class BuildingEntityRendereable implements EntityRenderable {
         imageTypes.add(".jpeg");
         imageTypes.add(".gif");
         File folder = new File("buildings");
-        loadTextures(folder, renderingFactory, imageTypes);
+
+        try {
+            loadTextures(folder, renderingFactory, imageTypes);
+        } catch (Exception e) {
+        }
     }
 
-    private void loadTextures(final File folder, RenderingFactory renderingFactory, List<String> imageTypes) {
+    private void loadTextures(final File folder, RenderingFactory renderingFactory, List<String> imageTypes) throws Exception {
         renderingFactory = new RenderingLibgdxFactory();
 
-        for (final File fileEntry : folder.listFiles()) {
+        File[] files = folder.listFiles();
+        if (files == null) {
+            System.out.println("FOLDER NULL?!");
+            throw new Exception();
+        }
+
+        for (final File fileEntry : files) {
             if (fileEntry.isDirectory()) {
                 loadTextures(fileEntry, renderingFactory, imageTypes);
             } else {

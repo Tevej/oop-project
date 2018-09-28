@@ -42,10 +42,10 @@ public class View {
     public void render(){
         tBatchRenderer.beginRendering();
 
-        for (EntityRenderable renderer : rendererToEntityMap.keySet()) {
+        for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererToEntityMap.entrySet()) {
             try {
-                for (Entity entity : rendererToEntityMap.get(renderer)) {
-                    renderer.render(tBatchRenderer, entity, pixelPerTile);
+                for (Entity entity : entry.getValue()) {
+                    entry.getKey().render(tBatchRenderer, entity, pixelPerTile);
                 }
             } catch (Exception e) {
                 // Maybe do stuff here?
