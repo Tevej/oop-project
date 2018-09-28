@@ -9,6 +9,7 @@ import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.resource.Resource;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class NaturalResourceGatheringSystem extends EntitySystem{
     private InventoryComponent inventoryComponent;
@@ -29,10 +30,11 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
 
     @Override
     public void update(float deltaTime){
-        for (NaturalResourceComponent naturalResource : gatheringInterlaceMap.keySet()) {
+        for (Map.Entry<NaturalResourceComponent, GathererComponent> entry :
+                gatheringInterlaceMap.entrySet()) {
             try {
-                Resource gatheredResource = gatheringInterlaceMap.get(naturalResource).getGatheredResource(deltaTime);
-                naturalResource.extractResource(gatheredResource);
+                Resource gatheredResource = entry.getValue().getGatheredResource(deltaTime);
+                entry.getKey().extractResource(gatheredResource);
                 inventoryComponent.addResource(gatheredResource);
 
             } catch (NotEnoughResourcesException e) {
