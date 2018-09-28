@@ -6,11 +6,11 @@ import com.badlogic.ashley.core.EntityListener;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.TileComponent;
+import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class View {
 
@@ -21,36 +21,37 @@ public class View {
      */
     private Map<Class<? extends Component>, EntityRenderable> typeToRenderable;
 
-    /**
-     * All the entities that should be rendered when render() is called
-     */
-    private Map<Entity, EntityRenderable> renderPool;
+    private Map<EntityRenderable, List<Entity>> rendererToEntityMap;
 
     private TBatchRenderer tBatchRenderer;
     private RenderingFactory renderingFactory;
 
-    public View(EntityManager entityManager, RenderingFactory renderingFactory){
+    public View(EntityManager entityManager, RenderingFactory renderingFactory) {
+        this.rendererToEntityMap = new LinkedHashMap<>();
+
         this.renderingFactory = renderingFactory;
         this.tBatchRenderer = renderingFactory.createBatchRenderer();
-        this.renderPool = new HashMap<>();
+        this.rendererToEntityMap = new LinkedHashMap<>();
 
         typeToRenderable = getTypeToRenderables();
 
         entityManager.addEntityListener(getNewEntityListener());
     }
 
-    /**
-     * Goes through the renderPool and calls the EntityRenderable.
-     */
+    
     public void render(){
         tBatchRenderer.beginRendering();
-        renderPool.forEach((entity, entityRenderable) -> {
+
+        for (EntityRenderable renderer : rendererToEntityMap.keySet()) {
             try {
-                entityRenderable.render(tBatchRenderer, entity, pixelPerTile);
-            } catch(Exception e) {
-                // Maybe do something here.
+                for (Entity entity : rendererToEntityMap.get(renderer)) {
+                    renderer.render(tBatchRenderer, entity, pixelPerTile);
+                }
+            } catch (Exception e) {
+                // Maybe do stuff here?
             }
-        });
+        }
+
         tBatchRenderer.endRendering();
     }
 
@@ -65,24 +66,37 @@ public class View {
             public void entityAdded(Entity entity) {
                 for(Component c : entity.getComponents()){
                     EntityRenderable entityRenderable = typeToRenderable.get(c.getClass());
-                    if(entityRenderable != null){
-                        renderPool.put(entity, entityRenderable);
+                    if(entityRenderable != null) {
+                        List<Entity> entities;
+                        if (rendererToEntityMap.containsKey(entityRenderable)) {
+                            entities = rendererToEntityMap.get(entityRenderable);
+                        } else {
+                            entities = new ArrayList<>();
+                        }
+                        entities.add(entity);
+                        rendererToEntityMap.put(entityRenderable, entities);
                     }
                 }
             }
 
             @Override
             public void entityRemoved(Entity entity) {
-                renderPool.remove(entity);
+                for (Component c : entity.getComponents()) {
+                    EntityRenderable entityRenderable = typeToRenderable.get(c.getClass());
+                    if (entityRenderable != null) {
+                        rendererToEntityMap.get(entityRenderable).remove(entity);
+                    }
+                }
             }
         };
     }
 
-    private Map<Class<? extends Component>, EntityRenderable> getTypeToRenderables(){
+    private Map<Class<? extends Component>, EntityRenderable> getTypeToRenderables() {
         Map<Class<? extends Component>, EntityRenderable> output = new HashMap<>();
 
         output.put(TileComponent.class, new TextureEntityRenderable("tile.jpg", renderingFactory));
         output.put(NaturalResourceComponent.class, new NaturalResourceEntityRenderable(renderingFactory));
+        output.put(BuildingComponent.class, new BuildingEntityRendereable(renderingFactory));
 
         return output;
     }
