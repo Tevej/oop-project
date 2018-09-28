@@ -10,4 +10,8 @@ public class HomeComponent extends BuildingComponent {
         super(BuildingType.HOME);
         population = new Resource(0, ResourceType.POPULATION);
     }
+
+    public double getCurrentPopulation() {
+        return population.getAmount();
+    }
 }

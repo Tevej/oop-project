@@ -15,7 +15,6 @@ import main.se.tevej.game.model.factories.BuildingFactory;
 
 public class BuildBuildingSystem extends EntitySystem implements SignalListener {
 
-    private Signal<Entity> signal;
     private Engine engine;
 
     @Override
@@ -25,7 +24,6 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
 
     @Override
     public void setSignal(Signal<Entity> signal) {
-        this.signal = signal;
     }
 
     @Override
