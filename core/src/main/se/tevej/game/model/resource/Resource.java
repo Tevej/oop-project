@@ -1,8 +1,8 @@
 package main.se.tevej.game.model.resource;
 
 public class Resource {
-    private double amount;
-    private ResourceType type;
+    private final double amount;
+    private final ResourceType type;
 
     public Resource(double amount, ResourceType type) {
         this.amount = amount;
@@ -18,7 +18,9 @@ public class Resource {
         return amount;
     }
 
-    public void setAmount(double amount){this.amount = amount;}
+    public Resource setAmount(double amount){
+        return new Resource (this.amount - amount, type);
+    }
 
     public ResourceType getType() {
         return type;

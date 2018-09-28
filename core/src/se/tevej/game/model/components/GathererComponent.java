@@ -14,14 +14,13 @@ public class GathererComponent {
     }
 
     public Resource getGatheredResource(float deltaTime){
-        Resource r = new Resource(resourcePerSecond);
-        r.setAmount(r.getAmount()*deltaTime);
-        return r;
+        return new Resource(resourcePerSecond.getAmount()*deltaTime,
+                resourcePerSecond.getType());
     }
 
     public void setResourcePerSecond(Resource newSpeed) throws MissmatchedResourceException{
         if (newSpeed.getType() == resourcePerSecond.getType()) {
-            this.resourcePerSecond.setAmount(newSpeed.getAmount());
+            this.resourcePerSecond = resourcePerSecond.setAmount(newSpeed.getAmount());
         } else {
             throw new MissmatchedResourceException();
         }
