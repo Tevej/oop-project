@@ -1,17 +1,19 @@
 package main.se.tevej.game.model.systems;
 
-import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import main.se.tevej.game.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
+import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
+import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.BuildingFactory;
+
+import javax.swing.text.Position;
 
 public class BuildBuildingSystem extends EntitySystem implements SignalListener {
 
@@ -34,9 +36,11 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
                 SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
                 switch (signalComponent.getType()){
                     case BUILDBUILDING:
-                        TileComponent tileC = signalEntity.getComponent(TileComponent.class);
                         BuildingComponent buildingC = signalEntity.getComponent(BuildingComponent.class);
-                        buildBuilding(tileC, buildingC.getType());
+                        PositionComponent posC = signalEntity.getComponent(PositionComponent.class);
+                        Entity tile = signalEntity.getComponent(WorldComponent.class).getTileAt((int)posC.getX(), (int)posC.getY());
+                        TileComponent tileC = tile.getComponent(TileComponent.class);
+                        buildBuilding(tileC, posC, buildingC.getType());
                         break;
                     default:
                         break;
@@ -45,14 +49,13 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
         };
     }
 
-    private void buildBuilding(TileComponent tileC, BuildingType buildingType) {
+    private void buildBuilding(TileComponent tileC, PositionComponent posC, BuildingType buildingType) {
         Entity building;
         try {
-            building = BuildingFactory.createBuilding(buildingType);
+            building = BuildingFactory.createBuilding(buildingType, posC.getX(), posC.getY());
         } catch (NoSuchBuildingException e) {
             return;
         }
-
         engine.addEntity(building);
         tileC.occupy(building);
     }

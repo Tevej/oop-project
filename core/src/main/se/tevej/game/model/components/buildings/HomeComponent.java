@@ -1,13 +1,13 @@
 package main.se.tevej.game.model.components.buildings;
 
+import com.badlogic.ashley.core.Component;
 import main.se.tevej.game.model.resource.Resource;
 import main.se.tevej.game.model.resource.ResourceType;
 
-public class HomeComponent extends BuildingComponent {
+public class HomeComponent implements Component {
     private Resource population;
 
     public HomeComponent() {
-        super(BuildingType.HOME);
         population = new Resource(0, ResourceType.POPULATION);
     }
 
