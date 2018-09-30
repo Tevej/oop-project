@@ -20,11 +20,11 @@ import main.se.tevej.game.view.rendering.RenderingFactory;
 
 public class Game extends ApplicationAdapter {
 
-	RenderingFactory renderingFactory;
+	private RenderingFactory renderingFactory;
 
-	EntityManager em;
-	View view;
-	TTable table;
+	private EntityManager em;
+	private View view;
+	private TTable table;
 
 	@Override
 	public void create () {
