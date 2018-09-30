@@ -22,7 +22,7 @@ public class EntityManager {
         init();
     }
 
-    public void init() {
+    private void init() {
         //Add systems here
         //ENGINE.addSystem(new RenderingSystem());
         ENGINE.addSystem(new BuildBuildingSystem());
