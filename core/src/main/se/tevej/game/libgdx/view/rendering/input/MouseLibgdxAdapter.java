@@ -1,7 +1,7 @@
-package se.tevej.game.libgdx.input;
+package main.se.tevej.game.libgdx.view.rendering.input;
 
 import com.badlogic.gdx.*;
-import se.tevej.game.input.TMouse;
+import main.se.tevej.game.input.TMouse;
 
 public class MouseLibgdxAdapter implements TMouse {
 
@@ -38,6 +38,8 @@ public class MouseLibgdxAdapter implements TMouse {
                     case Input.Buttons.RIGHT:
                         onClickedListener.onClicked(mouse, MouseButton.RIGHT);
                         break;
+                    default:
+                        System.out.println("Unknown mouse button!!");
                 }
                 return true;
             }

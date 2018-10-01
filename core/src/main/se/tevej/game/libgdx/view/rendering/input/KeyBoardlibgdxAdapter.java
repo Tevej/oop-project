@@ -1,17 +1,17 @@
-package se.tevej.game.libgdx.input;
+package main.se.tevej.game.libgdx.view.rendering.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import se.tevej.game.input.TKeyBoard;
+import main.se.tevej.game.input.TKeyBoard;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class KeyBoardlibgdxAdapter implements TKeyBoard {
 
-    public static final Map<Integer, Key> libgdxKeyCodeToKey = new HashMap<>();
+    private static final Map<Integer, Key> libgdxKeyCodeToKey = new HashMap<>();
 
     static{
         for(Key key : Key.values()){

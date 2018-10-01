@@ -1,4 +1,4 @@
-package se.tevej.game.input;
+package main.se.tevej.game.input;
 
 public interface TMouse {
 
