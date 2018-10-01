@@ -45,6 +45,12 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
         }
     }
 
+
+    @Override
+    public void addedToEngine(Engine engine) {
+        this.engine = engine;
+    }
+
     @Override
     public void update(float deltaTime){
         ImmutableArray<Entity> gatherers = engine.getEntitiesFor(Family.all(GathererComponent.class, PositionComponent.class).get());
