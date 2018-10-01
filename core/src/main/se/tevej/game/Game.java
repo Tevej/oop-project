@@ -1,12 +1,18 @@
 package main.se.tevej.game;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
+import main.se.tevej.game.model.ashley.SignalComponent;
+import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.PositionComponent;
+import main.se.tevej.game.model.components.WorldComponent;
+import main.se.tevej.game.model.components.buildings.BuildingComponent;
+import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.WorldFactory;
 import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
@@ -49,7 +55,14 @@ public class Game extends ApplicationAdapter {
 		table.addElement(selectableList).width(200).height(200);
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
-		WorldFactory.createWorldEntity(100,100, em);
+	 	Entity worldEntity = WorldFactory.createWorldEntity(100,100, em);
+
+        Entity buildHomeBuilding = new Entity();
+        buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
+        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
+        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
+        buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
+        em.getSignal().dispatch(buildHomeBuilding);
 	}
 
 	@Override
