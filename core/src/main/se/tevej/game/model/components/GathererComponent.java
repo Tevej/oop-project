@@ -1,16 +1,22 @@
 package main.se.tevej.game.model.components;
 
+import com.badlogic.ashley.core.Component;
 import main.se.tevej.game.exceptions.MissmatchedResourceException;
 import main.se.tevej.game.model.resource.Resource;
 
-public class GathererComponent {
+public class GathererComponent implements Component{
     private Resource resourcePerSecond;
+    private int radius;
     public GathererComponent() {
 
     }
 
     public Resource getResourcePerSecond(){
         return resourcePerSecond;
+    }
+
+    public int getRadius(){
+        return radius;
     }
 
     public Resource getGatheredResource(float deltaTime){
