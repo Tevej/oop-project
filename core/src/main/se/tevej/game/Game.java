@@ -6,10 +6,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
+import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.factories.WorldFactory;
 import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends ApplicationAdapter {
 
@@ -18,6 +22,8 @@ public class Game extends ApplicationAdapter {
 	EntityManager em;
 	View view;
 	TTable table;
+
+
 
 	@Override
 	public void create () {

@@ -14,6 +14,10 @@ public class TileComponent implements Component {
         this.occupier = occupier;
     }
 
+    public Entity getOccupier() {
+        return occupier;
+    }
+
     public boolean isOccupied() {
         return occupier != null;
     }
