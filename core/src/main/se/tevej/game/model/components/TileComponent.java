@@ -16,6 +16,10 @@ public class TileComponent implements Component {
 
     public void occupy(Entity occupier) { this.occupier = occupier; }
 
+    public Entity getOccupier() {
+        return occupier;
+    }
+
     public boolean isOccupied() {
         return occupier != null;
     }

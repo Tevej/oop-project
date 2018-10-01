@@ -18,6 +18,9 @@ import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game extends ApplicationAdapter {
 
 	RenderingFactory renderingFactory;
@@ -25,6 +28,8 @@ public class Game extends ApplicationAdapter {
 	EntityManager em;
 	View view;
 	TTable table;
+
+
 
 	@Override
 	public void create () {
