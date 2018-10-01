@@ -14,8 +14,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
 
     private Engine engine;
 
-    public NaturalResourceGatheringSystem(Engine engine) {
-        this.engine = engine;
+    public NaturalResourceGatheringSystem() {
     }
 
     private List<double[]> getLocationsInRadius(int radius, PositionComponent positionComponent){
@@ -43,6 +42,12 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
         } catch (NotEnoughResourcesException e) {
             System.out.println("Not enough resource left");
         }
+    }
+
+
+    @Override
+    public void addedToEngine(Engine engine) {
+        this.engine = engine;
     }
 
     @Override
