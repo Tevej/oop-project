@@ -2,7 +2,6 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
-import main.se.tevej.game.exceptions.MissmatchedResourceException;
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.components.*;
 import main.se.tevej.game.model.resource.Resource;
@@ -13,9 +12,6 @@ import java.util.List;
 public class NaturalResourceGatheringSystem extends EntitySystem{
 
     private Engine engine;
-
-    public NaturalResourceGatheringSystem() {
-    }
 
     private List<double[]> getLocationsInRadius(int radius, PositionComponent positionComponent){
         List<double[]> locations = new ArrayList<>();
@@ -32,6 +28,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
 
     private void gatherFromLocation(float deltaTime, Entity tileE, InventoryComponent iC, GathererComponent gc){
         try {
+            if (tileE == null) { return; }
             NaturalResourceComponent tileNRC = tileE.getComponent(NaturalResourceComponent.class);
             if (tileNRC != null &&
                     tileNRC.getType() == gc.getResourcePerSecond().getType()) {
