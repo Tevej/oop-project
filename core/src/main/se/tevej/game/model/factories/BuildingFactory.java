@@ -38,17 +38,17 @@ public class BuildingFactory {
         return entity;
     }
 
-    public static Entity createLumberMill(Entity entity) {
+    private static Entity createLumberMill(Entity entity) {
         entity.add(new GathererComponent(3, new Resource(50, ResourceType.WOOD)));
         return entity;
     }
 
-    public static Entity createQuarry(Entity entity) {
+    private static Entity createQuarry(Entity entity) {
         entity.add(new GathererComponent(3, new Resource(50, ResourceType.STONE)));
         return entity;
     }
 
-    public static Entity createPump(Entity entity) {
+    private static Entity createPump(Entity entity) {
         entity.add(new GathererComponent(3, new Resource(50, ResourceType.WATER)));
         return entity;
     }
