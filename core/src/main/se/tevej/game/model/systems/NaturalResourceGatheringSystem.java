@@ -5,6 +5,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.components.*;
 import main.se.tevej.game.model.resource.Resource;
+import main.se.tevej.game.model.resource.ResourceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
                 Resource gatheredResource = gc.getGatheredResource(deltaTime);
                 tileNRC.extractResource(gatheredResource);
                 iC.addResource(gatheredResource);
+                System.out.println(iC.getAmountOfResource(ResourceType.WOOD));
             }
         } catch (NotEnoughResourcesException e) {
             System.out.println("Not enough resource left");
