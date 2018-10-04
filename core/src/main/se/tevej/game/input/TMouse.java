@@ -25,7 +25,7 @@ public interface TMouse {
     }
 
     enum MouseButton{
-        LEFT, MIDDLE, RIGHT;
+        LEFT, RIGHT, MIDDLE;
     }
 
 
