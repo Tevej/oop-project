@@ -3,6 +3,9 @@ package se.tevej.game.model.systems;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
+import main.se.tevej.game.model.ashley.EntityManager;
+import main.se.tevej.game.model.ashley.SignalComponent;
+import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.*;
 import main.se.tevej.game.model.resource.Resource;
 import main.se.tevej.game.model.resource.ResourceType;
@@ -13,6 +16,11 @@ import java.util.List;
 public class NaturalResourceGatheringSystem extends EntitySystem{
 
     private Engine engine;
+    private EntityManager em;
+
+    public NaturalResourceGatheringSystem(EntityManager em){
+        this.em = em;
+    }
 
     private List<double[]> getLocationsInRadius(int radius, PositionComponent positionComponent){
         List<double[]> locations = new ArrayList<>();
@@ -39,6 +47,8 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
                 System.out.println(iC.getAmountOfResource(ResourceType.WOOD));
             }
         } catch (NotEnoughResourcesException e) {
+            tileE.add(new SignalComponent(SignalType.DELETEENTITY));
+            em.getSignal().dispatch(tileE);
             System.out.println("Not enough resource left");
         }
     }
