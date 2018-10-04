@@ -24,11 +24,11 @@ import java.util.List;
 
 public class Game extends ApplicationAdapter {
 
-	RenderingFactory renderingFactory;
+	private RenderingFactory renderingFactory;
 
-	EntityManager em;
-	View view;
-	TTable table;
+	private EntityManager em;
+	private View view;
+	private TTable table;
 
 
 

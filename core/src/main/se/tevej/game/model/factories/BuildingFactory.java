@@ -32,7 +32,8 @@ public class BuildingFactory {
         }
     }
 
-    public static Entity createHome(Entity entity) {
+    // Should only ever be called from createBuilding, hence private access.
+    private static Entity createHome(Entity entity) {
         entity.add(new HomeComponent());
         return entity;
     }
