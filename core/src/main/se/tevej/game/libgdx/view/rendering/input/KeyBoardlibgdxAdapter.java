@@ -11,21 +11,13 @@ import java.util.Map;
 
 public class KeyBoardlibgdxAdapter implements TKeyBoard {
 
-    private static final Map<Integer, Key> libgdxKeyCodeToKey = new HashMap<>();
-
-    static{
-        for(Key key : Key.values()){
-            libgdxKeyCodeToKey.put(key.getLibgdxKeyCode(), key);
-        }
-    }
-
     @Override
     public TKeyBoard addClickedListener(OnClickedListener onClickedListener) {
         TKeyBoard keyboard = this;
         addToInputMultiplexer(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-                onClickedListener.onClicked(keyboard, libgdxKeyCodeToKey.get(keycode));
+                onClickedListener.onClicked(keyboard, keycode);
                 return true;
             }
         });
