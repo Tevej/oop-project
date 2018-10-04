@@ -9,6 +9,7 @@ import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
+import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
@@ -56,6 +57,17 @@ public class Game extends ApplicationAdapter {
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
 	 	Entity worldEntity = WorldFactory.createWorldEntity(100,100, em);
+	 	Entity inventoryEntity = new Entity();
+	 	inventoryEntity.add(new InventoryComponent());
+	 	em.addEntityToEngine(inventoryEntity);
+		em.addEntityToEngine(worldEntity);
+
+		Entity buildLumbermill = new Entity();
+		buildLumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
+		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(10, 10).getComponent(PositionComponent.class));
+		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
+		buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
+		em.getSignal().dispatch(buildLumbermill);
 
         Entity buildHomeBuilding = new Entity();
         buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
