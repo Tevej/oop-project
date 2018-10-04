@@ -6,6 +6,8 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
+import main.se.tevej.game.model.resource.Resource;
+import main.se.tevej.game.model.resource.ResourceType;
 
 public class WorldFactory {
     public static Entity createWorldEntity(int width, int height, EntityManager engine) {
@@ -28,15 +30,17 @@ public class WorldFactory {
 
     private static Entity generateRandomNaturalResource(float x, float y, EntityManager engine) {
         double n = Math.random();
+        Resource resource;
         if (n< 0.05){
-            return NaturalResourceFactory.createNaturalWaterResource(x,y,engine);
+            resource = new Resource (1000, ResourceType.WATER);
         } else if (n < 0.07) {
-            return NaturalResourceFactory.createNaturalStoneResource(x,y,engine);
+            resource = new Resource (1000, ResourceType.STONE);
         } else if (n < 0.1) {
-            return NaturalResourceFactory.createNaturalWoodResource(x,y,engine);
+            resource = new Resource (1000, ResourceType.WOOD);
         } else {
             return null;
         }
+        return NaturalResourceFactory.createNaturalResource(x,y,resource,engine);
     }
 
     private static Entity createTileEntity(float x, float y, Entity occupier, EntityManager engine) {

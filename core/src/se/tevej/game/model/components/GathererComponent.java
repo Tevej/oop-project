@@ -7,6 +7,7 @@ import main.se.tevej.game.model.resource.Resource;
 public class GathererComponent implements Component{
     private Resource resourcePerSecond;
     private int radius;
+
     public GathererComponent(int radius, Resource resourcePerSecond) {
         this.radius = radius;
         this.resourcePerSecond = resourcePerSecond;
