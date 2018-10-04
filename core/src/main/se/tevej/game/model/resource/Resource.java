@@ -19,7 +19,7 @@ public class Resource {
     }
 
     public Resource setAmount(double amount){
-        return new Resource (this.amount - amount, type);
+        return new Resource (amount, type);
     }
 
     public ResourceType getType() {
