@@ -79,7 +79,7 @@ public class Game extends ApplicationAdapter {
         buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
         em.getSignal().dispatch(buildHomeBuilding);
 
-		gui = new InventoryGui(renderingFactory);
+		gui = new InventoryGui(renderingFactory, inventoryEntity);
 	}
 
 	@Override
