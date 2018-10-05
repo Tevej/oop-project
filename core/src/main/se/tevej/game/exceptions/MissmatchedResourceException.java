@@ -1,4 +1,4 @@
-package se.tevej.game.exceptions;
+package main.se.tevej.game.exceptions;
 
 public class MissmatchedResourceException extends Exception {
     public MissmatchedResourceException() {

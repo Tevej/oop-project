@@ -1,4 +1,4 @@
-package se.tevej.game.model.systems;
+package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;

@@ -1,6 +1,7 @@
 package main.se.tevej.game.view;
 
 import com.badlogic.ashley.core.Entity;
+import main.se.tevej.game.exceptions.UnknownResourceException;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
