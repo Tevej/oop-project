@@ -70,7 +70,7 @@ public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoa
     }
 
     @Override
-    public TKeyBoard addClickedListener(OnTappedListener onClickedListener) {
+    public TKeyBoard addTappedListener(OnTappedListener onClickedListener) {
         TKeyBoard keyboard = this;
         addToInputMultiplexer(new InputAdapter() {
             @Override
