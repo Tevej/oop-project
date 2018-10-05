@@ -1,8 +1,8 @@
-package se.tevej.game.input;
+package main.se.tevej.game.input;
 
-import se.tevej.game.input.listenerInterfaces.OnClickedListener;
-import se.tevej.game.input.listenerInterfaces.OnDraggedListener;
-import se.tevej.game.input.listenerInterfaces.OnMovedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnDraggedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
 
 public interface TMouse {
 

@@ -1,6 +1,6 @@
-package se.tevej.game.input;
+package main.se.tevej.game.input;
 
-import se.tevej.game.input.listenerInterfaces.OnTappedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
 
 
 public interface TKeyBoard {
