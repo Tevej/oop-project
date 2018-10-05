@@ -2,7 +2,7 @@ package se.tevej.game.libgdx.input;
 
 import com.badlogic.gdx.*;
 import se.tevej.game.input.TMouse;
-import se.tevej.game.input.enums.TKey;
+import se.tevej.game.input.enums.TButton;
 import se.tevej.game.input.listenerInterfaces.OnClickedListener;
 import se.tevej.game.input.listenerInterfaces.OnDraggedListener;
 import se.tevej.game.input.listenerInterfaces.OnMovedListener;
@@ -14,14 +14,14 @@ import static com.badlogic.gdx.Input.Buttons.*;
 
 public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
 
-    public static final Map<Integer, TKey> inputMap = new HashMap<>();
+    static final Map<Integer, TButton> inputMap = new HashMap<>();
 
     static
     {
-        Map<Integer, TKey> map = inputMap;
-        map.put(LEFT, TKey.MOUSE_LEFT);
-        map.put(RIGHT, TKey.MOUSE_RIGHT);
-        map.put(MIDDLE, TKey.MOUSE_MIDDLE);
+        Map<Integer, TButton> map = inputMap;
+        map.put(LEFT, TButton.MOUSE_LEFT);
+        map.put(RIGHT, TButton.MOUSE_RIGHT);
+        map.put(MIDDLE, TButton.MOUSE_MIDDLE);
 
     }
 
@@ -32,7 +32,7 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
         addToInputMultiplexer(new InputAdapter(){
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
-                onDraggedListener.onDragged(mouse, TKey.MOUSE_LEFT, screenX, screenY);
+                onDraggedListener.onDragged(mouse, TButton.MOUSE_LEFT, screenX, screenY);
                 return true;
             }
 
