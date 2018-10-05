@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static com.badlogic.gdx.Input.Keys.*;
 
-public class KeyBoardlibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
+public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
 
     static final Map<Integer, TButton> inputMap = new HashMap<>();
 
