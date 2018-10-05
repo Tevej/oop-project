@@ -1,9 +1,9 @@
-package se.tevej.game.libgdx.input;
+package main.se.tevej.game.libgdx.view.rendering.input;
 
 import com.badlogic.gdx.*;
-import se.tevej.game.input.TKeyBoard;
-import se.tevej.game.input.enums.TButton;
-import se.tevej.game.input.listenerInterfaces.OnTappedListener;
+import main.se.tevej.game.input.TKeyBoard;
+import main.se.tevej.game.input.enums.TButton;
+import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
 
 import java.util.HashMap;
 import java.util.Map;

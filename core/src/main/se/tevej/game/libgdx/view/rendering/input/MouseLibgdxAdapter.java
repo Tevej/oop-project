@@ -1,11 +1,11 @@
-package se.tevej.game.libgdx.input;
+package main.se.tevej.game.libgdx.view.rendering.input;
 
 import com.badlogic.gdx.*;
-import se.tevej.game.input.TMouse;
-import se.tevej.game.input.enums.TButton;
-import se.tevej.game.input.listenerInterfaces.OnClickedListener;
-import se.tevej.game.input.listenerInterfaces.OnDraggedListener;
-import se.tevej.game.input.listenerInterfaces.OnMovedListener;
+import main.se.tevej.game.input.TMouse;
+import main.se.tevej.game.input.enums.TButton;
+import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnDraggedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
 
 import java.util.HashMap;
 import java.util.Map;
