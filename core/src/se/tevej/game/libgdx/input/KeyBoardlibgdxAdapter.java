@@ -1,25 +1,72 @@
 package se.tevej.game.libgdx.input;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.*;
 import se.tevej.game.input.TKeyBoard;
-import se.tevej.game.input.inputEnums.TKey;
+import se.tevej.game.input.enums.TKey;
 import se.tevej.game.input.listenerInterfaces.OnTappedListener;
 
-import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyBoardlibgdxAdapter implements TKeyBoard {
+import static com.badlogic.gdx.Input.Keys.*;
 
-    public static final Map<Integer, TKey> libgdxKeyCodeToKey = new HashMap<>();
+public class KeyBoardlibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
 
-    static{
-        for(TKey key : TKey.values()){
-            libgdxKeyCodeToKey.put(key.getLibgdxKeyCode(), key);
-        }
+    public static final Map<Integer, TKey> inputMap = new HashMap<>();
+
+    static
+    {
+        inputMap.put(NUM_1, TKey.KEY_1);
+        inputMap.put(NUM_2, TKey.KEY_2);
+        inputMap.put(NUM_3, TKey.KEY_3);
+        inputMap.put(NUM_4, TKey.KEY_4);
+        inputMap.put(NUM_5, TKey.KEY_5);
+        inputMap.put(NUM_6, TKey.KEY_6);
+        inputMap.put(NUM_7, TKey.KEY_7);
+        inputMap.put(NUM_8, TKey.KEY_8);
+        inputMap.put(NUM_9, TKey.KEY_9);
+        inputMap.put(NUM_0, TKey.KEY_0);
+
+        inputMap.put(A, TKey.KEY_A);
+        inputMap.put(B, TKey.KEY_B);
+        inputMap.put(C, TKey.KEY_C);
+        inputMap.put(D, TKey.KEY_D);
+        inputMap.put(E, TKey.KEY_E);
+        inputMap.put(F, TKey.KEY_F);
+        inputMap.put(G, TKey.KEY_G);
+        inputMap.put(H, TKey.KEY_H);
+        inputMap.put(I, TKey.KEY_I);
+        inputMap.put(J, TKey.KEY_J);
+        inputMap.put(K, TKey.KEY_K);
+        inputMap.put(L, TKey.KEY_L);
+        inputMap.put(M, TKey.KEY_M);
+        inputMap.put(N, TKey.KEY_N);
+        inputMap.put(O, TKey.KEY_O);
+        inputMap.put(P, TKey.KEY_P);
+        inputMap.put(Q, TKey.KEY_Q);
+        inputMap.put(R, TKey.KEY_R);
+        inputMap.put(S, TKey.KEY_S);
+        inputMap.put(T, TKey.KEY_T);
+        inputMap.put(U, TKey.KEY_U);
+        inputMap.put(V, TKey.KEY_V);
+        inputMap.put(W, TKey.KEY_W);
+        inputMap.put(X, TKey.KEY_X);
+        inputMap.put(Y, TKey.KEY_Y);
+        inputMap.put(Z, TKey.KEY_Z);
+
+        inputMap.put(LEFT, TKey.KEY_LEFT);
+        inputMap.put(RIGHT, TKey.KEY_RIGHT);
+        inputMap.put(UP, TKey.KEY_UP);
+        inputMap.put(DOWN, TKey.KEY_DOWN);
+
+        inputMap.put(ENTER, TKey.KEY_ENTER);
+        inputMap.put(ESCAPE, TKey.KEY_ESC);
+        inputMap.put(CONTROL_LEFT, TKey.KEY_CTRL);
+        inputMap.put(SHIFT_LEFT, TKey.KEY_SHIFT);
+        inputMap.put(TAB, TKey.KEY_TAB);
+        inputMap.put(ALT_LEFT, TKey.KEY_ALT);
+        inputMap.put(SPACE, TKey.KEY_SPACE);
+
     }
 
     @Override
@@ -28,21 +75,11 @@ public class KeyBoardlibgdxAdapter implements TKeyBoard {
         addToInputMultiplexer(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-                onClickedListener.onTapped(keyboard, libgdxKeyCodeToKey.get(keycode));
+                onClickedListener.onTapped(keyboard, inputMap.get(keycode));
                 return true;
             }
         });
         return this;
     }
 
-    private void addToInputMultiplexer(InputProcessor ip) {
-        if(Gdx.input.getInputProcessor() == null){
-            InputMultiplexer inputMultiplexer = new InputMultiplexer();
-            inputMultiplexer.addProcessor(ip);
-            Gdx.input.setInputProcessor(inputMultiplexer);
-        }else{
-            InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
-            inputMultiplexer.addProcessor(ip);
-        }
-    }
 }
