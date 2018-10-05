@@ -67,7 +67,8 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
         for (Entity gatherer :
                 gatherers) {
             GathererComponent gc = gatherer.getComponent(GathererComponent.class);
-            List<double[]> locations = getLocationsInRadius(gc.getRadius(),
+            RadiusComponent rc = gatherer.getComponent(RadiusComponent.class);
+            List<double[]> locations = getLocationsInRadius(rc.getRadius(),
                     gatherer.getComponent(PositionComponent.class));
             WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
                     .first().getComponent(WorldComponent.class);
