@@ -2,13 +2,28 @@ package se.tevej.game.libgdx.input;
 
 import com.badlogic.gdx.*;
 import se.tevej.game.input.TMouse;
-import se.tevej.game.input.inputEnums.MouseButton;
+import se.tevej.game.input.enums.TKey;
 import se.tevej.game.input.listenerInterfaces.OnClickedListener;
 import se.tevej.game.input.listenerInterfaces.OnDraggedListener;
 import se.tevej.game.input.listenerInterfaces.OnMovedListener;
 
-public class MouseLibgdxAdapter implements TMouse {
+import java.util.HashMap;
+import java.util.Map;
 
+import static com.badlogic.gdx.Input.Buttons.*;
+
+public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
+
+    public static final Map<Integer, TKey> inputMap = new HashMap<>();
+
+    static
+    {
+        Map<Integer, TKey> map = inputMap;
+        map.put(LEFT, TKey.MOUSE_LEFT);
+        map.put(RIGHT, TKey.MOUSE_RIGHT);
+        map.put(MIDDLE, TKey.MOUSE_MIDDLE);
+
+    }
 
 
     @Override
@@ -17,7 +32,7 @@ public class MouseLibgdxAdapter implements TMouse {
         addToInputMultiplexer(new InputAdapter(){
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
-                onDraggedListener.onDragged(mouse, MouseButton.LEFT, screenX, screenY);
+                onDraggedListener.onDragged(mouse, TKey.MOUSE_LEFT, screenX, screenY);
                 return true;
             }
 
@@ -32,17 +47,7 @@ public class MouseLibgdxAdapter implements TMouse {
         addToInputMultiplexer(new InputAdapter(){
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                switch(button){
-                    case Input.Buttons.LEFT:
-                        onClickedListener.onClicked(mouse, MouseButton.LEFT);
-                        break;
-                    case Input.Buttons.MIDDLE:
-                        onClickedListener.onClicked(mouse, MouseButton.MIDDLE);
-                        break;
-                    case Input.Buttons.RIGHT:
-                        onClickedListener.onClicked(mouse, MouseButton.RIGHT);
-                        break;
-                }
+                  onClickedListener.onClicked(mouse, inputMap.get(button));
                 return true;
             }
         });
@@ -70,17 +75,6 @@ public class MouseLibgdxAdapter implements TMouse {
     @Override
     public float getY() {
         return Gdx.input.getY();
-    }
-
-    private void addToInputMultiplexer(InputProcessor ip) {
-        if(Gdx.input.getInputProcessor() == null){
-            InputMultiplexer inputMultiplexer = new InputMultiplexer();
-            inputMultiplexer.addProcessor(ip);
-            Gdx.input.setInputProcessor(inputMultiplexer);
-        }else{
-            InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
-            inputMultiplexer.addProcessor(ip);
-        }
     }
 
 }

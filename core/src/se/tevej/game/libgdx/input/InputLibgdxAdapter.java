@@ -1,0 +1,25 @@
+package se.tevej.game.libgdx.input;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
+import se.tevej.game.input.enums.TKey;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public abstract class InputLibgdxAdapter {
+
+    public static final Map<Integer, TKey> inputMap = new HashMap<>();
+
+    void addToInputMultiplexer(InputProcessor ip) {
+        if(Gdx.input.getInputProcessor() == null){
+            InputMultiplexer inputMultiplexer = new InputMultiplexer();
+            inputMultiplexer.addProcessor(ip);
+            Gdx.input.setInputProcessor(inputMultiplexer);
+        }else{
+            InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
+            inputMultiplexer.addProcessor(ip);
+        }
+    }
+}
