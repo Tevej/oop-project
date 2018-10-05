@@ -75,7 +75,9 @@ public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoa
         addToInputMultiplexer(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-                onClickedListener.onTapped(keyboard, inputMap.get(keycode));
+               if (inputMap.containsKey(keycode)) {
+                   onClickedListener.onTapped(keyboard, inputMap.get(keycode));
+               }
                 return true;
             }
         });
