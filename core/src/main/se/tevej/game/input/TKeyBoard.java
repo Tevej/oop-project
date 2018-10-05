@@ -4,15 +4,15 @@ import static com.badlogic.gdx.Input.Keys.*;
 
 public interface TKeyBoard {
 
-    TKeyBoard addClickedListener(OnClickedListener onClickedListener);
+    TKeyBoard addClickedListener(OnTappedListener onClickedListener);
 
 
-    interface OnClickedListener {
+    interface OnTappedListener {
         /*
 
         In the implementation use Input.toString(button) to get the name of the key pressed
 
          */
-        void onClicked (TKeyBoard keyBoard, int button);
+        void onTapped (TKeyBoard keyBoard, int button);
     }
 }
