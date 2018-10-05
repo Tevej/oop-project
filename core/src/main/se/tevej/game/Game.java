@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import main.se.tevej.game.input.TKeyBoard;
 import main.se.tevej.game.input.TMouse;
 import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnDraggedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
 import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
@@ -50,22 +52,6 @@ public class Game extends ApplicationAdapter {
 
 		inputFactory = new InputLibgdxFactory();
 		keyBoard = inputFactory.createKeyBoard();
-		keyBoard.addTappedListener(new OnTappedListener() {
-			@Override
-			public void onTapped(TKeyBoard keyBoard, main.se.tevej.game.input.enums.TButton button) {
-				System.out.println(button.toString());
-			}
-		});
-
-
-		mouse = inputFactory.createMouse();
-		mouse.addClickedListener(new OnClickedListener() {
-			@Override
-			public void onClicked(TMouse mouse1, main.se.tevej.game.input.enums.TButton button) {
-				System.out.println(button);
-			}
-		});
-
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
@@ -103,6 +89,36 @@ public class Game extends ApplicationAdapter {
         buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
         buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
         em.getSignal().dispatch(buildHomeBuilding);
+
+		keyBoard.addTappedListener(new OnTappedListener() {
+			@Override
+			public void onTapped(TKeyBoard keyBoard, main.se.tevej.game.input.enums.TButton button) {
+				System.out.println(button.toString());
+			}
+		});
+
+
+		mouse = inputFactory.createMouse();
+		mouse.addClickedListener(new OnClickedListener() {
+			@Override
+			public void onClicked(TMouse mouse1, main.se.tevej.game.input.enums.TButton button) {
+				System.out.println(button);
+			}
+		});
+
+		mouse.addDraggedListener(new OnDraggedListener() {
+			@Override
+			public void onDragged(TMouse mouse, main.se.tevej.game.input.enums.TButton button, float x, float y) {
+				System.out.println(x + " "+ " " + y);
+			}
+		});
+
+		mouse.addMovedListener(new OnMovedListener() {
+			@Override
+			public void onMoved(TMouse mouse) {
+				System.out.println("Sluta skriv i terminalen.");
+			}
+		});
 	}
 
 	@Override
