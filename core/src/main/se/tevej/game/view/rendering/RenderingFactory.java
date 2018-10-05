@@ -12,5 +12,6 @@ public interface RenderingFactory {
     TTable createTable();
     TTextField createTextField();
     TSelectableList createSelectableList();
+    TImage createImage();
 
 }

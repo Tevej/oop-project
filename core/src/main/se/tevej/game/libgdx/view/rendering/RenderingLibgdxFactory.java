@@ -49,4 +49,9 @@ public class RenderingLibgdxFactory implements RenderingFactory {
         return new SelectableListLibgdxAdapter(list, SKIN);
     }
 
+    @Override
+    public TImage createImage() {
+        return new ImageLibgdxAdapter();
+    }
+
 }
