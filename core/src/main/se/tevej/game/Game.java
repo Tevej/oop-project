@@ -5,7 +5,13 @@ import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import main.se.tevej.game.input.TKeyBoard;
+import main.se.tevej.game.input.TMouse;
+import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
+import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
+import main.se.tevej.game.libgdx.view.rendering.input.KeyBoardLibgdxAdapter;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
@@ -25,11 +31,14 @@ import java.util.List;
 public class Game extends ApplicationAdapter {
 
 	private RenderingFactory renderingFactory;
+	private InputLibgdxFactory inputFactory;
 
 	private EntityManager em;
 	private View view;
 	private TTable table;
 
+	private TKeyBoard keyBoard;
+	private TMouse mouse;
 
 
 	@Override
@@ -38,6 +47,25 @@ public class Game extends ApplicationAdapter {
 
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
+
+		inputFactory = new InputLibgdxFactory();
+		keyBoard = inputFactory.createKeyBoard();
+		keyBoard.addTappedListener(new OnTappedListener() {
+			@Override
+			public void onTapped(TKeyBoard keyBoard, main.se.tevej.game.input.enums.TButton button) {
+				System.out.println(button.toString());
+			}
+		});
+
+
+		mouse = inputFactory.createMouse();
+		mouse.addClickedListener(new OnClickedListener() {
+			@Override
+			public void onClicked(TMouse mouse1, main.se.tevej.game.input.enums.TButton button) {
+				System.out.println(button);
+			}
+		});
+
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
