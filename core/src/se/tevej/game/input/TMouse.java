@@ -1,5 +1,9 @@
 package se.tevej.game.input;
 
+import se.tevej.game.input.listenerInterfaces.OnClickedListener;
+import se.tevej.game.input.listenerInterfaces.OnDraggedListener;
+import se.tevej.game.input.listenerInterfaces.OnMovedListener;
+
 public interface TMouse {
 
     TMouse addDraggedListener(OnDraggedListener onDraggedListener);
@@ -11,22 +15,5 @@ public interface TMouse {
     float getX();
 
     float getY();
-
-    interface OnDraggedListener {
-        void onDragged(TMouse mouse, MouseButton button, float x, float y );
-    }
-
-    interface OnClickedListener {
-        void onClicked(TMouse mouse, MouseButton button);
-    }
-
-    interface OnMovedListener {
-        void onMoved(TMouse mouse);
-    }
-
-    enum MouseButton{
-        LEFT, MIDDLE, RIGHT;
-    }
-
 
 }

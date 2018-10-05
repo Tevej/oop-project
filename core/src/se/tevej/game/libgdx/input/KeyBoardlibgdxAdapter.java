@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import se.tevej.game.input.TKeyBoard;
+import se.tevej.game.input.listenerInterfaces.OnTappedListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,12 +21,12 @@ public class KeyBoardlibgdxAdapter implements TKeyBoard {
     }
 
     @Override
-    public TKeyBoard addClickedListener(OnClickedListener onClickedListener) {
+    public TKeyBoard addClickedListener(OnTappedListener onClickedListener) {
         TKeyBoard keyboard = this;
         addToInputMultiplexer(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-                onClickedListener.onClicked(keyboard, libgdxKeyCodeToKey.get(keycode));
+                onClickedListener.onTapped(keyboard, libgdxKeyCodeToKey.get(keycode));
                 return true;
             }
         });
