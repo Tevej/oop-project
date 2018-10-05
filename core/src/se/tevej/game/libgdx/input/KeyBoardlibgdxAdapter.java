@@ -5,17 +5,19 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import se.tevej.game.input.TKeyBoard;
+import se.tevej.game.input.inputEnums.TKey;
 import se.tevej.game.input.listenerInterfaces.OnTappedListener;
 
+import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 
 public class KeyBoardlibgdxAdapter implements TKeyBoard {
 
-    public static final Map<Integer, Key> libgdxKeyCodeToKey = new HashMap<>();
+    public static final Map<Integer, TKey> libgdxKeyCodeToKey = new HashMap<>();
 
     static{
-        for(Key key : Key.values()){
+        for(TKey key : TKey.values()){
             libgdxKeyCodeToKey.put(key.getLibgdxKeyCode(), key);
         }
     }
