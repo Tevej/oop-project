@@ -5,6 +5,6 @@ import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
 
 public interface TKeyBoard {
 
-    TKeyBoard addClickedListener(OnTappedListener onClickedListener);
+    TKeyBoard addTappedListener(OnTappedListener onTappedListener);
 
 }
