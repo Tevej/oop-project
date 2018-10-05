@@ -11,11 +11,14 @@ import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.ashley.SignalType;
+import main.se.tevej.game.model.components.CostComponent;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
+
+import java.util.List;
 
 public class PaySystem extends EntitySystem implements SignalListener{
 
@@ -29,18 +32,22 @@ public class PaySystem extends EntitySystem implements SignalListener{
 
     private void pay(Entity entity){
         BuildingType type = entity.getComponent(BuildingComponent.class).getType();
-        // Calculate cost from type
-        Resource cost = new Resource(100, ResourceType.WOOD);
+        List<Resource> cost = CostComponent.getCostOfBuilding(type);
 
         InventoryComponent iC = engine.getEntitiesFor(Family.all(InventoryComponent.class).get())
                     .first().getComponent(InventoryComponent.class);
         try {
             iC.removeFromInventory(cost);
+            sendBuildSignal(entity);
         } catch (NotEnoughResourcesException e) {
             System.out.println("Deselect please "+ e );
         }
-        entity.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(entity);
+    }
+
+    private void sendBuildSignal(Entity signalEntity){
+        signalEntity.remove(SignalComponent.class);
+        signalEntity.add(new SignalComponent(SignalType.BUILDBUILDING));
+        em.getSignal().dispatch(signalEntity);
     }
 
     @Override

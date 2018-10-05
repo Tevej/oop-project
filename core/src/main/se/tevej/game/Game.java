@@ -57,9 +57,6 @@ public class Game extends ApplicationAdapter {
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
 	 	Entity worldEntity = WorldFactory.createWorldEntity(100,100, em);
-	 	Entity inventoryEntity = new Entity();
-	 	inventoryEntity.add(new InventoryComponent());
-	 	em.addEntityToEngine(inventoryEntity);
 		em.addEntityToEngine(worldEntity);
 
 		Entity buildLumbermill = new Entity();

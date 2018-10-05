@@ -6,6 +6,7 @@ import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class InventoryComponent implements Component {
     private HashMap<ResourceType, Double> resources;
@@ -28,11 +29,25 @@ public class InventoryComponent implements Component {
     }
 
     public void removeFromInventory(Resource resource) throws NotEnoughResourcesException {
+        checkResourceAmount(resource);
+
+        resources.put(resource.getType(), getAmountOfResource(resource.getType()) - resource.getAmount());
+    }
+
+    private void checkResourceAmount(Resource resource) throws NotEnoughResourcesException{
         double currAmountOfResource = getAmountOfResource(resource.getType());
         if (resource.getAmount() > currAmountOfResource) {
             throw new NotEnoughResourcesException();
         }
+    }
 
-        resources.put(resource.getType(), currAmountOfResource - resource.getAmount());
+    public void removeFromInventory(List<Resource> resourceList) throws NotEnoughResourcesException {
+        for (Resource resource : resourceList) {
+            checkResourceAmount(resource);
+        }
+        for (Resource resource : resourceList){
+            resources.put(resource.getType(), getAmountOfResource(resource.getType()) - resource.getAmount());
+        }
+
     }
 }
