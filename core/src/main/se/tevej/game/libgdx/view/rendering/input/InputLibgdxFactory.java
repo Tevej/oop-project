@@ -13,6 +13,6 @@ public class InputLibgdxFactory implements InputFactory {
 
     @Override
     public TKeyBoard createKeyBoard() {
-        return new KeyBoardlibgdxAdapter();
+        return new KeyBoardLibgdxAdapter();
     }
 }
