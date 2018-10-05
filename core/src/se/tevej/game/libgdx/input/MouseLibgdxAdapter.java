@@ -2,6 +2,10 @@ package se.tevej.game.libgdx.input;
 
 import com.badlogic.gdx.*;
 import se.tevej.game.input.TMouse;
+import se.tevej.game.input.inputEnums.MouseButton;
+import se.tevej.game.input.listenerInterfaces.OnClickedListener;
+import se.tevej.game.input.listenerInterfaces.OnDraggedListener;
+import se.tevej.game.input.listenerInterfaces.OnMovedListener;
 
 public class MouseLibgdxAdapter implements TMouse {
 
