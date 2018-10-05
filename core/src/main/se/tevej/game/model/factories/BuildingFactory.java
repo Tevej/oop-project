@@ -2,14 +2,14 @@ package main.se.tevej.game.model.factories;
 
 import com.badlogic.ashley.core.Entity;
 import main.se.tevej.game.exceptions.NoSuchBuildingException;
-import main.se.tevej.game.model.components.GathererComponent;
+import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.components.buildings.HomeComponent;
-import main.se.tevej.game.model.resource.Resource;
-import main.se.tevej.game.model.resource.ResourceType;
+import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.utils.ResourceType;
 
 public class BuildingFactory {
     public static Entity createBuilding(BuildingType type, float x, float y) throws NoSuchBuildingException {

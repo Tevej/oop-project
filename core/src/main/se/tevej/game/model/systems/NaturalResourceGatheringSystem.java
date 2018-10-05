@@ -7,8 +7,9 @@ import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.*;
-import main.se.tevej.game.model.resource.Resource;
-import main.se.tevej.game.model.resource.ResourceType;
+import main.se.tevej.game.model.components.buildings.GathererComponent;
+import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.utils.ResourceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
         } catch (NotEnoughResourcesException e) {
             tileE.add(new SignalComponent(SignalType.DELETEENTITY));
             em.getSignal().dispatch(tileE);
-            System.out.println("Not enough resource left");
+            System.out.println("Not enough utils left");
         }
     }
 
