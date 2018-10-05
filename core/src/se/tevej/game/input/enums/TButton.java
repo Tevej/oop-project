@@ -1,6 +1,6 @@
 package se.tevej.game.input.enums;
 
-public enum TKey {
+public enum TButton {
         KEY_1,
         KEY_2,
         KEY_3,

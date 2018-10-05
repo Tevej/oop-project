@@ -3,14 +3,14 @@ package se.tevej.game.libgdx.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import se.tevej.game.input.enums.TKey;
+import se.tevej.game.input.enums.TButton;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class InputLibgdxAdapter {
 
-    public static final Map<Integer, TKey> inputMap = new HashMap<>();
+    public static final Map<Integer, TButton> inputMap = new HashMap<>();
 
     void addToInputMultiplexer(InputProcessor ip) {
         if(Gdx.input.getInputProcessor() == null){
