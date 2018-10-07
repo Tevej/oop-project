@@ -31,8 +31,8 @@ public class InventoryGui {
         inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.WOOD), "wood.jpg", ResourceType.WOOD));
         inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.WATER), "water.jpg", ResourceType.WATER));
         inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.STONE), "quarry.jpg", ResourceType.STONE));
-        //inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.FOOD), "food.jpg", ResourceType.FOOD));
-        //inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.POPULATION), "population.jpg", ResourceType.POPULATION));
+        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.FOOD), "food.png", ResourceType.FOOD));
+        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.POPULATION), "population.png", ResourceType.POPULATION));
 
         inventoryTable = renderingFactory.createTable()
                 .x((Gdx.graphics.getWidth() / 2f))
