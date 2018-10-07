@@ -33,14 +33,10 @@ import java.util.List;
 public class Game extends ApplicationAdapter {
 
 	private RenderingFactory renderingFactory;
-	private InputLibgdxFactory inputFactory;
 
 	private EntityManager em;
 	private View view;
 	private TTable table;
-
-	private TKeyBoard keyBoard;
-	private TMouse mouse;
 
 
 	@Override
@@ -49,8 +45,6 @@ public class Game extends ApplicationAdapter {
 
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
-
-		inputFactory = new InputLibgdxFactory();
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
