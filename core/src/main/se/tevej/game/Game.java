@@ -51,7 +51,6 @@ public class Game extends ApplicationAdapter {
 		view = new View(em, renderingFactory);
 
 		inputFactory = new InputLibgdxFactory();
-		keyBoard = inputFactory.createKeyBoard();
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
@@ -70,10 +69,10 @@ public class Game extends ApplicationAdapter {
 		table.addElement(selectableList).width(200).height(200);
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
-	 	Entity worldEntity = WorldFactory.createWorldEntity(100,100, em);
-	 	Entity inventoryEntity = new Entity();
-	 	inventoryEntity.add(new InventoryComponent());
-	 	em.addEntityToEngine(inventoryEntity);
+		Entity worldEntity = WorldFactory.createWorldEntity(100, 100, em);
+		Entity inventoryEntity = new Entity();
+		inventoryEntity.add(new InventoryComponent());
+		em.addEntityToEngine(inventoryEntity);
 		em.addEntityToEngine(worldEntity);
 
 		Entity buildLumbermill = new Entity();
@@ -83,42 +82,12 @@ public class Game extends ApplicationAdapter {
 		buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildLumbermill);
 
-        Entity buildHomeBuilding = new Entity();
-        buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
-        buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(buildHomeBuilding);
-
-		keyBoard.addTappedListener(new OnTappedListener() {
-			@Override
-			public void onTapped(TKeyBoard keyBoard, main.se.tevej.game.input.enums.TButton button) {
-				System.out.println(button.toString());
-			}
-		});
-
-
-		mouse = inputFactory.createMouse();
-		mouse.addClickedListener(new OnClickedListener() {
-			@Override
-			public void onClicked(TMouse mouse1, main.se.tevej.game.input.enums.TButton button) {
-				System.out.println(button);
-			}
-		});
-
-		mouse.addDraggedListener(new OnDraggedListener() {
-			@Override
-			public void onDragged(TMouse mouse, main.se.tevej.game.input.enums.TButton button, float x, float y) {
-				System.out.println(x + " "+ " " + y);
-			}
-		});
-
-		mouse.addMovedListener(new OnMovedListener() {
-			@Override
-			public void onMoved(TMouse mouse) {
-				System.out.println("Sluta skriv i terminalen.");
-			}
-		});
+		Entity buildHomeBuilding = new Entity();
+		buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
+		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
+		em.getSignal().dispatch(buildHomeBuilding);
 	}
 
 	@Override
