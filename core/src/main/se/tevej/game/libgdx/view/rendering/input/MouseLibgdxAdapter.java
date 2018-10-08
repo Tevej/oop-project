@@ -27,7 +27,7 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
 
 
     @Override
-    public TMouse addDraggedListener(OnDraggedListener onDraggedListener) {
+    public void addDraggedListener(OnDraggedListener onDraggedListener) {
         final TMouse mouse = this;
         addToInputMultiplexer(new InputAdapter(){
             @Override
@@ -37,12 +37,10 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
             }
 
         });
-
-        return this;
     }
 
     @Override
-    public TMouse addClickedListener(OnClickedListener onClickedListener) {
+    public void addClickedListener(OnClickedListener onClickedListener) {
         final TMouse mouse = this;
         addToInputMultiplexer(new InputAdapter(){
             @Override
@@ -51,11 +49,10 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
                 return true;
             }
         });
-        return this;
     }
 
     @Override
-    public TMouse addMovedListener(OnMovedListener onMovedListener) {
+    public void addMovedListener(OnMovedListener onMovedListener) {
         final TMouse mouse = this;
         addToInputMultiplexer(new InputAdapter(){
             @Override
@@ -64,7 +61,6 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
                 return true;
             }
         });
-        return this;
     }
 
     @Override

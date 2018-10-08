@@ -6,11 +6,11 @@ import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
 
 public interface TMouse {
 
-    TMouse addDraggedListener(OnDraggedListener onDraggedListener);
+    void addDraggedListener(OnDraggedListener onDraggedListener);
 
-    TMouse addClickedListener(OnClickedListener onClickedListener);
+    void addClickedListener(OnClickedListener onClickedListener);
 
-    TMouse addMovedListener(OnMovedListener onMovedListener);
+    void addMovedListener(OnMovedListener onMovedListener);
 
     float getX();
 
