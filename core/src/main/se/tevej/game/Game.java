@@ -5,7 +5,15 @@ import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import main.se.tevej.game.input.TKeyBoard;
+import main.se.tevej.game.input.TMouse;
+import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnDraggedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
+import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
+import main.se.tevej.game.libgdx.view.rendering.input.KeyBoardLibgdxAdapter;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
@@ -29,7 +37,6 @@ public class Game extends ApplicationAdapter {
 	private EntityManager em;
 	private View view;
 	private TTable table;
-
 
 
 	@Override
@@ -56,10 +63,10 @@ public class Game extends ApplicationAdapter {
 		table.addElement(selectableList).width(200).height(200);
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
-	 	Entity worldEntity = WorldFactory.createWorldEntity(100,100, em);
-	 	Entity inventoryEntity = new Entity();
-	 	inventoryEntity.add(new InventoryComponent());
-	 	em.addEntityToEngine(inventoryEntity);
+		Entity worldEntity = WorldFactory.createWorldEntity(100, 100, em);
+		Entity inventoryEntity = new Entity();
+		inventoryEntity.add(new InventoryComponent());
+		em.addEntityToEngine(inventoryEntity);
 		em.addEntityToEngine(worldEntity);
 
 		Entity buildLumbermill = new Entity();
@@ -69,12 +76,12 @@ public class Game extends ApplicationAdapter {
 		buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildLumbermill);
 
-        Entity buildHomeBuilding = new Entity();
-        buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
-        buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(buildHomeBuilding);
+		Entity buildHomeBuilding = new Entity();
+		buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
+		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
+		em.getSignal().dispatch(buildHomeBuilding);
 	}
 
 	@Override
