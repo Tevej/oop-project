@@ -4,7 +4,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import main.se.tevej.game.input.CameraController;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
+import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
@@ -26,14 +28,18 @@ public class Game extends ApplicationAdapter {
 	private EntityManager em;
 	private View view;
 	private TTable table;
+	private InputLibgdxFactory inputLibgdxFactory;
 	private TCamera camera;
+	private CameraController cameraController;
 
 
 	@Override
 	public void create () {
 		renderingFactory = new RenderingLibgdxFactory();
+		inputLibgdxFactory = new InputLibgdxFactory();
 
 		camera = renderingFactory.createCamera();
+		cameraController = new CameraController(camera, inputLibgdxFactory);
 
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
