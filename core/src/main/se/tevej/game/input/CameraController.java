@@ -17,6 +17,8 @@ public class CameraController {
         this.camera = camera;
         this.mouse = factory.createMouse();
 
+        prevX = camera.getPositionX();
+        prevY = camera.getPositionY();
 
         mouse.addDraggedListener(new OnDraggedListener() {
             @Override
@@ -24,7 +26,8 @@ public class CameraController {
                 if (button == TButton.MOUSE_LEFT) {
                     calculateDeltaVector(x,y);
                     applyVectorToCamera();
-                    setPreviousCoordinates(x, y);
+                    prevX = x;
+                    prevX = y;
                 }
             }
         });
@@ -38,11 +41,5 @@ public class CameraController {
     void applyVectorToCamera() {
         camera.setPosition(prevX - deltaX,prevY - deltaY );
     }
-
-    void setPreviousCoordinates(float x, float y) {
-        prevX = x;
-        prevX = y;
-    }
-
 
 }
