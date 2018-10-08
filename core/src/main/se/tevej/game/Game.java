@@ -14,6 +14,7 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.WorldFactory;
+import main.se.tevej.game.view.rendering.TCamera;
 import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
@@ -25,11 +26,14 @@ public class Game extends ApplicationAdapter {
 	private EntityManager em;
 	private View view;
 	private TTable table;
+	private TCamera camera;
 
 
 	@Override
 	public void create () {
 		renderingFactory = new RenderingLibgdxFactory();
+
+		camera = renderingFactory.createCamera();
 
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
