@@ -9,6 +9,7 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
+import main.se.tevej.game.view.rendering.TCamera;
 
 import java.util.*;
 
@@ -34,6 +35,10 @@ public class View {
         typeToRenderable = getTypeToRenderables();
 
         entityManager.addEntityListener(getNewEntityListener());
+    }
+
+    public void setCamera(TCamera camera) {
+        tBatchRenderer.setCamera(camera);
     }
 
     

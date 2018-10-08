@@ -35,14 +35,15 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-		renderingFactory = new RenderingLibgdxFactory();
 		inputLibgdxFactory = new InputLibgdxFactory();
+		renderingFactory = new RenderingLibgdxFactory();
 
 		camera = renderingFactory.createCamera();
 		cameraController = new CameraController(camera, inputLibgdxFactory);
+		view = new View(em, renderingFactory);
+		view.setCamera(camera);
 
 		em = new EntityManager();
-		view = new View(em, renderingFactory);
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
