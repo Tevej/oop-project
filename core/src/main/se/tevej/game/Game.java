@@ -40,10 +40,11 @@ public class Game extends ApplicationAdapter {
 
 		camera = renderingFactory.createCamera();
 		cameraController = new CameraController(camera, inputLibgdxFactory);
+
+		em = new EntityManager();
 		view = new View(em, renderingFactory);
 		view.setCamera(camera);
 
-		em = new EntityManager();
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
