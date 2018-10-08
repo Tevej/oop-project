@@ -21,20 +21,22 @@ public class WorldFactory {
         Entity worldEntity = em.createEntity();
         WorldComponent wc = new WorldComponent(width, height, tiles);
         worldEntity.add(wc);
+        worldEntity.add(new InventoryComponent());
+        generateNaturalResources(width, height, wc, em);
+        return worldEntity;
+    }
 
+    private static void generateNaturalResources(int width, int height, WorldComponent wc, EntityManager em){
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 PositionComponent pos = new PositionComponent(x,y);
                 List<Entity> clusters = generateRandomClusters(0.7, pos, new ArrayList<>(), em);
-                occupyTiles(clusters, wc);
+                occupyTilesInCluster(clusters, wc);
             }
         }
-
-        worldEntity.add(new InventoryComponent());
-        return worldEntity;
     }
 
-    private static void occupyTiles(List<Entity> clusters, WorldComponent wc){
+    private static void occupyTilesInCluster(List<Entity> clusters, WorldComponent wc){
         for (Entity entity : clusters) {
             PositionComponent pc = entity.getComponent(PositionComponent.class);
             Entity tc = wc.getTileAt(pc.getX(), pc.getY());

@@ -36,4 +36,10 @@ public class PositionComponent implements Component {
         return super.equals(obj);
     }
 
+    @Override
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
+    }
+
 }
