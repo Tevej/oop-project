@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import main.se.tevej.game.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.components.GathererComponent;
 import main.se.tevej.game.model.components.PositionComponent;
+import main.se.tevej.game.model.components.RadiusComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
@@ -39,17 +40,20 @@ public class BuildingFactory {
     }
 
     private static Entity createLumberMill(Entity entity) {
-        entity.add(new GathererComponent(3, new Resource(50, ResourceType.WOOD)));
+        entity.add(new RadiusComponent(3));
+        entity.add(new GathererComponent(new Resource(50, ResourceType.WOOD)));
         return entity;
     }
 
     private static Entity createQuarry(Entity entity) {
-        entity.add(new GathererComponent(3, new Resource(50, ResourceType.STONE)));
+        entity.add(new RadiusComponent(3));
+        entity.add(new GathererComponent(new Resource(50, ResourceType.STONE)));
         return entity;
     }
 
     private static Entity createPump(Entity entity) {
-        entity.add(new GathererComponent(3, new Resource(50, ResourceType.WATER)));
+        entity.add(new RadiusComponent(3));
+        entity.add(new GathererComponent(new Resource(50, ResourceType.WATER)));
         return entity;
     }
 }
