@@ -1,19 +1,10 @@
 package main.se.tevej.game;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import main.se.tevej.game.input.TKeyBoard;
-import main.se.tevej.game.input.TMouse;
-import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
-import main.se.tevej.game.input.listenerInterfaces.OnDraggedListener;
-import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
-import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
-import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
-import main.se.tevej.game.libgdx.view.rendering.input.KeyBoardLibgdxAdapter;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
@@ -26,9 +17,6 @@ import main.se.tevej.game.model.factories.WorldFactory;
 import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Game extends ApplicationAdapter {
 
