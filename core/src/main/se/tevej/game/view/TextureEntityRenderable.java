@@ -16,11 +16,12 @@ public class TextureEntityRenderable implements EntityRenderable {
     }
 
     @Override
-    public void render(TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) {
+    public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) {
         PositionComponent pc = entity.getComponent(PositionComponent.class);
         SizeComponent sc = entity.getComponent(SizeComponent.class);
 
-        batchRenderer.renderTexture(texture, pc.getX()*pixelPerTile, pc.getY()*pixelPerTile,
-                sc.getWidth()*pixelPerTile, sc.getHeight()*pixelPerTile);
+        batchRenderer.renderTexture(texture, (pc.getX() + offsetX) * pixelPerTile,
+                (pc.getY() + offsetY)* pixelPerTile,sc.getWidth() * pixelPerTile,
+                sc.getHeight()*pixelPerTile);
     }
 }

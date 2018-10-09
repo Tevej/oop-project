@@ -26,6 +26,8 @@ public class View {
 
     private TBatchRenderer tBatchRenderer;
     private RenderingFactory renderingFactory;
+    private float currCameraPosX;
+    private float currCameraPosY;
 
     public View(EntityManager entityManager, RenderingFactory renderingFactory) {
         this.renderingFactory = renderingFactory;
@@ -35,10 +37,13 @@ public class View {
         typeToRenderable = getTypeToRenderables();
 
         entityManager.addEntityListener(getNewEntityListener());
+
+        currCameraPosX = -10;
+        currCameraPosY = -15;
     }
 
     public void setCamera(TCamera camera) {
-        tBatchRenderer.setCamera(camera);
+        // tBatchRenderer.setCamera(camera);
     }
 
     
@@ -48,7 +53,7 @@ public class View {
         for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererToEntityMap.entrySet()) {
             try {
                 for (Entity entity : entry.getValue()) {
-                    entry.getKey().render(tBatchRenderer, entity, pixelPerTile);
+                    entry.getKey().render(currCameraPosX, currCameraPosY, tBatchRenderer, entity, pixelPerTile);
                 }
             } catch (Exception e) {
                 // Maybe do stuff here?
@@ -63,7 +68,7 @@ public class View {
      * As soon as it finds one compatiable EntityRenderable, it stops searching and adds the entity to the render pool.
      * @return A entity listener that adds suitable entities to Views render pool.
      */
-    private EntityListener getNewEntityListener(){
+    private EntityListener getNewEntityListener() {
         return new EntityListener() {
             @Override
             public void entityAdded(Entity entity) {
