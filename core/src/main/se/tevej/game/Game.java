@@ -16,33 +16,29 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.WorldFactory;
-import main.se.tevej.game.view.rendering.TCamera;
 import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 
 public class Game extends ApplicationAdapter {
-
 	private RenderingFactory renderingFactory;
 
 	private EntityManager em;
 	private View view;
 	private TTable table;
 	private InputLibgdxFactory inputLibgdxFactory;
-	private TCamera camera;
+	private final int worldWidth = 100;
+	private final int worldHeight = 100;
 
 	@Override
 	public void create () {
 		inputLibgdxFactory = new InputLibgdxFactory();
 		renderingFactory = new RenderingLibgdxFactory();
 
-		camera = renderingFactory.createCamera();
-		new CameraController(camera, inputLibgdxFactory);
-
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
-		view.setCamera(camera);
 
+		new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
@@ -61,7 +57,7 @@ public class Game extends ApplicationAdapter {
 		table.addElement(selectableList).width(200).height(200);
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
-		Entity worldEntity = WorldFactory.createWorldEntity(100, 100, em);
+		Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
 		Entity inventoryEntity = new Entity();
 		inventoryEntity.add(new InventoryComponent());
 		em.addEntityToEngine(inventoryEntity);
