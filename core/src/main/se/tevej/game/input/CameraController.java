@@ -28,6 +28,10 @@ public class CameraController {
                     applyVectorToCamera();
                     prevX = x;
                     prevX = y;
+                    System.out.println("X, Y: " + x + "  " + y);
+                    System.out.println("Mouse: " + mouse.getX() + " " + mouse.getY());
+                    System.out.println("Camera: " + camera.getPositionX() + " " + camera.getPositionY());
+                    System.out.println("---------------------------------");
                 }
             }
         });
