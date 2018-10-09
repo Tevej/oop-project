@@ -30,8 +30,6 @@ public class Game extends ApplicationAdapter {
 	private TTable table;
 	private InputLibgdxFactory inputLibgdxFactory;
 	private TCamera camera;
-	private CameraController cameraController;
-
 
 	@Override
 	public void create () {
@@ -39,7 +37,7 @@ public class Game extends ApplicationAdapter {
 		renderingFactory = new RenderingLibgdxFactory();
 
 		camera = renderingFactory.createCamera();
-		cameraController = new CameraController(camera, inputLibgdxFactory);
+		new CameraController(camera, inputLibgdxFactory);
 
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
