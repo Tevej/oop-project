@@ -27,10 +27,8 @@ public class Game extends ApplicationAdapter {
 	private View view;
 	private TTable table;
 	private InputLibgdxFactory inputLibgdxFactory;
-	private final int worldWidth = 100;
-	private final int worldHeight = 100;
 
-	@Override
+    @Override
 	public void create () {
 		inputLibgdxFactory = new InputLibgdxFactory();
 		renderingFactory = new RenderingLibgdxFactory();
@@ -38,7 +36,9 @@ public class Game extends ApplicationAdapter {
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
 
-		new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
+        int worldWidth = 100;
+        int worldHeight = 100;
+        new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
