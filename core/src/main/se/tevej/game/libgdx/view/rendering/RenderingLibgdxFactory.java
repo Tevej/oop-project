@@ -18,10 +18,6 @@ public class RenderingLibgdxFactory implements RenderingFactory {
         return new BatchRendererLibgdxAdapter();
     }
 
-    public CameraLibgdxAdapter createCamera() {
-        return new CameraLibgdxAdapter();
-    }
-
     @Override
     public TTexture createTexture(String path) {
         return new TextureLibgdxAdapter(path);

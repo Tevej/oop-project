@@ -9,13 +9,12 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
-import main.se.tevej.game.view.rendering.TCamera;
 
 import java.util.*;
 
 public class View {
 
-    private static final int pixelPerTile = 32;
+    public static final int pixelPerTile = 32;
 
     /**
      * Dictionary on how a component type should be rendered
@@ -26,6 +25,8 @@ public class View {
 
     private TBatchRenderer tBatchRenderer;
     private RenderingFactory renderingFactory;
+
+    // The current camera positions in world coordinates.
     private float currCameraPosX;
     private float currCameraPosY;
 
@@ -38,22 +39,22 @@ public class View {
 
         entityManager.addEntityListener(getNewEntityListener());
 
-        currCameraPosX = -10;
-        currCameraPosY = -15;
+        currCameraPosX = 0;
+        currCameraPosY = 0;
     }
 
-    public void setCamera(TCamera camera) {
-        // tBatchRenderer.setCamera(camera);
+    public void setPosition(float x, float y) {
+        this.currCameraPosX = x;
+        this.currCameraPosY = y;
     }
 
-    
     public void render(){
         tBatchRenderer.beginRendering();
 
         for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererToEntityMap.entrySet()) {
             try {
                 for (Entity entity : entry.getValue()) {
-                    entry.getKey().render(currCameraPosX, currCameraPosY, tBatchRenderer, entity, pixelPerTile);
+                    entry.getKey().render(-currCameraPosX, -currCameraPosY, tBatchRenderer, entity, pixelPerTile);
                 }
             } catch (Exception e) {
                 // Maybe do stuff here?

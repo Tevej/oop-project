@@ -3,31 +3,13 @@ package main.se.tevej.game.libgdx.view.rendering;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
-import main.se.tevej.game.view.rendering.TCamera;
 import main.se.tevej.game.view.rendering.TTexture;
 
 public class BatchRendererLibgdxAdapter extends SpriteBatch implements TBatchRenderer {
 
-    private TCamera camera;
-
-    @Override
-    public void setCamera(TCamera camera) {
-        this.camera = camera;
-    }
-
-    @Override
-    public TCamera getCamera() {
-        return camera;
-    }
-
     @Override
     public void beginRendering() {
         super.begin();
-
-        if(this.camera != null) {
-            OrthographicCamera oc = (CameraLibgdxAdapter) this.camera;
-            super.setProjectionMatrix(oc.combined);
-        }
     }
 
     @Override
