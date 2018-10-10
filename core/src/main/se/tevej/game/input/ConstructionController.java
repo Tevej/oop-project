@@ -1,6 +1,7 @@
 package main.se.tevej.game.input;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.math.Vector2;
 import main.se.tevej.game.input.enums.TButton;
 import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
 import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
@@ -21,14 +22,16 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     private int mouseY = 0;
     private TMouse mouse;
     private TKeyBoard keyboard;
+    private CameraController camera;
 
-    public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity) {
+    public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity, CameraController camera) {
         this.em = em;
         this.worldEntity = worldEntity;
         this.keyboard = factory.createKeyBoard();
         this.mouse = factory.createMouse();
         mouse.addMovedListener(this);
         keyboard.addTappedListener(this);
+        this.camera = camera;
     }
 
     public void onTapped (TKeyBoard keyBoard, TButton button){
@@ -39,12 +42,27 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
             buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
             buildLumbermill.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
             em.getSignal().dispatch(buildLumbermill);
+        } else if (button.equals(TButton.KEY_Q)) {
+            Entity buildLumbermill = new Entity();
+            buildLumbermill.add(new BuildingComponent(BuildingType.QUARRY));
+            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
+            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
+            buildLumbermill.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
+            em.getSignal().dispatch(buildLumbermill);
+        } else if (button.equals(TButton.KEY_P)) {
+            Entity buildLumbermill = new Entity();
+            buildLumbermill.add(new BuildingComponent(BuildingType.PUMP));
+            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
+            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
+            buildLumbermill.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
+            em.getSignal().dispatch(buildLumbermill);
         }
     }
 
     public void onMoved(TMouse mouse) {
-        mouseX = (int)mouse.getX()/32;
-        mouseY = (int)mouse.getY()/32;
+        Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
+        mouseX = (int)v2.x;
+        mouseY = (int)v2.y;
     }
 
 

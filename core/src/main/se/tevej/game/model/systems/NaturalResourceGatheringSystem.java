@@ -29,7 +29,11 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
             for (int j = -radius; j <= radius; j++){
                 if ( i == 0 && j == 0)
                     continue;
-                locations.add(new double[] {i+positionComponent.getX(), j+positionComponent.getY()});
+                double x = i+positionComponent.getX();
+                double y = j+positionComponent.getY();
+                if (x < 0 || y < 0)
+                    continue;
+                locations.add(new double[] {x, y});
             }
 
         }
@@ -74,6 +78,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
                     .first().getComponent(WorldComponent.class);
 
             for (double[] loc : locations) {
+
                 Entity tilE = wc.getTileAt((int)loc[0],(int)loc[1]);
                 TileComponent tc = tilE.getComponent(TileComponent.class);
                 Entity tileE = tc.getOccupier();

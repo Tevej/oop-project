@@ -46,7 +46,7 @@ public class Game extends ApplicationAdapter {
 
         int worldWidth = 100;
         int worldHeight = 100;
-        new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
+        CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
@@ -91,6 +91,9 @@ public class Game extends ApplicationAdapter {
 		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
 		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildHomeBuilding);
+
+		new ConstructionController(em,inputLibgdxFactory,worldEntity,camera);
+		gui = new InventoryGui(renderingFactory, inventoryEntity);
 	}
 
 	@Override
