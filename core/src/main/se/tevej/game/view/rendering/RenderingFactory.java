@@ -5,7 +5,6 @@ import main.se.tevej.game.view.rendering.ui.*;
 public interface RenderingFactory {
 
     TBatchRenderer createBatchRenderer();
-    TCamera createCamera();
     TTexture createTexture(String path);
 
     TButton createButton();

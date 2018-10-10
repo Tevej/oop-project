@@ -1,11 +1,12 @@
 package main.se.tevej.game;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import main.se.tevej.game.input.CameraController;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
+import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
@@ -20,16 +21,13 @@ import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Game extends ApplicationAdapter {
-
 	private RenderingFactory renderingFactory;
 
 	private EntityManager em;
 	private View view;
 	private TTable table;
+	private InputLibgdxFactory inputLibgdxFactory;
 
 	private InventoryGui gui;
 
@@ -37,10 +35,15 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void create () {
+		inputLibgdxFactory = new InputLibgdxFactory();
 		renderingFactory = new RenderingLibgdxFactory();
 
 		em = new EntityManager();
 		view = new View(em, renderingFactory);
+
+        int worldWidth = 100;
+        int worldHeight = 100;
+        new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
@@ -59,10 +62,10 @@ public class Game extends ApplicationAdapter {
 		table.addElement(selectableList).width(200).height(200);
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
-	 	Entity worldEntity = WorldFactory.createWorldEntity(100,100, em);
-	 	Entity inventoryEntity = new Entity();
-	 	inventoryEntity.add(new InventoryComponent());
-	 	em.addEntityToEngine(inventoryEntity);
+		Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
+		Entity inventoryEntity = new Entity();
+		inventoryEntity.add(new InventoryComponent());
+		em.addEntityToEngine(inventoryEntity);
 		em.addEntityToEngine(worldEntity);
 
 		Entity buildLumbermill = new Entity();
@@ -72,12 +75,12 @@ public class Game extends ApplicationAdapter {
 		buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildLumbermill);
 
-        Entity buildHomeBuilding = new Entity();
-        buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
-        buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(buildHomeBuilding);
+		Entity buildHomeBuilding = new Entity();
+		buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
+		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
+		em.getSignal().dispatch(buildHomeBuilding);
 
 		gui = new InventoryGui(renderingFactory, inventoryEntity);
 	}

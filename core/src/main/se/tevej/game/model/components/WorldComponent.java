@@ -2,6 +2,7 @@ package main.se.tevej.game.model.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
+
 public class WorldComponent implements Component {
     private Entity[] tiles;
     private int width;
