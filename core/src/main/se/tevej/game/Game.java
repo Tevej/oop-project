@@ -34,6 +34,10 @@ public class Game extends ApplicationAdapter {
     private long lastFrameNanoTime;
     private long currFrameNanoTime;
     private float deltaTime;
+    private float printFrameRate;
+
+    // The current timeMultiplier (0 means pause, 1 means default speed etc...)
+    private float timeMultiplier = 1f;
 
     private final long BILLION = (1000 * 1000 * 1000);
 
@@ -107,8 +111,6 @@ public class Game extends ApplicationAdapter {
         gui.render();
     }
 
-    private float printFrameRate;
-
     private void calculateDeltaTime() {
         currFrameNanoTime = System.nanoTime();
         long diff = currFrameNanoTime - lastFrameNanoTime;
@@ -120,6 +122,12 @@ public class Game extends ApplicationAdapter {
             System.out.println("FPS: " + (1 / deltaTime));
             printFrameRate = 0;
         }
+
+        deltaTime *= timeMultiplier;
+    }
+
+    public void updateTimeMultiplier(float newMultiplier) {
+        timeMultiplier = newMultiplier;
     }
 
     @Override
