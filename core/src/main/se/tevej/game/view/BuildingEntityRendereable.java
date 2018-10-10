@@ -61,12 +61,12 @@ public class BuildingEntityRendereable implements EntityRenderable {
     }
 
     @Override
-    public void render(TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) throws Exception {
+    public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) throws Exception {
         BuildingComponent buildingC = entity.getComponent(BuildingComponent.class);
         PositionComponent posC = entity.getComponent(PositionComponent.class);
         SizeComponent sizeC = entity.getComponent(SizeComponent.class);
-        float x = posC.getX() * pixelPerTile;
-        float y = posC.getY() * pixelPerTile;
+        float x = (posC.getX() + offsetX) * pixelPerTile;
+        float y = (posC.getY() + offsetY) * pixelPerTile;
         float width = sizeC.getWidth() * pixelPerTile;
         float height = sizeC.getHeight() * pixelPerTile;
         batchRenderer.renderTexture(buildingTextureMap.get(buildingC.getType()), x, y, width, height);

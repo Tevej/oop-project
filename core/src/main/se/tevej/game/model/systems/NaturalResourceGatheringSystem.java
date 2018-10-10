@@ -44,7 +44,6 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
                 Resource gatheredResource = gc.getGatheredResource(deltaTime);
                 tileNRC.extractResource(gatheredResource);
                 iC.addResource(gatheredResource);
-                System.out.println(iC.getAmountOfResource(ResourceType.WOOD));
             }
         } catch (NotEnoughResourcesException e) {
             tileE.add(new SignalComponent(SignalType.DELETEENTITY));
