@@ -17,6 +17,7 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.WorldFactory;
+import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.rendering.ui.*;
@@ -31,7 +32,11 @@ public class Game extends ApplicationAdapter {
 	private TTable table;
 	private InputLibgdxFactory inputLibgdxFactory;
 
-    @Override
+	private InventoryGui gui;
+
+
+
+	@Override
 	public void create () {
 		inputLibgdxFactory = new InputLibgdxFactory();
 		renderingFactory = new RenderingLibgdxFactory();
@@ -86,8 +91,6 @@ public class Game extends ApplicationAdapter {
 		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
 		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildHomeBuilding);
-
-		new ConstructionController(em, inputLibgdxFactory, worldEntity);
 	}
 
 	@Override
@@ -101,6 +104,8 @@ public class Game extends ApplicationAdapter {
 
 		table.update(1f / 60f);
 		//table.render();
+		gui.update(1f / 60f);
+		gui.render();
 	}
 	
 	@Override

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import main.se.tevej.game.input.enums.TButton;
 import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
 import main.se.tevej.game.input.listenerInterfaces.OnDraggedListener;
+import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.view.View;
 
@@ -48,7 +49,7 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
 
         // - because 0, 0 is in the top left corner
         newPosX = cameraPosX - deltaX;
-        newPosY = cameraPosY + deltaY;
+        newPosY = cameraPosY - deltaY;
     }
 
     @Override
@@ -79,11 +80,11 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         prevY = pos.y;
     }
 
-    private Vector2 getScreenToWorldCoord(float x, float y) {
+    public Vector2 getScreenToWorldCoord(float x, float y) {
         x /= pixelPerTile;
         y /= pixelPerTile;
         x += cameraPosX;
-        y += cameraPosY;
+        y = ((float)Gdx.app.getGraphics().getHeight() / (float)pixelPerTile) + (cameraPosY - y);
         return new Vector2(x, y);
     }
 }

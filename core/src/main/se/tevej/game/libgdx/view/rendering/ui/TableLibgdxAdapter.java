@@ -69,7 +69,7 @@ public class TableLibgdxAdapter extends Table implements TTable {
 
     @Override
     public TTable debug(boolean debug) {
-        super.setDebug(true);
+        super.setDebug(debug);
         return this;
     }
 
