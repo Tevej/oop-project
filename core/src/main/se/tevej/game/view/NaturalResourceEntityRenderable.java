@@ -46,7 +46,7 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
         }
 
         if (image != null) {
-            batchRenderer.renderTexture(water, (pc.getX() + offsetX) * pixelPerTile,
+            batchRenderer.renderTexture(image, (pc.getX() + offsetX) * pixelPerTile,
                     (pc.getY()  + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
                     sc.getHeight() * pixelPerTile);
         }
