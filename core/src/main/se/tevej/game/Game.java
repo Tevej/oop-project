@@ -5,6 +5,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import main.se.tevej.game.controller.input.CameraController;
+import main.se.tevej.game.controller.input.TimeController;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnTimeChangeListener;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
@@ -21,7 +23,7 @@ import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 
-public class Game extends ApplicationAdapter {
+public class Game extends ApplicationAdapter implements OnTimeChangeListener {
     private RenderingFactory renderingFactory;
 
     private EntityManager em;
@@ -92,6 +94,9 @@ public class Game extends ApplicationAdapter {
         em.getSignal().dispatch(buildHomeBuilding);
 
         gui = new InventoryGui(renderingFactory, inventoryEntity);
+
+        TimeController timeController = new TimeController();
+        timeController.registerOnTimeChange(this);
     }
 
     @Override
@@ -126,8 +131,10 @@ public class Game extends ApplicationAdapter {
         deltaTime *= timeMultiplier;
     }
 
-    public void updateTimeMultiplier(float newMultiplier) {
+    @Override
+    public void updateTimeMultipler(float newMultiplier) {
         timeMultiplier = newMultiplier;
+        System.out.println("TimeMultiplier updated to " + timeMultiplier);
     }
 
     @Override
