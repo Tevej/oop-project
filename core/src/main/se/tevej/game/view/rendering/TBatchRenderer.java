@@ -1,10 +1,6 @@
 package main.se.tevej.game.view.rendering;
 
 public interface TBatchRenderer {
-
-    void setCamera(TCamera camera);
-    TCamera getCamera();
-
     void beginRendering();
     void endRendering();
     void dispose();

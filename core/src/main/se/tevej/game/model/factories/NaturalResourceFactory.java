@@ -9,7 +9,7 @@ import main.se.tevej.game.model.components.SizeComponent;
 
 public class NaturalResourceFactory {
 
-    public static Entity createNaturalResource(float x, float y, Resource resource, EntityManager engine) {
+    public static Entity createNaturalResource(int x, int y, Resource resource, EntityManager engine) {
         Entity entity = engine.createEntity();
         entity.add(new NaturalResourceComponent(new Resource(resource)));
         entity.add(new PositionComponent(x,y));

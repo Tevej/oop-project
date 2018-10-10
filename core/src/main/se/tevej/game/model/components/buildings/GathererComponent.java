@@ -6,19 +6,13 @@ import main.se.tevej.game.model.utils.Resource;
 
 public class GathererComponent implements Component{
     private Resource resourcePerSecond;
-    private int radius;
 
-    public GathererComponent(int radius, Resource resourcePerSecond) {
-        this.radius = radius;
+    public GathererComponent(Resource resourcePerSecond) {
         this.resourcePerSecond = resourcePerSecond;
     }
 
     public Resource getResourcePerSecond(){
         return resourcePerSecond;
-    }
-
-    public int getRadius(){
-        return radius;
     }
 
     public Resource getGatheredResource(float deltaTime){
