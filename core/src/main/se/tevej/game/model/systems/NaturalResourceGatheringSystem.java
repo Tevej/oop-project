@@ -74,7 +74,9 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
                     .first().getComponent(WorldComponent.class);
 
             for (double[] loc : locations) {
-                Entity tileE = wc.getTileAt((int)loc[0],(int)loc[1]).getComponent(TileComponent.class).getOccupier();
+                Entity tilE = wc.getTileAt((int)loc[0],(int)loc[1]);
+                TileComponent tc = tilE.getComponent(TileComponent.class);
+                Entity tileE = tc.getOccupier();
                 gatherFromLocation(deltaTime, tileE, iC, gc);
             }
         }

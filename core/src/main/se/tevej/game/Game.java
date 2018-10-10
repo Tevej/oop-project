@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import main.se.tevej.game.input.CameraController;
+import main.se.tevej.game.input.ConstructionController;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
@@ -16,6 +17,8 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.WorldFactory;
+import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
@@ -40,6 +43,7 @@ public class Game extends ApplicationAdapter {
         int worldHeight = 100;
         new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
+
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
 
@@ -59,7 +63,13 @@ public class Game extends ApplicationAdapter {
 		// Look over naming of method / implementation (also adds the world to the engine.)
 		Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
 		Entity inventoryEntity = new Entity();
-		inventoryEntity.add(new InventoryComponent());
+		InventoryComponent ic = new InventoryComponent();
+		ic.addResource(new Resource(1000, ResourceType.WOOD));
+		ic.addResource(new Resource(1000, ResourceType.WATER));
+		ic.addResource(new Resource(1000, ResourceType.STONE));
+		ic.addResource(new Resource(1000, ResourceType.FOOD));
+		inventoryEntity.add(ic);
+
 		em.addEntityToEngine(inventoryEntity);
 		em.addEntityToEngine(worldEntity);
 
@@ -76,6 +86,8 @@ public class Game extends ApplicationAdapter {
 		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
 		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildHomeBuilding);
+
+		new ConstructionController(em, inputLibgdxFactory, worldEntity);
 	}
 
 	@Override

@@ -21,7 +21,6 @@ public class WorldFactory {
         Entity worldEntity = em.createEntity();
         WorldComponent wc = new WorldComponent(width, height, tiles);
         worldEntity.add(wc);
-        worldEntity.add(new InventoryComponent());
         generateNaturalResources(width, height, wc, em);
         return worldEntity;
     }
