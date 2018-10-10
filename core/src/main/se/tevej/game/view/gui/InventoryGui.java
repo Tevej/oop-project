@@ -34,7 +34,7 @@ public class InventoryGui {
                 .x((Gdx.graphics.getWidth() / 2f))
                 .y(Gdx.graphics.getHeight()- TABLE_HEIGHT / 2f)
                 .grid(inventoryElements.size()*2, 1)
-                .debug(true);
+                .debug(false);
         for (InventoryElement inventoryElement : inventoryElements) {
             inventoryTable.addElement(inventoryElement.getImage()).height(32).width(32);
             inventoryTable.addElement(inventoryElement.getLabel()).height(32).width(50);
