@@ -60,9 +60,9 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     public void onDragged(TMouse mouse, TButton button, float x, float y) {
         if (button == TButton.MOUSE_LEFT) {
             calculateNewPos(x, y);
-            
-            float maxX = (worldWidth - Gdx.app.getGraphics().getWidth() / pixelPerTile);
-            float maxY = (worldHeight - Gdx.app.getGraphics().getHeight() / pixelPerTile);
+
+            float maxX = (worldWidth - ((float)Gdx.app.getGraphics().getWidth() / (float)pixelPerTile));
+            float maxY = (worldHeight - ((float)Gdx.app.getGraphics().getHeight() / (float)pixelPerTile));
             if (newPosX >= 0 && newPosX <= maxX && newPosY >= 0 && newPosY <= maxY) {
                 cameraPosX = newPosX;
                 cameraPosY = newPosY;
