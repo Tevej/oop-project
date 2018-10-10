@@ -41,7 +41,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
     // The current timeMultiplier (0 means pause, 1 means default speed etc...)
     private float timeMultiplier = 1f;
 
-    private final long BILLION = (1000 * 1000 * 1000);
+    private final static long BILLION = (1000 * 1000 * 1000);
 
     @Override
     public void create() {

@@ -31,6 +31,8 @@ public class TimeController implements OnTappedListener {
             case KEY_2:
                 setMultiplerTo(2);
                 break;
+            default:
+                break;
         }
     }
 
