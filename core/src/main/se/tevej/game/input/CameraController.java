@@ -1,5 +1,6 @@
 package main.se.tevej.game.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import main.se.tevej.game.input.enums.TButton;
 import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
@@ -59,14 +60,12 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     public void onDragged(TMouse mouse, TButton button, float x, float y) {
         if (button == TButton.MOUSE_LEFT) {
             calculateNewPos(x, y);
-
-            // System.out.println("new pos: " + newPosX + ", " + newPosY + " world size: " + worldWidth + ", " + worldHeight);
-
-            // TODO: Change worldWidth/worldHeight to ex: worldWidth - (screen.size.x * pixelPerTile)!
-            if (newPosX >= 0 && newPosX <= worldWidth && newPosY >= 0 && newPosY <= worldHeight) {
+            
+            float maxX = (worldWidth - Gdx.app.getGraphics().getWidth() / pixelPerTile);
+            float maxY = (worldHeight - Gdx.app.getGraphics().getHeight() / pixelPerTile);
+            if (newPosX >= 0 && newPosX <= maxX && newPosY >= 0 && newPosY <= maxY) {
                 cameraPosX = newPosX;
                 cameraPosY = newPosY;
-                System.out.println(cameraPosX + ", " + cameraPosY);
                 view.setPosition(cameraPosX, cameraPosY);
             }
 
