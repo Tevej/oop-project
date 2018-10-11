@@ -12,6 +12,10 @@ public abstract class InputLibgdxAdapter {
 
     public static final Map<Integer, TButton> inputMap = new HashMap<>();
 
+    /**
+     * LibGdx receives and gives input through a InputMultiplexer
+     * and every single "device" which listens are inputprocessors.
+     */
     void addToInputMultiplexer(InputProcessor ip) {
         if(Gdx.input.getInputProcessor() == null){
             InputMultiplexer inputMultiplexer = new InputMultiplexer();
