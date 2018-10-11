@@ -18,7 +18,7 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.model.factories.WorldFactory;
+import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
@@ -77,7 +77,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         table.addElement(selectableList).width(200).height(200);
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
-		Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
+		Entity worldEntity = new WorldEntity(worldWidth, worldHeight, em);
 		Entity inventoryEntity = new Entity();
 		InventoryComponent iC = new InventoryComponent();
 		inventoryEntity.add(iC);
