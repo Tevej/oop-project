@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import main.se.tevej.game.controller.input.CameraController;
 import main.se.tevej.game.controller.input.TimeController;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnTimeChangeListener;
+import main.se.tevej.game.input.ConstructionController;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
@@ -58,6 +59,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         int worldHeight = 100;
         CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
+
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
 
@@ -77,16 +79,14 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 		// Look over naming of method / implementation (also adds the world to the engine.)
 		Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
 		Entity inventoryEntity = new Entity();
-		inventoryEntity.add(new InventoryComponent());
+		InventoryComponent iC = new InventoryComponent();
+		inventoryEntity.add(iC);
+		iC.addResource(new Resource(1000, ResourceType.WOOD));
+        iC.addResource(new Resource(1000, ResourceType.WATER));
+        iC.addResource(new Resource(1000, ResourceType.STONE));
+
 		em.addEntityToEngine(inventoryEntity);
 		em.addEntityToEngine(worldEntity);
-
-		Entity buildLumbermill = new Entity();
-		buildLumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
-		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(10, 10).getComponent(PositionComponent.class));
-		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
-		buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
-		em.getSignal().dispatch(buildLumbermill);
 
 		Entity buildHomeBuilding = new Entity();
 		buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
@@ -95,8 +95,9 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildHomeBuilding);
 
+        new ConstructionController(em, inputLibgdxFactory, worldEntity, camera);
+
 		gui = new InventoryGui(renderingFactory, inventoryEntity);
-	}
 
         TimeController timeController = new TimeController();
         timeController.registerOnTimeChange(this);

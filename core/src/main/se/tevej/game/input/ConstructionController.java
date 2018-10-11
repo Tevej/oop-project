@@ -2,9 +2,12 @@ package main.se.tevej.game.input;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
-import main.se.tevej.game.input.enums.TButton;
-import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
-import main.se.tevej.game.input.listenerInterfaces.OnTappedListener;
+import main.se.tevej.game.controller.input.CameraController;
+import main.se.tevej.game.controller.input.TKeyBoard;
+import main.se.tevej.game.controller.input.TMouse;
+import main.se.tevej.game.controller.input.enums.TButton;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnMovedListener;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
