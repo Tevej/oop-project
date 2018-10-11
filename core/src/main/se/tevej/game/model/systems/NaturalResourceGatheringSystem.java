@@ -31,7 +31,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
                     continue;
                 double x = i+positionComponent.getX();
                 double y = j+positionComponent.getY();
-                if (x < 0 || y < 0 || x > maxWidth || y > maxHeight)
+                if (x < 0 || y < 0 || x >= maxWidth || y >= maxHeight)
                     continue;
                 locations.add(new double[] {x, y});
             }
