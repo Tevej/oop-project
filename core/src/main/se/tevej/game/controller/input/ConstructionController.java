@@ -4,8 +4,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 
 import main.se.tevej.game.controller.input.enums.TButton;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnMovedListener;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
+import main.se.tevej.game.controller.input.listeners.OnMovedListener;
+import main.se.tevej.game.controller.input.listeners.OnTappedListener;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
@@ -25,7 +25,8 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     private TKeyBoard keyboard;
     private CameraController camera;
 
-    public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity, CameraController camera) {
+    public ConstructionController(EntityManager em, InputLibgdxFactory factory,
+                                  Entity worldEntity, CameraController camera) {
         this.em = em;
         this.worldEntity = worldEntity;
         this.keyboard = factory.createKeyBoard();
@@ -54,7 +55,8 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     private void buildConstruction(BuildingType type) {
         Entity entity = new Entity();
         entity.add(new BuildingComponent(type));
-        entity.add(worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
+        entity.add(worldEntity.getComponent(WorldComponent.class)
+            .getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
         entity.add(worldEntity.getComponent(WorldComponent.class));
         entity.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
         em.getSignal().dispatch(entity);

@@ -2,11 +2,11 @@ package main.se.tevej.game.view.rendering.ui;
 
 public interface TTable {
 
-    TCell addElement(TUIElement element);
+    TCell addElement(TUiElement element);
 
-    TTable x(float x);
+    TTable getX(float x);
 
-    TTable y(float y);
+    TTable getY(float y);
 
     TTable grid(int rows, int columns);
 

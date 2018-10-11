@@ -18,7 +18,8 @@ public class InventoryComponent implements Component {
 
     public void addResource(Resource resource) {
         if (resources.containsKey(resource.getType())) {
-            resources.put(resource.getType(), resources.get(resource.getType()) + resource.getAmount());
+            resources.put(resource.getType(),
+                resources.get(resource.getType()) + resource.getAmount());
         } else {
             resources.put(resource.getType(), resource.getAmount());
         }
@@ -28,12 +29,6 @@ public class InventoryComponent implements Component {
         return (double) resources.get(type);
     }
 
-    public void removeFromInventory(Resource resource) throws NotEnoughResourcesException {
-        checkResourceAmount(resource);
-
-        resources.put(resource.getType(), getAmountOfResource(resource.getType()) - resource.getAmount());
-    }
-
     private void checkResourceAmount(Resource resource) throws NotEnoughResourcesException {
         double currAmountOfResource = getAmountOfResource(resource.getType());
         if (resource.getAmount() > currAmountOfResource) {
@@ -41,12 +36,15 @@ public class InventoryComponent implements Component {
         }
     }
 
-    public void removeFromInventory(List<Resource> resourceList) throws NotEnoughResourcesException {
+    public void removeFromInventory(List<Resource> resourceList)
+        throws NotEnoughResourcesException {
+
         for (Resource resource : resourceList) {
             checkResourceAmount(resource);
         }
         for (Resource resource : resourceList) {
-            resources.put(resource.getType(), getAmountOfResource(resource.getType()) - resource.getAmount());
+            resources.put(resource.getType(),
+                getAmountOfResource(resource.getType()) - resource.getAmount());
         }
 
     }

@@ -1,15 +1,15 @@
 package main.se.tevej.game.controller.input;
 
+import static main.se.tevej.game.view.View.pixelPerTile;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import main.se.tevej.game.controller.input.enums.TButton;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnDraggedListener;
+import main.se.tevej.game.controller.input.listeners.OnClickedListener;
+import main.se.tevej.game.controller.input.listeners.OnDraggedListener;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.view.View;
-
-import static main.se.tevej.game.view.View.pixelPerTile;
 
 
 public class CameraController implements OnDraggedListener, OnClickedListener {
@@ -62,15 +62,18 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         if (button == TButton.MOUSE_LEFT) {
             calculateNewPos(x, y);
 
-            float maxX = (worldWidth - ((float) Gdx.app.getGraphics().getWidth() / (float) pixelPerTile));
-            float maxY = (worldHeight - ((float) Gdx.app.getGraphics().getHeight() / (float) pixelPerTile));
-
             if (newPosX < 0) {
                 newPosX = 0;
             }
             if (newPosY < 0) {
                 newPosY = 0;
             }
+
+            float maxX = (worldWidth
+                - ((float) Gdx.app.getGraphics().getWidth() / (float) pixelPerTile));
+            float maxY = (worldHeight
+                - ((float) Gdx.app.getGraphics().getHeight() / (float) pixelPerTile));
+
             if (newPosX > maxX) {
                 newPosX = maxX;
             }

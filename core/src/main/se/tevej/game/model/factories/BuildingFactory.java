@@ -14,7 +14,8 @@ import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
 public class BuildingFactory {
-    public static Entity createBuilding(BuildingType type, int x, int y) throws NoSuchBuildingException {
+    public static Entity createBuilding(
+        BuildingType type, int x, int y) throws NoSuchBuildingException {
         Entity building = new Entity();
         building.add(new PositionComponent(x, y));
         building.add(new SizeComponent(1, 1));

@@ -30,7 +30,9 @@ public class WorldFactory {
         return worldEntity;
     }
 
-    private static void generateNaturalResources(int width, int height, WorldComponent wc, EntityManager em) {
+    private static void generateNaturalResources(
+        int width, int height, WorldComponent wc, EntityManager em) {
+
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 PositionComponent pos = new PositionComponent(x, y);
@@ -70,19 +72,21 @@ public class WorldFactory {
             resource = new Resource(1000, ResourceType.STONE);
         }
         for (PositionComponent loc : locations) {
-            Entity naturalResourceEntity = NaturalResourceFactory.createNaturalResource(loc.getX(), loc.getY(), resource, em);
+            Entity naturalResourceEntity = NaturalResourceFactory
+                .createNaturalResource(loc.getX(), loc.getY(), resource, em);
             nrelist.add(naturalResourceEntity);
             em.addEntityToEngine(naturalResourceEntity);
         }
         return nrelist;
     }
 
-    private static List<PositionComponent> generateCluster(double prob,
-                                                           PositionComponent startPos,
-                                                           List<PositionComponent> occupiedSpots) {
+    private static List<PositionComponent> generateCluster(
+        double prob, PositionComponent startPos, List<PositionComponent> occupiedSpots) {
+
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
-                PositionComponent pos = new PositionComponent(startPos.getX() + i, startPos.getY() + j);
+                PositionComponent pos =
+                    new PositionComponent(startPos.getX() + i, startPos.getY() + j);
                 if (Math.random() < prob && !occupiedSpots.contains(pos)) {
                     occupiedSpots.add(pos);
                     generateCluster(prob * 0.5, pos, occupiedSpots);

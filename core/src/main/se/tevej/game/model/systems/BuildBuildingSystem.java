@@ -37,9 +37,11 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
                 SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
                 switch (signalComponent.getType()) {
                     case BUILDBUILDING:
-                        BuildingComponent buildingC = signalEntity.getComponent(BuildingComponent.class);
+                        BuildingComponent buildingC =
+                            signalEntity.getComponent(BuildingComponent.class);
                         PositionComponent posC = signalEntity.getComponent(PositionComponent.class);
-                        Entity tile = signalEntity.getComponent(WorldComponent.class).getTileAt((int) posC.getX(), (int) posC.getY());
+                        Entity tile = signalEntity.getComponent(WorldComponent.class)
+                            .getTileAt((int) posC.getX(), (int) posC.getY());
                         System.out.println(posC.getX() + ", " + posC.getY());
                         TileComponent tileC = tile.getComponent(TileComponent.class);
                         buildBuilding(tileC, posC, buildingC.getType());
@@ -51,7 +53,9 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
         };
     }
 
-    private void buildBuilding(TileComponent tileC, PositionComponent posC, BuildingType buildingType) {
+    private void buildBuilding(
+        TileComponent tileC, PositionComponent posC, BuildingType buildingType) {
+
         Entity building;
         try {
             building = BuildingFactory.createBuilding(buildingType, posC.getX(), posC.getY());
