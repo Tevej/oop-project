@@ -1,7 +1,7 @@
 package main.se.tevej.game.model.components;
 
 import com.badlogic.ashley.core.Component;
-import main.se.tevej.game.exceptions.MissmatchedResourceException;
+import main.se.tevej.game.exceptions.MismatchedResourceException;
 import main.se.tevej.game.model.resource.Resource;
 
 public class GathererComponent implements Component{
@@ -20,11 +20,11 @@ public class GathererComponent implements Component{
                 resourcePerSecond.getType());
     }
 
-    public void setResourcePerSecond(Resource newSpeed) throws MissmatchedResourceException{
+    public void setResourcePerSecond(Resource newSpeed) throws MismatchedResourceException {
         if (newSpeed.getType() == resourcePerSecond.getType()) {
             this.resourcePerSecond = resourcePerSecond.setAmount(newSpeed.getAmount());
         } else {
-            throw new MissmatchedResourceException();
+            throw new MismatchedResourceException();
         }
     }
 }
