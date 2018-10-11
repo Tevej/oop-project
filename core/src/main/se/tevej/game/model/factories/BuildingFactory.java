@@ -29,7 +29,7 @@ public class BuildingFactory {
             case PUMP:
                 return createPump(building);
             default:
-                throw new NoSuchBuildingException(type);
+                throw new NoSuchBuildingException();
         }
     }
 

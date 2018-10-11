@@ -42,7 +42,7 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
                 image = wood;
                 break;
             default:
-                throw new UnknownResourceException(nrc.getType());
+                throw new UnknownResourceException();
         }
 
         if (image != null) {
