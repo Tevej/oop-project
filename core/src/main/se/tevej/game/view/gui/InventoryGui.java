@@ -1,13 +1,14 @@
 package main.se.tevej.game.view.gui;
 
+import java.util.LinkedList;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
-import main.se.tevej.game.view.rendering.ui.*;
-
-import java.util.LinkedList;
+import main.se.tevej.game.view.rendering.ui.TTable;
 
 public class InventoryGui {
     private Entity inventoryEntity;
@@ -31,10 +32,10 @@ public class InventoryGui {
         inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.POPULATION), "population.png", ResourceType.POPULATION));
 
         inventoryTable = renderingFactory.createTable()
-                .x((Gdx.graphics.getWidth() / 2f))
-                .y(Gdx.graphics.getHeight()- TABLE_HEIGHT / 2f)
-                .grid(inventoryElements.size()*2, 1)
-                .debug(false);
+            .x((Gdx.graphics.getWidth() / 2f))
+            .y(Gdx.graphics.getHeight() - TABLE_HEIGHT / 2f)
+            .grid(inventoryElements.size() * 2, 1)
+            .debug(false);
         for (InventoryElement inventoryElement : inventoryElements) {
             inventoryTable.addElement(inventoryElement.getImage()).height(32).width(32);
             inventoryTable.addElement(inventoryElement.getLabel()).height(32).width(50);

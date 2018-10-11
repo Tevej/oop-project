@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+
 import main.se.tevej.game.view.rendering.ui.TTextField;
 
 public class TextFieldLibgdxAdapter extends TextField implements TTextField {

@@ -1,31 +1,32 @@
 package main.se.tevej.game.libgdx.view.rendering.ui;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
 import main.se.tevej.game.view.rendering.ui.TCell;
 import main.se.tevej.game.view.rendering.ui.TTable;
 import main.se.tevej.game.view.rendering.ui.TUIElement;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class TableLibgdxAdapter extends Table implements TTable {
     private Stage stage;
     private Map<Cell, TUIElement> cells;
 
-    public TableLibgdxAdapter(){
+    public TableLibgdxAdapter() {
         stage = new Stage();
         cells = new LinkedHashMap<>();
 
-        if(Gdx.input.getInputProcessor() == null){
+        if (Gdx.input.getInputProcessor() == null) {
             InputMultiplexer inputMultiplexer = new InputMultiplexer();
             inputMultiplexer.addProcessor(stage);
             Gdx.input.setInputProcessor(inputMultiplexer);
-        }else{
+        } else {
             InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
             inputMultiplexer.addProcessor(stage);
         }
@@ -83,9 +84,9 @@ public class TableLibgdxAdapter extends Table implements TTable {
         stage.draw();
     }
 
-    private Cell getAndSetFirstAvailableCell(TUIElement element){
+    private Cell getAndSetFirstAvailableCell(TUIElement element) {
         for (Map.Entry<Cell, TUIElement> entry : cells.entrySet()) {
-            if(entry.getValue() == null){
+            if (entry.getValue() == null) {
                 Cell cell = entry.getKey();
                 cells.put(cell, element);
                 Actor actor = (Actor) element;

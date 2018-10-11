@@ -1,12 +1,9 @@
 package main.se.tevej.game.view.gui;
 
-import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
-import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.ui.TImage;
 import main.se.tevej.game.view.rendering.ui.TLabel;
-import main.se.tevej.game.view.rendering.ui.TTextField;
 import main.se.tevej.game.view.rendering.ui.TUIElement;
 
 public class InventoryElement implements TUIElement {

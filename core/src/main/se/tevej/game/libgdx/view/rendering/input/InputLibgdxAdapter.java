@@ -1,23 +1,24 @@
 package main.se.tevej.game.libgdx.view.rendering.input;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import main.se.tevej.game.controller.input.enums.TButton;
 
-import java.util.HashMap;
-import java.util.Map;
+import main.se.tevej.game.controller.input.enums.TButton;
 
 public abstract class InputLibgdxAdapter {
 
     public static final Map<Integer, TButton> inputMap = new HashMap<>();
 
     void addToInputMultiplexer(InputProcessor ip) {
-        if(Gdx.input.getInputProcessor() == null){
+        if (Gdx.input.getInputProcessor() == null) {
             InputMultiplexer inputMultiplexer = new InputMultiplexer();
             inputMultiplexer.addProcessor(ip);
             Gdx.input.setInputProcessor(inputMultiplexer);
-        }else{
+        } else {
             InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
             inputMultiplexer.addProcessor(ip);
         }

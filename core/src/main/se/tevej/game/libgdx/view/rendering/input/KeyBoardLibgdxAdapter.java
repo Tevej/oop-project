@@ -1,21 +1,67 @@
 package main.se.tevej.game.libgdx.view.rendering.input;
 
-import com.badlogic.gdx.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.badlogic.gdx.InputAdapter;
+
 import main.se.tevej.game.controller.input.TKeyBoard;
 import main.se.tevej.game.controller.input.enums.TButton;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.badlogic.gdx.Input.Keys.*;
+import static com.badlogic.gdx.Input.Keys.A;
+import static com.badlogic.gdx.Input.Keys.ALT_LEFT;
+import static com.badlogic.gdx.Input.Keys.B;
+import static com.badlogic.gdx.Input.Keys.C;
+import static com.badlogic.gdx.Input.Keys.CONTROL_LEFT;
+import static com.badlogic.gdx.Input.Keys.D;
+import static com.badlogic.gdx.Input.Keys.DOWN;
+import static com.badlogic.gdx.Input.Keys.E;
+import static com.badlogic.gdx.Input.Keys.ENTER;
+import static com.badlogic.gdx.Input.Keys.ESCAPE;
+import static com.badlogic.gdx.Input.Keys.F;
+import static com.badlogic.gdx.Input.Keys.G;
+import static com.badlogic.gdx.Input.Keys.H;
+import static com.badlogic.gdx.Input.Keys.I;
+import static com.badlogic.gdx.Input.Keys.J;
+import static com.badlogic.gdx.Input.Keys.K;
+import static com.badlogic.gdx.Input.Keys.L;
+import static com.badlogic.gdx.Input.Keys.LEFT;
+import static com.badlogic.gdx.Input.Keys.M;
+import static com.badlogic.gdx.Input.Keys.N;
+import static com.badlogic.gdx.Input.Keys.NUM_0;
+import static com.badlogic.gdx.Input.Keys.NUM_1;
+import static com.badlogic.gdx.Input.Keys.NUM_2;
+import static com.badlogic.gdx.Input.Keys.NUM_3;
+import static com.badlogic.gdx.Input.Keys.NUM_4;
+import static com.badlogic.gdx.Input.Keys.NUM_5;
+import static com.badlogic.gdx.Input.Keys.NUM_6;
+import static com.badlogic.gdx.Input.Keys.NUM_7;
+import static com.badlogic.gdx.Input.Keys.NUM_8;
+import static com.badlogic.gdx.Input.Keys.NUM_9;
+import static com.badlogic.gdx.Input.Keys.O;
+import static com.badlogic.gdx.Input.Keys.P;
+import static com.badlogic.gdx.Input.Keys.Q;
+import static com.badlogic.gdx.Input.Keys.R;
+import static com.badlogic.gdx.Input.Keys.RIGHT;
+import static com.badlogic.gdx.Input.Keys.S;
+import static com.badlogic.gdx.Input.Keys.SHIFT_LEFT;
+import static com.badlogic.gdx.Input.Keys.SPACE;
+import static com.badlogic.gdx.Input.Keys.T;
+import static com.badlogic.gdx.Input.Keys.TAB;
+import static com.badlogic.gdx.Input.Keys.U;
+import static com.badlogic.gdx.Input.Keys.UP;
+import static com.badlogic.gdx.Input.Keys.V;
+import static com.badlogic.gdx.Input.Keys.W;
+import static com.badlogic.gdx.Input.Keys.X;
+import static com.badlogic.gdx.Input.Keys.Y;
+import static com.badlogic.gdx.Input.Keys.Z;
 
 public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
 
     static final Map<Integer, TButton> inputMap = new HashMap<>();
 
-    static
-    {
+    static {
         inputMap.put(NUM_1, TButton.KEY_1);
         inputMap.put(NUM_2, TButton.KEY_2);
         inputMap.put(NUM_3, TButton.KEY_3);
@@ -75,10 +121,10 @@ public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoa
         addToInputMultiplexer(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-               if (inputMap.containsKey(keycode)) {
-                   onClickedListener.onTapped(keyboard, inputMap.get(keycode));
-               }
-               return true;
+                if (inputMap.containsKey(keycode)) {
+                    onClickedListener.onTapped(keyboard, inputMap.get(keycode));
+                }
+                return true;
             }
         });
     }

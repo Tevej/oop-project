@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+
 import main.se.tevej.game.view.rendering.ui.TSelectableList;
 
 public class SelectableListLibgdxAdapter extends ScrollPane implements TSelectableList {

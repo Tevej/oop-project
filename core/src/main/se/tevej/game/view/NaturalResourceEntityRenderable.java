@@ -1,6 +1,7 @@
 package main.se.tevej.game.view;
 
 import com.badlogic.ashley.core.Entity;
+
 import main.se.tevej.game.exceptions.UnknownResourceException;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
@@ -47,8 +48,8 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
 
         if (image != null) {
             batchRenderer.renderTexture(image, (pc.getX() + offsetX) * pixelPerTile,
-                    (pc.getY()  + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
-                    sc.getHeight() * pixelPerTile);
+                (pc.getY() + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
+                sc.getHeight() * pixelPerTile);
         }
     }
 }

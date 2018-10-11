@@ -2,9 +2,10 @@ package main.se.tevej.game.controller.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+
+import main.se.tevej.game.controller.input.enums.TButton;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnDraggedListener;
-import main.se.tevej.game.controller.input.enums.TButton;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.view.View;
 
@@ -64,10 +65,18 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
             float maxX = (worldWidth - ((float) Gdx.app.getGraphics().getWidth() / (float) pixelPerTile));
             float maxY = (worldHeight - ((float) Gdx.app.getGraphics().getHeight() / (float) pixelPerTile));
 
-            if (newPosX < 0) { newPosX = 0; }
-            if (newPosY < 0) { newPosY = 0; }
-            if (newPosX > maxX) { newPosX = maxX; }
-            if (newPosY > maxY) { newPosY = maxY; }
+            if (newPosX < 0) {
+                newPosX = 0;
+            }
+            if (newPosY < 0) {
+                newPosY = 0;
+            }
+            if (newPosX > maxX) {
+                newPosX = maxX;
+            }
+            if (newPosY > maxY) {
+                newPosY = maxY;
+            }
 
             updateCameraPos();
 
