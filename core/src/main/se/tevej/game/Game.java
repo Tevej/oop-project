@@ -4,8 +4,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import main.se.tevej.game.input.CameraController;
-import main.se.tevej.game.input.ConstructionController;
+import main.se.tevej.game.controller.input.CameraController;
+import main.se.tevej.game.controller.input.TimeController;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnTimeChangeListener;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
@@ -24,59 +25,68 @@ import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 
-public class Game extends ApplicationAdapter {
-	private RenderingFactory renderingFactory;
+public class Game extends ApplicationAdapter implements OnTimeChangeListener {
+    private RenderingFactory renderingFactory;
 
-	private EntityManager em;
-	private View view;
-	private TTable table;
-	private InputLibgdxFactory inputLibgdxFactory;
+    private EntityManager em;
+    private View view;
+    private TTable table;
+    private InputLibgdxFactory inputLibgdxFactory;
 
-	private InventoryGui gui;
+    private InventoryGui gui;
 
+    private long lastFrameNanoTime;
+    private long currFrameNanoTime;
+    private float deltaTime;
+    private float printFrameRate;
 
+    // The current timeMultiplier (0 means pause, 1 means default speed etc...)
+    private float timeMultiplier = 1f;
 
-	@Override
-	public void create () {
-		inputLibgdxFactory = new InputLibgdxFactory();
-		renderingFactory = new RenderingLibgdxFactory();
+    private final static long BILLION = (1000 * 1000 * 1000);
 
-		em = new EntityManager();
-		view = new View(em, renderingFactory);
+    @Override
+    public void create() {
+        inputLibgdxFactory = new InputLibgdxFactory();
+        renderingFactory = new RenderingLibgdxFactory();
+        lastFrameNanoTime = System.nanoTime();
+
+        em = new EntityManager();
+        view = new View(em, renderingFactory);
 
         int worldWidth = 100;
         int worldHeight = 100;
         CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
-
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
 
-		TTextField textField = renderingFactory.createTextField().set("Hej").addListener(value -> {
-			System.out.println("New value of textfield:" + value);
-		});
+        TTextField textField = renderingFactory.createTextField().set("Hej").addListener(value -> {
+            System.out.println("New value of textfield:" + value);
+        });
 
-		TLabel label = renderingFactory.createLabel().text("This is a label");
+        TLabel label = renderingFactory.createLabel().text("This is a label");
 
-		table = renderingFactory.createTable().x((Gdx.graphics.getWidth() / 2f)).y(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
+        table = renderingFactory.createTable().x((Gdx.graphics.getWidth() / 2f)).y(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
 
-		table.addElement(button).width(200).height(50);
-		table.addElement(textField).width(200).height(50);
-		table.addElement(label).width(200).height(200);
-		table.addElement(selectableList).width(200).height(200);
+        table.addElement(button).width(200).height(50);
+        table.addElement(textField).width(200).height(50);
+        table.addElement(label).width(200).height(200);
+        table.addElement(selectableList).width(200).height(200);
 
 		// Look over naming of method / implementation (also adds the world to the engine.)
 		Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
 		Entity inventoryEntity = new Entity();
-		InventoryComponent ic = new InventoryComponent();
-		ic.addResource(new Resource(1000, ResourceType.WOOD));
-		ic.addResource(new Resource(1000, ResourceType.WATER));
-		ic.addResource(new Resource(1000, ResourceType.STONE));
-		ic.addResource(new Resource(1000, ResourceType.FOOD));
-		inventoryEntity.add(ic);
-
+		inventoryEntity.add(new InventoryComponent());
 		em.addEntityToEngine(inventoryEntity);
 		em.addEntityToEngine(worldEntity);
+
+		Entity buildLumbermill = new Entity();
+		buildLumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
+		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(10, 10).getComponent(PositionComponent.class));
+		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
+		buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
+		em.getSignal().dispatch(buildLumbermill);
 
 		Entity buildHomeBuilding = new Entity();
 		buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
@@ -85,26 +95,52 @@ public class Game extends ApplicationAdapter {
 		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildHomeBuilding);
 
-		new ConstructionController(em,inputLibgdxFactory,worldEntity,camera);
 		gui = new InventoryGui(renderingFactory, inventoryEntity);
 	}
 
-	@Override
-	public void render () {
-		em.update(1f / 60f);
+        TimeController timeController = new TimeController();
+        timeController.registerOnTimeChange(this);
+    }
 
-		Gdx.gl.glClearColor(1, 1,1 ,1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    @Override
+    public void render() {
+        calculateDeltaTime();
 
-		view.render();
+        em.update(deltaTime);
 
-		table.update(1f / 60f);
-		//table.render();
-		gui.update(1f / 60f);
-		gui.render();
-	}
-	
-	@Override
-	public void dispose () {
-	}
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        view.render();
+
+        table.update(deltaTime);
+        //table.render();
+        gui.update(deltaTime);
+        gui.render();
+    }
+
+    private void calculateDeltaTime() {
+        currFrameNanoTime = System.nanoTime();
+        long diff = currFrameNanoTime - lastFrameNanoTime;
+        lastFrameNanoTime = currFrameNanoTime;
+        deltaTime = ((float)diff / (float)BILLION);
+
+        printFrameRate += deltaTime;
+        if (printFrameRate >= 0.1f) {
+            System.out.println("FPS: " + (1 / deltaTime));
+            printFrameRate = 0;
+        }
+
+        deltaTime *= timeMultiplier;
+    }
+
+    @Override
+    public void updateTimeMultipler(float newMultiplier) {
+        timeMultiplier = newMultiplier;
+        System.out.println("TimeMultiplier updated to " + timeMultiplier);
+    }
+
+    @Override
+    public void dispose() {
+    }
 }

@@ -1,4 +1,4 @@
-package main.se.tevej.game.input.enums;
+package main.se.tevej.game.controller.input.enums;
 
 public enum TButton {
         KEY_1,
