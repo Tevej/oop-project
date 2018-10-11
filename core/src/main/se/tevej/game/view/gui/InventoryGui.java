@@ -3,7 +3,7 @@ package main.se.tevej.game.view.gui;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import main.se.tevej.game.model.components.InventoryComponent;
-import main.se.tevej.game.model.resource.ResourceType;
+import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.ui.*;
 

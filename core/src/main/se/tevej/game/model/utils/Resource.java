@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.resource;
+package main.se.tevej.game.model.utils;
 
 public class Resource {
     private final double amount;
