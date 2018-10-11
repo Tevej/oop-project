@@ -2,13 +2,6 @@ package main.se.tevej.game.model.ashley;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.signals.Signal;
-import main.se.tevej.game.model.components.PositionComponent;
-import main.se.tevej.game.model.components.TileComponent;
-import main.se.tevej.game.model.components.WorldComponent;
-import main.se.tevej.game.model.components.buildings.BuildingComponent;
-import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.model.components.buildings.HomeComponent;
-import main.se.tevej.game.model.factories.WorldFactory;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
