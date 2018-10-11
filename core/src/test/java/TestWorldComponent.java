@@ -4,6 +4,7 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.WorldEntity;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TestWorldComponent {
@@ -29,6 +30,11 @@ public class TestWorldComponent {
         assertTrue(
                 wc.getTileAt(33,22).getComponent(PositionComponent.class).getY() == 22
         );
+    }
 
+    @Test
+    public void getDimensions(){
+        assertTrue(wc.getHeight() == 23);
+        assertTrue(wc.getWidth() == 34);
     }
 }
