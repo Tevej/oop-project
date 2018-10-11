@@ -1,11 +1,10 @@
-package main.se.tevej.game.input;
+package main.se.tevej.game.controller.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import main.se.tevej.game.input.enums.TButton;
-import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
-import main.se.tevej.game.input.listenerInterfaces.OnDraggedListener;
-import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnDraggedListener;
+import main.se.tevej.game.controller.input.enums.TButton;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.view.View;
 
@@ -41,7 +40,7 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         this.worldHeight = worldHeight;
     }
 
-    void calculateNewPos( float x, float y) {
+    void calculateNewPos(float x, float y) {
         Vector2 pos = getScreenToWorldCoord(x, y);
 
         float deltaX = pos.x - prevX;
@@ -62,16 +61,24 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         if (button == TButton.MOUSE_LEFT) {
             calculateNewPos(x, y);
 
-            float maxX = (worldWidth - ((float)Gdx.app.getGraphics().getWidth() / (float)pixelPerTile));
-            float maxY = (worldHeight - ((float)Gdx.app.getGraphics().getHeight() / (float)pixelPerTile));
-            if (newPosX >= 0 && newPosX <= maxX && newPosY >= 0 && newPosY <= maxY) {
-                cameraPosX = newPosX;
-                cameraPosY = newPosY;
-                view.setPosition(cameraPosX, cameraPosY);
-            }
+            float maxX = (worldWidth - ((float) Gdx.app.getGraphics().getWidth() / (float) pixelPerTile));
+            float maxY = (worldHeight - ((float) Gdx.app.getGraphics().getHeight() / (float) pixelPerTile));
+
+            if (newPosX < 0) { newPosX = 0; }
+            if (newPosY < 0) { newPosY = 0; }
+            if (newPosX > maxX) { newPosX = maxX; }
+            if (newPosY > maxY) { newPosY = maxY; }
+
+            updateCameraPos();
 
             updatePrev(x, y);
         }
+    }
+
+    private void updateCameraPos() {
+        cameraPosX = newPosX;
+        cameraPosY = newPosY;
+        view.setPosition(cameraPosX, cameraPosY);
     }
 
     private void updatePrev(float x, float y) {
@@ -84,7 +91,7 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         x /= pixelPerTile;
         y /= pixelPerTile;
         x += cameraPosX;
-        y = ((float)Gdx.app.getGraphics().getHeight() / (float)pixelPerTile) + (cameraPosY - y);
+        y = ((float) Gdx.app.getGraphics().getHeight() / (float) pixelPerTile) + (cameraPosY - y);
         return new Vector2(x, y);
     }
 }
