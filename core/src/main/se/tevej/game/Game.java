@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import main.se.tevej.game.controller.input.CameraController;
 import main.se.tevej.game.controller.input.TimeController;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnTimeChangeListener;
-import main.se.tevej.game.input.ConstructionController;
+import main.se.tevej.game.controller.input.ConstructionController;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
