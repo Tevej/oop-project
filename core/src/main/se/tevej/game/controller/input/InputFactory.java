@@ -1,4 +1,4 @@
-package main.se.tevej.game.input;
+package main.se.tevej.game.controller.input;
 
 public interface InputFactory {
 
