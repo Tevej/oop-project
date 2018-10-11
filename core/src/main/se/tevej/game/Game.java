@@ -20,7 +20,8 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.model.factories.WorldFactory;
+import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.View;
@@ -101,9 +102,24 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         timeController.registerOnTimeChange(this);
     }
 
-    private void createGui() {
-        table = renderingFactory.createTable().getX((Gdx.graphics.getWidth() / 2f))
-            .getY(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
+		// Look over naming of method / implementation (also adds the world to the engine.)
+		Entity worldEntity = new WorldEntity(worldWidth, worldHeight, em);
+		Entity inventoryEntity = new Entity();
+		InventoryComponent iC = new InventoryComponent();
+		inventoryEntity.add(iC);
+		iC.addResource(new Resource(1000, ResourceType.WOOD));
+        iC.addResource(new Resource(1000, ResourceType.WATER));
+        iC.addResource(new Resource(1000, ResourceType.STONE));
+
+		em.addEntityToEngine(inventoryEntity);
+		em.addEntityToEngine(worldEntity);
+
+		Entity buildHomeBuilding = new Entity();
+		buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
+		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
+		em.getSignal().dispatch(buildHomeBuilding);
 
         TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() ->
             System.out.println("Hej!"));
