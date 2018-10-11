@@ -38,15 +38,13 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
     }
 
     private boolean checkOutOfBounds(int i, int j, PositionComponent positionComponent, int maxWidth, int maxHeight ){
-        if (i == 0 && j == 0) {
-            return true;
-        }
         double x = i+positionComponent.getX();
         double y = j+positionComponent.getY();
-        if (x < 0 || y < 0 || x >= maxWidth || y >= maxHeight) {
-            return true;
-        }
-        return false;
+        return ( (i == 0 && j == 0)
+                || x < 0 
+                || y < 0
+                || x >= maxWidth
+                || y >= maxHeight );
     }
 
     private void gatherFromLocation(float deltaTime, Entity occupier, InventoryComponent ic, GathererComponent gc){
