@@ -1,16 +1,21 @@
 package main.se.tevej.game.view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
+
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
-
-import java.util.*;
 
 public class View {
 
@@ -48,7 +53,7 @@ public class View {
         this.currCameraPosY = y;
     }
 
-    public void render(){
+    public void render() {
         tBatchRenderer.beginRendering();
 
         for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererToEntityMap.entrySet()) {
@@ -67,15 +72,16 @@ public class View {
     /**
      * Goes through all the components of an added entity and checks if it has a EntityRenderable for it.
      * As soon as it finds one compatiable EntityRenderable, it stops searching and adds the entity to the render pool.
+     *
      * @return A entity listener that adds suitable entities to Views render pool.
      */
     private EntityListener getNewEntityListener() {
         return new EntityListener() {
             @Override
             public void entityAdded(Entity entity) {
-                for(Component c : entity.getComponents()){
+                for (Component c : entity.getComponents()) {
                     EntityRenderable entityRenderable = typeToRenderable.get(c.getClass());
-                    if(entityRenderable != null) {
+                    if (entityRenderable != null) {
                         List<Entity> entities;
                         if (rendererToEntityMap.containsKey(entityRenderable)) {
                             entities = rendererToEntityMap.get(entityRenderable);
@@ -111,9 +117,9 @@ public class View {
     }
 
     private Map<Class<? extends Component>, EntityRenderable> addOutputElement(
-            Map<Class<? extends Component>, EntityRenderable> map,
-            Class<? extends Component> type,
-            EntityRenderable renderable) {
+        Map<Class<? extends Component>, EntityRenderable> map,
+        Class<? extends Component> type,
+        EntityRenderable renderable) {
 
         map.put(type, renderable);
         rendererToEntityMap.put(renderable, new ArrayList<>());

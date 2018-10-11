@@ -7,6 +7,7 @@ import com.badlogic.ashley.signals.Signal;
 public interface SignalListener {
 
     void setSignal(Signal<Entity> signal);
+
     Listener<Entity> getSignalListener();
 
 }

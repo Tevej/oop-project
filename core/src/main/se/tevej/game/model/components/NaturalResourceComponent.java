@@ -1,6 +1,7 @@
 package main.se.tevej.game.model.components;
 
 import com.badlogic.ashley.core.Component;
+
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
@@ -20,7 +21,7 @@ public class NaturalResourceComponent implements Component {
         if (resource.getAmount() < extractedResource.getAmount()) {
             throw new NotEnoughResourcesException();
         }
-        resource = this.resource.setAmount(resource.getAmount()-extractedResource.getAmount());
+        resource = this.resource.setAmount(resource.getAmount() - extractedResource.getAmount());
     }
 
     public ResourceType getType() {

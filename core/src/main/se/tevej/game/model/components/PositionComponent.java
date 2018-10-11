@@ -31,7 +31,7 @@ public class PositionComponent implements Component {
     public boolean equals(Object obj) {
         if (obj instanceof PositionComponent) {
             return (x == ((PositionComponent) obj).getX() &&
-                    y == ((PositionComponent) obj).getY());
+                y == ((PositionComponent) obj).getY());
         }
         return super.equals(obj);
     }

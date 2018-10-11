@@ -1,6 +1,7 @@
 package main.se.tevej.game.view;
 
 import com.badlogic.ashley.core.Entity;
+
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.view.rendering.RenderingFactory;
@@ -11,7 +12,7 @@ public class TextureEntityRenderable implements EntityRenderable {
 
     private TTexture texture;
 
-    public TextureEntityRenderable(String path, RenderingFactory renderingFactory){
+    public TextureEntityRenderable(String path, RenderingFactory renderingFactory) {
         this.texture = renderingFactory.createTexture(path);
     }
 
@@ -21,7 +22,7 @@ public class TextureEntityRenderable implements EntityRenderable {
         SizeComponent sc = entity.getComponent(SizeComponent.class);
 
         batchRenderer.renderTexture(texture, (pc.getX() + offsetX) * pixelPerTile,
-                (pc.getY() + offsetY)* pixelPerTile,sc.getWidth() * pixelPerTile,
-                sc.getHeight()*pixelPerTile);
+            (pc.getY() + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
+            sc.getHeight() * pixelPerTile);
     }
 }
