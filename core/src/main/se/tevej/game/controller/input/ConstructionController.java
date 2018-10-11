@@ -1,4 +1,4 @@
-package main.se.tevej.game.input;
+package main.se.tevej.game.controller.input;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
@@ -38,28 +38,23 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     }
 
     public void onTapped (TKeyBoard keyBoard, TButton button){
-        if (button.equals(TButton.KEY_L)) {
-            Entity lumbermill = new Entity();
-            lumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
-            buildConstruction(lumbermill);
-            em.getSignal().dispatch(lumbermill);
-        } else if (button.equals(TButton.KEY_Q)) {
-            Entity quarry = new Entity();
-            quarry.add(new BuildingComponent(BuildingType.QUARRY));
-            buildConstruction(quarry);
-            em.getSignal().dispatch(quarry);
-        } else if (button.equals(TButton.KEY_P)) {
-            Entity pump = new Entity();
-            pump.add(new BuildingComponent(BuildingType.PUMP));
-            buildConstruction(pump);
-            em.getSignal().dispatch(pump);
+        switch (button) {
+            case  KEY_L:
+                buildConstruction(BuildingType.LUMBERMILL);
+            case KEY_Q:
+                buildConstruction(BuildingType.QUARRY);
+            case KEY_P:
+                buildConstruction(BuildingType.PUMP);
         }
     }
 
-    private void buildConstruction(Entity entity){
+    private void buildConstruction(BuildingType type) {
+        Entity entity = new Entity();
+        entity.add(new BuildingComponent(type));
         entity.add(worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
         entity.add(worldEntity.getComponent(WorldComponent.class));
         entity.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
+        em.getSignal().dispatch(entity);
     }
 
     public void onMoved(TMouse mouse) {
