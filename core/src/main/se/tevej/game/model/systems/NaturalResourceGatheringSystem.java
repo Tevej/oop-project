@@ -23,7 +23,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
         this.em = em;
     }
 
-    private List<double[]> getLocationsInRadius(int radius, PositionComponent positionComponent){
+    private List<double[]> getLocationsInRadius(int radius, PositionComponent positionComponent, int maxWidth, int maxHeight){
         List<double[]> locations = new ArrayList<>();
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++){
@@ -31,7 +31,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
                     continue;
                 double x = i+positionComponent.getX();
                 double y = j+positionComponent.getY();
-                if (x < 0 || y < 0)
+                if (x < 0 || y < 0 || x > maxWidth || y > maxHeight)
                     continue;
                 locations.add(new double[] {x, y});
             }
@@ -68,17 +68,20 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
         ImmutableArray<Entity> gatherers = engine.getEntitiesFor(Family.all(GathererComponent.class, PositionComponent.class).get());
         InventoryComponent iC = engine.getEntitiesFor(Family.all(InventoryComponent.class).get())
                 .first().getComponent(InventoryComponent.class);
+        WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
+                .first().getComponent(WorldComponent.class);
+        int maxWidth = wc.getWidth();
+        int maxHeight = wc.getHeight();
+
         for (Entity gatherer :
                 gatherers) {
             GathererComponent gc = gatherer.getComponent(GathererComponent.class);
             RadiusComponent rc = gatherer.getComponent(RadiusComponent.class);
+
             List<double[]> locations = getLocationsInRadius(rc.getRadius(),
-                    gatherer.getComponent(PositionComponent.class));
-            WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
-                    .first().getComponent(WorldComponent.class);
+                    gatherer.getComponent(PositionComponent.class), maxWidth, maxHeight);
 
             for (double[] loc : locations) {
-
                 Entity tilE = wc.getTileAt((int)loc[0],(int)loc[1]);
                 TileComponent tc = tilE.getComponent(TileComponent.class);
                 Entity tileE = tc.getOccupier();

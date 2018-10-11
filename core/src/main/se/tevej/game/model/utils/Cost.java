@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.components;
+package main.se.tevej.game.model.utils;
 
 import com.badlogic.ashley.core.Component;
 import main.se.tevej.game.model.components.buildings.BuildingType;
@@ -7,7 +7,7 @@ import main.se.tevej.game.model.utils.ResourceType;
 
 import java.util.*;
 
-public class CostComponent implements Component {
+public class Cost {
     private final static HashMap<BuildingType, List<Resource>> buildingCost =
             new HashMap<BuildingType, List<Resource>>() {
                 {

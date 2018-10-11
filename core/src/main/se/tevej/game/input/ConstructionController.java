@@ -36,27 +36,27 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
 
     public void onTapped (TKeyBoard keyBoard, TButton button){
         if (button.equals(TButton.KEY_L)) {
-            Entity buildLumbermill = new Entity();
-            buildLumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
-            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
-            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
-            buildLumbermill.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
-            em.getSignal().dispatch(buildLumbermill);
+            Entity lumbermill = new Entity();
+            lumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
+            buildConstruction(lumbermill);
+            em.getSignal().dispatch(lumbermill);
         } else if (button.equals(TButton.KEY_Q)) {
-            Entity buildLumbermill = new Entity();
-            buildLumbermill.add(new BuildingComponent(BuildingType.QUARRY));
-            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
-            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
-            buildLumbermill.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
-            em.getSignal().dispatch(buildLumbermill);
+            Entity quarry = new Entity();
+            quarry.add(new BuildingComponent(BuildingType.QUARRY));
+            buildConstruction(quarry);
+            em.getSignal().dispatch(quarry);
         } else if (button.equals(TButton.KEY_P)) {
-            Entity buildLumbermill = new Entity();
-            buildLumbermill.add(new BuildingComponent(BuildingType.PUMP));
-            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
-            buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
-            buildLumbermill.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
-            em.getSignal().dispatch(buildLumbermill);
+            Entity pump = new Entity();
+            pump.add(new BuildingComponent(BuildingType.PUMP));
+            buildConstruction(pump);
+            em.getSignal().dispatch(pump);
         }
+    }
+
+    private void buildConstruction(Entity entity){
+        entity.add(worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
+        entity.add(worldEntity.getComponent(WorldComponent.class));
+        entity.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
     }
 
     public void onMoved(TMouse mouse) {

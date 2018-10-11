@@ -78,13 +78,6 @@ public class Game extends ApplicationAdapter {
 		em.addEntityToEngine(inventoryEntity);
 		em.addEntityToEngine(worldEntity);
 
-		Entity buildLumbermill = new Entity();
-		buildLumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
-		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(10, 10).getComponent(PositionComponent.class));
-		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
-		buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
-		em.getSignal().dispatch(buildLumbermill);
-
 		Entity buildHomeBuilding = new Entity();
 		buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
 		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));

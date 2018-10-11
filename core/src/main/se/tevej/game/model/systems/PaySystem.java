@@ -11,12 +11,11 @@ import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.ashley.SignalType;
-import main.se.tevej.game.model.components.CostComponent;
+import main.se.tevej.game.model.utils.Cost;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class PaySystem extends EntitySystem implements SignalListener{
 
     private void pay(Entity entity){
         BuildingType type = entity.getComponent(BuildingComponent.class).getType();
-        List<Resource> cost = CostComponent.getCostOfBuilding(type);
+        List<Resource> cost = Cost.getCostOfBuilding(type);
 
         InventoryComponent iC = engine.getEntitiesFor(Family.all(InventoryComponent.class).get())
                     .first().getComponent(InventoryComponent.class);
