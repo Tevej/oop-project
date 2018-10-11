@@ -1,5 +1,5 @@
 buildscript {
-    
+
 
     repositories {
         mavenLocal()
@@ -10,7 +10,7 @@ buildscript {
         google()
     }
     dependencies {
-        
+
 
     }
 }
@@ -53,8 +53,9 @@ project(":core") {
     apply plugin: "java"
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
+    apply plugin: 'checkstyle'
 
-    findbugs{
+    findbugs {
         ignoreFailures = false
         effort = "max"
     }
@@ -64,15 +65,34 @@ project(":core") {
             html.enabled = true
         }
     }
-    tasks.withType(Pmd){
-        reports{
-            xml.enabled=true
-            html.enabled=true
+    tasks.withType(Pmd) {
+        reports {
+            xml.enabled = true
+            html.enabled = true
         }
     }
     pmd {
+        toolVersion '6.8.0'
         ignoreFailures = false
-        pmdTest.enabled=false
+        pmdTest.enabled = false
+        consoleOutput false
+    }
+
+    checkstyle {
+        toolVersion '8.11'
+        checkstyleTest.enabled = false
+        ignoreFailures false
+        configFile file("config/checkstyle/checkstyle.xml")
+        maxWarnings 0
+    }
+    checkstyleMain {
+        source = 'src/main'
+    }
+    tasks.withType(Checkstyle) {
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
     }
 
     dependencies {
@@ -84,7 +104,7 @@ project(":core") {
 
         compileOnly 'com.google.code.findbugs:annotations:3.0.1'
         compileOnly 'com.google.code.findbugs:jsr305:3.0.1'
-        
+
         testCompileOnly(
                 'junit:junit:4.12'
         )
