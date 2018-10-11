@@ -66,7 +66,7 @@ public class View {
 
     /**
      * Goes through all the components of an added entity and checks if it has a EntityRenderable for it.
-     * As soon as it finds one compatiable EntityRenderable, it stops searching and adds the entity to the render pool.
+     * As soon as it finds one compatible EntityRenderable, it stops searching and adds the entity to the render pool.
      * @return A entity listener that adds suitable entities to Views render pool.
      */
     private EntityListener getNewEntityListener() {
