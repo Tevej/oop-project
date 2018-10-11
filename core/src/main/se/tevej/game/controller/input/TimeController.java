@@ -23,20 +23,20 @@ public class TimeController implements OnTappedListener {
     public void onTapped(TKeyBoard keyBoard, TButton button) {
         switch (button) {
             case KEY_SPACE:
-                setMultiplierTo(0);
+                setTimeMultiplier(0);
                 break;
             case KEY_1:
-                setMultiplierTo(1);
+                setTimeMultiplier(1);
                 break;
             case KEY_2:
-                setMultiplierTo(2);
+                setTimeMultiplier(2);
                 break;
             default:
                 break;
         }
     }
 
-    private void setMultiplierTo(float multiplier) {
+    private void setTimeMultiplier(float multiplier) {
         for (OnTimeChangeListener listener : timeChangeListeners) {
             listener.updateTimeMultipler(multiplier);
         }
