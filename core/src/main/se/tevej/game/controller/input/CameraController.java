@@ -28,9 +28,9 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     private float worldHeight;
 
     public CameraController(View view, InputLibgdxFactory factory,
-                            float startX, float startY, int worldWidth, int worldHeight) {
+                            float startX, float startY, int worldWidth, int worldHeight, TMouse mouse) {
         this.view = view;
-        this.mouse = factory.createMouse();
+        this.mouse = mouse;
         mouse.addDraggedListener(this);
         mouse.addClickedListener(this);
         cameraPosX = startX;

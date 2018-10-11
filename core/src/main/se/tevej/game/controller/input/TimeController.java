@@ -20,7 +20,7 @@ public class TimeController implements OnTappedListener {
     }
 
     @Override
-    public void onTapped(TKeyBoard keyBoard, TButton button) {
+    public void onTapped(TButton button) {
         switch (button) {
             case KEY_SPACE:
                 setMultiplerTo(0);

@@ -4,10 +4,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import main.se.tevej.game.controller.input.CameraController;
-import main.se.tevej.game.controller.input.TimeController;
+import main.se.tevej.game.controller.input.*;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnTimeChangeListener;
-import main.se.tevej.game.controller.input.ConstructionController;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
@@ -27,6 +25,9 @@ import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 
 public class Game extends ApplicationAdapter implements OnTimeChangeListener {
+    private TKeyBoard keyboard;
+    private TMouse mouse;
+
     private RenderingFactory renderingFactory;
 
     private EntityManager em;
@@ -52,12 +53,15 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         renderingFactory = new RenderingLibgdxFactory();
         lastFrameNanoTime = System.nanoTime();
 
+        mouse = inputLibgdxFactory.createMouse();
+        keyboard = inputLibgdxFactory.createKeyBoard();
+
         em = new EntityManager();
         view = new View(em, renderingFactory);
 
         int worldWidth = 100;
         int worldHeight = 100;
-        CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
+        CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight, mouse);
 
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
@@ -95,7 +99,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildHomeBuilding);
 
-        new ConstructionController(em, inputLibgdxFactory, worldEntity, camera);
+        new ConstructionController(em, inputLibgdxFactory, worldEntity, camera, keyboard, mouse);
 
 		gui = new InventoryGui(renderingFactory, inventoryEntity);
 
@@ -128,7 +132,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 
         printFrameRate += deltaTime;
         if (printFrameRate >= 0.1f) {
-            System.out.println("FPS: " + (1 / deltaTime));
+            //System.out.println("FPS: " + (1 / deltaTime));
             printFrameRate = 0;
         }
 

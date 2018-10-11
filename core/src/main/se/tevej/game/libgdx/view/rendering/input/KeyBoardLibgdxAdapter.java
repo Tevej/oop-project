@@ -76,7 +76,7 @@ public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoa
             @Override
             public boolean keyDown(int keycode) {
                if (inputMap.containsKey(keycode)) {
-                   onClickedListener.onTapped(keyboard, inputMap.get(keycode));
+                   onClickedListener.onTapped(inputMap.get(keycode));
                }
                return true;
             }

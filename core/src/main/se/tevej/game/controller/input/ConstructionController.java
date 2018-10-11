@@ -27,17 +27,17 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     private TKeyBoard keyboard;
     private CameraController camera;
 
-    public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity, CameraController camera) {
+    public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity, CameraController camera, TKeyBoard keyboard, TMouse mouse) {
         this.em = em;
         this.worldEntity = worldEntity;
-        this.keyboard = factory.createKeyBoard();
-        this.mouse = factory.createMouse();
+        this.keyboard = keyboard;
+        this.mouse = mouse;
         mouse.addMovedListener(this);
         keyboard.addTappedListener(this);
         this.camera = camera;
     }
 
-    public void onTapped (TKeyBoard keyBoard, TButton button){
+    public void onTapped (TButton button){
         switch (button) {
             case  KEY_L:
                 buildConstruction(BuildingType.LUMBERMILL);
