@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.controller.input.CameraController;
 import main.se.tevej.game.controller.input.ConstructionController;
 import main.se.tevej.game.controller.input.TimeController;
@@ -45,6 +46,12 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
     private long currFrameNanoTime;
     private float deltaTime;
     private float printFrameRate;
+
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
+    private final long billion = (1000 * 1000 * 1000);
 
     // The current timeMultiplier (0 means pause, 1 means default speed etc...)
     private float timeMultiplier = 1f;
@@ -132,8 +139,6 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         gui.update(deltaTime);
         gui.render();
     }
-
-    private final long billion = (1000 * 1000 * 1000);
 
     private void calculateDeltaTime() {
         currFrameNanoTime = System.nanoTime();
