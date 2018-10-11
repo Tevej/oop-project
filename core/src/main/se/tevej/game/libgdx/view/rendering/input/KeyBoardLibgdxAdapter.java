@@ -14,6 +14,10 @@ public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoa
 
     static final Map<Integer, TButton> inputMap = new HashMap<>();
 
+    /**
+     * This is a static block. It will run the first time the class is instanced
+     * and is how we configure our input to the input given us by Libgdx.
+     */
     static
     {
         inputMap.put(NUM_1, TButton.KEY_1);
