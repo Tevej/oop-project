@@ -19,6 +19,8 @@ import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.WorldFactory;
 import main.se.tevej.game.view.gui.InventoryGui;
+import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
@@ -54,10 +56,10 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 
         int worldWidth = 100;
         int worldHeight = 100;
-        new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
+        CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
-        TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
-        TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
+		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
+		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
 
         TTextField textField = renderingFactory.createTextField().set("Hej").addListener(value -> {
             System.out.println("New value of textfield:" + value);
@@ -72,28 +74,29 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         table.addElement(label).width(200).height(200);
         table.addElement(selectableList).width(200).height(200);
 
-        // Look over naming of method / implementation (also adds the world to the engine.)
-        Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
-        Entity inventoryEntity = new Entity();
-        inventoryEntity.add(new InventoryComponent());
-        em.addEntityToEngine(inventoryEntity);
-        em.addEntityToEngine(worldEntity);
+		// Look over naming of method / implementation (also adds the world to the engine.)
+		Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
+		Entity inventoryEntity = new Entity();
+		inventoryEntity.add(new InventoryComponent());
+		em.addEntityToEngine(inventoryEntity);
+		em.addEntityToEngine(worldEntity);
 
-        Entity buildLumbermill = new Entity();
-        buildLumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
-        buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(10, 10).getComponent(PositionComponent.class));
-        buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
-        buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(buildLumbermill);
+		Entity buildLumbermill = new Entity();
+		buildLumbermill.add(new BuildingComponent(BuildingType.LUMBERMILL));
+		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class).getTileAt(10, 10).getComponent(PositionComponent.class));
+		buildLumbermill.add(worldEntity.getComponent(WorldComponent.class));
+		buildLumbermill.add(new SignalComponent(SignalType.BUILDBUILDING));
+		em.getSignal().dispatch(buildLumbermill);
 
-        Entity buildHomeBuilding = new Entity();
-        buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
-        buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(buildHomeBuilding);
+		Entity buildHomeBuilding = new Entity();
+		buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
+		buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
+		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
+		em.getSignal().dispatch(buildHomeBuilding);
 
-        gui = new InventoryGui(renderingFactory, inventoryEntity);
+		gui = new InventoryGui(renderingFactory, inventoryEntity);
+	}
 
         TimeController timeController = new TimeController();
         timeController.registerOnTimeChange(this);

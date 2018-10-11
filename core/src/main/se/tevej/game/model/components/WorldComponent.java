@@ -18,6 +18,14 @@ public class WorldComponent implements Component {
         this.height = height;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     public Entity getTileAt(int x, int y) {
         if (x >= 0 && y >= 0 && x < width && y < height) {
             return tiles[x + y * width];
