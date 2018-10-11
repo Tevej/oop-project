@@ -12,8 +12,8 @@ public class NaturalResourceComponent implements Component {
         this.resource = resource;
     }
 
-    public double getAmountLeft() {
-        return resource.getAmount();
+    public Resource getResource() {
+        return resource;
     }
 
     public void extractResource(Resource extractedResource) throws NotEnoughResourcesException {
