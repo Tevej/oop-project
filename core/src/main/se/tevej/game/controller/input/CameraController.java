@@ -1,11 +1,10 @@
-package main.se.tevej.game.input;
+package main.se.tevej.game.controller.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import main.se.tevej.game.input.enums.TButton;
-import main.se.tevej.game.input.listenerInterfaces.OnClickedListener;
-import main.se.tevej.game.input.listenerInterfaces.OnDraggedListener;
-import main.se.tevej.game.input.listenerInterfaces.OnMovedListener;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnDraggedListener;
+import main.se.tevej.game.controller.input.enums.TButton;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.view.View;
 
