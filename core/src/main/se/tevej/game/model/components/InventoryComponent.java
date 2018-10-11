@@ -1,11 +1,12 @@
 package main.se.tevej.game.model.components;
 
 import com.badlogic.ashley.core.Component;
-import main.se.tevej.game.model.resource.Resource;
-import main.se.tevej.game.model.resource.ResourceType;
+import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class InventoryComponent implements Component {
     private HashMap<ResourceType, Double> resources;
@@ -27,12 +28,26 @@ public class InventoryComponent implements Component {
         return (double)resources.get(type);
     }
 
-    public void removeFromInventory(ResourceType type, double amount) throws Exception {
-        double currAmountOfResource = getAmountOfResource(type);
-        if (amount > currAmountOfResource) {
+    public void removeFromInventory(Resource resource) throws NotEnoughResourcesException {
+        checkResourceAmount(resource);
+
+        resources.put(resource.getType(), getAmountOfResource(resource.getType()) - resource.getAmount());
+    }
+
+    private void checkResourceAmount(Resource resource) throws NotEnoughResourcesException{
+        double currAmountOfResource = getAmountOfResource(resource.getType());
+        if (resource.getAmount() > currAmountOfResource) {
             throw new NotEnoughResourcesException();
         }
+    }
 
-        resources.put(type, currAmountOfResource - amount);
+    public void removeFromInventory(List<Resource> resourceList) throws NotEnoughResourcesException {
+        for (Resource resource : resourceList) {
+            checkResourceAmount(resource);
+        }
+        for (Resource resource : resourceList){
+            resources.put(resource.getType(), getAmountOfResource(resource.getType()) - resource.getAmount());
+        }
+
     }
 }

@@ -12,6 +12,7 @@ import main.se.tevej.game.model.factories.WorldFactory;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
+import main.se.tevej.game.model.systems.PaySystem;
 
 public class EntityManager {
 
@@ -29,6 +30,7 @@ public class EntityManager {
         //ENGINE.addSystem(new RenderingSystem());
         ENGINE.addSystem(new BuildBuildingSystem());
         ENGINE.addSystem(new DeleteEntitySystem());
+        ENGINE.addSystem(new PaySystem(this));
         ENGINE.addSystem(new NaturalResourceGatheringSystem(this));
 
         ENGINE.getSystems().forEach(entitySystem -> {

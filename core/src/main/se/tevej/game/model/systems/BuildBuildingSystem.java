@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import main.se.tevej.game.exceptions.NoSuchBuildingException;
+import main.se.tevej.game.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.PositionComponent;
@@ -39,6 +40,7 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
                         BuildingComponent buildingC = signalEntity.getComponent(BuildingComponent.class);
                         PositionComponent posC = signalEntity.getComponent(PositionComponent.class);
                         Entity tile = signalEntity.getComponent(WorldComponent.class).getTileAt((int)posC.getX(), (int)posC.getY());
+                        System.out.println(posC.getX() + ", " + posC.getY());
                         TileComponent tileC = tile.getComponent(TileComponent.class);
                         buildBuilding(tileC, posC, buildingC.getType());
                         break;

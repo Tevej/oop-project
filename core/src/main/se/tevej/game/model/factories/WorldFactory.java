@@ -3,8 +3,8 @@ package main.se.tevej.game.model.factories;
 import com.badlogic.ashley.core.Entity;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.components.*;
-import main.se.tevej.game.model.resource.Resource;
-import main.se.tevej.game.model.resource.ResourceType;
+import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.utils.ResourceType;
 
 import java.util.*;
 
@@ -21,7 +21,6 @@ public class WorldFactory {
         Entity worldEntity = em.createEntity();
         WorldComponent wc = new WorldComponent(width, height, tiles);
         worldEntity.add(wc);
-        worldEntity.add(new InventoryComponent());
         generateNaturalResources(width, height, wc, em);
         return worldEntity;
     }
