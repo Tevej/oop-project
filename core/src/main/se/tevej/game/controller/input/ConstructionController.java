@@ -41,10 +41,15 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
         switch (button) {
             case  KEY_L:
                 buildConstruction(BuildingType.LUMBERMILL);
+                break;
             case KEY_Q:
                 buildConstruction(BuildingType.QUARRY);
+                break;
             case KEY_P:
                 buildConstruction(BuildingType.PUMP);
+                break;
+            default:
+                break;
         }
     }
 
