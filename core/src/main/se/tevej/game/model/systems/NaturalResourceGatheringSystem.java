@@ -27,19 +27,26 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
         List<double[]> locations = new ArrayList<>();
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++){
-                if ( i == 0 && j == 0) {
+                if (checkOutOfBounds(i,j,positionComponent,maxWidth,maxHeight)) {
                     continue;
                 }
-                double x = i+positionComponent.getX();
-                double y = j+positionComponent.getY();
-                if (x < 0 || y < 0 || x >= maxWidth || y >= maxHeight) {
-                    continue;
-                }
-                locations.add(new double[] {x, y});
+                locations.add(new double[]{i+positionComponent.getX(), j+positionComponent.getY()});
             }
 
         }
         return locations;
+    }
+
+    private boolean checkOutOfBounds(int i, int j, PositionComponent positionComponent, int maxWidth, int maxHeight ){
+        if (i == 0 && j == 0) {
+            return true;
+        }
+        double x = i+positionComponent.getX();
+        double y = j+positionComponent.getY();
+        if (x < 0 || y < 0 || x >= maxWidth || y >= maxHeight) {
+            return true;
+        }
+        return false;
     }
 
     private void gatherFromLocation(float deltaTime, Entity occupier, InventoryComponent ic, GathererComponent gc){
@@ -57,7 +64,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem{
             ic.addResource(naturalResourceComponent.getResource());
             occupier.add(new SignalComponent(SignalType.DELETEENTITY));
             em.getSignal().dispatch(occupier);
-            System.out.println("Not enough utils left");
+            System.out.println("Not enough resource left");
         }
     }
 
