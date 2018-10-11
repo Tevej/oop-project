@@ -16,7 +16,7 @@ public class TestNaturalResourceComponent {
         assertTrue(nrc.getType() == ResourceType.WOOD);
         try {
             nrc.extractResource(new Resource(19.9, ResourceType.WOOD));
-            assertTrue(nrc.getAmountLeft() == 0.1);
+            assertTrue(nrc.getAmountLeft() < 0.1000001 && nrc.getAmountLeft() > 0.0999999);
         } catch (NotEnoughResourcesException e) {
             assertTrue(false);
         }

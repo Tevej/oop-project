@@ -10,10 +10,10 @@ public class TestGathererComponent {
     @Test
     public void testMethod() {
         GathererComponent gc = new GathererComponent(new Resource(100, ResourceType.WOOD));
-        assertTrue(gc.getGatheredResource((float)0.5).getAmount() == 50);
+        assertTrue(gc.getGatheredResource(1f/2f).getAmount() == 50);
         try {
             gc.setResourcePerSecond(new Resource(200, ResourceType.WOOD));
-            assertTrue(gc.getGatheredResource((float)1.5).getAmount() == 300);
+            assertTrue(gc.getGatheredResource(3f/2f).getAmount() == 300);
         } catch (MissmatchedResourceException e) {
             assertTrue(false);
         }

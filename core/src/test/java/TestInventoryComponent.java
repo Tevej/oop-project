@@ -13,21 +13,26 @@ import static org.junit.Assert.assertTrue;
 
 
 public class TestInventoryComponent {
-    EntityManager em = new EntityManager();
-    InventoryComponent ic = new InventoryComponent();
 
     @Test
     public void addResource(){
-        ic.addResource(new Resource(10, ResourceType.STONE));
+        InventoryComponent ic = new InventoryComponent();
+
+        Resource r1 = (new Resource(10, ResourceType.STONE));
+        Resource r2 = (new Resource(0.1, ResourceType.STONE));
+        Resource r3 = (new Resource(0.9, ResourceType.STONE));
+        ic.addResource(r1);
         assertTrue(ic.getAmountOfResource(ResourceType.STONE) == 10);
-        ic.addResource(new Resource(0.1, ResourceType.STONE));
-        assertTrue(ic.getAmountOfResource(ResourceType.STONE) == 10.1);
-        ic.addResource(new Resource(0.9, ResourceType.STONE));
+        ic.addResource(r2);
+        assertTrue(ic.getAmountOfResource(ResourceType.STONE) > 10);
+        ic.addResource(r3);
         assertTrue(ic.getAmountOfResource(ResourceType.STONE) == 11);
     }
 
     @Test
     public void removeFromInventory(){
+        InventoryComponent ic = new InventoryComponent();
+
         Resource r1 = new Resource(10, ResourceType.STONE);
         Resource r2 = new Resource(5, ResourceType.STONE);
         Resource r3 = new Resource(-100, ResourceType.WOOD);
