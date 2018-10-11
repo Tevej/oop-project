@@ -18,7 +18,8 @@ public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
 
     @Override
     public TButton image(String path) {
-        TextureRegionDrawable img = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(path))));
+        TextureRegionDrawable img = new TextureRegionDrawable(
+            new TextureRegion(new Texture(Gdx.files.internal(path))));
         super.getStyle().imageUp = img;
         super.getStyle().imageDown = img;
         return this;

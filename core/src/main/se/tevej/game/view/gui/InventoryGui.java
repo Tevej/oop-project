@@ -23,17 +23,23 @@ public class InventoryGui {
     }
 
     private void create() {
-        int TABLE_HEIGHT = 32;
         inventoryElements = new LinkedList<>();
-        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.WOOD), "wood.jpg", ResourceType.WOOD));
-        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.WATER), "water.jpg", ResourceType.WATER));
-        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.STONE), "stone.jpg", ResourceType.STONE));
-        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.FOOD), "food.png", ResourceType.FOOD));
-        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.POPULATION), "population.png", ResourceType.POPULATION));
+        inventoryElements.add(new InventoryElement(renderingFactory,
+            findAmountOfResource(ResourceType.WOOD), "wood.jpg", ResourceType.WOOD));
+        inventoryElements.add(new InventoryElement(renderingFactory,
+            findAmountOfResource(ResourceType.WATER), "water.jpg", ResourceType.WATER));
+        inventoryElements.add(new InventoryElement(renderingFactory,
+            findAmountOfResource(ResourceType.STONE), "stone.jpg", ResourceType.STONE));
+        inventoryElements.add(new InventoryElement(renderingFactory,
+            findAmountOfResource(ResourceType.FOOD), "food.png", ResourceType.FOOD));
+        inventoryElements.add(new InventoryElement(renderingFactory,
+            findAmountOfResource(ResourceType.POPULATION),
+            "population.png", ResourceType.POPULATION));
 
+        int tableHeight = 32;
         inventoryTable = renderingFactory.createTable()
-            .x((Gdx.graphics.getWidth() / 2f))
-            .y(Gdx.graphics.getHeight() - TABLE_HEIGHT / 2f)
+            .getX((Gdx.graphics.getWidth() / 2f))
+            .getY(Gdx.graphics.getHeight() - tableHeight / 2f)
             .grid(inventoryElements.size() * 2, 1)
             .debug(false);
         for (InventoryElement inventoryElement : inventoryElements) {
@@ -44,7 +50,8 @@ public class InventoryGui {
 
     private int findAmountOfResource(ResourceType resourceType) {
         try {
-            return (int) inventoryEntity.getComponent(InventoryComponent.class).getAmountOfResource(resourceType);
+            return (int) inventoryEntity.getComponent(InventoryComponent.class)
+                .getAmountOfResource(resourceType);
         } catch (NullPointerException e) {
             return 0;
         }

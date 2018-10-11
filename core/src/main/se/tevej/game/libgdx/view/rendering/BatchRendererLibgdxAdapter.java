@@ -29,7 +29,8 @@ public class BatchRendererLibgdxAdapter extends SpriteBatch implements TBatchRen
 
 
     @Override
-    public void renderTexture(TTexture texture, float x, float y, float width, float height, float rotation, float xScale, float yScale) {
+    public void renderTexture(TTexture texture, float x, float y, float width,
+                              float height, float rotation, float scaleX, float scaleY) {
         TextureLibgdxAdapter t = (TextureLibgdxAdapter) texture;
         super.draw(t, x, y, width, height);
     }

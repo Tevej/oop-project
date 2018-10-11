@@ -1,6 +1,6 @@
 package main.se.tevej.game.view.rendering.ui;
 
-public interface TButton extends TUIElement {
+public interface TButton extends TUiElement {
 
     TButton image(String path);
 

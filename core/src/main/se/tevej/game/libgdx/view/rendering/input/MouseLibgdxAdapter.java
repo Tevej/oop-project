@@ -3,18 +3,18 @@ package main.se.tevej.game.libgdx.view.rendering.input;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.badlogic.gdx.Input.Buttons.LEFT;
+import static com.badlogic.gdx.Input.Buttons.MIDDLE;
+import static com.badlogic.gdx.Input.Buttons.RIGHT;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 
 import main.se.tevej.game.controller.input.TMouse;
 import main.se.tevej.game.controller.input.enums.TButton;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnDraggedListener;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnMovedListener;
-
-import static com.badlogic.gdx.Input.Buttons.LEFT;
-import static com.badlogic.gdx.Input.Buttons.MIDDLE;
-import static com.badlogic.gdx.Input.Buttons.RIGHT;
+import main.se.tevej.game.controller.input.listeners.OnClickedListener;
+import main.se.tevej.game.controller.input.listeners.OnDraggedListener;
+import main.se.tevej.game.controller.input.listeners.OnMovedListener;
 
 public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
 

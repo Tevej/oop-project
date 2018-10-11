@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import main.se.tevej.game.controller.input.CameraController;
 import main.se.tevej.game.controller.input.ConstructionController;
 import main.se.tevej.game.controller.input.TimeController;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnTimeChangeListener;
+import main.se.tevej.game.controller.input.listeners.OnTimeChangeListener;
 import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
@@ -55,55 +55,65 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         renderingFactory = new RenderingLibgdxFactory();
         lastFrameNanoTime = System.nanoTime();
 
+        createGui();
+
         em = new EntityManager();
         view = new View(em, renderingFactory);
 
+        Entity inventoryEntity = new Entity();
+        InventoryComponent inventoryC = new InventoryComponent();
+        inventoryEntity.add(inventoryC);
+        inventoryC.addResource(new Resource(1000, ResourceType.WOOD));
+        inventoryC.addResource(new Resource(1000, ResourceType.WATER));
+        inventoryC.addResource(new Resource(1000, ResourceType.STONE));
+
         int worldWidth = 100;
         int worldHeight = 100;
-        CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
 
-
-        TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
-        TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
-
-        TTextField textField = renderingFactory.createTextField().set("Hej").addListener(value -> {
-            System.out.println("New value of textfield:" + value);
-        });
-
-        TLabel label = renderingFactory.createLabel().text("This is a label");
-
-        table = renderingFactory.createTable().x((Gdx.graphics.getWidth() / 2f)).y(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
-
-        table.addElement(button).width(200).height(50);
-        table.addElement(textField).width(200).height(50);
-        table.addElement(label).width(200).height(200);
-        table.addElement(selectableList).width(200).height(200);
-
-        // Look over naming of method / implementation (also adds the world to the engine.)
+        // Create world
         Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
-        Entity inventoryEntity = new Entity();
-        InventoryComponent iC = new InventoryComponent();
-        inventoryEntity.add(iC);
-        iC.addResource(new Resource(1000, ResourceType.WOOD));
-        iC.addResource(new Resource(1000, ResourceType.WATER));
-        iC.addResource(new Resource(1000, ResourceType.STONE));
 
         em.addEntityToEngine(inventoryEntity);
         em.addEntityToEngine(worldEntity);
 
         Entity buildHomeBuilding = new Entity();
         buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
+        Entity tile = worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5);
+        buildHomeBuilding.add(tile.getComponent(PositionComponent.class));
         buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
         buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
         em.getSignal().dispatch(buildHomeBuilding);
 
+        CameraController camera = new CameraController(
+            view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
         new ConstructionController(em, inputLibgdxFactory, worldEntity, camera);
 
         gui = new InventoryGui(renderingFactory, inventoryEntity);
 
         TimeController timeController = new TimeController();
         timeController.registerOnTimeChange(this);
+    }
+
+    private void createGui() {
+        table = renderingFactory.createTable().getX((Gdx.graphics.getWidth() / 2f))
+            .getY(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
+
+        TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() ->
+            System.out.println("Hej!"));
+        table.addElement(button).width(200).height(50);
+
+        TLabel label = renderingFactory.createLabel().text("This is a label");
+        table.addElement(label).width(200).height(200);
+
+        TSelectableList selectableList = renderingFactory.createSelectableList()
+            .items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou")
+            .addListener(newSelected -> System.out.println("Selected: " + newSelected));
+        table.addElement(selectableList).width(200).height(200);
+
+        TTextField textField = renderingFactory.createTextField().set("Hej").addListener(value -> {
+            System.out.println("New value of textfield:" + value);
+        });
+        table.addElement(textField).width(200).height(50);
     }
 
     @Override

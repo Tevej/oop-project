@@ -8,7 +8,7 @@ import java.util.List;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 
 public class Cost {
-    private final static HashMap<BuildingType, List<Resource>> buildingCost =
+    private static HashMap<BuildingType, List<Resource>> buildingCost =
         new HashMap<BuildingType, List<Resource>>() {
             {
                 put(BuildingType.HOME, new ArrayList<>(Arrays.asList(

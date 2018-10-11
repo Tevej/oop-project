@@ -21,7 +21,8 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener {
         WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
             .first().getComponent(WorldComponent.class);
         PositionComponent pc = signalEntity.getComponent(PositionComponent.class);
-        TileComponent tc = wc.getTileAt((int) pc.getX(), (int) pc.getY()).getComponent(TileComponent.class);
+        Entity tile = wc.getTileAt((int) pc.getX(), (int) pc.getY());
+        TileComponent tc = tile.getComponent(TileComponent.class);
         tc.occupy(null);
         engine.removeEntity(signalEntity);
     }

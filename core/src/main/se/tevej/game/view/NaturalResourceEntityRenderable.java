@@ -12,8 +12,9 @@ import main.se.tevej.game.view.rendering.TTexture;
 
 public class NaturalResourceEntityRenderable implements EntityRenderable {
 
-    private TTexture water, stone, wood;
-
+    private TTexture water;
+    private TTexture stone;
+    private TTexture wood;
 
     public NaturalResourceEntityRenderable(RenderingFactory renderingFactory) {
         this.water = renderingFactory.createTexture("water.jpg");
@@ -22,7 +23,10 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
     }
 
     @Override
-    public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) throws Exception {
+    public void render(
+        float offsetX, float offsetY, TBatchRenderer batchRenderer,
+        Entity entity, int pixelPerTile) throws Exception {
+
         NaturalResourceComponent nrc = entity.getComponent(NaturalResourceComponent.class);
 
         PositionComponent pc = entity.getComponent(PositionComponent.class);

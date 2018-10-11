@@ -3,12 +3,6 @@ package main.se.tevej.game.libgdx.view.rendering.input;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.InputAdapter;
-
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.enums.TButton;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
-
 import static com.badlogic.gdx.Input.Keys.A;
 import static com.badlogic.gdx.Input.Keys.ALT_LEFT;
 import static com.badlogic.gdx.Input.Keys.B;
@@ -56,6 +50,12 @@ import static com.badlogic.gdx.Input.Keys.W;
 import static com.badlogic.gdx.Input.Keys.X;
 import static com.badlogic.gdx.Input.Keys.Y;
 import static com.badlogic.gdx.Input.Keys.Z;
+
+import com.badlogic.gdx.InputAdapter;
+
+import main.se.tevej.game.controller.input.TKeyBoard;
+import main.se.tevej.game.controller.input.enums.TButton;
+import main.se.tevej.game.controller.input.listeners.OnTappedListener;
 
 public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
 

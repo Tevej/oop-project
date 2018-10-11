@@ -34,10 +34,11 @@ public class PaySystem extends EntitySystem implements SignalListener {
         BuildingType type = entity.getComponent(BuildingComponent.class).getType();
         List<Resource> cost = Cost.getCostOfBuilding(type);
 
-        InventoryComponent iC = engine.getEntitiesFor(Family.all(InventoryComponent.class).get())
+        InventoryComponent inventoryC = engine.getEntitiesFor(
+            Family.all(InventoryComponent.class).get())
             .first().getComponent(InventoryComponent.class);
         try {
-            iC.removeFromInventory(cost);
+            inventoryC.removeFromInventory(cost);
             sendBuildSignal(entity);
         } catch (NotEnoughResourcesException e) {
             System.out.println("Deselect please " + e);

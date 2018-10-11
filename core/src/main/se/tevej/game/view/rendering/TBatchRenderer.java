@@ -7,7 +7,8 @@ public interface TBatchRenderer {
 
     void dispose();
 
-    void renderTexture(TTexture texture, float x, float y, float width, float height, float rotation, float xScale, float yScale);
+    void renderTexture(TTexture texture, float x, float y, float width, float height,
+                       float rotation, float scaleX, float scaleY);
 
     void renderTexture(TTexture texture, float x, float y, float width, float height);
 

@@ -12,11 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import main.se.tevej.game.view.rendering.ui.TCell;
 import main.se.tevej.game.view.rendering.ui.TTable;
-import main.se.tevej.game.view.rendering.ui.TUIElement;
+import main.se.tevej.game.view.rendering.ui.TUiElement;
 
 public class TableLibgdxAdapter extends Table implements TTable {
     private Stage stage;
-    private Map<Cell, TUIElement> cells;
+    private Map<Cell, TUiElement> cells;
 
     public TableLibgdxAdapter() {
         stage = new Stage();
@@ -34,20 +34,20 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
-    public TCell addElement(TUIElement element) {
+    public TCell addElement(TUiElement element) {
         CellLibgdxAdapter cellLibgdxAdapter = new CellLibgdxAdapter();
         cellLibgdxAdapter.setCell(getAndSetFirstAvailableCell(element));
         return cellLibgdxAdapter;
     }
 
     @Override
-    public TTable x(float x) {
+    public TTable getX(float x) {
         super.setX(x);
         return this;
     }
 
     @Override
-    public TTable y(float y) {
+    public TTable getY(float y) {
         super.setY(y);
         return this;
     }
@@ -84,8 +84,8 @@ public class TableLibgdxAdapter extends Table implements TTable {
         stage.draw();
     }
 
-    private Cell getAndSetFirstAvailableCell(TUIElement element) {
-        for (Map.Entry<Cell, TUIElement> entry : cells.entrySet()) {
+    private Cell getAndSetFirstAvailableCell(TUiElement element) {
+        for (Map.Entry<Cell, TUiElement> entry : cells.entrySet()) {
             if (entry.getValue() == null) {
                 Cell cell = entry.getKey();
                 cells.put(cell, element);

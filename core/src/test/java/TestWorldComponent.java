@@ -1,10 +1,10 @@
+import static org.junit.Assert.assertTrue;
+
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.factories.WorldFactory;
 import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
 
 public class TestWorldComponent {
     EntityManager em = new EntityManager();

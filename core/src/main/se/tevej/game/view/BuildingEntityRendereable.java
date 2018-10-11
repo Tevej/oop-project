@@ -32,10 +32,14 @@ public class BuildingEntityRendereable implements EntityRenderable {
         try {
             loadTextures(folder, renderingFactory, imageTypes);
         } catch (Exception e) {
+            System.out.println("Failed to load textures.");
         }
     }
 
-    private void loadTextures(final File folder, RenderingFactory renderingFactory, List<String> imageTypes) throws Exception {
+    private void loadTextures(
+        final File folder, RenderingFactory renderingFactory,
+        List<String> imageTypes) throws Exception {
+
         renderingFactory = new RenderingLibgdxFactory();
 
         File[] files = folder.listFiles();
@@ -51,7 +55,8 @@ public class BuildingEntityRendereable implements EntityRenderable {
                 String fileName = fileEntry.getName();
                 for (String fileEnding : imageTypes) {
                     if (fileName.endsWith(fileEnding)) {
-                        String typeName = fileName.substring(0, fileName.length() - fileEnding.length());
+                        String typeName = fileName.substring(0,
+                            fileName.length() - fileEnding.length());
                         BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
                         fileName = folder.getPath() + "/" + fileName;
                         buildingTextureMap.put(type, renderingFactory.createTexture(fileName));
@@ -62,7 +67,10 @@ public class BuildingEntityRendereable implements EntityRenderable {
     }
 
     @Override
-    public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) throws Exception {
+    public void render(
+        float offsetX, float offsetY, TBatchRenderer batchRenderer,
+        Entity entity, int pixelPerTile) throws Exception {
+
         BuildingComponent buildingC = entity.getComponent(BuildingComponent.class);
         PositionComponent posC = entity.getComponent(PositionComponent.class);
         SizeComponent sizeC = entity.getComponent(SizeComponent.class);
@@ -70,6 +78,7 @@ public class BuildingEntityRendereable implements EntityRenderable {
         float y = (posC.getY() + offsetY) * pixelPerTile;
         float width = sizeC.getWidth() * pixelPerTile;
         float height = sizeC.getHeight() * pixelPerTile;
-        batchRenderer.renderTexture(buildingTextureMap.get(buildingC.getType()), x, y, width, height);
+        batchRenderer.renderTexture(buildingTextureMap.get(
+            buildingC.getType()), x, y, width, height);
     }
 }

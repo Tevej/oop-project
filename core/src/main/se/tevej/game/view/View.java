@@ -22,13 +22,13 @@ public class View {
     public static final int pixelPerTile = 32;
 
     /**
-     * Dictionary on how a component type should be rendered
+     * Dictionary on how a component type should be rendered.
      */
     private Map<Class<? extends Component>, EntityRenderable> typeToRenderable;
 
     private Map<EntityRenderable, List<Entity>> rendererToEntityMap;
 
-    private TBatchRenderer tBatchRenderer;
+    private TBatchRenderer batchRenderer;
     private RenderingFactory renderingFactory;
 
     // The current camera positions in world coordinates.
@@ -37,7 +37,7 @@ public class View {
 
     public View(EntityManager entityManager, RenderingFactory renderingFactory) {
         this.renderingFactory = renderingFactory;
-        this.tBatchRenderer = renderingFactory.createBatchRenderer();
+        this.batchRenderer = renderingFactory.createBatchRenderer();
         this.rendererToEntityMap = new LinkedHashMap<>();
 
         typeToRenderable = getTypeToRenderables();
@@ -54,25 +54,27 @@ public class View {
     }
 
     public void render() {
-        tBatchRenderer.beginRendering();
+        batchRenderer.beginRendering();
 
         for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererToEntityMap.entrySet()) {
             try {
                 for (Entity entity : entry.getValue()) {
-                    entry.getKey().render(-currCameraPosX, -currCameraPosY, tBatchRenderer, entity, pixelPerTile);
+                    entry.getKey().render(-currCameraPosX, -currCameraPosY,
+                        batchRenderer, entity, pixelPerTile);
                 }
             } catch (Exception e) {
                 // Maybe do stuff here?
             }
         }
 
-        tBatchRenderer.endRendering();
+        batchRenderer.endRendering();
     }
 
     /**
-     * Goes through all the components of an added entity and checks if it has a EntityRenderable for it.
-     * As soon as it finds one compatiable EntityRenderable, it stops searching and adds the entity to the render pool.
-     *
+     * Goes through all the components of an added entity
+     * also checks if it has a EntityRenderable for it.
+     * As soon as it finds one compatiable EntityRenderable,
+     * it stops searching and adds the entity to the render pool.
      * @return A entity listener that adds suitable entities to Views render pool.
      */
     private EntityListener getNewEntityListener() {
@@ -109,9 +111,12 @@ public class View {
     private Map<Class<? extends Component>, EntityRenderable> getTypeToRenderables() {
         Map<Class<? extends Component>, EntityRenderable> output = new HashMap<>();
 
-        addOutputElement(output, TileComponent.class, new TextureEntityRenderable("tile.jpg", renderingFactory));
-        addOutputElement(output, NaturalResourceComponent.class, new NaturalResourceEntityRenderable(renderingFactory));
-        addOutputElement(output, BuildingComponent.class, new BuildingEntityRendereable(renderingFactory));
+        addOutputElement(output, TileComponent.class,
+            new TextureEntityRenderable("tile.jpg", renderingFactory));
+        addOutputElement(output, NaturalResourceComponent.class,
+            new NaturalResourceEntityRenderable(renderingFactory));
+        addOutputElement(output, BuildingComponent.class,
+            new BuildingEntityRendereable(renderingFactory));
 
         return output;
     }
