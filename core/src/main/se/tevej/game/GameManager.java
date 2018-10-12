@@ -21,7 +21,6 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.WorldEntity;
-import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.ViewManager;

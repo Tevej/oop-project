@@ -14,11 +14,10 @@ import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.ashley.SignalType;
+import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
-import main.se.tevej.game.model.utils.Cost;
-import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.utils.BuildingCostUtils;
@@ -56,7 +55,7 @@ public class PaySystem extends EntitySystem implements SignalListener {
         em.getSignal().dispatch(signalEntity);
     }
 
-    private boolean isOccupiedLocation(Entity entity){
+    private boolean isOccupiedLocation(Entity entity) {
         PositionComponent position = entity.getComponent(PositionComponent.class);
         WorldComponent world = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first()
             .getComponent(WorldComponent.class);

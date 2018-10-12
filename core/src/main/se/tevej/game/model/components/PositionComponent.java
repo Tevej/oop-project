@@ -33,7 +33,7 @@ public class PositionComponent implements Component {
 
         if (obj instanceof PositionComponent) {
             equals = posX == ((PositionComponent) obj).getX()
-                  && posY == ((PositionComponent) obj).getY();
+                && posY == ((PositionComponent) obj).getY();
         }
 
         return equals;

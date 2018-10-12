@@ -1,13 +1,8 @@
 package main.se.tevej.game.libgdx.view.rendering.input;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-
-import main.se.tevej.game.controller.input.enums.TButton;
 
 public abstract class InputLibgdxAdapter {
 
