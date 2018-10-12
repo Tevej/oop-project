@@ -3,37 +3,40 @@ package main.se.tevej.game.model.components;
 import com.badlogic.ashley.core.Component;
 
 public class PositionComponent implements Component {
-    private int x;
-    private int y;
+    private int posX;
+    private int posY;
 
     public PositionComponent(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.posX = x;
+        this.posY = y;
     }
 
     public void setX(int x) {
-        this.x = x;
+        this.posX = x;
     }
 
     public void setY(int y) {
-        this.y = y;
+        this.posY = y;
     }
 
     public int getX() {
-        return x;
+        return posX;
     }
 
     public int getY() {
-        return y;
+        return posY;
     }
 
     @Override
     public boolean equals(Object obj) {
+        boolean equals = super.equals(obj);
+
         if (obj instanceof PositionComponent) {
-            return (x == ((PositionComponent) obj).getX() &&
-                    y == ((PositionComponent) obj).getY());
+            equals = posX == ((PositionComponent) obj).getX()
+                  && posY == ((PositionComponent) obj).getY();
         }
-        return super.equals(obj);
+
+        return equals;
     }
 
     @Override
