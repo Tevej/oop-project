@@ -27,15 +27,12 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
         float offsetX, float offsetY, TBatchRenderer batchRenderer,
         Entity entity, int pixelPerTile) throws Exception {
 
-        NaturalResourceComponent nrc = entity.getComponent(NaturalResourceComponent.class);
-
-        PositionComponent pc = entity.getComponent(PositionComponent.class);
-
-        SizeComponent sc = entity.getComponent(SizeComponent.class);
+        NaturalResourceComponent naturalResourceC =
+            entity.getComponent(NaturalResourceComponent.class);
 
         TTexture image;
 
-        switch (nrc.getType()) {
+        switch (naturalResourceC.getType()) {
 
             case WATER:
                 image = water;
@@ -47,13 +44,17 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
                 image = wood;
                 break;
             default:
-                throw new UnknownResourceException(nrc.getType());
+                throw new UnknownResourceException(naturalResourceC.getType());
         }
 
+        PositionComponent positionC = entity.getComponent(PositionComponent.class);
+
+        SizeComponent sizeC = entity.getComponent(SizeComponent.class);
+
         if (image != null) {
-            batchRenderer.renderTexture(image, (pc.getX() + offsetX) * pixelPerTile,
-                (pc.getY() + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
-                sc.getHeight() * pixelPerTile);
+            batchRenderer.renderTexture(image, (positionC.getX() + offsetX) * pixelPerTile,
+                (positionC.getY() + offsetY) * pixelPerTile, sizeC.getWidth() * pixelPerTile,
+                sizeC.getHeight() * pixelPerTile);
         }
     }
 }

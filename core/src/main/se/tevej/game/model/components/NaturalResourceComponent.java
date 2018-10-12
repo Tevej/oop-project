@@ -21,7 +21,7 @@ public class NaturalResourceComponent implements Component {
         if (resource.getAmount() < extractedResource.getAmount()) {
             throw new NotEnoughResourcesException();
         }
-        resource = this.resource.setAmount(resource.getAmount() - extractedResource.getAmount());
+        resource = this.resource.updateAmount(resource.getAmount() - extractedResource.getAmount());
     }
 
     public ResourceType getType() {

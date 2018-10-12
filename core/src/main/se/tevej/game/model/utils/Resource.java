@@ -18,7 +18,7 @@ public class Resource {
         return amount;
     }
 
-    public Resource setAmount(double amount) {
+    public Resource updateAmount(double amount) {
         return new Resource(amount, type);
     }
 

@@ -4,7 +4,7 @@ public interface TSelectableList extends TUiElement {
 
     TSelectableList items(String... items);
 
-    TSelectableList addListener(SelectedChangeListener selectedChangeListener);
+    TSelectableList addListener(SelectedChangeListener changeListener);
 
     interface SelectedChangeListener {
         void onChange(String newSelected);

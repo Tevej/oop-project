@@ -8,6 +8,10 @@ public class CellLibgdxAdapter implements TCell {
 
     private Cell cell;
 
+    public CellLibgdxAdapter() {
+        super();
+    }
+
     public void setCell(Cell cell) {
         this.cell = cell;
     }

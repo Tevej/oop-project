@@ -20,7 +20,7 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.model.utils.Cost;
+import main.se.tevej.game.model.utils.BuildingCostUtils;
 import main.se.tevej.game.model.utils.Resource;
 
 public class PaySystem extends EntitySystem implements SignalListener {
@@ -29,13 +29,14 @@ public class PaySystem extends EntitySystem implements SignalListener {
     private EntityManager em;
 
     public PaySystem(EntityManager em) {
+        super();
         this.em = em;
     }
 
 
     private void pay(Entity entity) {
         BuildingType type = entity.getComponent(BuildingComponent.class).getType();
-        List<Resource> cost = Cost.getCostOfBuilding(type);
+        List<Resource> cost = BuildingCostUtils.getCostOfBuilding(type);
 
         InventoryComponent inventoryC = engine.getEntitiesFor(
             Family.all(InventoryComponent.class).get())
@@ -58,7 +59,8 @@ public class PaySystem extends EntitySystem implements SignalListener {
         PositionComponent position = entity.getComponent(PositionComponent.class);
         WorldComponent world = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first()
             .getComponent(WorldComponent.class);
-        TileComponent tileComponent = world.getTileAt(position.getX(), position.getY()).getComponent(TileComponent.class);
+        TileComponent tileComponent = world.getTileAt(position.getX(), position.getY())
+            .getComponent(TileComponent.class);
         return tileComponent.isOccupied();
 
     }

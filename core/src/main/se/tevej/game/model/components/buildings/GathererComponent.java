@@ -23,7 +23,7 @@ public class GathererComponent implements Component {
 
     public void setResourcePerSecond(Resource newSpeed) throws MissmatchedResourceException {
         if (newSpeed.getType() == resourcePerSecond.getType()) {
-            this.resourcePerSecond = resourcePerSecond.setAmount(newSpeed.getAmount());
+            this.resourcePerSecond = resourcePerSecond.updateAmount(newSpeed.getAmount());
         } else {
             throw new MissmatchedResourceException();
         }

@@ -17,6 +17,10 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener {
 
     private Engine engine;
 
+    public DeleteEntitySystem() {
+        super();
+    }
+
     private void deleteEntity(Entity signalEntity) {
         WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
             .first().getComponent(WorldComponent.class);

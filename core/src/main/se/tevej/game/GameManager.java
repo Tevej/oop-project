@@ -23,7 +23,7 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
-import main.se.tevej.game.view.View;
+import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.ui.TButton;
@@ -32,46 +32,44 @@ import main.se.tevej.game.view.rendering.ui.TSelectableList;
 import main.se.tevej.game.view.rendering.ui.TTable;
 import main.se.tevej.game.view.rendering.ui.TTextField;
 
-public class Game extends ApplicationAdapter implements OnTimeChangeListener {
+public class GameManager extends ApplicationAdapter implements OnTimeChangeListener {
     private RenderingFactory renderingFactory;
 
-    private EntityManager em;
-    private View view;
+    private EntityManager entityManager;
+    private ViewManager view;
     private TTable table;
-    private InputLibgdxFactory inputLibgdxFactory;
 
     private InventoryGui gui;
 
     private long lastFrameNanoTime;
-    private long currFrameNanoTime;
     private float deltaTime;
     private float printFrameRate;
+
+    // The current timeMultiplier (0 means pause, 1 means default speed etc...)
+    private float timeMultiplier = 1f;
 
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
-    private final long billion = (1000 * 1000 * 1000);
+    private final long billion = 1000 * 1000 * 1000;
 
-    // The current timeMultiplier (0 means pause, 1 means default speed etc...)
-    private float timeMultiplier = 1f;
+
+    public GameManager() {
+        super();
+        calculateDeltaTime();
+    }
 
     @Override
     public void create() {
-        inputLibgdxFactory = new InputLibgdxFactory();
         renderingFactory = new RenderingLibgdxFactory();
         lastFrameNanoTime = System.nanoTime();
 
         createGui();
 
-        em = new EntityManager();
-        view = new View(em, renderingFactory);
+        entityManager = new EntityManager();
+        view = new ViewManager(entityManager, renderingFactory);
 
-        int worldWidth = 100;
-        int worldHeight = 100;
-
-        // Look over naming of method / implementation (also adds the world to the engine.)
-        Entity worldEntity = new WorldEntity(worldWidth, worldHeight, em);
         Entity inventoryEntity = new Entity();
         InventoryComponent inventoryC = new InventoryComponent();
         inventoryEntity.add(inventoryC);
@@ -79,19 +77,28 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         inventoryC.addResource(new Resource(1000, ResourceType.WATER));
         inventoryC.addResource(new Resource(1000, ResourceType.STONE));
 
-        em.addEntityToEngine(inventoryEntity);
-        em.addEntityToEngine(worldEntity);
+        int worldWidth = 100;
+        int worldHeight = 100;
+
+        // Look over naming of method / implementation (also adds the world to the engine.)
+        Entity worldEntity = new WorldEntity(worldWidth, worldHeight, entityManager);
+
+        entityManager.addEntityToEngine(inventoryEntity);
+        entityManager.addEntityToEngine(worldEntity);
 
         Entity buildHomeBuilding = new Entity();
         buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
-        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
+
+        Entity tile = worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5);
+        buildHomeBuilding.add(tile.getComponent(PositionComponent.class));
         buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
         buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(buildHomeBuilding);
+        entityManager.getSignal().dispatch(buildHomeBuilding);
 
+        InputLibgdxFactory inputFactory = new InputLibgdxFactory();
         CameraController camera = new CameraController(
-            view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight);
-        new ConstructionController(em, inputLibgdxFactory, worldEntity, camera);
+            view, inputFactory, 0, 0, worldWidth, worldHeight);
+        new ConstructionController(entityManager, inputFactory, worldEntity, camera);
 
         gui = new InventoryGui(renderingFactory, inventoryEntity);
 
@@ -100,7 +107,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
     }
 
     private void createGui() {
-        table = renderingFactory.createTable().getX((Gdx.graphics.getWidth() / 2f))
+        table = renderingFactory.createTable().getX(Gdx.graphics.getWidth() / 2f)
             .getY(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
 
         TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() ->
@@ -125,7 +132,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
     public void render() {
         calculateDeltaTime();
 
-        em.update(deltaTime);
+        entityManager.update(deltaTime);
 
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -139,10 +146,10 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
     }
 
     private void calculateDeltaTime() {
-        currFrameNanoTime = System.nanoTime();
+        long currFrameNanoTime = System.nanoTime();
         long diff = currFrameNanoTime - lastFrameNanoTime;
         lastFrameNanoTime = currFrameNanoTime;
-        deltaTime = ((float) diff / (float) billion);
+        deltaTime = (float) diff / (float) billion;
 
         printFrameRate += deltaTime;
         if (printFrameRate >= 0.1f) {

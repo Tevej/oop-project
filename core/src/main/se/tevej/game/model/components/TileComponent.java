@@ -6,6 +6,10 @@ import com.badlogic.ashley.core.Entity;
 public class TileComponent implements Component {
     private Entity occupier;
 
+    public TileComponent() {
+        super();
+    }
+
     public Entity getOccupier() {
         return occupier;
     }

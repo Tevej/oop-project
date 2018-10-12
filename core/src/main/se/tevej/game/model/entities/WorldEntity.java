@@ -1,6 +1,10 @@
 package main.se.tevej.game.model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.ashley.core.Entity;
+
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
@@ -8,21 +12,18 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WorldEntity extends Entity {
 
-    private final static double CLUSTERSIZE = 0.7;
-    private final static double CLUSTERDILUTION = 0.5;
-    private final static double WATERSPAWNPROB = 0.006;
-    private final static double WOODSPAWNPROB = 0.004;
-    private final static double STONESPAWNPROB = 0.003;
-    private final static int WATERRESOURCEAMOUNT = 1000;
-    private final static int WOODRESOURCEAMOUNT = 1000;
-    private final static int STONERESOURCEAMOUNT = 1000;
+    private double clusterSize = 0.7;
+    private double clusterDilution = 0.5;
+    private double waterSpawnProb = 0.006;
+    private double woodSpawnProb = 0.004;
+    private double stoneSpawnProb = 0.003;
+    private int waterAmount = 1000;
+    private int woodAmount = 1000;
+    private int stoneAmount = 1000;
 
-    public WorldEntity(int width, int height, EntityManager em){
+    public WorldEntity(int width, int height, EntityManager em) {
         super();
         Entity[] tiles = new Entity[width * height];
         for (int x = 0; x < width; x++) {
@@ -37,7 +38,7 @@ public class WorldEntity extends Entity {
         this.add(worldComponent);
     }
 
-    private void occupyTilesInCluster(List<Entity> clusters, WorldComponent wc){
+    private void occupyTilesInCluster(List<Entity> clusters, WorldComponent wc) {
         for (Entity entity : clusters) {
             PositionComponent pc = entity.getComponent(PositionComponent.class);
             Entity tc = wc.getTileAt(pc.getX(), pc.getY());
@@ -47,55 +48,59 @@ public class WorldEntity extends Entity {
         }
     }
 
-    private void generateNaturalResources(int width, int height, WorldComponent world, EntityManager em){
+    private void generateNaturalResources(int width, int height,
+                                          WorldComponent world, EntityManager em) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                PositionComponent pos = new PositionComponent(x,y);
-                List<Entity> clusters = generateRandomClusters(pos, new ArrayList<>(), world,  em);
+                PositionComponent pos = new PositionComponent(x, y);
+                List<Entity> clusters = generateRandomClusters(pos, new ArrayList<>(), world, em);
                 occupyTilesInCluster(clusters, world);
             }
         }
     }
-    
+
     private List<Entity> generateRandomClusters(PositionComponent startPos,
-                                                       List<PositionComponent> occupiedSpots, WorldComponent world,
-                                                       EntityManager em){
-        double prob = CLUSTERSIZE;
+                                                List<PositionComponent> occupiedSpots,
+                                                WorldComponent world, EntityManager em) {
+        double prob = clusterSize;
         double n = Math.random();
         Resource resource = null;
         List<PositionComponent> locations = new ArrayList<>();
-        List<Entity> nrelist= new ArrayList<>();
-        if (n< WATERSPAWNPROB){
+        List<Entity> nrelist = new ArrayList<>();
+        if (n < waterSpawnProb) {
             locations = generateCluster(prob, startPos, world, occupiedSpots);
-            resource = new Resource ( WATERRESOURCEAMOUNT, ResourceType.WATER);
-        } else if (n < WOODSPAWNPROB + WATERSPAWNPROB) {
+            resource = new Resource(waterAmount, ResourceType.WATER);
+        } else if (n < woodSpawnProb + waterSpawnProb) {
             locations = generateCluster(prob, startPos, world, occupiedSpots);
-            resource = new Resource ( WOODRESOURCEAMOUNT, ResourceType.WOOD);
-        } else if (n < STONESPAWNPROB + WOODSPAWNPROB + WATERSPAWNPROB) {
+            resource = new Resource(woodAmount, ResourceType.WOOD);
+        } else if (n < stoneSpawnProb + woodSpawnProb + waterSpawnProb) {
             locations = generateCluster(prob, startPos, world, occupiedSpots);
-            resource = new Resource ( STONERESOURCEAMOUNT, ResourceType.STONE);
+            resource = new Resource(stoneAmount, ResourceType.STONE);
         }
         for (PositionComponent loc : locations) {
-            Entity naturalResourceEntity = new NaturalResourceEntity(loc.getX(), loc.getY(), resource);
-            nrelist.add(naturalResourceEntity);
-            em.addEntityToEngine(naturalResourceEntity);
+            Entity resourceEntity =
+                new NaturalResourceEntity(loc.getX(), loc.getY(), resource);
+            nrelist.add(resourceEntity);
+            em.addEntityToEngine(resourceEntity);
         }
         return nrelist;
     }
 
-    private List<PositionComponent> generateCluster(double prob,
-                                                           PositionComponent startPos, WorldComponent world,
-                                                           List<PositionComponent> occupiedSpots){
+    private List<PositionComponent> generateCluster(double prob, PositionComponent startPos,
+                                                    WorldComponent world,
+                                                    List<PositionComponent> occupiedSpots) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                PositionComponent pos = new PositionComponent(startPos.getX() + i, startPos.getY() + j);
+                PositionComponent pos =
+                    new PositionComponent(startPos.getX() + i, startPos.getY() + j);
                 if (isOutOfBounds(pos, world.getWidth(), world.getHeight())) {
                     continue;
                 }
-                TileComponent newTile = world.getTileAt(pos.getX(), pos.getY()).getComponent(TileComponent.class);
+                TileComponent newTile = world.getTileAt(pos.getX(), pos.getY())
+                    .getComponent(TileComponent.class);
                 if (Math.random() < prob && !occupiedSpots.contains(pos) && !newTile.isOccupied()) {
                     occupiedSpots.add(pos);
-                    generateCluster(prob* CLUSTERDILUTION, pos, world, occupiedSpots);
+                    generateCluster(prob * clusterDilution, pos, world, occupiedSpots);
                 }
 
             }
@@ -103,10 +108,10 @@ public class WorldEntity extends Entity {
         return occupiedSpots;
     }
 
-    private boolean isOutOfBounds(PositionComponent pos, int width, int height){
-        return (pos.getX() < 0
-                || pos.getY() < 0
-                || pos.getX() >= width
-                || pos.getY() >= height);
+    private boolean isOutOfBounds(PositionComponent pos, int width, int height) {
+        return pos.getX() < 0
+            || pos.getY() < 0
+            || pos.getX() >= width
+            || pos.getY() >= height;
     }
 }

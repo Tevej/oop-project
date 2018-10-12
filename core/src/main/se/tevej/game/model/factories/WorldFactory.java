@@ -13,6 +13,7 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
+@SuppressWarnings("PMD") // The class is to be removed.
 public class WorldFactory {
     public static Entity createWorldEntity(int width, int height, EntityManager em) {
         Entity[] tiles = new Entity[width * height];

@@ -25,11 +25,11 @@ public class SelectableListLibgdxAdapter extends ScrollPane implements TSelectab
     }
 
     @Override
-    public TSelectableList addListener(SelectedChangeListener selectedChangeListener) {
+    public TSelectableList addListener(SelectedChangeListener changeListener) {
         super.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedChangeListener.onChange(list.getSelected());
+                changeListener.onChange(list.getSelected());
             }
         });
         return this;

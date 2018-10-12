@@ -13,6 +13,7 @@ import main.se.tevej.game.model.components.buildings.HomeComponent;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
+@SuppressWarnings("PMD") // The class is to be removed.
 public class BuildingFactory {
     public static Entity createBuilding(
         BuildingType type, int x, int y) throws NoSuchBuildingException {
@@ -22,16 +23,21 @@ public class BuildingFactory {
         building.add(new BuildingComponent(type));
         switch (type) {
             case HOME:
-                return createHome(building);
+                building = createHome(building);
+                break;
             case LUMBERMILL:
-                return createLumberMill(building);
+                building = createLumberMill(building);
+                break;
             case QUARRY:
-                return createQuarry(building);
+                building = createQuarry(building);
+                break;
             case PUMP:
-                return createPump(building);
+                building = createPump(building);
+                break;
             default:
                 throw new NoSuchBuildingException(type);
         }
+        return building;
     }
 
     // Should only ever be called from createBuilding, hence private access.

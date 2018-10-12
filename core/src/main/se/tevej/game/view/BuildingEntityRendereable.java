@@ -18,10 +18,10 @@ import main.se.tevej.game.view.rendering.TTexture;
 
 public class BuildingEntityRendereable implements EntityRenderable {
 
-    HashMap<BuildingType, TTexture> buildingTextureMap;
+    private HashMap<BuildingType, TTexture> buildingRenderMap;
 
     public BuildingEntityRendereable(RenderingFactory renderingFactory) {
-        buildingTextureMap = new HashMap<>();
+        buildingRenderMap = new HashMap<>();
         List<String> imageTypes = new ArrayList();
         imageTypes.add(".jpg");
         imageTypes.add(".png");
@@ -59,7 +59,7 @@ public class BuildingEntityRendereable implements EntityRenderable {
                             fileName.length() - fileEnding.length());
                         BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
                         fileName = folder.getPath() + "/" + fileName;
-                        buildingTextureMap.put(type, renderingFactory.createTexture(fileName));
+                        buildingRenderMap.put(type, renderingFactory.createTexture(fileName));
                     }
                 }
             }
@@ -78,7 +78,7 @@ public class BuildingEntityRendereable implements EntityRenderable {
         float y = (posC.getY() + offsetY) * pixelPerTile;
         float width = sizeC.getWidth() * pixelPerTile;
         float height = sizeC.getHeight() * pixelPerTile;
-        batchRenderer.renderTexture(buildingTextureMap.get(
+        batchRenderer.renderTexture(buildingRenderMap.get(
             buildingC.getType()), x, y, width, height);
     }
 }

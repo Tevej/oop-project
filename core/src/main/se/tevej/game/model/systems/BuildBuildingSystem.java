@@ -20,6 +20,10 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
 
     private Engine engine;
 
+    public BuildBuildingSystem() {
+        super();
+    }
+
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;

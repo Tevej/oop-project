@@ -8,6 +8,7 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.utils.Resource;
 
+@SuppressWarnings("PMD") // The class is to be removed.
 public class NaturalResourceFactory {
 
     public static Entity createNaturalResource(

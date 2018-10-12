@@ -7,6 +7,10 @@ import main.se.tevej.game.view.rendering.TTexture;
 
 public class BatchRendererLibgdxAdapter extends SpriteBatch implements TBatchRenderer {
 
+    public BatchRendererLibgdxAdapter() {
+        super();
+    }
+
     @Override
     public void beginRendering() {
         super.begin();
