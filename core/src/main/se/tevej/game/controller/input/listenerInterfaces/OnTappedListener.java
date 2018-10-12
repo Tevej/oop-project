@@ -1,8 +1,7 @@
 package main.se.tevej.game.controller.input.listenerInterfaces;
 
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.enums.TButton;
+import main.se.tevej.game.controller.input.enums.TKey;
 
 public interface OnTappedListener {
-    void onTapped (TButton button);
+    void onTapped (TKey button);
 }

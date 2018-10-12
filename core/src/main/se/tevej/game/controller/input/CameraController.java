@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnDraggedListener;
-import main.se.tevej.game.controller.input.enums.TButton;
+import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.view.View;
 
@@ -52,13 +52,13 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     }
 
     @Override
-    public void onClicked(TMouse mouse, TButton button) {
+    public void onClicked(TKey button) {
         updatePrev(mouse.getX(), mouse.getY());
     }
 
     @Override
-    public void onDragged(TMouse mouse, TButton button, float x, float y) {
-        if (button == TButton.MOUSE_LEFT) {
+    public void onDragged(TKey button, float x, float y) {
+        if (button == TKey.MOUSE_LEFT) {
             calculateNewPos(x, y);
 
             float maxX = (worldWidth - ((float) Gdx.app.getGraphics().getWidth() / (float) pixelPerTile));

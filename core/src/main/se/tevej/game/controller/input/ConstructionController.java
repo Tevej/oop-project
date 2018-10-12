@@ -2,10 +2,7 @@ package main.se.tevej.game.controller.input;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
-import main.se.tevej.game.controller.input.CameraController;
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.TMouse;
-import main.se.tevej.game.controller.input.enums.TButton;
+import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnMovedListener;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
@@ -37,7 +34,7 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
         this.camera = camera;
     }
 
-    public void onTapped (TButton button){
+    public void onTapped (TKey button){
         switch (button) {
             case  KEY_L:
                 buildConstruction(BuildingType.LUMBERMILL);
@@ -62,7 +59,7 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
         em.getSignal().dispatch(entity);
     }
 
-    public void onMoved(TMouse mouse) {
+    public void onMoved() {
         Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
         mouseX = (int)v2.x;
         mouseY = (int)v2.y;

@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import main.se.tevej.game.controller.input.enums.TKey;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
 import main.se.tevej.game.view.rendering.ui.TButton;
 
 public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
@@ -30,14 +32,17 @@ public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
     }
 
     @Override
-    public TButton addListener(OnClickListener onClickListener) {
+    public TButton addListener(OnClickedListener onClickListener) {
+        System.out.println("Hmm");
+        System.out.println(getWidth());
         super.addListener(new ClickListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
-                onClickListener.onClick();
+                System.out.println("Hej");
+                onClickListener.onClicked(TKey.MOUSE_LEFT);
             }
         });
         return this;
     }
+
 }

@@ -2,7 +2,7 @@ package main.se.tevej.game.libgdx.view.rendering.input;
 
 import com.badlogic.gdx.*;
 import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.enums.TButton;
+import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
 
 import java.util.HashMap;
@@ -12,60 +12,60 @@ import static com.badlogic.gdx.Input.Keys.*;
 
 public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
 
-    static final Map<Integer, TButton> inputMap = new HashMap<>();
+    static final Map<Integer, TKey> inputMap = new HashMap<>();
 
     static
     {
-        inputMap.put(NUM_1, TButton.KEY_1);
-        inputMap.put(NUM_2, TButton.KEY_2);
-        inputMap.put(NUM_3, TButton.KEY_3);
-        inputMap.put(NUM_4, TButton.KEY_4);
-        inputMap.put(NUM_5, TButton.KEY_5);
-        inputMap.put(NUM_6, TButton.KEY_6);
-        inputMap.put(NUM_7, TButton.KEY_7);
-        inputMap.put(NUM_8, TButton.KEY_8);
-        inputMap.put(NUM_9, TButton.KEY_9);
-        inputMap.put(NUM_0, TButton.KEY_0);
+        inputMap.put(NUM_1, TKey.KEY_1);
+        inputMap.put(NUM_2, TKey.KEY_2);
+        inputMap.put(NUM_3, TKey.KEY_3);
+        inputMap.put(NUM_4, TKey.KEY_4);
+        inputMap.put(NUM_5, TKey.KEY_5);
+        inputMap.put(NUM_6, TKey.KEY_6);
+        inputMap.put(NUM_7, TKey.KEY_7);
+        inputMap.put(NUM_8, TKey.KEY_8);
+        inputMap.put(NUM_9, TKey.KEY_9);
+        inputMap.put(NUM_0, TKey.KEY_0);
 
-        inputMap.put(A, TButton.KEY_A);
-        inputMap.put(B, TButton.KEY_B);
-        inputMap.put(C, TButton.KEY_C);
-        inputMap.put(D, TButton.KEY_D);
-        inputMap.put(E, TButton.KEY_E);
-        inputMap.put(F, TButton.KEY_F);
-        inputMap.put(G, TButton.KEY_G);
-        inputMap.put(H, TButton.KEY_H);
-        inputMap.put(I, TButton.KEY_I);
-        inputMap.put(J, TButton.KEY_J);
-        inputMap.put(K, TButton.KEY_K);
-        inputMap.put(L, TButton.KEY_L);
-        inputMap.put(M, TButton.KEY_M);
-        inputMap.put(N, TButton.KEY_N);
-        inputMap.put(O, TButton.KEY_O);
-        inputMap.put(P, TButton.KEY_P);
-        inputMap.put(Q, TButton.KEY_Q);
-        inputMap.put(R, TButton.KEY_R);
-        inputMap.put(S, TButton.KEY_S);
-        inputMap.put(T, TButton.KEY_T);
-        inputMap.put(U, TButton.KEY_U);
-        inputMap.put(V, TButton.KEY_V);
-        inputMap.put(W, TButton.KEY_W);
-        inputMap.put(X, TButton.KEY_X);
-        inputMap.put(Y, TButton.KEY_Y);
-        inputMap.put(Z, TButton.KEY_Z);
+        inputMap.put(A, TKey.KEY_A);
+        inputMap.put(B, TKey.KEY_B);
+        inputMap.put(C, TKey.KEY_C);
+        inputMap.put(D, TKey.KEY_D);
+        inputMap.put(E, TKey.KEY_E);
+        inputMap.put(F, TKey.KEY_F);
+        inputMap.put(G, TKey.KEY_G);
+        inputMap.put(H, TKey.KEY_H);
+        inputMap.put(I, TKey.KEY_I);
+        inputMap.put(J, TKey.KEY_J);
+        inputMap.put(K, TKey.KEY_K);
+        inputMap.put(L, TKey.KEY_L);
+        inputMap.put(M, TKey.KEY_M);
+        inputMap.put(N, TKey.KEY_N);
+        inputMap.put(O, TKey.KEY_O);
+        inputMap.put(P, TKey.KEY_P);
+        inputMap.put(Q, TKey.KEY_Q);
+        inputMap.put(R, TKey.KEY_R);
+        inputMap.put(S, TKey.KEY_S);
+        inputMap.put(T, TKey.KEY_T);
+        inputMap.put(U, TKey.KEY_U);
+        inputMap.put(V, TKey.KEY_V);
+        inputMap.put(W, TKey.KEY_W);
+        inputMap.put(X, TKey.KEY_X);
+        inputMap.put(Y, TKey.KEY_Y);
+        inputMap.put(Z, TKey.KEY_Z);
 
-        inputMap.put(LEFT, TButton.KEY_LEFT);
-        inputMap.put(RIGHT, TButton.KEY_RIGHT);
-        inputMap.put(UP, TButton.KEY_UP);
-        inputMap.put(DOWN, TButton.KEY_DOWN);
+        inputMap.put(LEFT, TKey.KEY_LEFT);
+        inputMap.put(RIGHT, TKey.KEY_RIGHT);
+        inputMap.put(UP, TKey.KEY_UP);
+        inputMap.put(DOWN, TKey.KEY_DOWN);
 
-        inputMap.put(ENTER, TButton.KEY_ENTER);
-        inputMap.put(ESCAPE, TButton.KEY_ESC);
-        inputMap.put(CONTROL_LEFT, TButton.KEY_CTRL);
-        inputMap.put(SHIFT_LEFT, TButton.KEY_SHIFT);
-        inputMap.put(TAB, TButton.KEY_TAB);
-        inputMap.put(ALT_LEFT, TButton.KEY_ALT);
-        inputMap.put(SPACE, TButton.KEY_SPACE);
+        inputMap.put(ENTER, TKey.KEY_ENTER);
+        inputMap.put(ESCAPE, TKey.KEY_ESC);
+        inputMap.put(CONTROL_LEFT, TKey.KEY_CTRL);
+        inputMap.put(SHIFT_LEFT, TKey.KEY_SHIFT);
+        inputMap.put(TAB, TKey.KEY_TAB);
+        inputMap.put(ALT_LEFT, TKey.KEY_ALT);
+        inputMap.put(SPACE, TKey.KEY_SPACE);
 
     }
 
@@ -78,7 +78,7 @@ public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoa
                if (inputMap.containsKey(keycode)) {
                    onClickedListener.onTapped(inputMap.get(keycode));
                }
-               return true;
+               return false;
             }
         });
     }

@@ -17,6 +17,7 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.WorldFactory;
+import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
@@ -36,6 +37,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
     private InputLibgdxFactory inputLibgdxFactory;
 
     private InventoryGui gui;
+    private BuildingGui buildingGui;
 
     private long lastFrameNanoTime;
     private long currFrameNanoTime;
@@ -64,7 +66,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight, mouse);
 
 
-		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener(() -> System.out.println("Hej!"));
+		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener((key) -> System.out.println("Hej!"));
 		TSelectableList selectableList = renderingFactory.createSelectableList().items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou").addListener(newSelected -> System.out.println("Selected: " + newSelected));
 
         TTextField textField = renderingFactory.createTextField().set("Hej").addListener(value -> {
@@ -102,8 +104,9 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         new ConstructionController(em, inputLibgdxFactory, worldEntity, camera, keyboard, mouse);
 
 		gui = new InventoryGui(renderingFactory, inventoryEntity);
+		buildingGui = new BuildingGui(renderingFactory, mouse);
 
-        TimeController timeController = new TimeController();
+        TimeController timeController = new TimeController(keyboard);
         timeController.registerOnTimeChange(this);
     }
 
@@ -119,9 +122,12 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         view.render();
 
         table.update(deltaTime);
-        //table.render();
+        table.render();
         gui.update(deltaTime);
         gui.render();
+
+        buildingGui.update(deltaTime);
+        buildingGui.render();
     }
 
     private void calculateDeltaTime() {
