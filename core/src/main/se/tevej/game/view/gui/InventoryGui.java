@@ -24,9 +24,9 @@ public class InventoryGui {
     private void create() {
         int TABLE_HEIGHT = 32;
         inventoryElements = new LinkedList<>();
-        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.WOOD), "wood.jpg", ResourceType.WOOD));
-        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.WATER), "water.jpg", ResourceType.WATER));
-        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.STONE), "stone.jpg", ResourceType.STONE));
+        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.WOOD), "naturalResources/wood.jpg", ResourceType.WOOD));
+        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.WATER), "naturalResources/water.jpg", ResourceType.WATER));
+        inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.STONE), "naturalResources/stone.jpg", ResourceType.STONE));
         inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.FOOD), "food.png", ResourceType.FOOD));
         inventoryElements.add(new InventoryElement(renderingFactory, findAmountOfResource(ResourceType.POPULATION), "population.png", ResourceType.POPULATION));
 
