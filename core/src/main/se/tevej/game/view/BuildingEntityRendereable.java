@@ -15,49 +15,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class BuildingEntityRendereable implements EntityRenderable {
+public class BuildingEntityRendereable extends TextureLoader implements EntityRenderable {
 
     HashMap<BuildingType, TTexture> buildingTextureMap;
 
     public BuildingEntityRendereable(RenderingFactory renderingFactory) {
-        buildingTextureMap = new HashMap<>();
-        List<String> imageTypes = new ArrayList();
-        imageTypes.add(".jpg");
-        imageTypes.add(".png");
-        imageTypes.add(".jpeg");
-        imageTypes.add(".gif");
-        File folder = new File("buildings");
+        super();
 
+        List<File> files;
         try {
-            loadTextures(folder, renderingFactory, imageTypes);
+            files = getFilesInDir("buildings");
         } catch (Exception e) {
-        }
-    }
-
-    private void loadTextures(final File folder, RenderingFactory renderingFactory, List<String> imageTypes) throws Exception {
-        renderingFactory = new RenderingLibgdxFactory();
-
-        File[] files = folder.listFiles();
-        if (files == null) {
-            System.out.println("FOLDER NULL?!");
-            throw new Exception();
+            files = new ArrayList<File>() {};
+            System.out.println("Failed to load textures.");
         }
 
-        for (final File fileEntry : files) {
-            if (fileEntry.isDirectory()) {
-                loadTextures(fileEntry, renderingFactory, imageTypes);
-            } else {
-                String fileName = fileEntry.getName();
-                for (String fileEnding : imageTypes) {
-                    if (fileName.endsWith(fileEnding)) {
-                        String typeName = fileName.substring(0, fileName.length() - fileEnding.length());
-                        BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
-                        fileName = folder.getPath() + "/" + fileName;
-                        buildingTextureMap.put(type, renderingFactory.createTexture(fileName));
-                    }
-                }
-            }
-        }
+        buildingTextureMap = new HashMap<BuildingType, TTexture>(){};
+
+        filesToMap(files, renderingFactory);
     }
 
     @Override
@@ -70,5 +45,19 @@ public class BuildingEntityRendereable implements EntityRenderable {
         float width = sizeC.getWidth() * pixelPerTile;
         float height = sizeC.getHeight() * pixelPerTile;
         batchRenderer.renderTexture(buildingTextureMap.get(buildingC.getType()), x, y, width, height);
+    }
+
+    @Override
+    void filesToMap(List<File> files, RenderingFactory renderingFactory) {
+        for (final File fileEntry : files) {
+            String fileName = fileEntry.getName();
+            for (String fileEnding : imageTypes) {
+                if (fileName.endsWith(fileEnding)) {
+                    String typeName = fileName.substring(0, fileName.length() - fileEnding.length());
+                    BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
+                    buildingTextureMap.put(type, renderingFactory.createTexture(fileEntry.getPath()));
+                }
+            }
+        }
     }
 }

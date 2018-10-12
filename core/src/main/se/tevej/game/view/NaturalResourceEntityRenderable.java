@@ -5,19 +5,35 @@ import main.se.tevej.game.exceptions.UnknownResourceException;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
+import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
 
-public class NaturalResourceEntityRenderable implements EntityRenderable {
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-    private TTexture water, stone, wood;
+public class NaturalResourceEntityRenderable extends TextureLoader implements EntityRenderable {
 
+    HashMap<ResourceType, TTexture> resourceTextureMap;
 
     public NaturalResourceEntityRenderable(RenderingFactory renderingFactory) {
-        this.water = renderingFactory.createTexture("water.jpg");
-        this.stone = renderingFactory.createTexture("stone.jpg");
-        this.wood = renderingFactory.createTexture("wood.jpg");
+        super();
+
+        List<File> files;
+        try {
+            files = getFilesInDir("naturalResources");
+        } catch (Exception e) {
+            files = new ArrayList<File>() {};
+            System.out.println("Failed to load textures.");
+        }
+
+        resourceTextureMap = new HashMap<ResourceType, TTexture>(){};
+
+        filesToMap(files, renderingFactory);
     }
 
     @Override
@@ -28,27 +44,23 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
 
         SizeComponent sc = entity.getComponent(SizeComponent.class);
 
-        TTexture image;
+        batchRenderer.renderTexture(resourceTextureMap.get(nrc.getType()), (pc.getX() + offsetX) * pixelPerTile,
+                (pc.getY()  + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
+                sc.getHeight() * pixelPerTile);
 
-        switch (nrc.getType()) {
+    }
 
-            case WATER:
-                image = water;
-                break;
-            case STONE:
-                image = stone;
-                break;
-            case WOOD:
-                image = wood;
-                break;
-            default:
-                throw new UnknownResourceException(nrc.getType());
-        }
-
-        if (image != null) {
-            batchRenderer.renderTexture(image, (pc.getX() + offsetX) * pixelPerTile,
-                    (pc.getY()  + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
-                    sc.getHeight() * pixelPerTile);
+    @Override
+    void filesToMap(List<File> files, RenderingFactory renderingFactory) {
+        for (final File fileEntry : files) {
+            String fileName = fileEntry.getName();
+            for (String fileEnding : imageTypes) {
+                if (fileName.endsWith(fileEnding)) {
+                    String typeName = fileName.substring(0, fileName.length() - fileEnding.length());
+                    ResourceType type = ResourceType.valueOf(typeName.toUpperCase());
+                    resourceTextureMap.put(type, renderingFactory.createTexture(fileEntry.getPath()));
+                }
+            }
         }
     }
 }
