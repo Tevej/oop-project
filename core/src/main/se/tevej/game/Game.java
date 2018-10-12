@@ -101,10 +101,10 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildHomeBuilding);
 
-        new ConstructionController(em, inputLibgdxFactory, worldEntity, camera, keyboard, mouse);
+        ConstructionController constructionController = new ConstructionController(em, inputLibgdxFactory, worldEntity, camera, keyboard, mouse);
 
 		gui = new InventoryGui(renderingFactory, inventoryEntity);
-		buildingGui = new BuildingGui(renderingFactory, mouse);
+		buildingGui = new BuildingGui(renderingFactory, constructionController);
 
         TimeController timeController = new TimeController(keyboard);
         timeController.registerOnTimeChange(this);
@@ -122,7 +122,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         view.render();
 
         table.update(deltaTime);
-        table.render();
+        //table.render();
         gui.update(deltaTime);
         gui.render();
 

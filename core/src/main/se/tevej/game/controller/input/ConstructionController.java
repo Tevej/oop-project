@@ -3,6 +3,7 @@ package main.se.tevej.game.controller.input;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 import main.se.tevej.game.controller.input.enums.TKey;
+import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnMovedListener;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
@@ -13,8 +14,9 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.utils.ResourceType;
 
-public class ConstructionController implements OnTappedListener, OnMovedListener {
+public class ConstructionController implements OnTappedListener, OnMovedListener, OnClickedListener {
 
     private EntityManager em;
     private Entity worldEntity;
@@ -24,12 +26,17 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     private TKeyBoard keyboard;
     private CameraController camera;
 
+    private boolean buildingSelected;
+    private BuildingType selectedBuilding;
+
     public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity, CameraController camera, TKeyBoard keyboard, TMouse mouse) {
+        buildingSelected = false;
         this.em = em;
         this.worldEntity = worldEntity;
         this.keyboard = keyboard;
         this.mouse = mouse;
         mouse.addMovedListener(this);
+        mouse.addClickedListener(this);
         keyboard.addTappedListener(this);
         this.camera = camera;
     }
@@ -59,6 +66,13 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
         em.getSignal().dispatch(entity);
     }
 
+    private void buildConstruction() {
+        if (buildingSelected) {
+            buildingSelected = false;
+            buildConstruction(selectedBuilding);
+        }
+    }
+
     public void onMoved() {
         Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
         mouseX = (int)v2.x;
@@ -66,4 +80,17 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     }
 
 
+    public void onButtonClicked(TKey button, BuildingType buildingType) {
+        if (button == TKey.MOUSE_LEFT) {
+            buildingSelected = !buildingSelected;
+            selectedBuilding = buildingType;
+        }
+    }
+
+    @Override
+    public void onClicked(TKey button) {
+        if (button == TKey.MOUSE_LEFT) {
+            buildConstruction();
+        }
+    }
 }
