@@ -8,7 +8,6 @@ public class InputLibgdxFactory implements InputFactory {
 
     @Override
     public TMouse createMouse() {
-        System.out.println("Mouse created");
         return new MouseLibgdxAdapter();
     }
 

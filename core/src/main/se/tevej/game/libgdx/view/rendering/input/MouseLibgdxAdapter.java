@@ -28,7 +28,7 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
 
     @Override
     public void addDraggedListener(OnDraggedListener onDraggedListener) {
-        addToInputMultiplexer(new InputAdapter(){
+        OrderedInputMultiplexer.getInstance().add(TMouse.class, new InputAdapter(){
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
                 onDraggedListener.onDragged(TKey.MOUSE_LEFT, screenX, screenY);
@@ -40,7 +40,7 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
 
     @Override
     public void addClickedListener(OnClickedListener onClickedListener) {
-        addToInputMultiplexer(new InputAdapter(){
+        OrderedInputMultiplexer.getInstance().add(TMouse.class, new InputAdapter(){
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                   onClickedListener.onClicked(inputMap.get(button));
@@ -51,7 +51,7 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
 
     @Override
     public void addMovedListener(OnMovedListener onMovedListener) {
-        addToInputMultiplexer(new InputAdapter(){
+        OrderedInputMultiplexer.getInstance().add(TMouse.class, new InputAdapter(){
             @Override
             public boolean mouseMoved(int screenX, int screenY) {
                 onMovedListener.onMoved();

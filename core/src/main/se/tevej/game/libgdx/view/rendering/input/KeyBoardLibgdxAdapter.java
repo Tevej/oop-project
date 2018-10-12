@@ -72,7 +72,7 @@ public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoa
     @Override
     public void addTappedListener(OnTappedListener onClickedListener) {
         TKeyBoard keyboard = this;
-        addToInputMultiplexer(new InputAdapter() {
+        OrderedInputMultiplexer.getInstance().add(TKeyBoard.class, new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
                if (inputMap.containsKey(keycode)) {
