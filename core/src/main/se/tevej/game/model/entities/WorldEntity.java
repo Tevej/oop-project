@@ -56,7 +56,9 @@ public class WorldEntity extends Entity {
             }
         }
     }
-    
+
+    private 
+
     private List<Entity> generateRandomClusters(PositionComponent startPos,
                                                        List<PositionComponent> occupiedSpots, WorldComponent world,
                                                        EntityManager em){
