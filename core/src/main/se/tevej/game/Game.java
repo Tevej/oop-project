@@ -20,7 +20,7 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.model.factories.WorldFactory;
+import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.View;
@@ -67,6 +67,11 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         em = new EntityManager();
         view = new View(em, renderingFactory);
 
+        int worldWidth = 100;
+        int worldHeight = 100;
+
+        // Look over naming of method / implementation (also adds the world to the engine.)
+        Entity worldEntity = new WorldEntity(worldWidth, worldHeight, em);
         Entity inventoryEntity = new Entity();
         InventoryComponent inventoryC = new InventoryComponent();
         inventoryEntity.add(inventoryC);
@@ -74,19 +79,12 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
         inventoryC.addResource(new Resource(1000, ResourceType.WATER));
         inventoryC.addResource(new Resource(1000, ResourceType.STONE));
 
-        int worldWidth = 100;
-        int worldHeight = 100;
-
-        // Create world
-        Entity worldEntity = WorldFactory.createWorldEntity(worldWidth, worldHeight, em);
-
         em.addEntityToEngine(inventoryEntity);
         em.addEntityToEngine(worldEntity);
 
         Entity buildHomeBuilding = new Entity();
         buildHomeBuilding.add(new BuildingComponent(BuildingType.HOME));
-        Entity tile = worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5);
-        buildHomeBuilding.add(tile.getComponent(PositionComponent.class));
+        buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class).getTileAt(5, 5).getComponent(PositionComponent.class));
         buildHomeBuilding.add(worldEntity.getComponent(WorldComponent.class));
         buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
         em.getSignal().dispatch(buildHomeBuilding);

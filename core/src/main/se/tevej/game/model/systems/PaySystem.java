@@ -15,6 +15,9 @@ import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.InventoryComponent;
+import main.se.tevej.game.model.components.PositionComponent;
+import main.se.tevej.game.model.components.TileComponent;
+import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.utils.Cost;
@@ -51,6 +54,15 @@ public class PaySystem extends EntitySystem implements SignalListener {
         em.getSignal().dispatch(signalEntity);
     }
 
+    private boolean isOccupiedLocation(Entity entity) {
+        PositionComponent position = entity.getComponent(PositionComponent.class);
+        WorldComponent world = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first()
+            .getComponent(WorldComponent.class);
+        TileComponent tileComponent = world.getTileAt(position.getX(), position.getY()).getComponent(TileComponent.class);
+        return tileComponent.isOccupied();
+
+    }
+
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
@@ -68,7 +80,11 @@ public class PaySystem extends EntitySystem implements SignalListener {
                 SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
                 switch (signalComponent.getType()) {
                     case PAYFORCONSTRUCTION:
-                        pay(signalEntity);
+                        if (isOccupiedLocation(signalEntity)) {
+                            break;
+                        } else {
+                            pay(signalEntity);
+                        }
                         break;
                     default:
                         break;
