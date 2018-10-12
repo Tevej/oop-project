@@ -1,7 +1,5 @@
 package main.se.tevej.game.view;
 
-import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
-import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TTexture;
 
@@ -10,63 +8,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TextureLoader {
+public abstract class TextureLoader {
 
-    HashMap<Enum<?>, TTexture> textureMap;
+    List<String> imageTypes;
 
-    public TextureLoader(RenderingFactory renderingFactory, Enum<?> texturetype, String path) {
-        textureMap = new HashMap<>();
-
-        List<String> imageTypes = new ArrayList();
+    public TextureLoader() {
+        imageTypes = new ArrayList();
         imageTypes.add(".jpg");
         imageTypes.add(".png");
         imageTypes.add(".jpeg");
+    }
+
+    List<File> getFilesInDir(String path) throws Exception {
 
         File folder = new File(path);
 
-        try {
-            loadTextures(folder, renderingFactory, imageTypes);
-        } catch (Exception e) {
-            System.out.println("Failed to load textures.");
-        }
-    }
-
-    public TTexture getTexture(Enum<?> T) {
-        return textureMap.get(T);
-    }
-
-    private void loadTextures(
-            final File folder, RenderingFactory renderingFactory,
-            List<String> imageTypes) throws Exception {
-
-        renderingFactory = new RenderingLibgdxFactory();
-
-        File[] files = folder.listFiles();
-        if (files == null) {
+        File[] filesAndFolders = folder.listFiles();
+        if (filesAndFolders == null) {
             System.out.println("FOLDER NULL?!");
             throw new Exception();
         }
 
-        for (final File fileEntry : files) {
-            if (fileEntry.isDirectory()) {
-                loadTextures(fileEntry, renderingFactory, imageTypes);
-            } else {
-                String fileName = fileEntry.getName();
-                for (String fileEnding : imageTypes) {
-                    if (fileName.endsWith(fileEnding)) {
-                        addTextureToMap(fileName, fileEnding, folder, renderingFactory);
-                    }
-                }
-            }
+        List<File> files = new ArrayList<>();
+        for (final File fileEntry : filesAndFolders ) {
+            addFileToList(fileEntry, files, path);
+        }
+
+        return files;
+    }
+
+    private void addFileToList(File fileEntry, List<File> files, String path) throws Exception {
+        if (fileEntry.isDirectory()) {
+            getFilesInDir(fileEntry.getPath());
+        } else {
+            files.add(fileEntry);
         }
     }
 
-    private void addTextureToMap(String fileName, String fileEnding, File folder, RenderingFactory renderingFactory) {
-        String typeName = fileName.substring(0, fileName.length() - fileEnding.length());
-        BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
-        fileName = folder.getPath() + "/" + fileName;
-        textureMap.put(type, renderingFactory.createTexture(fileName));
-    }
-
-
+    abstract void filesToMap(List<File> files, RenderingFactory renderingFactory);
 }
