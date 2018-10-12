@@ -57,12 +57,11 @@ public class PaySystem extends EntitySystem implements SignalListener {
 
     private boolean isOccupiedLocation(Entity entity) {
         PositionComponent position = entity.getComponent(PositionComponent.class);
-        WorldComponent world = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first()
-            .getComponent(WorldComponent.class);
-        TileComponent tileComponent = world.getTileAt(position.getX(), position.getY())
-            .getComponent(TileComponent.class);
+        Entity worldEntity = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first();
+        WorldComponent world = worldEntity.getComponent(WorldComponent.class);
+        Entity tile = world.getTileAt(position.getX(), position.getY());
+        TileComponent tileComponent = tile.getComponent(TileComponent.class);
         return tileComponent.isOccupied();
-
     }
 
     @Override
