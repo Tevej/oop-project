@@ -8,6 +8,13 @@
         The Basic ruleset contains a collection of good practices which should be followed.
     </description>
 
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="LocalVariableCouldBeFinal"/>
+        <exclude name="MethodArgumentCouldBeFinal"/>
+        <exclude name="ShortVariable"/>
+        <exclude name="UnnecessaryConstructor"/>
+    </rule>
+
     <!-- Rules, that have been moved into a category -->
     <rule ref="category/java/errorprone.xml/AvoidBranchingStatementAsLastInLoop" deprecated="true"/>
     <rule ref="category/java/errorprone.xml/AvoidDecimalLiteralsInBigDecimalConstructor" deprecated="true"/>
@@ -38,5 +45,4 @@
 
     <rule ref="category/java/design.xml/CollapsibleIfStatements" deprecated="true"/>
     <rule ref="category/java/design.xml/SimplifiedTernary" deprecated="true"/>
-
 </ruleset>

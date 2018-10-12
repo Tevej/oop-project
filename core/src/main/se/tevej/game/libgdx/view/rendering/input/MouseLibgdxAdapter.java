@@ -18,16 +18,19 @@ import main.se.tevej.game.controller.input.listeners.OnMovedListener;
 
 public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
 
-    static final Map<Integer, TButton> inputMap = new HashMap<>();
+    private static final Map<Integer, TButton> INPUT_MAP = new HashMap<>();
 
     static {
-        Map<Integer, TButton> map = inputMap;
+        Map<Integer, TButton> map = INPUT_MAP;
         map.put(LEFT, TButton.MOUSE_LEFT);
         map.put(RIGHT, TButton.MOUSE_RIGHT);
         map.put(MIDDLE, TButton.MOUSE_MIDDLE);
 
     }
 
+    public MouseLibgdxAdapter() {
+        super();
+    }
 
     @Override
     public void addDraggedListener(OnDraggedListener onDraggedListener) {
@@ -48,7 +51,7 @@ public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
         addToInputMultiplexer(new InputAdapter() {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                onClickedListener.onClicked(mouse, inputMap.get(button));
+                onClickedListener.onClicked(mouse, INPUT_MAP.get(button));
                 return true;
             }
         });

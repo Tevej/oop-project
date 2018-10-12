@@ -27,9 +27,10 @@ public class WorldComponent implements Component {
     }
 
     public Entity getTileAt(int x, int y) {
+        Entity tile = null;
         if (x >= 0 && y >= 0 && x < width && y < height) {
-            return tiles[x + y * width];
+            tile = tiles[x + y * width];
         }
-        return null;
+        return tile;
     }
 }

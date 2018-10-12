@@ -9,6 +9,9 @@ import main.se.tevej.game.view.rendering.ui.TImage;
 
 public class ImageLibgdxAdapter extends Image implements TImage {
 
+    public ImageLibgdxAdapter() {
+        super();
+    }
 
     @Override
     public TImage image(String path) {

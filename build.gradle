@@ -76,20 +76,8 @@ project(":core") {
         ignoreFailures = false
         pmdTest.enabled = false
         consoleOutput false
-        ruleSets = [
-                "java-basic",
-                "java-braces",
-                "java-naming",
-                "java-codesize",
-                "java-controversial",
-                "java-design",
-                "java-finalizers",
-                "java-imports",
-                "java-optimizations",
-                "java-strings",
-                "java-unusedcode"
-        ]
         sourceSets = [sourceSets.main]
+        ruleSetFiles = files("config/pmd/ruleSet.xml")
     }
 
     checkstyle {

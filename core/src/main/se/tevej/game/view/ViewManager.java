@@ -17,16 +17,16 @@ import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 
-public class View {
+public class ViewManager {
 
-    public static final int pixelPerTile = 32;
+    public static final int PIXEL_PER_TILE = 32;
 
     /**
      * Dictionary on how a component type should be rendered.
      */
     private Map<Class<? extends Component>, EntityRenderable> typeToRenderable;
 
-    private Map<EntityRenderable, List<Entity>> rendererToEntityMap;
+    private Map<EntityRenderable, List<Entity>> rendererEntityMap;
 
     private TBatchRenderer batchRenderer;
     private RenderingFactory renderingFactory;
@@ -35,10 +35,10 @@ public class View {
     private float currCameraPosX;
     private float currCameraPosY;
 
-    public View(EntityManager entityManager, RenderingFactory renderingFactory) {
+    public ViewManager(EntityManager entityManager, RenderingFactory renderingFactory) {
         this.renderingFactory = renderingFactory;
         this.batchRenderer = renderingFactory.createBatchRenderer();
-        this.rendererToEntityMap = new LinkedHashMap<>();
+        this.rendererEntityMap = new LinkedHashMap<>();
 
         typeToRenderable = getTypeToRenderables();
 
@@ -56,11 +56,11 @@ public class View {
     public void render() {
         batchRenderer.beginRendering();
 
-        for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererToEntityMap.entrySet()) {
+        for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererEntityMap.entrySet()) {
             try {
                 for (Entity entity : entry.getValue()) {
                     entry.getKey().render(-currCameraPosX, -currCameraPosY,
-                        batchRenderer, entity, pixelPerTile);
+                        batchRenderer, entity, PIXEL_PER_TILE);
                 }
             } catch (Exception e) {
                 // Maybe do stuff here?
@@ -75,6 +75,7 @@ public class View {
      * also checks if it has a EntityRenderable for it.
      * As soon as it finds one compatiable EntityRenderable,
      * it stops searching and adds the entity to the render pool.
+     *
      * @return A entity listener that adds suitable entities to Views render pool.
      */
     private EntityListener getNewEntityListener() {
@@ -85,13 +86,13 @@ public class View {
                     EntityRenderable entityRenderable = typeToRenderable.get(c.getClass());
                     if (entityRenderable != null) {
                         List<Entity> entities;
-                        if (rendererToEntityMap.containsKey(entityRenderable)) {
-                            entities = rendererToEntityMap.get(entityRenderable);
+                        if (rendererEntityMap.containsKey(entityRenderable)) {
+                            entities = rendererEntityMap.get(entityRenderable);
                         } else {
                             entities = new ArrayList<>();
                         }
                         entities.add(entity);
-                        rendererToEntityMap.put(entityRenderable, entities);
+                        rendererEntityMap.put(entityRenderable, entities);
                     }
                 }
             }
@@ -101,7 +102,7 @@ public class View {
                 for (Component c : entity.getComponents()) {
                     EntityRenderable entityRenderable = typeToRenderable.get(c.getClass());
                     if (entityRenderable != null) {
-                        rendererToEntityMap.get(entityRenderable).remove(entity);
+                        rendererEntityMap.get(entityRenderable).remove(entity);
                     }
                 }
             }
@@ -127,7 +128,7 @@ public class View {
         EntityRenderable renderable) {
 
         map.put(type, renderable);
-        rendererToEntityMap.put(renderable, new ArrayList<>());
+        rendererEntityMap.put(renderable, new ArrayList<>());
         return map;
     }
 }

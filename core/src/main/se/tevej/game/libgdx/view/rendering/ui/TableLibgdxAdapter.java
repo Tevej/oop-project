@@ -19,6 +19,7 @@ public class TableLibgdxAdapter extends Table implements TTable {
     private Map<Cell, TUiElement> cells;
 
     public TableLibgdxAdapter() {
+        super();
         stage = new Stage();
         cells = new LinkedHashMap<>();
 
@@ -85,18 +86,20 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     private Cell getAndSetFirstAvailableCell(TUiElement element) {
+        Cell cell = null;
         for (Map.Entry<Cell, TUiElement> entry : cells.entrySet()) {
             if (entry.getValue() == null) {
-                Cell cell = entry.getKey();
+                cell = entry.getKey();
                 cells.put(cell, element);
                 Actor actor = (Actor) element;
                 cell.setActor(actor);
-                return cell;
+                break;
             }
         }
+
         //TODO Throw exception instead
         System.out.println("[WARN]: Table is full");
-        return null;
+        return cell;
     }
 
 }

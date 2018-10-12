@@ -9,15 +9,15 @@ import main.se.tevej.game.controller.input.listeners.OnTimeChangeListener;
 import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 
 public class TimeController implements OnTappedListener {
-    private List<OnTimeChangeListener> timeChangeListeners;
+    private List<OnTimeChangeListener> onChangeListeners;
 
     public TimeController() {
-        timeChangeListeners = new ArrayList<>();
+        onChangeListeners = new ArrayList<>();
         new InputLibgdxFactory().createKeyBoard().addTappedListener(this);
     }
 
     public void registerOnTimeChange(OnTimeChangeListener listener) {
-        timeChangeListeners.add(listener);
+        onChangeListeners.add(listener);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TimeController implements OnTappedListener {
     }
 
     private void setMultiplerTo(float multipler) {
-        for (OnTimeChangeListener listener : timeChangeListeners) {
+        for (OnTimeChangeListener listener : onChangeListeners) {
             listener.updateTimeMultipler(multipler);
         }
     }

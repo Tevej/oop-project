@@ -26,12 +26,16 @@ public class InventoryComponent implements Component {
     }
 
     public double getAmountOfResource(ResourceType type) {
-        return (double) resources.get(type);
+        double amount = 0;
+        if (resources.containsKey(type)) {
+            amount = resources.get(type);
+        }
+        return amount;
     }
 
     private void checkResourceAmount(Resource resource) throws NotEnoughResourcesException {
-        double currAmountOfResource = getAmountOfResource(resource.getType());
-        if (resource.getAmount() > currAmountOfResource) {
+        double amount = getAmountOfResource(resource.getType());
+        if (resource.getAmount() > amount) {
             throw new NotEnoughResourcesException();
         }
     }

@@ -11,9 +11,11 @@ import main.se.tevej.game.controller.input.enums.TButton;
 
 public abstract class InputLibgdxAdapter {
 
-    public static final Map<Integer, TButton> inputMap = new HashMap<>();
+    public InputLibgdxAdapter() {
+        super();
+    }
 
-    void addToInputMultiplexer(InputProcessor ip) {
+    public void addToInputMultiplexer(InputProcessor ip) {
         if (Gdx.input.getInputProcessor() == null) {
             InputMultiplexer inputMultiplexer = new InputMultiplexer();
             inputMultiplexer.addProcessor(ip);

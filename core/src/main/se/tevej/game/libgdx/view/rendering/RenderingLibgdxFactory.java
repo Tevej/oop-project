@@ -24,6 +24,10 @@ public class RenderingLibgdxFactory implements RenderingFactory {
 
     private static final Skin SKIN = new Skin(Gdx.files.internal("skin/plain-james-ui.json"));
 
+    public RenderingLibgdxFactory() {
+        super();
+    }
+
     @Override
     public TBatchRenderer createBatchRenderer() {
         return new BatchRendererLibgdxAdapter();

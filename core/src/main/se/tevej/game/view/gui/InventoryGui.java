@@ -38,7 +38,7 @@ public class InventoryGui {
 
         int tableHeight = 32;
         inventoryTable = renderingFactory.createTable()
-            .getX((Gdx.graphics.getWidth() / 2f))
+            .getX(Gdx.graphics.getWidth() / 2f)
             .getY(Gdx.graphics.getHeight() - tableHeight / 2f)
             .grid(inventoryElements.size() * 2, 1)
             .debug(false);
@@ -49,12 +49,13 @@ public class InventoryGui {
     }
 
     private int findAmountOfResource(ResourceType resourceType) {
-        try {
-            return (int) inventoryEntity.getComponent(InventoryComponent.class)
-                .getAmountOfResource(resourceType);
-        } catch (NullPointerException e) {
-            return 0;
+        int amount = 0;
+
+        InventoryComponent inventoryC = inventoryEntity.getComponent(InventoryComponent.class);
+        if (inventoryC != null) {
+            amount = (int) inventoryC.getAmountOfResource(resourceType);
         }
+        return amount;
     }
 
     public void update(float deltaTime) {

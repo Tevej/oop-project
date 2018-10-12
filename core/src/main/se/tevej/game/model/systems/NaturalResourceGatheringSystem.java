@@ -28,6 +28,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
     private EntityManager em;
 
     public NaturalResourceGatheringSystem(EntityManager em) {
+        super();
         this.em = em;
     }
 
@@ -59,13 +60,13 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             if (tileE == null) {
                 return;
             }
-            NaturalResourceComponent tileNaturalResourceC = tileE.getComponent(
+            NaturalResourceComponent tileResourceC = tileE.getComponent(
                 NaturalResourceComponent.class);
 
-            if (tileNaturalResourceC != null
-                && tileNaturalResourceC.getType() == gc.getResourcePerSecond().getType()) {
+            if (tileResourceC != null
+                && tileResourceC.getType() == gc.getResourcePerSecond().getType()) {
                 Resource gatheredResource = gc.getGatheredResource(deltaTime);
-                tileNaturalResourceC.extractResource(gatheredResource);
+                tileResourceC.extractResource(gatheredResource);
                 inventoryC.addResource(gatheredResource);
             }
         } catch (NotEnoughResourcesException e) {

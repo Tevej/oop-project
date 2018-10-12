@@ -29,11 +29,14 @@ public class PositionComponent implements Component {
 
     @Override
     public boolean equals(Object obj) {
+        boolean equals = super.equals(obj);
+
         if (obj instanceof PositionComponent) {
-            return (posX == ((PositionComponent) obj).getX()
-                && posY == ((PositionComponent) obj).getY());
+            equals = posX == ((PositionComponent) obj).getX()
+                  && posY == ((PositionComponent) obj).getY();
         }
-        return super.equals(obj);
+
+        return equals;
     }
 
     @Override

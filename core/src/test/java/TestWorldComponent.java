@@ -1,3 +1,7 @@
+package test.java;
+
+import static org.junit.Assert.assertTrue;
+
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
@@ -5,27 +9,32 @@ import main.se.tevej.game.model.entities.WorldEntity;
 import org.junit.Test;
 
 public class TestWorldComponent {
-    EntityManager em = new EntityManager();
-    WorldComponent wc = new WorldEntity(34, 23, em).getComponent(WorldComponent.class);
+    private EntityManager entityManager = new EntityManager();
+    private WorldComponent worldEntity = new WorldEntity(34, 23, entityManager).getComponent(WorldComponent.class);
+
+    public TestWorldComponent() {
+        super();
+    }
+
     @Test
-    public void getTilesAt() {
+    public void testGetTilesAt() {
         assertTrue(
-            wc.getTileAt(1, 1).getComponent(PositionComponent.class).getX() == 1
+            worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getX() == 1
         );
         assertTrue(
-            wc.getTileAt(1, 1).getComponent(PositionComponent.class).getY() == 1
+            worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getY() == 1
         );
         assertTrue(
-            wc.getTileAt(20, 0).getComponent(PositionComponent.class).getX() == 20
+            worldEntity.getTileAt(20, 0).getComponent(PositionComponent.class).getX() == 20
         );
         assertTrue(
-            wc.getTileAt(20, 0).getComponent(PositionComponent.class).getY() == 0
+            worldEntity.getTileAt(20, 0).getComponent(PositionComponent.class).getY() == 0
         );
         assertTrue(
-            wc.getTileAt(33, 22).getComponent(PositionComponent.class).getX() == 33
+            worldEntity.getTileAt(33, 22).getComponent(PositionComponent.class).getX() == 33
         );
         assertTrue(
-            wc.getTileAt(33, 22).getComponent(PositionComponent.class).getY() == 22
+            worldEntity.getTileAt(33, 22).getComponent(PositionComponent.class).getY() == 22
         );
 
     }
