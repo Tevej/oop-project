@@ -12,7 +12,7 @@ import main.se.tevej.game.controller.input.TKeyBoard;
 import main.se.tevej.game.controller.input.TMouse;
 import main.se.tevej.game.view.rendering.ui.TTable;
 
-public class OrderedInputMultiplexer implements InputProcessor {
+public final class OrderedInputMultiplexer implements InputProcessor {
 
     private Map<Class<?>, List<InputProcessor>> processorsMap;
 

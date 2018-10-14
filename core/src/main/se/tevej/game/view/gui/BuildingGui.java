@@ -17,7 +17,6 @@ import main.se.tevej.game.view.rendering.ui.TTable;
 public class BuildingGui {
     private RenderingFactory renderingFactory;
     private TTable buildingTable;
-    private List<TButton> buttonList;
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
@@ -29,7 +28,7 @@ public class BuildingGui {
         this.renderingFactory = renderingFactory;
 
         this.selectedListeners = new LinkedList<>();
-        buttonList = new LinkedList<>();
+        List<TButton> buttonList = new LinkedList<>();
         buttonList.add(
             createBuildingButton(BuildingType.PUMP, "buildings/pump.png"));
         buttonList.add(

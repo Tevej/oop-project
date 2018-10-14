@@ -30,19 +30,10 @@ import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.libgdx.RenderingLibgdxFactory;
-import main.se.tevej.game.view.rendering.ui.TButton;
-import main.se.tevej.game.view.rendering.ui.TLabel;
-import main.se.tevej.game.view.rendering.ui.TSelectableList;
-import main.se.tevej.game.view.rendering.ui.TTable;
-import main.se.tevej.game.view.rendering.ui.TTextField;
 
 public class GameManager extends ApplicationAdapter implements OnTimeChangeListener {
-    private RenderingFactory renderingFactory;
-
     private EntityManager entityManager;
     private ViewManager view;
-    private TTable table;
-
     private InventoryGui gui;
     private BuildingGui buildingGui;
     private SelectedBuildingRenderer buildingRenderer;
@@ -53,6 +44,12 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
 
     // The current timeMultiplier (0 means pause, 1 means default speed etc...)
     private float timeMultiplier = 1f;
+
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "Fuckoff"
+    )
+    private final float fpsPrintDelay = 0.1f;
 
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
@@ -68,10 +65,8 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
 
     @Override
     public void create() {
-        renderingFactory = new RenderingLibgdxFactory();
+        RenderingFactory renderingFactory = new RenderingLibgdxFactory();
         lastFrameNanoTime = System.nanoTime();
-
-        createGui();
 
         entityManager = new EntityManager();
         view = new ViewManager(entityManager, renderingFactory);
@@ -111,7 +106,7 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         TMouse mouse = inputFactory.createMouse();
         TKeyBoard keyBoard = inputFactory.createKeyBoard();
         CameraController camera = new CameraController(
-            view, inputFactory, 0, 0, worldWidth, worldHeight, mouse);
+            view, 0, 0, worldWidth, worldHeight, mouse);
 
         ConstructionController constructor = new ConstructionController(
             entityManager,
@@ -127,28 +122,6 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         timeController.registerOnTimeChange(this);
     }
 
-    private void createGui() {
-        table = renderingFactory.createTable().positionX(Gdx.graphics.getWidth() / 2f)
-            .positionY(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
-
-        TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener((key) ->
-            System.out.println("Hej!"));
-        table.addElement(button).width(200).height(50);
-
-        TLabel label = renderingFactory.createLabel().text("This is a label");
-        table.addElement(label).width(200).height(200);
-
-        TSelectableList selectableList = renderingFactory.createSelectableList()
-            .items("Glass", "Godis", "Dricka", "Choklad", "Asdf", "Hmmm", "Marabou")
-            .addListener(newSelected -> System.out.println("Selected: " + newSelected));
-        table.addElement(selectableList).width(200).height(200);
-
-        TTextField textField = renderingFactory.createTextField().set("Hej").addListener(value -> {
-            System.out.println("New value of textfield:" + value);
-        });
-        table.addElement(textField).width(200).height(50);
-    }
-
     @Override
     public void render() {
         calculateDeltaTime();
@@ -160,8 +133,6 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
 
         view.render();
 
-        table.update(deltaTime);
-        //table.render();
         gui.update(deltaTime);
         gui.render();
 
@@ -178,7 +149,7 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         deltaTime = (float) diff / (float) billion;
 
         printFrameRate += deltaTime;
-        if (printFrameRate >= 0.1f) {
+        if (printFrameRate >= fpsPrintDelay) {
             System.out.println("FPS: " + (1 / deltaTime));
             printFrameRate = 0;
         }

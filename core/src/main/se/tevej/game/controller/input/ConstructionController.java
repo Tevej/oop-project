@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 
 import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listeners.OnClickedListener;
+import main.se.tevej.game.controller.input.listeners.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnMovedListener;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
 import main.se.tevej.game.model.ashley.EntityManager;
@@ -19,7 +19,7 @@ import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gui.OnBuildingSelectedToBuild;
 
 public class ConstructionController implements OnTappedListener,
-    OnMovedListener, OnClickedListener, OnBuildingSelectedToBuild {
+    OnMovedListener, OnMouseClickedListener, OnBuildingSelectedToBuild {
 
     private EntityManager em;
     private Entity worldEntity;
@@ -43,6 +43,7 @@ public class ConstructionController implements OnTappedListener,
         this.buildingRenderer = buildingRenderer;
     }
 
+
     private void buildConstruction(BuildingType type) {
         Entity entity = new Entity();
         entity.add(new BuildingComponent(type));
@@ -61,7 +62,7 @@ public class ConstructionController implements OnTappedListener,
     }
 
     @Override
-    public void onClicked(TKey button) {
+    public void onClicked(TMouse mouse, TKey button) {
         System.out.println("Hej");
         if (button == TKey.MOUSE_LEFT) {
             System.out.println(button);

@@ -6,15 +6,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
-import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnDraggedListener;
+import main.se.tevej.game.controller.input.listeners.OnMouseClickedListener;
 import main.se.tevej.game.view.ViewManager;
 
 
-public class CameraController implements OnDraggedListener, OnClickedListener {
+public class CameraController implements OnDraggedListener, OnMouseClickedListener {
 
-    private TMouse mouse;
     private ViewManager view;
 
     // Current camera position in world coordinates!
@@ -28,11 +26,10 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     private float worldWidth;
     private float worldHeight;
 
-    public CameraController(ViewManager view, InputLibgdxFactory factory,
+    public CameraController(ViewManager view,
                             float startX, float startY, int worldWidth,
                             int worldHeight, TMouse mouse) {
         this.view = view;
-        this.mouse = mouse;
         mouse.addDraggedListener(this);
         mouse.addClickedListener(this);
         cameraPosX = startX;
@@ -54,7 +51,7 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     }
 
     @Override
-    public void onClicked(TKey button) {
+    public void onClicked(TMouse mouse, TKey button) {
         updatePrev(mouse.getX(), mouse.getY());
     }
 
@@ -100,12 +97,14 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         prevY = pos.y;
     }
 
-    public Vector2 getScreenToWorldCoord(float x, float y) {
-        x /= PIXEL_PER_TILE;
-        y /= PIXEL_PER_TILE;
-        x += cameraPosX;
-        y = (float) Gdx.app.getGraphics().getHeight() / (float) PIXEL_PER_TILE + (cameraPosY - y);
-        return new Vector2(x, y);
+    public Vector2 getScreenToWorldCoord(float screenX, float screenY) {
+        float screenTileX = screenX / PIXEL_PER_TILE;
+        float screenTileY = screenY / PIXEL_PER_TILE;
+
+        float screenTileXOffset = screenTileX + cameraPosX;
+        float screenTileYOffset = (float)Gdx.app.getGraphics().getHeight()
+            / (float) PIXEL_PER_TILE + (cameraPosY - screenTileY);
+        return new Vector2(screenTileXOffset, screenTileYOffset);
     }
 
     public float getCameraPosX() {

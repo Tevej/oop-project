@@ -12,8 +12,8 @@ import com.badlogic.gdx.InputAdapter;
 
 import main.se.tevej.game.controller.input.TMouse;
 import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnDraggedListener;
+import main.se.tevej.game.controller.input.listeners.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnMovedListener;
 
 public class MouseLibgdxAdapter implements TMouse {
@@ -43,11 +43,12 @@ public class MouseLibgdxAdapter implements TMouse {
     }
 
     @Override
-    public void addClickedListener(OnClickedListener onClickedListener) {
+    public void addClickedListener(OnMouseClickedListener onClickedListener) {
+        TMouse mouse = this;
         OrderedInputMultiplexer.getInstance().add(TMouse.class, new InputAdapter() {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                onClickedListener.onClicked(INPUT_MAP.get(button));
+                onClickedListener.onClicked(mouse, INPUT_MAP.get(button));
                 return false;
             }
         });
