@@ -5,6 +5,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import com.badlogic.ashley.core.Entity;
 
@@ -15,11 +17,10 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
-import main.se.tevej.game.view.rendering.libgdx.RenderingLibgdxFactory;
 
 public class BuildingEntityRenderable extends TextureLoader implements EntityRenderable {
 
-    private HashMap<BuildingType, TTexture> buildingImageMap;
+    private Map<BuildingType, TTexture> buildingImageMap;
 
     public BuildingEntityRenderable(RenderingFactory renderFactory) {
         super();
@@ -42,7 +43,7 @@ public class BuildingEntityRenderable extends TextureLoader implements EntityRen
     @Override
     public void render(
         float offsetX, float offsetY, TBatchRenderer batchRenderer,
-        Entity entity, int pixelPerTile) throws Exception {
+        Entity entity, int pixelPerTile) throws IllegalArgumentException {
 
         BuildingComponent buildingC = entity.getComponent(BuildingComponent.class);
         PositionComponent posC = entity.getComponent(PositionComponent.class);
@@ -51,18 +52,17 @@ public class BuildingEntityRenderable extends TextureLoader implements EntityRen
         float y = (posC.getY() + offsetY) * pixelPerTile;
         float width = sizeC.getWidth() * pixelPerTile;
         float height = sizeC.getHeight() * pixelPerTile;
-        batchRenderer.renderTexture(buildingImageMap.get(
-            buildingC.getType()), x, y, width, height);
+        batchRenderer.renderTexture(buildingImageMap.get(buildingC.getType()), x, y, width, height);
     }
 
     @Override
-    public void filesToMap(List<File> files, RenderingFactory renderFactory) {
+    public final void filesToMap(List<File> files, RenderingFactory renderFactory) {
         for (final File fileEntry : files) {
             String name = fileEntry.getName();
             for (String ending : imageTypes) {
                 if (name.endsWith(ending)) {
                     String typeName = name.substring(0, name.length() - ending.length());
-                    BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
+                    BuildingType type = BuildingType.valueOf(typeName.toUpperCase(Locale.ENGLISH));
                     buildingImageMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
                 }
             }

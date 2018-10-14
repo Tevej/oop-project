@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.ashley.core.Entity;
 
@@ -18,7 +19,7 @@ import main.se.tevej.game.view.rendering.TTexture;
 
 public class NaturalResourceEntityRenderable extends TextureLoader implements EntityRenderable {
 
-    private HashMap<ResourceType, TTexture> resourceImageMap;
+    private Map<ResourceType, TTexture> resourceImageMap;
 
     public NaturalResourceEntityRenderable(RenderingFactory renderFactory) {
         super();
@@ -41,7 +42,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
     @Override
     public void render(
         float offsetX, float offsetY, TBatchRenderer batchRenderer,
-        Entity entity, int pixelPerTile) throws Exception {
+        Entity entity, int pixelPerTile) throws IllegalArgumentException {
 
         NaturalResourceComponent naturalResourceC =
             entity.getComponent(NaturalResourceComponent.class);
@@ -57,7 +58,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
     }
 
     @Override
-    public void filesToMap(List<File> files, RenderingFactory renderFactory) {
+    public final void filesToMap(List<File> files, RenderingFactory renderFactory) {
         for (final File fileEntry : files) {
             String name = fileEntry.getName();
             for (String ending : imageTypes) {

@@ -17,25 +17,25 @@ public abstract class TextureLoader {
         imageTypes.add(".jpeg");
     }
 
-    public List<File> getFilesInDir(String path) throws Exception {
+    public List<File> getFilesInDir(String path) throws IllegalArgumentException {
 
         File folder = new File(path);
 
         File[] filesAndFolders = folder.listFiles();
         if (filesAndFolders == null) {
             System.out.println("FOLDER NULL?!");
-            throw new Exception();
+            throw new IllegalArgumentException();
         }
 
         List<File> files = new ArrayList<>();
         for (final File fileEntry : filesAndFolders) {
-            addFileToList(fileEntry, files, path);
+            addFileToList(fileEntry, files);
         }
 
         return files;
     }
 
-    private void addFileToList(File fileEntry, List<File> files, String path) throws Exception {
+    private void addFileToList(File fileEntry, List<File> files) throws IllegalArgumentException {
         if (fileEntry.isDirectory()) {
             getFilesInDir(fileEntry.getPath());
         } else {
