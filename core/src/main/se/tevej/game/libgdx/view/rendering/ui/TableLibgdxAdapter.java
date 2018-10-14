@@ -21,7 +21,6 @@ public class TableLibgdxAdapter extends Table implements TTable {
     public TableLibgdxAdapter(){
         stage = new Stage();
         cells = new LinkedHashMap<>();
-
         OrderedInputMultiplexer.getInstance().add(TTable.class, stage);
         stage.addActor(this);
     }

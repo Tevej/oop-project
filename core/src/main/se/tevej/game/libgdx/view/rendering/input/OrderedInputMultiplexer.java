@@ -14,10 +14,9 @@ public class OrderedInputMultiplexer implements InputProcessor {
     private OrderedInputMultiplexer() {
         elementToInputProcessors = new LinkedHashMap<>();
 
-        elementToInputProcessors.put(TButton.class, new LinkedList<>());
+        elementToInputProcessors.put(TTable.class, new LinkedList<>());
         elementToInputProcessors.put(TMouse.class, new LinkedList<>());
         elementToInputProcessors.put(TKeyBoard.class, new LinkedList<>());
-        elementToInputProcessors.put(TTable.class, new LinkedList<>());
         Gdx.input.setInputProcessor(this);
     }
 
