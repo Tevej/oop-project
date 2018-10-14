@@ -8,6 +8,7 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.WorldEntity;
 import org.junit.Test;
 
+
 public class TestWorldComponent {
     private EntityManager entityManager = new EntityManager();
     private WorldComponent worldEntity = new WorldEntity(34, 23, entityManager).getComponent(WorldComponent.class);

@@ -14,7 +14,6 @@ import main.se.tevej.game.view.ViewManager;
 
 public class CameraController implements OnDraggedListener, OnClickedListener {
 
-    private TMouse mouse;
     private ViewManager view;
 
     // Current camera position in world coordinates!
@@ -31,7 +30,7 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     public CameraController(ViewManager view, InputLibgdxFactory factory,
                             float startX, float startY, int worldWidth, int worldHeight) {
         this.view = view;
-        this.mouse = factory.createMouse();
+        TMouse mouse = factory.createMouse();
         mouse.addDraggedListener(this);
         mouse.addClickedListener(this);
         cameraPosX = startX;
@@ -99,11 +98,13 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         prevY = pos.y;
     }
 
-    public Vector2 getScreenToWorldCoord(float x, float y) {
-        x /= PIXEL_PER_TILE;
-        y /= PIXEL_PER_TILE;
-        x += cameraPosX;
-        y = (float) Gdx.app.getGraphics().getHeight() / (float) PIXEL_PER_TILE + (cameraPosY - y);
-        return new Vector2(x, y);
+    public Vector2 getScreenToWorldCoord(float screenX, float screenY) {
+        float screenTileX = screenX / PIXEL_PER_TILE;
+        float screenTileY = screenY / PIXEL_PER_TILE;
+
+        float screenTileXOffset = screenTileX + cameraPosX;
+        float screenTileYOffset = (float)Gdx.app.getGraphics().getHeight()
+            / (float) PIXEL_PER_TILE + (cameraPosY - screenTileY);
+        return new Vector2(screenTileXOffset, screenTileYOffset);
     }
 }
