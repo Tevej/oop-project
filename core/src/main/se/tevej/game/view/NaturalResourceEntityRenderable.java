@@ -47,6 +47,24 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
 
         NaturalResourceComponent naturalResourceC =
             entity.getComponent(NaturalResourceComponent.class);
+
+        TTexture image;
+
+        switch (naturalResourceC.getType()) {
+
+            case WATER:
+                image = water;
+                break;
+            case STONE:
+                image = stone;
+                break;
+            case WOOD:
+                image = wood;
+                break;
+            default:
+                throw new UnknownResourceException();
+        }
+
         PositionComponent positionC = entity.getComponent(PositionComponent.class);
 
         SizeComponent sizeC = entity.getComponent(SizeComponent.class);
