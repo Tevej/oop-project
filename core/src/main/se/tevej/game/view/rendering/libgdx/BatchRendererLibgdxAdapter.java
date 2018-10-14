@@ -1,4 +1,4 @@
-package main.se.tevej.game.libgdx.view.rendering;
+package main.se.tevej.game.view.rendering.libgdx;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

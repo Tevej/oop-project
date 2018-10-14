@@ -1,4 +1,4 @@
-package main.se.tevej.game.libgdx.view.rendering.ui;
+package main.se.tevej.game.view.gui.libgdx;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
