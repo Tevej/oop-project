@@ -38,7 +38,7 @@ public class TimeController implements OnTappedListener {
     }
 
     private void setTimeMultiplier(float multiplier) {
-        for (OnTimeChangeListener listener : timeChangeListeners) {
+        for (OnTimeChangeListener listener : onChangeListeners) {
             listener.updateTimeMultipler(multiplier);
         }
     }
