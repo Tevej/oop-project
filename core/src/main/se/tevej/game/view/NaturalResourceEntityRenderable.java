@@ -1,40 +1,41 @@
 package main.se.tevej.game.view;
 
+import java.io.File;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.exceptions.UnknownResourceException;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
-import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class NaturalResourceEntityRenderable extends TextureLoader implements EntityRenderable {
 
     HashMap<ResourceType, TTexture> resourceTextureMap;
 
-    public NaturalResourceEntityRenderable(RenderingFactory renderingFactory) {
+    public NaturalResourceEntityRenderable(RenderingFactory renderFactory) {
         super();
 
         List<File> files;
         try {
             files = getFilesInDir("naturalResources");
         } catch (Exception e) {
-            files = new ArrayList<File>() {};
+            files = new ArrayList<File>() {
+            };
             System.out.println("Failed to load textures.");
         }
 
-        resourceTextureMap = new HashMap<ResourceType, TTexture>(){};
+        resourceTextureMap = new HashMap<ResourceType, TTexture>() {
+        };
 
-        filesToMap(files, renderingFactory);
+        filesToMap(files, renderFactory);
     }
 
     @Override
@@ -44,24 +45,26 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
 
         NaturalResourceComponent naturalResourceC =
             entity.getComponent(NaturalResourceComponent.class);
+        PositionComponent positionC = entity.getComponent(PositionComponent.class);
 
-        SizeComponent sc = entity.getComponent(SizeComponent.class);
+        SizeComponent sizeC = entity.getComponent(SizeComponent.class);
 
-        batchRenderer.renderTexture(resourceTextureMap.get(nrc.getType()), (pc.getX() + offsetX) * pixelPerTile,
-                (pc.getY()  + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
-                sc.getHeight() * pixelPerTile);
-
+        batchRenderer.renderTexture(resourceTextureMap.get(naturalResourceC.getType()),
+            (positionC.getX() + offsetX) * pixelPerTile,
+            (positionC.getY() + offsetY) * pixelPerTile,
+            sizeC.getWidth() * pixelPerTile,
+            sizeC.getHeight() * pixelPerTile);
     }
 
     @Override
-    void filesToMap(List<File> files, RenderingFactory renderingFactory) {
+    void filesToMap(List<File> files, RenderingFactory renderFactory) {
         for (final File fileEntry : files) {
-            String fileName = fileEntry.getName();
-            for (String fileEnding : imageTypes) {
-                if (fileName.endsWith(fileEnding)) {
-                    String typeName = fileName.substring(0, fileName.length() - fileEnding.length());
+            String name = fileEntry.getName();
+            for (String ending : imageTypes) {
+                if (name.endsWith(ending)) {
+                    String typeName = name.substring(0, name.length() - ending.length());
                     ResourceType type = ResourceType.valueOf(typeName.toUpperCase());
-                    resourceTextureMap.put(type, renderingFactory.createTexture(fileEntry.getPath()));
+                    resourceTextureMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
                 }
             }
         }

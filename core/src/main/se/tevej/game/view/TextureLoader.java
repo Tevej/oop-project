@@ -1,12 +1,10 @@
 package main.se.tevej.game.view;
 
-import main.se.tevej.game.view.rendering.RenderingFactory;
-import main.se.tevej.game.view.rendering.TTexture;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import main.se.tevej.game.view.rendering.RenderingFactory;
 
 public abstract class TextureLoader {
 
@@ -30,7 +28,7 @@ public abstract class TextureLoader {
         }
 
         List<File> files = new ArrayList<>();
-        for (final File fileEntry : filesAndFolders ) {
+        for (final File fileEntry : filesAndFolders) {
             addFileToList(fileEntry, files, path);
         }
 

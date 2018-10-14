@@ -1,13 +1,13 @@
 package main.se.tevej.game.view;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
@@ -16,29 +16,26 @@ import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class BuildingEntityRendereable extends TextureLoader implements EntityRenderable {
 
-    private HashMap<BuildingType, TTexture> buildingRenderMap;
+    private HashMap<BuildingType, TTexture> buildingTextureMap;
 
-    public BuildingEntityRendereable(RenderingFactory renderingFactory) {
+    public BuildingEntityRendereable(RenderingFactory renderFactory) {
         super();
 
         List<File> files;
         try {
             files = getFilesInDir("buildings");
         } catch (Exception e) {
-            files = new ArrayList<File>() {};
+            files = new ArrayList<File>() {
+            };
             System.out.println("Failed to load textures.");
         }
 
-        buildingTextureMap = new HashMap<BuildingType, TTexture>(){};
+        buildingTextureMap = new HashMap<BuildingType, TTexture>() {
+        };
 
-        filesToMap(files, renderingFactory);
+        filesToMap(files, renderFactory);
     }
 
     @Override
@@ -53,19 +50,19 @@ public class BuildingEntityRendereable extends TextureLoader implements EntityRe
         float y = (posC.getY() + offsetY) * pixelPerTile;
         float width = sizeC.getWidth() * pixelPerTile;
         float height = sizeC.getHeight() * pixelPerTile;
-        batchRenderer.renderTexture(buildingRenderMap.get(
+        batchRenderer.renderTexture(buildingTextureMap.get(
             buildingC.getType()), x, y, width, height);
     }
 
     @Override
-    void filesToMap(List<File> files, RenderingFactory renderingFactory) {
+    void filesToMap(List<File> files, RenderingFactory renderFactory) {
         for (final File fileEntry : files) {
-            String fileName = fileEntry.getName();
-            for (String fileEnding : imageTypes) {
-                if (fileName.endsWith(fileEnding)) {
-                    String typeName = fileName.substring(0, fileName.length() - fileEnding.length());
+            String name = fileEntry.getName();
+            for (String ending : imageTypes) {
+                if (name.endsWith(ending)) {
+                    String typeName = name.substring(0, name.length() - ending.length());
                     BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
-                    buildingTextureMap.put(type, renderingFactory.createTexture(fileEntry.getPath()));
+                    buildingTextureMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
                 }
             }
         }
