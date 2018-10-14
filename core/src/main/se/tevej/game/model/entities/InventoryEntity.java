@@ -8,6 +8,7 @@ import main.se.tevej.game.model.utils.ResourceType;
 
 public class InventoryEntity extends Entity {
     public InventoryEntity() {
+        super();
         InventoryComponent inventoryC = new InventoryComponent();
         this.add(inventoryC);
         inventoryC.addResource(new Resource(1000, ResourceType.WOOD));
