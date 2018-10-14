@@ -45,19 +45,6 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
     // The current timeMultiplier (0 means pause, 1 means default speed etc...)
     private float timeMultiplier = 1f;
 
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "Fuckoff"
-    )
-    private final float fpsPrintDelay = 0.1f;
-
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "No need to be static and checkbugs will complain if it is."
-    )
-    private final long billion = 1000 * 1000 * 1000;
-
-
     public GameManager() {
         super();
         calculateDeltaTime();
@@ -146,9 +133,11 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         long currFrameNanoTime = System.nanoTime();
         long diff = currFrameNanoTime - lastFrameNanoTime;
         lastFrameNanoTime = currFrameNanoTime;
+        long billion = 1000 * 1000 * 1000;
         deltaTime = (float) diff / (float) billion;
 
         printFrameRate += deltaTime;
+        float fpsPrintDelay = 0.1f;
         if (printFrameRate >= fpsPrintDelay) {
             System.out.println("FPS: " + (1 / deltaTime));
             printFrameRate = 0;
