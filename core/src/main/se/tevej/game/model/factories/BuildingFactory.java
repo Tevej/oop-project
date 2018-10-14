@@ -2,7 +2,7 @@ package main.se.tevej.game.model.factories;
 
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.exceptions.NoSuchBuildingException;
+import main.se.tevej.game.exceptions.UnknownBuildingException;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.RadiusComponent;
 import main.se.tevej.game.model.components.SizeComponent;
@@ -16,7 +16,7 @@ import main.se.tevej.game.model.utils.ResourceType;
 @SuppressWarnings("PMD") // The class is to be removed.
 public class BuildingFactory {
     public static Entity createBuilding(
-        BuildingType type, int x, int y) throws NoSuchBuildingException {
+        BuildingType type, int x, int y) throws UnknownBuildingException {
         Entity building = new Entity();
         building.add(new PositionComponent(x, y));
         building.add(new SizeComponent(1, 1));
@@ -35,7 +35,7 @@ public class BuildingFactory {
                 building = createPump(building);
                 break;
             default:
-                throw new NoSuchBuildingException(type);
+                throw new UnknownBuildingException();
         }
         return building;
     }

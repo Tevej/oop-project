@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.exceptions.NoSuchBuildingException;
+import main.se.tevej.game.exceptions.UnknownBuildingException;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.PositionComponent;
@@ -63,7 +63,7 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
         Entity building;
         try {
             building = BuildingFactory.createBuilding(buildingType, posC.getX(), posC.getY());
-        } catch (NoSuchBuildingException e) {
+        } catch (UnknownBuildingException e) {
             return;
         }
         engine.addEntity(building);
