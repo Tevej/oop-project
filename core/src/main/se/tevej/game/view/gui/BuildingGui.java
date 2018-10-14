@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.model.components.buildings.BuildingType;
@@ -17,6 +18,10 @@ public class BuildingGui {
     private RenderingFactory renderingFactory;
     private TTable buildingTable;
     private LinkedList<TButton> buildingButtonList;
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
     private final int imageSize = 32;
     private List<OnBuildingSelectedToBuild> onBuildingSelectedToBuildList;
 

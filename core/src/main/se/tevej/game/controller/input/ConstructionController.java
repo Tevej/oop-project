@@ -26,21 +26,17 @@ public class ConstructionController implements OnTappedListener,
     private Entity worldEntity;
     private int mouseX = 0;
     private int mouseY = 0;
-    private TMouse mouse;
-    private TKeyBoard keyboard;
     private CameraController camera;
     private boolean buildingSelected;
     private BuildingType selectedBuilding;
     private SelectedBuildingRenderer selectedBuildingRenderer;
 
-    public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity,
+    public ConstructionController(EntityManager em, Entity worldEntity,
                                   CameraController camera, TKeyBoard keyboard, TMouse mouse,
                                   SelectedBuildingRenderer selectedBuildingRenderer) {
         buildingSelected = false;
         this.em = em;
         this.worldEntity = worldEntity;
-        this.keyboard = keyboard;
-        this.mouse = mouse;
         mouse.addMovedListener(this);
         mouse.addClickedListener(this);
         keyboard.addTappedListener(this);

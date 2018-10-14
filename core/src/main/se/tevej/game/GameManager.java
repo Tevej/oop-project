@@ -45,7 +45,7 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
 
     private InventoryGui gui;
     private BuildingGui buildingGui;
-    private SelectedBuildingRenderer selectedBuildingRenderer;
+    private SelectedBuildingRenderer buildingRenderer;
 
     private long lastFrameNanoTime;
     private float deltaTime;
@@ -101,11 +101,11 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
         entityManager.getSignal().dispatch(buildHomeBuilding);
 
-        selectedBuildingRenderer = new SelectedBuildingRenderer(renderingFactory);
+        buildingRenderer = new SelectedBuildingRenderer(renderingFactory);
 
         gui = new InventoryGui(renderingFactory, inventoryEntity);
         buildingGui = new BuildingGui(renderingFactory);
-        buildingGui.addSelectedListener(selectedBuildingRenderer);
+        buildingGui.addSelectedListener(buildingRenderer);
 
         InputLibgdxFactory inputFactory = new InputLibgdxFactory();
         TMouse mouse = inputFactory.createMouse();
@@ -113,16 +113,15 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         CameraController camera = new CameraController(
             view, inputFactory, 0, 0, worldWidth, worldHeight, mouse);
 
-        ConstructionController constructionController = new ConstructionController(
+        ConstructionController constructor = new ConstructionController(
             entityManager,
-            inputFactory,
             worldEntity,
             camera,
             keyBoard,
             mouse,
-            selectedBuildingRenderer
+            buildingRenderer
         );
-        buildingGui.addSelectedListener(constructionController);
+        buildingGui.addSelectedListener(constructor);
 
         TimeController timeController = new TimeController(keyBoard);
         timeController.registerOnTimeChange(this);
@@ -169,7 +168,7 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         buildingGui.update(deltaTime);
         buildingGui.render();
 
-        selectedBuildingRenderer.render();
+        buildingRenderer.render();
     }
 
     private void calculateDeltaTime() {
