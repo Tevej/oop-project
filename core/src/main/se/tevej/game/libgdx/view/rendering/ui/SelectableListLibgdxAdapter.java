@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+
 import main.se.tevej.game.view.rendering.ui.TSelectableList;
 
 public class SelectableListLibgdxAdapter extends ScrollPane implements TSelectableList {
@@ -24,11 +25,11 @@ public class SelectableListLibgdxAdapter extends ScrollPane implements TSelectab
     }
 
     @Override
-    public TSelectableList addListener(SelectedChangeListener selectedChangeListener) {
+    public TSelectableList addListener(SelectedChangeListener changeListener) {
         super.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                selectedChangeListener.onChange(list.getSelected());
+                changeListener.onChange(list.getSelected());
             }
         });
         return this;
