@@ -1,6 +1,7 @@
 package main.se.tevej.game.view.gui;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
@@ -14,7 +15,7 @@ public class InventoryGui {
     private Entity inventoryEntity;
     private TTable inventoryTable;
     private RenderingFactory renderingFactory;
-    private LinkedList<InventoryElement> inventoryElements;
+    private List<InventoryElement> inventoryElements;
 
     public InventoryGui(RenderingFactory renderingFactory, Entity inventoryEntity) {
         this.inventoryEntity = inventoryEntity;
