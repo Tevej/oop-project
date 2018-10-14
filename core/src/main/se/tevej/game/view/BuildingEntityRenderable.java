@@ -10,31 +10,31 @@ import java.util.Map;
 
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.components.buildings.BuildingComponent;
+import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
 
-public class NaturalResourceEntityRenderable extends TextureLoader implements EntityRenderable {
+public class BuildingEntityRenderable extends TextureLoader implements EntityRenderable {
 
-    private Map<ResourceType, TTexture> resourceImageMap;
+    private Map<BuildingType, TTexture> buildingImageMap;
 
-    public NaturalResourceEntityRenderable(RenderingFactory renderFactory) {
+    public BuildingEntityRenderable(RenderingFactory renderFactory) {
         super();
 
         List<File> files;
         try {
-            files = getFilesInDir("naturalResources");
+            files = getFilesInDir("buildings");
         } catch (Exception e) {
             files = new ArrayList<File>() {
             };
             System.out.println("Failed to load textures.");
         }
 
-        resourceImageMap = new HashMap<ResourceType, TTexture>() {
+        buildingImageMap = new HashMap<BuildingType, TTexture>() {
         };
 
         filesToMap(files, renderFactory);
@@ -45,17 +45,14 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
         float offsetX, float offsetY, TBatchRenderer batchRenderer,
         Entity entity, int pixelPerTile) throws IllegalArgumentException {
 
-        NaturalResourceComponent naturalResourceC =
-            entity.getComponent(NaturalResourceComponent.class);
-        PositionComponent positionC = entity.getComponent(PositionComponent.class);
-
+        BuildingComponent buildingC = entity.getComponent(BuildingComponent.class);
+        PositionComponent posC = entity.getComponent(PositionComponent.class);
         SizeComponent sizeC = entity.getComponent(SizeComponent.class);
-
-        batchRenderer.renderTexture(resourceImageMap.get(naturalResourceC.getType()),
-            (positionC.getX() + offsetX) * pixelPerTile,
-            (positionC.getY() + offsetY) * pixelPerTile,
-            sizeC.getWidth() * pixelPerTile,
-            sizeC.getHeight() * pixelPerTile);
+        float x = (posC.getX() + offsetX) * pixelPerTile;
+        float y = (posC.getY() + offsetY) * pixelPerTile;
+        float width = sizeC.getWidth() * pixelPerTile;
+        float height = sizeC.getHeight() * pixelPerTile;
+        batchRenderer.renderTexture(buildingImageMap.get(buildingC.getType()), x, y, width, height);
     }
 
     @Override
@@ -65,8 +62,8 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
             for (String ending : imageTypes) {
                 if (name.endsWith(ending)) {
                     String typeName = name.substring(0, name.length() - ending.length());
-                    ResourceType type = ResourceType.valueOf(typeName.toUpperCase(Locale.ENGLISH));
-                    resourceImageMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
+                    BuildingType type = BuildingType.valueOf(typeName.toUpperCase(Locale.ENGLISH));
+                    buildingImageMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
                 }
             }
         }
