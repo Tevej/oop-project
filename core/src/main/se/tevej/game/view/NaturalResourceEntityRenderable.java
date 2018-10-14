@@ -1,6 +1,7 @@
 package main.se.tevej.game.view;
 
 import com.badlogic.ashley.core.Entity;
+
 import main.se.tevej.game.exceptions.UnknownResourceException;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
@@ -37,10 +38,12 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
     }
 
     @Override
-    public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) throws Exception {
-        NaturalResourceComponent nrc = entity.getComponent(NaturalResourceComponent.class);
+    public void render(
+        float offsetX, float offsetY, TBatchRenderer batchRenderer,
+        Entity entity, int pixelPerTile) throws Exception {
 
-        PositionComponent pc = entity.getComponent(PositionComponent.class);
+        NaturalResourceComponent naturalResourceC =
+            entity.getComponent(NaturalResourceComponent.class);
 
         SizeComponent sc = entity.getComponent(SizeComponent.class);
 
