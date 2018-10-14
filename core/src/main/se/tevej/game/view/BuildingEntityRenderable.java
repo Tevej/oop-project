@@ -15,6 +15,7 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
+import main.se.tevej.game.view.rendering.libgdx.RenderingLibgdxFactory;
 
 public class BuildingEntityRenderable extends TextureLoader implements EntityRenderable {
 

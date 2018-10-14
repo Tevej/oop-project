@@ -1,4 +1,4 @@
-package main.se.tevej.game.libgdx.view.rendering.input;
+package main.se.tevej.game.controller.input.libgdx;
 
 import java.util.HashMap;
 import java.util.Map;
