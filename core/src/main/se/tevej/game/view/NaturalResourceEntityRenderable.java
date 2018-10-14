@@ -1,6 +1,7 @@
 package main.se.tevej.game.view;
 
 import com.badlogic.ashley.core.Entity;
+
 import main.se.tevej.game.exceptions.UnknownResourceException;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
@@ -11,8 +12,9 @@ import main.se.tevej.game.view.rendering.TTexture;
 
 public class NaturalResourceEntityRenderable implements EntityRenderable {
 
-    private TTexture water, stone, wood;
-
+    private TTexture water;
+    private TTexture stone;
+    private TTexture wood;
 
     public NaturalResourceEntityRenderable(RenderingFactory renderingFactory) {
         this.water = renderingFactory.createTexture("water.jpg");
@@ -21,16 +23,16 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
     }
 
     @Override
-    public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) throws Exception {
-        NaturalResourceComponent nrc = entity.getComponent(NaturalResourceComponent.class);
+    public void render(
+        float offsetX, float offsetY, TBatchRenderer batchRenderer,
+        Entity entity, int pixelPerTile) throws Exception {
 
-        PositionComponent pc = entity.getComponent(PositionComponent.class);
-
-        SizeComponent sc = entity.getComponent(SizeComponent.class);
+        NaturalResourceComponent naturalResourceC =
+            entity.getComponent(NaturalResourceComponent.class);
 
         TTexture image;
 
-        switch (nrc.getType()) {
+        switch (naturalResourceC.getType()) {
 
             case WATER:
                 image = water;
@@ -42,13 +44,17 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
                 image = wood;
                 break;
             default:
-                throw new UnknownResourceException(nrc.getType());
+                throw new UnknownResourceException(naturalResourceC.getType());
         }
 
+        PositionComponent positionC = entity.getComponent(PositionComponent.class);
+
+        SizeComponent sizeC = entity.getComponent(SizeComponent.class);
+
         if (image != null) {
-            batchRenderer.renderTexture(image, (pc.getX() + offsetX) * pixelPerTile,
-                    (pc.getY()  + offsetY) * pixelPerTile, sc.getWidth() * pixelPerTile,
-                    sc.getHeight() * pixelPerTile);
+            batchRenderer.renderTexture(image, (positionC.getX() + offsetX) * pixelPerTile,
+                (positionC.getY() + offsetY) * pixelPerTile, sizeC.getWidth() * pixelPerTile,
+                sizeC.getHeight() * pixelPerTile);
         }
     }
 }

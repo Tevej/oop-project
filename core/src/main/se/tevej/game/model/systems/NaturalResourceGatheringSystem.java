@@ -1,29 +1,40 @@
 package main.se.tevej.game.model.systems;
 
-import com.badlogic.ashley.core.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
-import main.se.tevej.game.model.components.*;
+import main.se.tevej.game.model.components.InventoryComponent;
+import main.se.tevej.game.model.components.NaturalResourceComponent;
+import main.se.tevej.game.model.components.PositionComponent;
+import main.se.tevej.game.model.components.RadiusComponent;
+import main.se.tevej.game.model.components.TileComponent;
+import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class NaturalResourceGatheringSystem extends EntitySystem{
+public class NaturalResourceGatheringSystem extends EntitySystem {
 
     private Engine engine;
     private EntityManager em;
 
-    public NaturalResourceGatheringSystem(EntityManager em){
+    public NaturalResourceGatheringSystem(EntityManager em) {
+        super();
         this.em = em;
     }
 
-    private List<double[]> getLocationsInRadius(int radius, PositionComponent positionComponent, int maxWidth, int maxHeight){
+    private List<double[]> getLocationsInRadius(
+        int radius, PositionComponent positionComponent, int maxWidth, int maxHeight) {
+
         List<double[]> locations = new ArrayList<>();
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++){

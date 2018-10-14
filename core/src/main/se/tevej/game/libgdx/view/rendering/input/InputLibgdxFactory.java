@@ -6,6 +6,10 @@ import main.se.tevej.game.controller.input.TMouse;
 
 public class InputLibgdxFactory implements InputFactory {
 
+    public InputLibgdxFactory() {
+
+    }
+
     @Override
     public TMouse createMouse() {
         return new MouseLibgdxAdapter();
