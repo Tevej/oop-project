@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.controller.input.CameraController;
 import main.se.tevej.game.controller.input.ConstructionController;
+import main.se.tevej.game.controller.input.TKeyBoard;
+import main.se.tevej.game.controller.input.TMouse;
 import main.se.tevej.game.controller.input.TimeController;
 import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
 import main.se.tevej.game.controller.input.listeners.OnTimeChangeListener;
@@ -22,7 +24,9 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.view.SelectedBuildingRenderer;
 import main.se.tevej.game.view.ViewManager;
+import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.libgdx.RenderingLibgdxFactory;
@@ -31,6 +35,8 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
     private EntityManager entityManager;
     private ViewManager view;
     private InventoryGui gui;
+    private BuildingGui buildingGui;
+    private SelectedBuildingRenderer buildingRenderer;
 
     private long lastFrameNanoTime;
     private float deltaTime;
@@ -90,14 +96,29 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
         entityManager.getSignal().dispatch(buildHomeBuilding);
 
-        InputLibgdxFactory inputFactory = new InputLibgdxFactory();
-        CameraController camera = new CameraController(
-            view, inputFactory, 0, 0, worldWidth, worldHeight);
-        new ConstructionController(entityManager, inputFactory, worldEntity, camera);
+        buildingRenderer = new SelectedBuildingRenderer(renderingFactory);
 
         gui = new InventoryGui(renderingFactory, inventoryEntity);
+        buildingGui = new BuildingGui(renderingFactory);
+        buildingGui.addSelectedListener(buildingRenderer);
 
-        TimeController timeController = new TimeController();
+        InputLibgdxFactory inputFactory = new InputLibgdxFactory();
+        TMouse mouse = inputFactory.createMouse();
+        TKeyBoard keyBoard = inputFactory.createKeyBoard();
+        CameraController camera = new CameraController(
+            view, 0, 0, worldWidth, worldHeight, mouse);
+
+        ConstructionController constructor = new ConstructionController(
+            entityManager,
+            worldEntity,
+            camera,
+            keyBoard,
+            mouse,
+            buildingRenderer
+        );
+        buildingGui.addSelectedListener(constructor);
+
+        TimeController timeController = new TimeController(keyBoard);
         timeController.registerOnTimeChange(this);
     }
 
@@ -114,6 +135,11 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
 
         gui.update(deltaTime);
         gui.render();
+
+        buildingGui.update(deltaTime);
+        buildingGui.render();
+
+        buildingRenderer.render();
     }
 
     private void calculateDeltaTime() {

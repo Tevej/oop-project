@@ -5,14 +5,13 @@ import static main.se.tevej.game.view.ViewManager.PIXEL_PER_TILE;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-import main.se.tevej.game.controller.input.enums.TButton;
-import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
-import main.se.tevej.game.controller.input.listeners.OnClickedListener;
+import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listeners.OnDraggedListener;
+import main.se.tevej.game.controller.input.listeners.OnMouseClickedListener;
 import main.se.tevej.game.view.ViewManager;
 
 
-public class CameraController implements OnDraggedListener, OnClickedListener {
+public class CameraController implements OnDraggedListener, OnMouseClickedListener {
 
     private ViewManager view;
 
@@ -27,10 +26,10 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     private float worldWidth;
     private float worldHeight;
 
-    public CameraController(ViewManager view, InputLibgdxFactory factory,
-                            float startX, float startY, int worldWidth, int worldHeight) {
+    public CameraController(ViewManager view,
+                            float startX, float startY, int worldWidth,
+                            int worldHeight, TMouse mouse) {
         this.view = view;
-        TMouse mouse = factory.createMouse();
         mouse.addDraggedListener(this);
         mouse.addClickedListener(this);
         cameraPosX = startX;
@@ -52,13 +51,13 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     }
 
     @Override
-    public void onClicked(TMouse mouse, TButton button) {
+    public void onClicked(TMouse mouse, TKey button) {
         updatePrev(mouse.getX(), mouse.getY());
     }
 
     @Override
-    public void onDragged(TMouse mouse, TButton button, float x, float y) {
-        if (button == TButton.MOUSE_LEFT) {
+    public void onDragged(TKey button, float x, float y) {
+        if (button == TKey.MOUSE_LEFT) {
             calculateNewPos(x, y);
 
             if (newPosX < 0) {
@@ -106,5 +105,13 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         float screenTileYOffset = (float)Gdx.app.getGraphics().getHeight()
             / (float) PIXEL_PER_TILE + (cameraPosY - screenTileY);
         return new Vector2(screenTileXOffset, screenTileYOffset);
+    }
+
+    public float getCameraPosX() {
+        return cameraPosX;
+    }
+
+    public float getCameraPosY() {
+        return cameraPosY;
     }
 }
