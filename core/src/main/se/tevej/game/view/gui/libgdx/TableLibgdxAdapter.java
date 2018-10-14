@@ -3,13 +3,12 @@ package main.se.tevej.game.view.gui.libgdx;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
+import main.se.tevej.game.controller.input.libgdx.OrderedInputMultiplexer;
 import main.se.tevej.game.view.rendering.ui.TCell;
 import main.se.tevej.game.view.rendering.ui.TTable;
 import main.se.tevej.game.view.rendering.ui.TUiElement;
@@ -22,15 +21,7 @@ public class TableLibgdxAdapter extends Table implements TTable {
         super();
         stage = new Stage();
         cells = new LinkedHashMap<>();
-
-        if (Gdx.input.getInputProcessor() == null) {
-            InputMultiplexer inputMultiplexer = new InputMultiplexer();
-            inputMultiplexer.addProcessor(stage);
-            Gdx.input.setInputProcessor(inputMultiplexer);
-        } else {
-            InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
-            inputMultiplexer.addProcessor(stage);
-        }
+        OrderedInputMultiplexer.getInstance().add(TTable.class, stage);
         stage.addActor(this);
     }
 
@@ -42,13 +33,13 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
-    public TTable getX(float x) {
+    public TTable positionX(float x) {
         super.setX(x);
         return this;
     }
 
     @Override
-    public TTable getY(float y) {
+    public TTable positionY(float y) {
         super.setY(y);
         return this;
     }

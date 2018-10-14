@@ -9,19 +9,28 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import main.se.tevej.game.controller.input.enums.TKey;
+import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.view.rendering.ui.TButton;
 
 public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
+    private Skin skin;
+
     public ButtonLibgdxAdapter(Skin skin) {
-        super("", skin);
+        super("", skin.get(ImageTextButtonStyle.class));
+        this.skin = skin;
     }
 
     @Override
     public TButton image(String path) {
         TextureRegionDrawable img = new TextureRegionDrawable(
             new TextureRegion(new Texture(Gdx.files.internal(path))));
-        super.getStyle().imageUp = img;
-        super.getStyle().imageDown = img;
+        //new ImageTextButtonStyle is used to make a copy from our skin.
+        ImageTextButtonStyle style = new ImageTextButtonStyle(
+            this.skin.get(ImageTextButtonStyle.class));
+        style.up = style.over = img;
+
+        super.setStyle(style);
         return this;
     }
 
@@ -32,12 +41,12 @@ public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
     }
 
     @Override
-    public TButton addListener(OnClickListener onClickListener) {
+    public TButton addListener(OnClickedListener onClickListener) {
         super.addListener(new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
-                onClickListener.onClick();
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                onClickListener.onClicked(TKey.MOUSE_LEFT);
+                return super.touchDown(event, x, y, pointer, button);
             }
         });
         return this;
