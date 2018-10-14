@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.badlogic.ashley.core.Entity;
@@ -64,7 +65,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
             for (String ending : imageTypes) {
                 if (name.endsWith(ending)) {
                     String typeName = name.substring(0, name.length() - ending.length());
-                    ResourceType type = ResourceType.valueOf(typeName.toUpperCase());
+                    ResourceType type = ResourceType.valueOf(typeName.toUpperCase(Locale.ENGLISH));
                     resourceImageMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
                 }
             }
