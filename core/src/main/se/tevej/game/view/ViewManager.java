@@ -63,7 +63,7 @@ public class ViewManager {
                         batchRenderer, entity, PIXEL_PER_TILE);
                 }
             } catch (Exception e) {
-                // Maybe do stuff here?
+                System.out.println("Oops something went wrong hehe.");
             }
         }
 

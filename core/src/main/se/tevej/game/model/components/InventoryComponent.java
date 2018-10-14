@@ -2,6 +2,7 @@ package main.se.tevej.game.model.components;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.ashley.core.Component;
 
@@ -10,7 +11,7 @@ import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
 public class InventoryComponent implements Component {
-    private HashMap<ResourceType, Double> resources;
+    private Map<ResourceType, Double> resources;
 
     public InventoryComponent() {
         resources = new HashMap<ResourceType, Double>();
