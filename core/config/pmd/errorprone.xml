@@ -615,6 +615,7 @@ boolean x = (y == Double.NaN);
         </example>
     </rule>
 
+<!--
     <rule name="BeanMembersShouldSerialize"
           since="1.1"
           message="Found non-transient, non-static member. Please mark as transient or provide accessors."
@@ -642,7 +643,7 @@ private int getMoreFoo(){
 ]]>
         </example>
     </rule>
-
+-->
     <rule name="BrokenNullCheck"
           since="3.8"
           message="Method call on object which may be null"
@@ -1066,6 +1067,7 @@ public class JuniorClass extends SeniorClass {
         </example>
     </rule>
 
+<!--
     <rule name="DataflowAnomalyAnalysis"
           since="3.9"
           message="Found ''{0}''-anomaly for variable ''{1}'' (lines ''{2}''-''{3}'')."
@@ -1091,7 +1093,7 @@ public void foo() {
 ]]>
         </example>
     </rule>
-
+-->
     <rule name="DoNotCallGarbageCollectionExplicitly"
           language="java"
           since="4.2"
@@ -2238,6 +2240,7 @@ public void bar(int status) {
         </example>
     </rule>
 
+<!--
     <rule name="MissingSerialVersionUID"
           language="java"
           since="3.0"
@@ -2274,6 +2277,7 @@ public class Foo implements java.io.Serializable {
 ]]>
         </example>
     </rule>
+-->
 
     <rule name="MissingStaticMethodInNonInstantiatableClass"
           language="java"
@@ -2419,6 +2423,7 @@ public class MyClass {
         </example>
     </rule>
 
+<!--
     <rule name="NullAssignment"
           since="1.02"
           message="Assigning an Object to null is a code smell.  Consider refactoring."
@@ -2443,6 +2448,7 @@ public void bar() {
 ]]>
         </example>
     </rule>
+-->
 
     <rule name="OverrideBothEqualsAndHashcode"
           language="java"

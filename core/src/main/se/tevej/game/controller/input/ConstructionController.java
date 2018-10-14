@@ -21,21 +21,20 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     private Entity worldEntity;
     private int mouseX = 0;
     private int mouseY = 0;
-    private TMouse mouse;
-    private TKeyBoard keyboard;
     private CameraController camera;
 
     public ConstructionController(EntityManager em, InputLibgdxFactory factory,
                                   Entity worldEntity, CameraController camera) {
         this.em = em;
         this.worldEntity = worldEntity;
-        this.keyboard = factory.createKeyBoard();
-        this.mouse = factory.createMouse();
+        TKeyBoard keyboard = factory.createKeyBoard();
+        TMouse mouse = factory.createMouse();
         mouse.addMovedListener(this);
         keyboard.addTappedListener(this);
         this.camera = camera;
     }
 
+    @Override
     public void onTapped(TKeyBoard keyBoard, TButton button) {
         switch (button) {
             case KEY_L:
@@ -62,6 +61,7 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
         em.getSignal().dispatch(entity);
     }
 
+    @Override
     public void onMoved(TMouse mouse) {
         Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
         mouseX = (int) v2.x;
