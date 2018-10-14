@@ -44,7 +44,7 @@ public class NaturalResourceEntityRenderable implements EntityRenderable {
                 image = wood;
                 break;
             default:
-                throw new UnknownResourceException(naturalResourceC.getType());
+                throw new UnknownResourceException();
         }
 
         PositionComponent positionC = entity.getComponent(PositionComponent.class);
