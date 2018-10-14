@@ -19,6 +19,7 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
@@ -70,18 +71,13 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         entityManager = new EntityManager();
         view = new ViewManager(entityManager, renderingFactory);
 
-        Entity inventoryEntity = new Entity();
-        InventoryComponent inventoryC = new InventoryComponent();
-        inventoryEntity.add(inventoryC);
-        inventoryC.addResource(new Resource(1000, ResourceType.WOOD));
-        inventoryC.addResource(new Resource(1000, ResourceType.WATER));
-        inventoryC.addResource(new Resource(1000, ResourceType.STONE));
 
         int worldWidth = 100;
         int worldHeight = 100;
 
         // Look over naming of method / implementation (also adds the world to the engine.)
         Entity worldEntity = new WorldEntity(worldWidth, worldHeight, entityManager);
+        Entity inventoryEntity = new InventoryEntity();
 
         entityManager.addEntityToEngine(inventoryEntity);
         entityManager.addEntityToEngine(worldEntity);
