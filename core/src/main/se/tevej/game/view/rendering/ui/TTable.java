@@ -4,9 +4,9 @@ public interface TTable {
 
     TCell addElement(TUiElement element);
 
-    TTable setXPosition(float x);
+    TTable positionX(float x);
 
-    TTable setYPosition(float y);
+    TTable positionY(float y);
 
     TTable grid(int rows, int columns);
 

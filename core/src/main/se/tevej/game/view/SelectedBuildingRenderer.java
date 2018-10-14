@@ -11,31 +11,31 @@ import main.se.tevej.game.view.rendering.TTexture;
 
 public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
 
-    private final Map<BuildingType, TTexture> buildingTypeToTexture;
+    private final Map<BuildingType, TTexture> textureMap;
     private final TBatchRenderer batchRenderer;
 
-    private BuildingType selectedBuildingType;
+    private BuildingType selectedBuilding;
     private float positionX;
     private float positionY;
 
     public SelectedBuildingRenderer(RenderingFactory renderingFactory) {
-        buildingTypeToTexture = new HashMap<>();
-        buildingTypeToTexture.put(
+        textureMap = new HashMap<>();
+        textureMap.put(
             BuildingType.HOME,
             renderingFactory.createTexture("buildings/home.jpg")
         );
 
-        buildingTypeToTexture.put(
+        textureMap.put(
             BuildingType.LUMBERMILL,
             renderingFactory.createTexture("buildings/lumberMill.jpg")
         );
 
-        buildingTypeToTexture.put(
+        textureMap.put(
             BuildingType.QUARRY,
             renderingFactory.createTexture("buildings/quarry.jpg")
         );
 
-        buildingTypeToTexture.put(
+        textureMap.put(
             BuildingType.PUMP,
             renderingFactory.createTexture("buildings/pump.png")
         );
@@ -44,10 +44,10 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
     }
 
     public void render() {
-        if (selectedBuildingType != null && selectedBuildingType != BuildingType.NONE) {
+        if (selectedBuilding != null && selectedBuilding != BuildingType.NONE) {
             batchRenderer.beginRendering();
             batchRenderer.renderTexture(
-                this.buildingTypeToTexture.get(selectedBuildingType),
+                this.textureMap.get(selectedBuilding),
                 positionX,
                 positionY
             );
@@ -61,10 +61,10 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
     }
 
     @Override
-    public void buildingSelectedToBuild(BuildingType selectedBuildingType) {
-        this.selectedBuildingType =
-            this.selectedBuildingType == selectedBuildingType
+    public void buildingSelectedToBuild(BuildingType selectedBuilding) {
+        this.selectedBuilding =
+            this.selectedBuilding == selectedBuilding
                 ? null
-                : selectedBuildingType;
+                : selectedBuilding;
     }
 }

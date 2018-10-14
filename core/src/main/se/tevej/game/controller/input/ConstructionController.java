@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 
 import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
 import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnMovedListener;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
@@ -29,11 +28,11 @@ public class ConstructionController implements OnTappedListener,
     private CameraController camera;
     private boolean buildingSelected;
     private BuildingType selectedBuilding;
-    private SelectedBuildingRenderer selectedBuildingRenderer;
+    private SelectedBuildingRenderer buildingRenderer;
 
     public ConstructionController(EntityManager em, Entity worldEntity,
                                   CameraController camera, TKeyBoard keyboard, TMouse mouse,
-                                  SelectedBuildingRenderer selectedBuildingRenderer) {
+                                  SelectedBuildingRenderer buildingRenderer) {
         buildingSelected = false;
         this.em = em;
         this.worldEntity = worldEntity;
@@ -41,7 +40,7 @@ public class ConstructionController implements OnTappedListener,
         mouse.addClickedListener(this);
         keyboard.addTappedListener(this);
         this.camera = camera;
-        this.selectedBuildingRenderer = selectedBuildingRenderer;
+        this.buildingRenderer = buildingRenderer;
     }
 
     private void buildConstruction(BuildingType type) {
@@ -81,7 +80,7 @@ public class ConstructionController implements OnTappedListener,
         Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
         mouseX = (int) v2.x;
         mouseY = (int) v2.y;
-        selectedBuildingRenderer.setPosition(
+        buildingRenderer.setPosition(
             (mouseX - camera.getCameraPosX()) * ViewManager.PIXEL_PER_TILE,
             (mouseY - camera.getCameraPosY()) * ViewManager.PIXEL_PER_TILE);
     }

@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-import main.se.tevej.game.libgdx.view.rendering.input.OrderedInputMultiplexer;
+import main.se.tevej.game.controller.input.libgdx.OrderedInputMultiplexer;
 import main.se.tevej.game.view.rendering.ui.TCell;
 import main.se.tevej.game.view.rendering.ui.TTable;
 import main.se.tevej.game.view.rendering.ui.TUiElement;
@@ -33,13 +33,13 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
-    public TTable setXPosition(float x) {
+    public TTable positionX(float x) {
         super.setX(x);
         return this;
     }
 
     @Override
-    public TTable setYPosition(float y) {
+    public TTable positionY(float y) {
         super.setY(y);
         return this;
     }

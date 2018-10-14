@@ -15,13 +15,13 @@ import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnDraggedListener;
 import main.se.tevej.game.controller.input.listeners.OnMovedListener;
-import main.se.tevej.game.libgdx.view.rendering.input.OrderedInputMultiplexer;
 
-public class MouseLibgdxAdapter extends InputLibgdxAdapter implements TMouse {
+public class MouseLibgdxAdapter implements TMouse {
 
-    private static final Map<Integer, TKey> INPUT_MAP = new HashMap<>();
+    private static final Map<Integer, TKey> INPUT_MAP;
 
     static {
+        INPUT_MAP = new HashMap<>();
         INPUT_MAP.put(LEFT, TKey.MOUSE_LEFT);
         INPUT_MAP.put(RIGHT, TKey.MOUSE_RIGHT);
         INPUT_MAP.put(MIDDLE, TKey.MOUSE_MIDDLE);

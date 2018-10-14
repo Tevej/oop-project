@@ -17,35 +17,35 @@ import main.se.tevej.game.view.rendering.ui.TTable;
 public class BuildingGui {
     private RenderingFactory renderingFactory;
     private TTable buildingTable;
-    private LinkedList<TButton> buildingButtonList;
+    private List<TButton> buttonList;
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
     private final int imageSize = 32;
-    private List<OnBuildingSelectedToBuild> onBuildingSelectedToBuildList;
+    private List<OnBuildingSelectedToBuild> selectedListeners;
 
     public BuildingGui(RenderingFactory renderingFactory) {
         this.renderingFactory = renderingFactory;
 
-        this.onBuildingSelectedToBuildList = new LinkedList<>();
-        buildingButtonList = new LinkedList<>();
-        buildingButtonList.add(
+        this.selectedListeners = new LinkedList<>();
+        buttonList = new LinkedList<>();
+        buttonList.add(
             createBuildingButton(BuildingType.PUMP, "buildings/pump.png"));
-        buildingButtonList.add(
+        buttonList.add(
             createBuildingButton(BuildingType.LUMBERMILL, "buildings/lumberMill.jpg"));
-        buildingButtonList.add(
+        buttonList.add(
             createBuildingButton(BuildingType.QUARRY, "buildings/quarry.jpg"));
-        buildingButtonList.add(
+        buttonList.add(
             createBuildingButton(BuildingType.HOME, "buildings/home.jpg"));
 
         buildingTable = renderingFactory.createTable()
-            .setXPosition(Gdx.graphics.getWidth() - (imageSize / 2f))
-            .setYPosition(Gdx.graphics.getHeight() / 2f)
+            .positionX(Gdx.graphics.getWidth() - (imageSize / 2f))
+            .positionY(Gdx.graphics.getHeight() / 2f)
             .grid(1, 32)
             .debug(true);
 
-        for (TButton buildingButton : buildingButtonList) {
+        for (TButton buildingButton : buttonList) {
             buildingTable.addElement(buildingButton).width(imageSize).height(imageSize);
         }
     }
@@ -54,9 +54,9 @@ public class BuildingGui {
         return renderingFactory.createButton().image(imgPath).addListener(new OnClickedListener() {
             @Override
             public void onClicked(TKey button) {
-                for (OnBuildingSelectedToBuild onBuildingSelectedToBuild :
-                    onBuildingSelectedToBuildList) {
-                    onBuildingSelectedToBuild.buildingSelectedToBuild(buildingType);
+                for (OnBuildingSelectedToBuild selectedListener :
+                    selectedListeners) {
+                    selectedListener.buildingSelectedToBuild(buildingType);
                 }
             }
         });
@@ -70,7 +70,7 @@ public class BuildingGui {
         buildingTable.update(deltaTime);
     }
 
-    public void addSelectedListener(OnBuildingSelectedToBuild onBuildingSelectedToBuild) {
-        onBuildingSelectedToBuildList.add(onBuildingSelectedToBuild);
+    public void addSelectedListener(OnBuildingSelectedToBuild selectedListener) {
+        selectedListeners.add(selectedListener);
     }
 }

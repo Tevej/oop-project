@@ -10,13 +10,13 @@ import com.badlogic.gdx.InputAdapter;
 import main.se.tevej.game.controller.input.TKeyBoard;
 import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
-import main.se.tevej.game.libgdx.view.rendering.input.OrderedInputMultiplexer;
 
-public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
+public class KeyBoardLibgdxAdapter implements TKeyBoard {
 
-    private static final Map<Integer, TKey> INPUT_MAP = new HashMap<>();
+    private static final Map<Integer, TKey> INPUT_MAP;
 
     static {
+        INPUT_MAP = new HashMap<>();
         INPUT_MAP.put(Keys.NUM_1, TKey.KEY_1);
         INPUT_MAP.put(Keys.NUM_2, TKey.KEY_2);
         INPUT_MAP.put(Keys.NUM_3, TKey.KEY_3);

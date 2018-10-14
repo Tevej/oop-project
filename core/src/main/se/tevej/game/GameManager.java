@@ -128,8 +128,8 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
     }
 
     private void createGui() {
-        table = renderingFactory.createTable().setXPosition(Gdx.graphics.getWidth() / 2f)
-            .setYPosition(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
+        table = renderingFactory.createTable().positionX(Gdx.graphics.getWidth() / 2f)
+            .positionY(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
 
         TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener((key) ->
             System.out.println("Hej!"));
