@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 
-public abstract class InputLibgdxAdapter {
+public class InputLibgdxAdapter {
 
     public InputLibgdxAdapter() {
         super();
