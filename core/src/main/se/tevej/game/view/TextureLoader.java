@@ -8,16 +8,16 @@ import main.se.tevej.game.view.rendering.RenderingFactory;
 
 public abstract class TextureLoader {
 
-    List<String> imageTypes;
+    public List<String> imageTypes;
 
     public TextureLoader() {
-        imageTypes = new ArrayList();
+        imageTypes = new ArrayList<>();
         imageTypes.add(".jpg");
         imageTypes.add(".png");
         imageTypes.add(".jpeg");
     }
 
-    List<File> getFilesInDir(String path) throws Exception {
+    public List<File> getFilesInDir(String path) throws Exception {
 
         File folder = new File(path);
 
@@ -43,5 +43,5 @@ public abstract class TextureLoader {
         }
     }
 
-    abstract void filesToMap(List<File> files, RenderingFactory renderingFactory);
+    protected abstract void filesToMap(List<File> files, RenderingFactory renderingFactory);
 }

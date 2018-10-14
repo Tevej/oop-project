@@ -117,7 +117,7 @@ public class ViewManager {
         addOutputElement(output, NaturalResourceComponent.class,
             new NaturalResourceEntityRenderable(renderingFactory));
         addOutputElement(output, BuildingComponent.class,
-            new BuildingEntityRendereable(renderingFactory));
+            new BuildingEntityRenderable(renderingFactory));
 
         return output;
     }

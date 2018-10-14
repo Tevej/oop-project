@@ -18,7 +18,7 @@ import main.se.tevej.game.view.rendering.TTexture;
 
 public class NaturalResourceEntityRenderable extends TextureLoader implements EntityRenderable {
 
-    HashMap<ResourceType, TTexture> resourceTextureMap;
+    private HashMap<ResourceType, TTexture> resourceImageMap;
 
     public NaturalResourceEntityRenderable(RenderingFactory renderFactory) {
         super();
@@ -32,7 +32,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
             System.out.println("Failed to load textures.");
         }
 
-        resourceTextureMap = new HashMap<ResourceType, TTexture>() {
+        resourceImageMap = new HashMap<ResourceType, TTexture>() {
         };
 
         filesToMap(files, renderFactory);
@@ -49,7 +49,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
 
         SizeComponent sizeC = entity.getComponent(SizeComponent.class);
 
-        batchRenderer.renderTexture(resourceTextureMap.get(naturalResourceC.getType()),
+        batchRenderer.renderTexture(resourceImageMap.get(naturalResourceC.getType()),
             (positionC.getX() + offsetX) * pixelPerTile,
             (positionC.getY() + offsetY) * pixelPerTile,
             sizeC.getWidth() * pixelPerTile,
@@ -57,14 +57,14 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
     }
 
     @Override
-    void filesToMap(List<File> files, RenderingFactory renderFactory) {
+    public void filesToMap(List<File> files, RenderingFactory renderFactory) {
         for (final File fileEntry : files) {
             String name = fileEntry.getName();
             for (String ending : imageTypes) {
                 if (name.endsWith(ending)) {
                     String typeName = name.substring(0, name.length() - ending.length());
                     ResourceType type = ResourceType.valueOf(typeName.toUpperCase());
-                    resourceTextureMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
+                    resourceImageMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
                 }
             }
         }

@@ -16,11 +16,11 @@ import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
 
-public class BuildingEntityRendereable extends TextureLoader implements EntityRenderable {
+public class BuildingEntityRenderable extends TextureLoader implements EntityRenderable {
 
-    private HashMap<BuildingType, TTexture> buildingTextureMap;
+    private HashMap<BuildingType, TTexture> buildingImageMap;
 
-    public BuildingEntityRendereable(RenderingFactory renderFactory) {
+    public BuildingEntityRenderable(RenderingFactory renderFactory) {
         super();
 
         List<File> files;
@@ -32,7 +32,7 @@ public class BuildingEntityRendereable extends TextureLoader implements EntityRe
             System.out.println("Failed to load textures.");
         }
 
-        buildingTextureMap = new HashMap<BuildingType, TTexture>() {
+        buildingImageMap = new HashMap<BuildingType, TTexture>() {
         };
 
         filesToMap(files, renderFactory);
@@ -50,19 +50,19 @@ public class BuildingEntityRendereable extends TextureLoader implements EntityRe
         float y = (posC.getY() + offsetY) * pixelPerTile;
         float width = sizeC.getWidth() * pixelPerTile;
         float height = sizeC.getHeight() * pixelPerTile;
-        batchRenderer.renderTexture(buildingTextureMap.get(
+        batchRenderer.renderTexture(buildingImageMap.get(
             buildingC.getType()), x, y, width, height);
     }
 
     @Override
-    void filesToMap(List<File> files, RenderingFactory renderFactory) {
+    public void filesToMap(List<File> files, RenderingFactory renderFactory) {
         for (final File fileEntry : files) {
             String name = fileEntry.getName();
             for (String ending : imageTypes) {
                 if (name.endsWith(ending)) {
                     String typeName = name.substring(0, name.length() - ending.length());
                     BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
-                    buildingTextureMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
+                    buildingImageMap.put(type, renderFactory.createTexture(fileEntry.getPath()));
                 }
             }
         }
