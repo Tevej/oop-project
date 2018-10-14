@@ -103,17 +103,25 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
 
         selectedBuildingRenderer = new SelectedBuildingRenderer(renderingFactory);
 
-        InputLibgdxFactory inputFactory = new InputLibgdxFactory();
-        TMouse mouse = inputFactory.createMouse();
-        TKeyBoard keyBoard = inputFactory.createKeyBoard();
-
-        CameraController camera = new CameraController(
-            view, inputFactory, 0, 0, worldWidth, worldHeight, mouse);
-        ConstructionController constructionController = new ConstructionController(entityManager, inputFactory, worldEntity, camera, keyBoard, mouse, selectedBuildingRenderer);
-
         gui = new InventoryGui(renderingFactory, inventoryEntity);
         buildingGui = new BuildingGui(renderingFactory);
         buildingGui.addSelectedListener(selectedBuildingRenderer);
+
+        InputLibgdxFactory inputFactory = new InputLibgdxFactory();
+        TMouse mouse = inputFactory.createMouse();
+        TKeyBoard keyBoard = inputFactory.createKeyBoard();
+        CameraController camera = new CameraController(
+            view, inputFactory, 0, 0, worldWidth, worldHeight, mouse);
+
+        ConstructionController constructionController = new ConstructionController(
+            entityManager,
+            inputFactory,
+            worldEntity,
+            camera,
+            keyBoard,
+            mouse,
+            selectedBuildingRenderer
+        );
         buildingGui.addSelectedListener(constructionController);
 
         TimeController timeController = new TimeController(keyBoard);
@@ -124,7 +132,7 @@ public class GameManager extends ApplicationAdapter implements OnTimeChangeListe
         table = renderingFactory.createTable().setXPosition(Gdx.graphics.getWidth() / 2f)
             .setYPosition(Gdx.graphics.getHeight() - 200).grid(2, 2).debug(true);
 
-        TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener((tKey) ->
+        TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener((key) ->
             System.out.println("Hej!"));
         table.addElement(button).width(200).height(50);
 

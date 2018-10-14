@@ -4,8 +4,8 @@ import static main.se.tevej.game.view.ViewManager.PIXEL_PER_TILE;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import main.se.tevej.game.controller.input.enums.TKey;
 
+import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
 import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnDraggedListener;
@@ -29,7 +29,8 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
     private float worldHeight;
 
     public CameraController(ViewManager view, InputLibgdxFactory factory,
-                            float startX, float startY, int worldWidth, int worldHeight, TMouse mouse) {
+                            float startX, float startY, int worldWidth,
+                            int worldHeight, TMouse mouse) {
         this.view = view;
         this.mouse = mouse;
         mouse.addDraggedListener(this);

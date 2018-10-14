@@ -1,16 +1,18 @@
 package main.se.tevej.game.libgdx.view.rendering.input;
 
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.libgdx.InputLibgdxAdapter;
-import main.se.tevej.game.controller.input.listeners.OnTappedListener;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.badlogic.gdx.Input.Keys;
 
 import com.badlogic.gdx.InputAdapter;
+
+import main.se.tevej.game.controller.input.TKeyBoard;
+import main.se.tevej.game.controller.input.enums.TKey;
+import main.se.tevej.game.controller.input.libgdx.InputLibgdxAdapter;
+import main.se.tevej.game.controller.input.listeners.OnTappedListener;
+import main.se.tevej.game.libgdx.view.rendering.input.OrderedInputMultiplexer;
+
 
 public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
 
@@ -73,7 +75,7 @@ public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoa
     @Override
     public void addTappedListener(OnTappedListener onClickedListener) {
         TKeyBoard keyboard = this;
-        main.se.tevej.game.libgdx.view.rendering.input.OrderedInputMultiplexer.getInstance().add(TKeyBoard.class, new InputAdapter() {
+        OrderedInputMultiplexer.getInstance().add(TKeyBoard.class, new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
                 if (inputMap.containsKey(keycode)) {

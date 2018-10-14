@@ -19,7 +19,8 @@ import main.se.tevej.game.view.SelectedBuildingRenderer;
 import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gui.OnBuildingSelectedToBuild;
 
-public class ConstructionController implements OnTappedListener, OnMovedListener, OnClickedListener, OnBuildingSelectedToBuild {
+public class ConstructionController implements OnTappedListener,
+    OnMovedListener, OnClickedListener, OnBuildingSelectedToBuild {
 
     private EntityManager em;
     private Entity worldEntity;

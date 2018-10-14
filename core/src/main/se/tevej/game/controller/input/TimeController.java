@@ -1,11 +1,9 @@
 package main.se.tevej.game.controller.input;
 
-import main.se.tevej.game.controller.input.enums.TKey;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
+import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
 import main.se.tevej.game.controller.input.listeners.OnTimeChangeListener;
 
