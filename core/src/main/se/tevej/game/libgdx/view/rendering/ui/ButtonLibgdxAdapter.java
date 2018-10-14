@@ -36,9 +36,9 @@ public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
     public TButton addListener(OnClickedListener onClickListener) {
         super.addListener(new ClickListener(){
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 onClickListener.onClicked(TKey.MOUSE_LEFT);
+                return super.touchDown(event, x, y, pointer, button);
             }
         });
         return this;
