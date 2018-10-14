@@ -11,26 +11,26 @@ import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
 import main.se.tevej.game.libgdx.view.rendering.ui.ButtonLibgdxAdapter;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.view.SelectedBuildingRenderer;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.ui.TButton;
 import main.se.tevej.game.view.rendering.ui.TTable;
 
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class BuildingGui {
     private RenderingFactory renderingFactory;
-    private ConstructionController constructionController;
-
     private TTable buildingTable;
     private LinkedList<TButton> buildingButtonList;
-
     private final int IMAGE_SIZE = 32;
+    private List<OnBuildingSelectedToBuild> onBuildingSelectedToBuildList;
 
-    public BuildingGui(RenderingFactory renderingFactory, ConstructionController constructionController) {
+    public BuildingGui(RenderingFactory renderingFactory) {
         this.renderingFactory = renderingFactory;
-        this.constructionController = constructionController;
 
+        this.onBuildingSelectedToBuildList = new LinkedList<>();
         buildingButtonList = new LinkedList<>();
         buildingButtonList.add(createBuildingButton(BuildingType.PUMP, "buildings/pump.png"));
         buildingButtonList.add(createBuildingButton(BuildingType.LUMBERMILL, "buildings/lumberMill.jpg"));
@@ -52,7 +52,10 @@ public class BuildingGui {
         return renderingFactory.createButton().image(imgPath).addListener(new OnClickedListener() {
             @Override
             public void onClicked(TKey button) {
-                constructionController.onButtonClicked(button, buildingType);
+                for (OnBuildingSelectedToBuild onBuildingSelectedToBuild:
+                    onBuildingSelectedToBuildList) {
+                    onBuildingSelectedToBuild.buildingSelectedToBuild(buildingType);
+                }
             }
         });
     }
@@ -63,5 +66,9 @@ public class BuildingGui {
 
     public void update(float deltaTime) {
         buildingTable.update(deltaTime);
+    }
+
+    public void addSelectedListener(OnBuildingSelectedToBuild onBuildingSelectedToBuild) {
+        onBuildingSelectedToBuildList.add(onBuildingSelectedToBuild);
     }
 }

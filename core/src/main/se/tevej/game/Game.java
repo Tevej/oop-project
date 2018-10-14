@@ -17,10 +17,12 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.factories.WorldFactory;
+import main.se.tevej.game.view.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.view.gui.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.rendering.ui.*;
 import main.se.tevej.game.view.View;
 import main.se.tevej.game.view.rendering.RenderingFactory;
@@ -38,6 +40,8 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 
     private InventoryGui gui;
     private BuildingGui buildingGui;
+    private SelectedBuildingRenderer selectedBuildingRenderer;
+    private CameraController cameraController;
 
     private long lastFrameNanoTime;
     private long currFrameNanoTime;
@@ -63,7 +67,7 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 
         int worldWidth = 100;
         int worldHeight = 100;
-        CameraController camera = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight, mouse);
+        cameraController = new CameraController(view, inputLibgdxFactory, 0, 0, worldWidth, worldHeight, mouse);
 
 
 		TButton button = renderingFactory.createButton().image("hulk.jpeg").addListener((key) -> System.out.println("Hej!"));
@@ -101,10 +105,13 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 		buildHomeBuilding.add(new SignalComponent(SignalType.BUILDBUILDING));
 		em.getSignal().dispatch(buildHomeBuilding);
 
-        ConstructionController constructionController = new ConstructionController(em, inputLibgdxFactory, worldEntity, camera, keyboard, mouse);
+        selectedBuildingRenderer = new SelectedBuildingRenderer(renderingFactory);
 
-		gui = new InventoryGui(renderingFactory, inventoryEntity);
-		buildingGui = new BuildingGui(renderingFactory, constructionController);
+        ConstructionController constructionController = new ConstructionController(em, inputLibgdxFactory, worldEntity, cameraController, keyboard, mouse, selectedBuildingRenderer);
+        gui = new InventoryGui(renderingFactory, inventoryEntity);
+        buildingGui = new BuildingGui(renderingFactory);
+        buildingGui.addSelectedListener(constructionController);
+        buildingGui.addSelectedListener(selectedBuildingRenderer);
 
         TimeController timeController = new TimeController(keyboard);
         timeController.registerOnTimeChange(this);
@@ -128,6 +135,8 @@ public class Game extends ApplicationAdapter implements OnTimeChangeListener {
 
         buildingGui.update(deltaTime);
         buildingGui.render();
+
+        selectedBuildingRenderer.render();
     }
 
     private void calculateDeltaTime() {

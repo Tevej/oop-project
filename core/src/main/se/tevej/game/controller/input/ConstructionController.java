@@ -2,6 +2,7 @@ package main.se.tevej.game.controller.input;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
+
 import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
 import main.se.tevej.game.controller.input.listenerInterfaces.OnMovedListener;
@@ -15,8 +16,11 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.view.SelectedBuildingRenderer;
+import main.se.tevej.game.view.View;
+import main.se.tevej.game.view.gui.OnBuildingSelectedToBuild;
 
-public class ConstructionController implements OnTappedListener, OnMovedListener, OnClickedListener {
+public class ConstructionController implements OnTappedListener, OnMovedListener, OnClickedListener, OnBuildingSelectedToBuild {
 
     private EntityManager em;
     private Entity worldEntity;
@@ -25,11 +29,13 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
     private TMouse mouse;
     private TKeyBoard keyboard;
     private CameraController camera;
-
     private boolean buildingSelected;
     private BuildingType selectedBuilding;
+    private SelectedBuildingRenderer selectedBuildingRenderer;
 
-    public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity, CameraController camera, TKeyBoard keyboard, TMouse mouse) {
+    public ConstructionController(EntityManager em, InputLibgdxFactory factory, Entity worldEntity,
+                                  CameraController camera, TKeyBoard keyboard, TMouse mouse,
+                                  SelectedBuildingRenderer selectedBuildingRenderer) {
         buildingSelected = false;
         this.em = em;
         this.worldEntity = worldEntity;
@@ -39,11 +45,12 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
         mouse.addClickedListener(this);
         keyboard.addTappedListener(this);
         this.camera = camera;
+        this.selectedBuildingRenderer = selectedBuildingRenderer;
     }
 
-    public void onTapped (TKey button){
+    public void onTapped(TKey button) {
         switch (button) {
-            case  KEY_L:
+            case KEY_L:
                 buildConstruction(BuildingType.LUMBERMILL);
                 break;
             case KEY_Q:
@@ -75,8 +82,11 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
 
     public void onMoved() {
         Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
-        mouseX = (int)v2.x;
-        mouseY = (int)v2.y;
+        mouseX = (int) v2.x;
+        mouseY = (int) v2.y;
+        selectedBuildingRenderer.setPosition(
+            (mouseX - camera.getCameraPosX()) * View.pixelPerTile,
+            (mouseY - camera.getCameraPosY()) * View.pixelPerTile);
     }
 
 
@@ -89,8 +99,16 @@ public class ConstructionController implements OnTappedListener, OnMovedListener
 
     @Override
     public void onClicked(TKey button) {
+        System.out.println("Hej");
         if (button == TKey.MOUSE_LEFT) {
+            System.out.println(button);
             buildConstruction();
         }
+    }
+
+    @Override
+    public void buildingSelectedToBuild(BuildingType buildingType) {
+        buildingSelected = selectedBuilding == null || buildingType != selectedBuilding;
+        selectedBuilding = buildingType;
     }
 }

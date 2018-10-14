@@ -94,4 +94,12 @@ public class CameraController implements OnDraggedListener, OnClickedListener {
         y = ((float) Gdx.app.getGraphics().getHeight() / (float) pixelPerTile) + (cameraPosY - y);
         return new Vector2(x, y);
     }
+
+    public float getCameraPosX() {
+        return cameraPosX;
+    }
+
+    public float getCameraPosY() {
+        return cameraPosY;
+    }
 }
