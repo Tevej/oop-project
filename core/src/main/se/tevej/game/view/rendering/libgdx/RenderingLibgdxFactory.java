@@ -1,17 +1,32 @@
-package main.se.tevej.game.libgdx.view.rendering;
+package main.se.tevej.game.view.rendering.libgdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import main.se.tevej.game.libgdx.view.rendering.ui.*;
-import main.se.tevej.game.view.rendering.ui.*;
+
+import main.se.tevej.game.view.gui.libgdx.ButtonLibgdxAdapter;
+import main.se.tevej.game.view.gui.libgdx.ImageLibgdxAdapter;
+import main.se.tevej.game.view.gui.libgdx.LabelLibgdxAdapter;
+import main.se.tevej.game.view.gui.libgdx.SelectableListLibgdxAdapter;
+import main.se.tevej.game.view.gui.libgdx.TableLibgdxAdapter;
+import main.se.tevej.game.view.gui.libgdx.TextFieldLibgdxAdapter;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
+import main.se.tevej.game.view.rendering.ui.TButton;
+import main.se.tevej.game.view.rendering.ui.TImage;
+import main.se.tevej.game.view.rendering.ui.TLabel;
+import main.se.tevej.game.view.rendering.ui.TSelectableList;
+import main.se.tevej.game.view.rendering.ui.TTable;
+import main.se.tevej.game.view.rendering.ui.TTextField;
 
 public class RenderingLibgdxFactory implements RenderingFactory {
 
     private static final Skin SKIN = new Skin(Gdx.files.internal("skin/plain-james-ui.json"));
+
+    public RenderingLibgdxFactory() {
+        super();
+    }
 
     @Override
     public TBatchRenderer createBatchRenderer() {

@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
+
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.PositionComponent;
@@ -16,11 +17,16 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener {
 
     private Engine engine;
 
+    public DeleteEntitySystem() {
+        super();
+    }
+
     private void deleteEntity(Entity signalEntity) {
         WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
-                .first().getComponent(WorldComponent.class);
+            .first().getComponent(WorldComponent.class);
         PositionComponent pc = signalEntity.getComponent(PositionComponent.class);
-        TileComponent tc = wc.getTileAt((int) pc.getX(), (int) pc.getY()).getComponent(TileComponent.class);
+        Entity tile = wc.getTileAt((int) pc.getX(), (int) pc.getY());
+        TileComponent tc = tile.getComponent(TileComponent.class);
         tc.occupy(null);
         engine.removeEntity(signalEntity);
     }
@@ -40,7 +46,7 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener {
             @Override
             public void receive(Signal<Entity> signal, Entity signalEntity) {
                 SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
-                switch (signalComponent.getType()){
+                switch (signalComponent.getType()) {
                     case DELETEENTITY:
                         deleteEntity(signalEntity);
                         break;

@@ -1,13 +1,18 @@
-package main.se.tevej.game.libgdx.view.rendering.ui;
+package main.se.tevej.game.view.gui.libgdx;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+
 import main.se.tevej.game.view.rendering.ui.TCell;
 
 public class CellLibgdxAdapter implements TCell {
 
     private Cell cell;
 
-    public void setCell(Cell cell){
+    public CellLibgdxAdapter() {
+        super();
+    }
+
+    public void setCell(Cell cell) {
         this.cell = cell;
     }
 

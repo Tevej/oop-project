@@ -1,7 +1,12 @@
 package main.se.tevej.game.view;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import com.badlogic.ashley.core.Entity;
-import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
+
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
@@ -9,18 +14,14 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import main.se.tevej.game.view.rendering.libgdx.RenderingLibgdxFactory;
 
 public class BuildingEntityRendereable implements EntityRenderable {
 
-    HashMap<BuildingType, TTexture> buildingTextureMap;
+    private HashMap<BuildingType, TTexture> buildingRenderMap;
 
     public BuildingEntityRendereable(RenderingFactory renderingFactory) {
-        buildingTextureMap = new HashMap<>();
+        buildingRenderMap = new HashMap<>();
         List<String> imageTypes = new ArrayList();
         imageTypes.add(".jpg");
         imageTypes.add(".png");
@@ -31,10 +32,14 @@ public class BuildingEntityRendereable implements EntityRenderable {
         try {
             loadTextures(folder, renderingFactory, imageTypes);
         } catch (Exception e) {
+            System.out.println("Failed to load textures.");
         }
     }
 
-    private void loadTextures(final File folder, RenderingFactory renderingFactory, List<String> imageTypes) throws Exception {
+    private void loadTextures(
+        final File folder, RenderingFactory renderingFactory,
+        List<String> imageTypes) throws Exception {
+
         renderingFactory = new RenderingLibgdxFactory();
 
         File[] files = folder.listFiles();
@@ -50,10 +55,11 @@ public class BuildingEntityRendereable implements EntityRenderable {
                 String fileName = fileEntry.getName();
                 for (String fileEnding : imageTypes) {
                     if (fileName.endsWith(fileEnding)) {
-                        String typeName = fileName.substring(0, fileName.length() - fileEnding.length());
+                        String typeName = fileName.substring(0,
+                            fileName.length() - fileEnding.length());
                         BuildingType type = BuildingType.valueOf(typeName.toUpperCase());
                         fileName = folder.getPath() + "/" + fileName;
-                        buildingTextureMap.put(type, renderingFactory.createTexture(fileName));
+                        buildingRenderMap.put(type, renderingFactory.createTexture(fileName));
                     }
                 }
             }
@@ -61,7 +67,10 @@ public class BuildingEntityRendereable implements EntityRenderable {
     }
 
     @Override
-    public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer, Entity entity, int pixelPerTile) throws Exception {
+    public void render(
+        float offsetX, float offsetY, TBatchRenderer batchRenderer,
+        Entity entity, int pixelPerTile) throws Exception {
+
         BuildingComponent buildingC = entity.getComponent(BuildingComponent.class);
         PositionComponent posC = entity.getComponent(PositionComponent.class);
         SizeComponent sizeC = entity.getComponent(SizeComponent.class);
@@ -69,6 +78,7 @@ public class BuildingEntityRendereable implements EntityRenderable {
         float y = (posC.getY() + offsetY) * pixelPerTile;
         float width = sizeC.getWidth() * pixelPerTile;
         float height = sizeC.getHeight() * pixelPerTile;
-        batchRenderer.renderTexture(buildingTextureMap.get(buildingC.getType()), x, y, width, height);
+        batchRenderer.renderTexture(buildingRenderMap.get(
+            buildingC.getType()), x, y, width, height);
     }
 }

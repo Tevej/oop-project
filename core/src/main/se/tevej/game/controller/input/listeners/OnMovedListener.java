@@ -1,8 +1,7 @@
-package main.se.tevej.game.controller.input.listenerInterfaces;
+package main.se.tevej.game.controller.input.listeners;
 
 import main.se.tevej.game.controller.input.TMouse;
 
 public interface OnMovedListener {
-    void onMoved();
-
+    void onMoved(TMouse mouse);
 }

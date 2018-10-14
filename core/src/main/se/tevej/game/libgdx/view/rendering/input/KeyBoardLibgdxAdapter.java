@@ -1,84 +1,85 @@
 package main.se.tevej.game.libgdx.view.rendering.input;
 
-import com.badlogic.gdx.*;
 import main.se.tevej.game.controller.input.TKeyBoard;
 import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
+import main.se.tevej.game.controller.input.libgdx.InputLibgdxAdapter;
+import main.se.tevej.game.controller.input.listeners.OnTappedListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.badlogic.gdx.Input.Keys.*;
+import static com.badlogic.gdx.Input.Keys;
+
+import com.badlogic.gdx.InputAdapter;
 
 public class KeyBoardLibgdxAdapter extends InputLibgdxAdapter implements TKeyBoard {
 
     static final Map<Integer, TKey> inputMap = new HashMap<>();
 
-    static
-    {
-        inputMap.put(NUM_1, TKey.KEY_1);
-        inputMap.put(NUM_2, TKey.KEY_2);
-        inputMap.put(NUM_3, TKey.KEY_3);
-        inputMap.put(NUM_4, TKey.KEY_4);
-        inputMap.put(NUM_5, TKey.KEY_5);
-        inputMap.put(NUM_6, TKey.KEY_6);
-        inputMap.put(NUM_7, TKey.KEY_7);
-        inputMap.put(NUM_8, TKey.KEY_8);
-        inputMap.put(NUM_9, TKey.KEY_9);
-        inputMap.put(NUM_0, TKey.KEY_0);
+    static {
+        inputMap.put(Keys.NUM_1, TKey.KEY_1);
+        inputMap.put(Keys.NUM_2, TKey.KEY_2);
+        inputMap.put(Keys.NUM_3, TKey.KEY_3);
+        inputMap.put(Keys.NUM_4, TKey.KEY_4);
+        inputMap.put(Keys.NUM_5, TKey.KEY_5);
+        inputMap.put(Keys.NUM_6, TKey.KEY_6);
+        inputMap.put(Keys.NUM_7, TKey.KEY_7);
+        inputMap.put(Keys.NUM_8, TKey.KEY_8);
+        inputMap.put(Keys.NUM_9, TKey.KEY_9);
+        inputMap.put(Keys.NUM_0, TKey.KEY_0);
 
-        inputMap.put(A, TKey.KEY_A);
-        inputMap.put(B, TKey.KEY_B);
-        inputMap.put(C, TKey.KEY_C);
-        inputMap.put(D, TKey.KEY_D);
-        inputMap.put(E, TKey.KEY_E);
-        inputMap.put(F, TKey.KEY_F);
-        inputMap.put(G, TKey.KEY_G);
-        inputMap.put(H, TKey.KEY_H);
-        inputMap.put(I, TKey.KEY_I);
-        inputMap.put(J, TKey.KEY_J);
-        inputMap.put(K, TKey.KEY_K);
-        inputMap.put(L, TKey.KEY_L);
-        inputMap.put(M, TKey.KEY_M);
-        inputMap.put(N, TKey.KEY_N);
-        inputMap.put(O, TKey.KEY_O);
-        inputMap.put(P, TKey.KEY_P);
-        inputMap.put(Q, TKey.KEY_Q);
-        inputMap.put(R, TKey.KEY_R);
-        inputMap.put(S, TKey.KEY_S);
-        inputMap.put(T, TKey.KEY_T);
-        inputMap.put(U, TKey.KEY_U);
-        inputMap.put(V, TKey.KEY_V);
-        inputMap.put(W, TKey.KEY_W);
-        inputMap.put(X, TKey.KEY_X);
-        inputMap.put(Y, TKey.KEY_Y);
-        inputMap.put(Z, TKey.KEY_Z);
+        inputMap.put(Keys.A, TKey.KEY_A);
+        inputMap.put(Keys.B, TKey.KEY_B);
+        inputMap.put(Keys.C, TKey.KEY_C);
+        inputMap.put(Keys.D, TKey.KEY_D);
+        inputMap.put(Keys.E, TKey.KEY_E);
+        inputMap.put(Keys.F, TKey.KEY_F);
+        inputMap.put(Keys.G, TKey.KEY_G);
+        inputMap.put(Keys.H, TKey.KEY_H);
+        inputMap.put(Keys.I, TKey.KEY_I);
+        inputMap.put(Keys.J, TKey.KEY_J);
+        inputMap.put(Keys.K, TKey.KEY_K);
+        inputMap.put(Keys.L, TKey.KEY_L);
+        inputMap.put(Keys.M, TKey.KEY_M);
+        inputMap.put(Keys.N, TKey.KEY_N);
+        inputMap.put(Keys.O, TKey.KEY_O);
+        inputMap.put(Keys.P, TKey.KEY_P);
+        inputMap.put(Keys.Q, TKey.KEY_Q);
+        inputMap.put(Keys.R, TKey.KEY_R);
+        inputMap.put(Keys.S, TKey.KEY_S);
+        inputMap.put(Keys.T, TKey.KEY_T);
+        inputMap.put(Keys.U, TKey.KEY_U);
+        inputMap.put(Keys.V, TKey.KEY_V);
+        inputMap.put(Keys.W, TKey.KEY_W);
+        inputMap.put(Keys.X, TKey.KEY_X);
+        inputMap.put(Keys.Y, TKey.KEY_Y);
+        inputMap.put(Keys.Z, TKey.KEY_Z);
 
-        inputMap.put(LEFT, TKey.KEY_LEFT);
-        inputMap.put(RIGHT, TKey.KEY_RIGHT);
-        inputMap.put(UP, TKey.KEY_UP);
-        inputMap.put(DOWN, TKey.KEY_DOWN);
+        inputMap.put(Keys.LEFT, TKey.KEY_LEFT);
+        inputMap.put(Keys.RIGHT, TKey.KEY_RIGHT);
+        inputMap.put(Keys.UP, TKey.KEY_UP);
+        inputMap.put(Keys.DOWN, TKey.KEY_DOWN);
 
-        inputMap.put(ENTER, TKey.KEY_ENTER);
-        inputMap.put(ESCAPE, TKey.KEY_ESC);
-        inputMap.put(CONTROL_LEFT, TKey.KEY_CTRL);
-        inputMap.put(SHIFT_LEFT, TKey.KEY_SHIFT);
-        inputMap.put(TAB, TKey.KEY_TAB);
-        inputMap.put(ALT_LEFT, TKey.KEY_ALT);
-        inputMap.put(SPACE, TKey.KEY_SPACE);
+        inputMap.put(Keys.ENTER, TKey.KEY_ENTER);
+        inputMap.put(Keys.ESCAPE, TKey.KEY_ESC);
+        inputMap.put(Keys.CONTROL_LEFT, TKey.KEY_CTRL);
+        inputMap.put(Keys.SHIFT_LEFT, TKey.KEY_SHIFT);
+        inputMap.put(Keys.TAB, TKey.KEY_TAB);
+        inputMap.put(Keys.ALT_LEFT, TKey.KEY_ALT);
+        inputMap.put(Keys.SPACE, TKey.KEY_SPACE);
 
     }
 
     @Override
     public void addTappedListener(OnTappedListener onClickedListener) {
         TKeyBoard keyboard = this;
-        OrderedInputMultiplexer.getInstance().add(TKeyBoard.class, new InputAdapter() {
+        main.se.tevej.game.libgdx.view.rendering.input.OrderedInputMultiplexer.getInstance().add(TKeyBoard.class, new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-               if (inputMap.containsKey(keycode)) {
-                   onClickedListener.onTapped(inputMap.get(keycode));
-               }
-               return false;
+                if (inputMap.containsKey(keycode)) {
+                    onClickedListener.onTapped(keyboard, inputMap.get(keycode));
+                }
+                return false;
             }
         });
     }

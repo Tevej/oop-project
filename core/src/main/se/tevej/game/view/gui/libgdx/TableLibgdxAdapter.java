@@ -1,7 +1,8 @@
-package main.se.tevej.game.libgdx.view.rendering.ui;
+package main.se.tevej.game.view.gui.libgdx;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
@@ -9,16 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import main.se.tevej.game.libgdx.view.rendering.input.OrderedInputMultiplexer;
 import main.se.tevej.game.view.rendering.ui.TCell;
 import main.se.tevej.game.view.rendering.ui.TTable;
-import main.se.tevej.game.view.rendering.ui.TUIElement;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import main.se.tevej.game.view.rendering.ui.TUiElement;
 
 public class TableLibgdxAdapter extends Table implements TTable {
     private Stage stage;
-    private Map<Cell, TUIElement> cells;
+    private Map<Cell, TUiElement> cells;
 
-    public TableLibgdxAdapter(){
+    public TableLibgdxAdapter() {
+        super();
         stage = new Stage();
         cells = new LinkedHashMap<>();
         OrderedInputMultiplexer.getInstance().add(TTable.class, stage);
@@ -26,20 +25,20 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
-    public TCell addElement(TUIElement element) {
+    public TCell addElement(TUiElement element) {
         CellLibgdxAdapter cellLibgdxAdapter = new CellLibgdxAdapter();
         cellLibgdxAdapter.setCell(getAndSetFirstAvailableCell(element));
         return cellLibgdxAdapter;
     }
 
     @Override
-    public TTable x(float x) {
+    public TTable setXPosition(float x) {
         super.setX(x);
         return this;
     }
 
     @Override
-    public TTable y(float y) {
+    public TTable setYPosition(float y) {
         super.setY(y);
         return this;
     }
@@ -76,19 +75,21 @@ public class TableLibgdxAdapter extends Table implements TTable {
         stage.draw();
     }
 
-    private Cell getAndSetFirstAvailableCell(TUIElement element){
-        for (Map.Entry<Cell, TUIElement> entry : cells.entrySet()) {
-            if(entry.getValue() == null){
-                Cell cell = entry.getKey();
+    private Cell getAndSetFirstAvailableCell(TUiElement element) {
+        Cell cell = null;
+        for (Map.Entry<Cell, TUiElement> entry : cells.entrySet()) {
+            if (entry.getValue() == null) {
+                cell = entry.getKey();
                 cells.put(cell, element);
                 Actor actor = (Actor) element;
                 cell.setActor(actor);
-                return cell;
+                break;
             }
         }
+
         //TODO Throw exception instead
         System.out.println("[WARN]: Table is full");
-        return null;
+        return cell;
     }
 
 }

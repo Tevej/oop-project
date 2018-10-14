@@ -1,25 +1,29 @@
 package main.se.tevej.game.controller.input;
 
 import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnTappedListener;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnTimeChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
+import main.se.tevej.game.controller.input.listeners.OnTappedListener;
+import main.se.tevej.game.controller.input.listeners.OnTimeChangeListener;
+
 public class TimeController implements OnTappedListener {
-    private List<OnTimeChangeListener> timeChangeListeners;
+    private List<OnTimeChangeListener> onChangeListeners;
 
     public TimeController(TKeyBoard keyBoard) {
-        timeChangeListeners = new ArrayList<>();
+        onChangeListeners = new ArrayList<>();
         keyBoard.addTappedListener(this);
+        onChangeListeners = new ArrayList<>();
     }
+
     public void registerOnTimeChange(OnTimeChangeListener listener) {
-        timeChangeListeners.add(listener);
+        onChangeListeners.add(listener);
     }
 
     @Override
-    public void onTapped(TKey button) {
+    public void onTapped(TKeyBoard keyBoard, TKey button) {
         switch (button) {
             case KEY_SPACE:
                 setMultiplerTo(0);
@@ -36,7 +40,7 @@ public class TimeController implements OnTappedListener {
     }
 
     private void setMultiplerTo(float multipler) {
-        for (OnTimeChangeListener listener : timeChangeListeners) {
+        for (OnTimeChangeListener listener : onChangeListeners) {
             listener.updateTimeMultipler(multipler);
         }
     }

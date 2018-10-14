@@ -1,7 +1,8 @@
-package main.se.tevej.game.libgdx.view.rendering.ui;
+package main.se.tevej.game.view.gui.libgdx;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 import main.se.tevej.game.view.rendering.ui.TLabel;
 
 public class LabelLibgdxAdapter extends Label implements TLabel {

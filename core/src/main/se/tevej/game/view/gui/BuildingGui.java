@@ -1,17 +1,9 @@
 package main.se.tevej.game.view.gui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import main.se.tevej.game.controller.input.ConstructionController;
-import main.se.tevej.game.controller.input.TMouse;
 import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listenerInterfaces.OnClickedListener;
-import main.se.tevej.game.libgdx.view.rendering.ui.ButtonLibgdxAdapter;
+import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.view.SelectedBuildingRenderer;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.ui.TButton;
 import main.se.tevej.game.view.rendering.ui.TTable;
@@ -38,8 +30,8 @@ public class BuildingGui {
         buildingButtonList.add(createBuildingButton(BuildingType.HOME, "buildings/home.jpg"));
 
         buildingTable = renderingFactory.createTable()
-                .x(Gdx.graphics.getWidth() - (IMAGE_SIZE / 2f))
-                .y(Gdx.graphics.getHeight() / 2f)
+                .setXPosition(Gdx.graphics.getWidth() - (IMAGE_SIZE / 2f))
+                .setYPosition(Gdx.graphics.getHeight() / 2f)
                 .grid(1, 32)
                 .debug(true);
 
