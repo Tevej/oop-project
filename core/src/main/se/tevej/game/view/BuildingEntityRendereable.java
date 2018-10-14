@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.libgdx.view.rendering.RenderingLibgdxFactory;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
@@ -15,6 +14,7 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.TBatchRenderer;
 import main.se.tevej.game.view.rendering.TTexture;
+import main.se.tevej.game.view.rendering.libgdx.RenderingLibgdxFactory;
 
 public class BuildingEntityRendereable implements EntityRenderable {
 

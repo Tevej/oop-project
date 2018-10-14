@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.se.tevej.game.controller.input.enums.TButton;
+import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
 import main.se.tevej.game.controller.input.listeners.OnTimeChangeListener;
-import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 
 public class TimeController implements OnTappedListener {
     private List<OnTimeChangeListener> onChangeListeners;

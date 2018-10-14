@@ -1,4 +1,4 @@
-package main.se.tevej.game.libgdx.view.rendering.input;
+package main.se.tevej.game.controller.input.libgdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;

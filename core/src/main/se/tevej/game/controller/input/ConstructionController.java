@@ -4,9 +4,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 
 import main.se.tevej.game.controller.input.enums.TButton;
+import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
 import main.se.tevej.game.controller.input.listeners.OnMovedListener;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
-import main.se.tevej.game.libgdx.view.rendering.input.InputLibgdxFactory;
 import main.se.tevej.game.model.ashley.EntityManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;

@@ -1,4 +1,4 @@
-package main.se.tevej.game.libgdx.view.rendering.ui;
+package main.se.tevej.game.view.gui.libgdx;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
