@@ -14,15 +14,21 @@ import main.se.tevej.game.libgdx.view.rendering.input.OrderedInputMultiplexer;
 import main.se.tevej.game.view.rendering.ui.TButton;
 
 public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
+    private Skin skin;
+
     public ButtonLibgdxAdapter(Skin skin) {
-        super("", skin);
+        super("", skin.get(ImageTextButtonStyle.class));
+        this.skin = skin;
     }
 
     @Override
     public TButton image(String path) {
         TextureRegionDrawable img = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(path))));
-        super.getStyle().imageUp = img;
-        super.getStyle().imageDown = img;
+        //new ImageTextButtonStyle is used to make a copy from our skin.
+        ImageTextButtonStyle style = new ImageTextButtonStyle(this.skin.get(ImageTextButtonStyle.class));
+        style.up = style.over = img;
+
+        super.setStyle(style);
         return this;
     }
 

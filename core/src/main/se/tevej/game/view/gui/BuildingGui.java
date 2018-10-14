@@ -19,19 +19,23 @@ import java.util.LinkedList;
 
 
 public class BuildingGui {
+    private RenderingFactory renderingFactory;
+    private ConstructionController constructionController;
+
     private TTable buildingTable;
     private LinkedList<TButton> buildingButtonList;
 
     private final int IMAGE_SIZE = 32;
 
     public BuildingGui(RenderingFactory renderingFactory, ConstructionController constructionController) {
+        this.renderingFactory = renderingFactory;
+        this.constructionController = constructionController;
+
         buildingButtonList = new LinkedList<>();
-        buildingButtonList.add(renderingFactory.createButton().image("buildings/pump.png").addListener(new OnClickedListener() {
-            @Override
-            public void onClicked(TKey button) {
-                constructionController.onButtonClicked(button, BuildingType.PUMP);
-            }
-        }));
+        buildingButtonList.add(createBuildingButton(BuildingType.PUMP, "buildings/pump.png"));
+        buildingButtonList.add(createBuildingButton(BuildingType.LUMBERMILL, "buildings/lumberMill.jpg"));
+        buildingButtonList.add(createBuildingButton(BuildingType.QUARRY, "buildings/quarry.jpg"));
+        buildingButtonList.add(createBuildingButton(BuildingType.HOME, "buildings/home.jpg"));
 
         buildingTable = renderingFactory.createTable()
                 .x(Gdx.graphics.getWidth() - (IMAGE_SIZE / 2f))
@@ -40,8 +44,17 @@ public class BuildingGui {
                 .debug(true);
 
         for (TButton buildingButton : buildingButtonList) {
-            buildingTable.addElement(buildingButton).height(IMAGE_SIZE).width(IMAGE_SIZE);
+            buildingTable.addElement(buildingButton).width(IMAGE_SIZE).height(IMAGE_SIZE);
         }
+    }
+
+    private TButton createBuildingButton(BuildingType buildingType, String imgPath){
+        return renderingFactory.createButton().image(imgPath).addListener(new OnClickedListener() {
+            @Override
+            public void onClicked(TKey button) {
+                constructionController.onButtonClicked(button, buildingType);
+            }
+        });
     }
 
     public void render() {
