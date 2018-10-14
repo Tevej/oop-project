@@ -13,7 +13,6 @@ import main.se.tevej.game.model.components.buildings.HomeComponent;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
-@SuppressWarnings("PMD") // The class is to be removed.
 public class BuildingEntity extends Entity {
 
     public BuildingEntity(BuildingType type, int x, int y) throws NoSuchBuildingException {
