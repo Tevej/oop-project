@@ -3,17 +3,17 @@ package main.se.tevej.game.controller.input;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.se.tevej.game.controller.input.enums.TButton;
-import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
+import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
 import main.se.tevej.game.controller.input.listeners.OnTimeChangeListener;
 
 public class TimeController implements OnTappedListener {
     private List<OnTimeChangeListener> onChangeListeners;
 
-    public TimeController() {
+    public TimeController(TKeyBoard keyBoard) {
         onChangeListeners = new ArrayList<>();
-        new InputLibgdxFactory().createKeyBoard().addTappedListener(this);
+        keyBoard.addTappedListener(this);
+        onChangeListeners = new ArrayList<>();
     }
 
     public void registerOnTimeChange(OnTimeChangeListener listener) {
@@ -21,7 +21,7 @@ public class TimeController implements OnTappedListener {
     }
 
     @Override
-    public void onTapped(TKeyBoard keyBoard, TButton button) {
+    public void onTapped(TKeyBoard keyBoard, TKey button) {
         switch (button) {
             case KEY_SPACE:
                 setMultiplerTo(0);
