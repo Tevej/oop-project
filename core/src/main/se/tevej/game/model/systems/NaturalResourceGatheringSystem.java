@@ -33,44 +33,48 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
     }
 
     private List<double[]> getLocationsInRadius(
-        int radius, PositionComponent positionComponent, int maxWidth, int maxHeight) {
+        int radius, PositionComponent posComponent, int maxWidth, int maxHeight) {
 
         List<double[]> locations = new ArrayList<>();
         for (int i = -radius; i <= radius; i++) {
-            for (int j = -radius; j <= radius; j++){
-                if (checkOutOfBounds(i,j,positionComponent,maxWidth,maxHeight)) {
+            for (int j = -radius; j <= radius; j++) {
+                if (checkOutOfBounds(i,j,posComponent,maxWidth,maxHeight)) {
                     continue;
                 }
-                locations.add(new double[]{i+positionComponent.getX(), j+positionComponent.getY()});
+                locations.add(new double[] {i + posComponent.getX(), j + posComponent.getY()});
             }
 
         }
         return locations;
     }
 
-    private boolean checkOutOfBounds(int i, int j, PositionComponent positionComponent, int maxWidth, int maxHeight ){
-        double x = i+positionComponent.getX();
-        double y = j+positionComponent.getY();
-        return ( (i == 0 && j == 0)
+    private boolean checkOutOfBounds(int i, int j,
+                                     PositionComponent posComponent,
+                                     int maxWidth, int maxHeight) {
+        double x = i + posComponent.getX();
+        double y = j + posComponent.getY();
+        return i == 0 && j == 0
                 || x < 0
                 || y < 0
                 || x >= maxWidth
-                || y >= maxHeight );
+                || y >= maxHeight;
     }
 
-    private void gatherFromLocation(float deltaTime, Entity occupier, InventoryComponent inventory, GathererComponent gc){
-        NaturalResourceComponent naturalResourceComponent = occupier.getComponent(NaturalResourceComponent.class);
-        if (naturalResourceComponent == null ||
-                naturalResourceComponent.getType() != gc.getResourcePerSecond().getType()) {
+    private void gatherFromLocation(float deltaTime, Entity occupier,
+                                    InventoryComponent inventory, GathererComponent gc) {
+        NaturalResourceComponent natResComponent = occupier
+                .getComponent(NaturalResourceComponent.class);
+        if (natResComponent == null
+                || natResComponent.getType() != gc.getResourcePerSecond().getType()) {
             return;
         }
         try {
             Resource gatheredResource = gc.getGatheredResource(deltaTime);
-            naturalResourceComponent.extractResource(gatheredResource);
+            natResComponent.extractResource(gatheredResource);
             inventory.addResource(gatheredResource);
         } catch (NotEnoughResourcesException e) {
             // Extracts the resource left and deletes entity
-            Resource remainingResource = naturalResourceComponent.getResource();
+            Resource remainingResource = natResComponent.getResource();
             inventory.addResource(remainingResource);
             occupier.add(new SignalComponent(SignalType.DELETEENTITY));
             em.getSignal().dispatch(occupier);
@@ -78,13 +82,15 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
         }
     }
 
-    private Entity getOccupierAtLocation(WorldComponent world, double[] location){
+    private Entity getOccupierAtLocation(WorldComponent world, double[] location) {
         Entity tileEntity = world.getTileAt((int)location[0], (int)location[1]);
         TileComponent tileComponent = tileEntity.getComponent(TileComponent.class);
         return tileComponent.getOccupier();
     }
 
-    private void gather(Entity gatherer, int maxWidth, int maxHeight, WorldComponent world, InventoryComponent inventory, float deltaTime){
+    private void gather(Entity gatherer,
+                        int maxWidth, int maxHeight,
+                        WorldComponent world, InventoryComponent inventory, float deltaTime) {
         // Saves variables
         GathererComponent gc = gatherer.getComponent(GathererComponent.class);
         int radius = gatherer.getComponent(RadiusComponent.class).getRadius();
@@ -108,13 +114,14 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
     }
 
     @Override
-    public void update(float deltaTime){
+    public void update(float deltaTime) {
         // Gets all Entities that will gather natural resources
-        ImmutableArray<Entity> gatherers = engine.getEntitiesFor(Family.all(GathererComponent.class, PositionComponent.class).get());
+        ImmutableArray<Entity> gatherers = engine.getEntitiesFor(
+                Family.all(GathererComponent.class, PositionComponent.class).get());
 
         // Saves necessary variables for later use
-        InventoryComponent inventory = engine.getEntitiesFor(Family.all(InventoryComponent.class).get())
-                .first().getComponent(InventoryComponent.class);
+        InventoryComponent inventory = engine.getEntitiesFor(Family.all(InventoryComponent.class)
+                .get()).first().getComponent(InventoryComponent.class);
         WorldComponent world = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
                 .first().getComponent(WorldComponent.class);
         int maxWidth = world.getWidth();
