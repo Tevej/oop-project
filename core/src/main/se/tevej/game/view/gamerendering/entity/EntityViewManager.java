@@ -14,13 +14,10 @@ import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
-import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 
 public class EntityViewManager {
-
-    private Options options;
 
     /**
      * Dictionary on how a component type should be rendered.
@@ -36,9 +33,7 @@ public class EntityViewManager {
     private float currCameraPosX;
     private float currCameraPosY;
 
-    public EntityViewManager(ModelManager modelManager,
-                             GameRenderingFactory renderingFactory, Options options) {
-        this.options = options;
+    public EntityViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory) {
         this.renderingFactory = renderingFactory;
         this.batchRenderer = renderingFactory.createBatchRenderer();
         this.rendererEntityMap = new LinkedHashMap<>();
@@ -56,14 +51,14 @@ public class EntityViewManager {
         this.currCameraPosY = y;
     }
 
-    public void render() {
+    public void render(float pixelPerTile) {
         batchRenderer.beginRendering();
 
         for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererEntityMap.entrySet()) {
             try {
                 for (Entity entity : entry.getValue()) {
                     entry.getKey().render(-currCameraPosX, -currCameraPosY,
-                        batchRenderer, entity, options.getPixelsPerTile());
+                        batchRenderer, entity, pixelPerTile);
                 }
             } catch (Exception e) {
                 System.out.println("Oops something went wrong hehe.");

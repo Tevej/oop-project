@@ -17,14 +17,13 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.OnBuildingSelectedToBuild;
+import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gamerendering.entity.SelectedBuildingRenderer;
 
 public class ConstructionController implements OnTappedListener,
     OnMovedListener, OnMouseClickedListener, OnBuildingSelectedToBuild {
 
-    private Options options;
     private ModelManager em;
     private Entity worldEntity;
     private int mouseX = 0;
@@ -33,13 +32,14 @@ public class ConstructionController implements OnTappedListener,
     private boolean buildingSelected;
     private BuildingType selectedBuilding;
     private SelectedBuildingRenderer buildingRenderer;
+    private ViewManager view;
 
-    public ConstructionController(ModelManager em, Entity worldEntity,
-                                  CameraController camera, TKeyBoard keyboard, TMouse mouse,
-                                  SelectedBuildingRenderer buildingRenderer, Options options) {
+    public ConstructionController(ModelManager em, Entity worldEntity, CameraController camera,
+                                  TKeyBoard keyboard, TMouse mouse,
+                                  SelectedBuildingRenderer buildingRenderer, ViewManager view) {
+        this.view = view;
         buildingSelected = false;
         this.em = em;
-        this.options = options;
         this.worldEntity = worldEntity;
         mouse.addMovedListener(this);
         mouse.addClickedListener(this);
@@ -84,9 +84,10 @@ public class ConstructionController implements OnTappedListener,
         Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
         mouseX = (int) v2.x;
         mouseY = (int) v2.y;
+        float pixelPerTile = view.getPixelPerTile();
         buildingRenderer.setPosition(
-            (mouseX - camera.getCameraPosX()) * options.getPixelsPerTile(),
-            (mouseY - camera.getCameraPosY()) * options.getPixelsPerTile());
+            (mouseX - camera.getCameraPosX()) * pixelPerTile,
+            (mouseY - camera.getCameraPosY()) * pixelPerTile);
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import main.se.tevej.game.model.ModelManager;
-import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
@@ -16,7 +15,6 @@ import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 
 public class ViewManager {
 
-    private Options options;
     private ModelManager modelManager;
 
     private GameRenderingFactory renderingFactory;
@@ -29,8 +27,9 @@ public class ViewManager {
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
 
-    public ViewManager(Options options, ModelManager modelManager) {
-        this.options = options;
+    private float pixelPerTile = 32f;
+
+    public ViewManager(ModelManager modelManager) {
         this.modelManager = modelManager;
         initFactories();
         initGui();
@@ -58,7 +57,7 @@ public class ViewManager {
     }
 
     private void renderGameRendering() {
-        entityViewManager.render();
+        entityViewManager.render(pixelPerTile);
         selectedRenderer.render();
     }
 
@@ -80,7 +79,7 @@ public class ViewManager {
     }
 
     private void initRenders() {
-        entityViewManager = new EntityViewManager(modelManager, renderingFactory, options);
+        entityViewManager = new EntityViewManager(modelManager, renderingFactory);
         selectedRenderer = new SelectedBuildingRenderer(renderingFactory);
         buildingGui.addSelectedListener(selectedRenderer);
     }
@@ -90,4 +89,7 @@ public class ViewManager {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
+    public float getPixelPerTile() {
+        return pixelPerTile;
+    }
 }

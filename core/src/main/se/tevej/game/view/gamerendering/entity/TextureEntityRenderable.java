@@ -18,7 +18,7 @@ public class TextureEntityRenderable implements EntityRenderable {
 
     @Override
     public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer,
-                       Entity entity, int pixelPerTile) {
+                       Entity entity, float pixelPerTile) {
         PositionComponent pc = entity.getComponent(PositionComponent.class);
         SizeComponent sc = entity.getComponent(SizeComponent.class);
 

@@ -43,7 +43,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
     @Override
     public void render(
         float offsetX, float offsetY, TBatchRenderer batchRenderer,
-        Entity entity, int pixelPerTile) throws IllegalArgumentException {
+        Entity entity, float pixelPerTile) throws IllegalArgumentException {
 
         NaturalResourceComponent naturalResourceC =
             entity.getComponent(NaturalResourceComponent.class);

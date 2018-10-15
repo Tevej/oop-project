@@ -14,25 +14,20 @@ import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
-import main.se.tevej.game.utils.Options;
 
 public class ModelManager {
 
     private final Engine engine;
     private final Signal<Entity> signal;
 
-    private final Options options;
-
     private Entity worldEntity;
     private Entity inventoryEntity;
 
-    public ModelManager(Options options) {
-        this.options = options;
-
+    public ModelManager(int worldWidth, int worldHeight) {
         engine = new Engine();
         signal = new Signal<>();
         initSystems();
-        initStartingEntities();
+        initStartingEntities(worldWidth, worldHeight);
     }
 
     public void update(float deltaTime) {
@@ -79,8 +74,8 @@ public class ModelManager {
         });
     }
 
-    private void initStartingEntities() {
-        worldEntity = createWorldEntity(options.getWorldWidth(), options.getWorldHeight());
+    private void initStartingEntities(int worldWidth, int worldHeight) {
+        worldEntity = createWorldEntity(worldWidth, worldHeight);
         inventoryEntity = createInventoryEntity();
 
         addEntityToEngine(worldEntity);

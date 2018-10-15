@@ -6,7 +6,6 @@ import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.controller.input.base.TMouse;
 import main.se.tevej.game.controller.input.base.libgdximplementation.InputLibgdxFactory;
 import main.se.tevej.game.model.ModelManager;
-import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.ViewManager;
 
 public class ControllerManager {
@@ -17,16 +16,14 @@ public class ControllerManager {
     private TMouse mouse;
     private TKeyBoard keyBoard;
 
-    private Options options;
-
     private CameraController camera;
 
-    public ControllerManager(Options options, ViewManager viewManager, ModelManager modelManager) {
-        this.options = options;
+    public ControllerManager(ViewManager viewManager, ModelManager modelManager,
+                             int worldWidth, int worldHeight) {
         this.viewManager = viewManager;
         this.modelManager = modelManager;
         initInput();
-        initControllers();
+        initControllers(worldWidth, worldHeight);
     }
 
     private void initInput() {
@@ -35,27 +32,21 @@ public class ControllerManager {
         keyBoard = inputFactory.createKeyBoard();
     }
 
-    private void initControllers() {
-        initCamera();
+    private void initControllers(int worldWidth, int worldHeight) {
+        initCamera(worldWidth, worldHeight);
         initConstructor();
         initTime();
     }
 
-    private void initCamera() {
+    private void initCamera(int worldWidth, int worldHeight) {
         camera = new CameraController(
-            viewManager, 0, 0, mouse, options);
+            viewManager, 0, 0, mouse, worldWidth, worldHeight);
     }
 
     private void initConstructor() {
-        ConstructionController constructor = new ConstructionController(
-            modelManager,
-            modelManager.getWorldEntity(),
-            camera,
-            keyBoard,
-            mouse,
-            viewManager.getSelectedBuildingRenderer(),
-            options
-        );
+        ConstructionController constructor = new ConstructionController(modelManager,
+                modelManager.getWorldEntity(), camera, keyBoard, mouse,
+                viewManager.getSelectedBuildingRenderer(), viewManager);
 
         viewManager.getBuildingGui().addSelectedListener(constructor);
     }
