@@ -17,8 +17,8 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.view.EntityViewManager;
-import main.se.tevej.game.view.SelectedBuildingRenderer;
+import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
+import main.se.tevej.game.view.gamerendering.entity.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gui.OnBuildingSelectedToBuild;
 
 public class ConstructionController implements OnTappedListener,

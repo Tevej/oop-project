@@ -7,10 +7,10 @@ import com.badlogic.gdx.Gdx;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.view.gui.libgdx.OnButtonClickedListener;
-import main.se.tevej.game.view.rendering.RenderingFactory;
-import main.se.tevej.game.view.rendering.ui.TButton;
-import main.se.tevej.game.view.rendering.ui.TTable;
+import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
+import main.se.tevej.game.view.gui.base.TButton;
+import main.se.tevej.game.view.gui.base.TTable;
 
 
 public class BuildingGui {

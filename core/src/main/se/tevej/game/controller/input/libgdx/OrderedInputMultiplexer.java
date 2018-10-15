@@ -10,7 +10,7 @@ import com.badlogic.gdx.InputProcessor;
 
 import main.se.tevej.game.controller.input.TKeyBoard;
 import main.se.tevej.game.controller.input.TMouse;
-import main.se.tevej.game.view.rendering.ui.TTable;
+import main.se.tevej.game.view.gui.base.TTable;
 
 public final class OrderedInputMultiplexer implements InputProcessor {
 

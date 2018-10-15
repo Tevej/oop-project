@@ -1,10 +1,10 @@
 package main.se.tevej.game.view.gui;
 
 import main.se.tevej.game.model.utils.ResourceType;
-import main.se.tevej.game.view.rendering.RenderingFactory;
-import main.se.tevej.game.view.rendering.ui.TImage;
-import main.se.tevej.game.view.rendering.ui.TLabel;
-import main.se.tevej.game.view.rendering.ui.TUiElement;
+import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gui.base.TImage;
+import main.se.tevej.game.view.gui.base.TLabel;
+import main.se.tevej.game.view.gui.base.TUiElement;
 
 public class InventoryElement implements TUiElement {
     private TLabel label;

@@ -1,6 +1,6 @@
 package main.se.tevej.game.controller.input;
 
-import static main.se.tevej.game.view.EntityViewManager.PIXEL_PER_TILE;
+import static main.se.tevej.game.view.gamerendering.entity.EntityViewManager.PIXEL_PER_TILE;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;

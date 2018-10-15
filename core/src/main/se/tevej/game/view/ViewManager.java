@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.GL20;
 
 import main.se.tevej.game.Manager;
 import main.se.tevej.game.model.ModelManager;
+import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.libgdx.RenderingLibgdxFactory;
+import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
+import main.se.tevej.game.view.gamerendering.entity.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
-import main.se.tevej.game.view.rendering.RenderingFactory;
-import main.se.tevej.game.view.rendering.libgdx.RenderingLibgdxFactory;
 
 public class ViewManager implements Manager {
 
@@ -30,9 +32,7 @@ public class ViewManager implements Manager {
     public void update(float deltaTime) {
         clearScreen();
 
-        entityViewManager.render();
-        selectedRenderer.render();
-
+        renderGameRendering();
         renderGui(deltaTime);
     }
 
@@ -55,13 +55,17 @@ public class ViewManager implements Manager {
         return buildingGui;
     }
 
+    private void renderGameRendering() {
+        entityViewManager.render();
+        selectedRenderer.render();
+    }
+
     private void renderGui(float deltaTime) {
         inventoryGui.update(deltaTime);
         inventoryGui.render();
         buildingGui.update(deltaTime);
         buildingGui.render();
     }
-
 
     private void initRenderFactory() {
         renderingFactory = new RenderingLibgdxFactory();

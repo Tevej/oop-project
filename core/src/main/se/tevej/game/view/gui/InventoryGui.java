@@ -8,8 +8,8 @@ import com.badlogic.gdx.Gdx;
 
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.utils.ResourceType;
-import main.se.tevej.game.view.rendering.RenderingFactory;
-import main.se.tevej.game.view.rendering.ui.TTable;
+import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gui.base.TTable;
 
 public class InventoryGui {
     private Entity inventoryEntity;
