@@ -3,6 +3,7 @@ package main.se.tevej.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
@@ -28,7 +29,16 @@ public class ViewManager {
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
 
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
     private final float minTilesPerScreen = 5;
+
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
     private final float pixelPerTile = 32f;
 
     private float zoomMultiplier;
@@ -107,6 +117,7 @@ public class ViewManager {
         int worldWidth = modelManager.getWorldWidth();
         int worldHeight = modelManager.getWorldHeight();
 
+        // Makes sure we keep within reasonable zoom levels.
         if (newTilesPerWidth < minTilesPerScreen || newTilesPerHeight < minTilesPerScreen) {
             float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
             float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
