@@ -13,7 +13,7 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.TTexture;
 import main.se.tevej.game.view.utils.TextureLoader;
@@ -22,7 +22,7 @@ public class BuildingEntityRenderable extends TextureLoader implements EntityRen
 
     private Map<BuildingType, TTexture> buildingImageMap;
 
-    public BuildingEntityRenderable(RenderingFactory renderFactory) {
+    public BuildingEntityRenderable(GameRenderingFactory renderFactory) {
         super();
 
         List<File> files;
@@ -56,7 +56,7 @@ public class BuildingEntityRenderable extends TextureLoader implements EntityRen
     }
 
     @Override
-    public final void filesToMap(List<File> files, RenderingFactory renderFactory) {
+    public final void filesToMap(List<File> files, GameRenderingFactory renderFactory) {
         for (final File fileEntry : files) {
             String name = fileEntry.getName();
             for (String ending : imageTypes) {

@@ -13,7 +13,7 @@ import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.utils.ResourceType;
-import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.TTexture;
 import main.se.tevej.game.view.utils.TextureLoader;
@@ -22,7 +22,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
 
     private Map<ResourceType, TTexture> resourceImageMap;
 
-    public NaturalResourceEntityRenderable(RenderingFactory renderFactory) {
+    public NaturalResourceEntityRenderable(GameRenderingFactory renderFactory) {
         super();
 
         List<File> files;
@@ -59,7 +59,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
     }
 
     @Override
-    public final void filesToMap(List<File> files, RenderingFactory renderFactory) {
+    public final void filesToMap(List<File> files, GameRenderingFactory renderFactory) {
         for (final File fileEntry : files) {
             String name = fileEntry.getName();
             for (String ending : imageTypes) {

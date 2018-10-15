@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.TTexture;
 import main.se.tevej.game.view.gui.OnBuildingSelectedToBuild;
@@ -18,7 +18,7 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
     private float positionX;
     private float positionY;
 
-    public SelectedBuildingRenderer(RenderingFactory renderingFactory) {
+    public SelectedBuildingRenderer(GameRenderingFactory renderingFactory) {
         textureMap = new HashMap<>();
         textureMap.put(
             BuildingType.HOME,

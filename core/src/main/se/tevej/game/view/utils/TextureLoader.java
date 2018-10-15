@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 
 public abstract class TextureLoader {
 
@@ -43,5 +43,5 @@ public abstract class TextureLoader {
         }
     }
 
-    protected abstract void filesToMap(List<File> files, RenderingFactory renderingFactory);
+    protected abstract void filesToMap(List<File> files, GameRenderingFactory renderingFactory);
 }

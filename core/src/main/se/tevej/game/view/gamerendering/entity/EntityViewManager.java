@@ -14,7 +14,7 @@ import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
-import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 
 public class EntityViewManager {
@@ -29,13 +29,13 @@ public class EntityViewManager {
     private Map<EntityRenderable, List<Entity>> rendererEntityMap;
 
     private TBatchRenderer batchRenderer;
-    private RenderingFactory renderingFactory;
+    private GameRenderingFactory renderingFactory;
 
     // The current camera positions in world coordinates.
     private float currCameraPosX;
     private float currCameraPosY;
 
-    public EntityViewManager(ModelManager modelManager, RenderingFactory renderingFactory) {
+    public EntityViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory) {
         this.renderingFactory = renderingFactory;
         this.batchRenderer = renderingFactory.createBatchRenderer();
         this.rendererEntityMap = new LinkedHashMap<>();

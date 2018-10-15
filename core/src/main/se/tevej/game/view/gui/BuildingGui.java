@@ -7,14 +7,14 @@ import com.badlogic.gdx.Gdx;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
+import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
 import main.se.tevej.game.view.gui.base.TTable;
 
 
 public class BuildingGui {
-    private RenderingFactory renderingFactory;
+    private GuiFactory guiFactory;
     private TTable buildingTable;
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
@@ -23,8 +23,8 @@ public class BuildingGui {
     private final int imageSize = 32;
     private List<OnBuildingSelectedToBuild> selectedListeners;
 
-    public BuildingGui(RenderingFactory renderingFactory) {
-        this.renderingFactory = renderingFactory;
+    public BuildingGui(GuiFactory guiFactory) {
+        this.guiFactory = guiFactory;
 
         this.selectedListeners = new LinkedList<>();
         List<TButton> buttonList = new LinkedList<>();
@@ -37,7 +37,7 @@ public class BuildingGui {
         buttonList.add(
             createBuildingButton(BuildingType.HOME, "buildings/home.jpg"));
 
-        buildingTable = renderingFactory.createTable()
+        buildingTable = guiFactory.createTable()
             .positionX(Gdx.graphics.getWidth() - (imageSize / 2f))
             .positionY(Gdx.graphics.getHeight() / 2f)
             .grid(1, 32)
@@ -49,7 +49,7 @@ public class BuildingGui {
     }
 
     private TButton createBuildingButton(BuildingType buildingType, String img) {
-        TButton button = renderingFactory.createButton();
+        TButton button = guiFactory.createButton();
 
         return button.image(img).addListener(new OnButtonClickedListener() {
             @Override

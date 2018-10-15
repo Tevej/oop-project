@@ -5,17 +5,21 @@ import com.badlogic.gdx.graphics.GL20;
 
 import main.se.tevej.game.Manager;
 import main.se.tevej.game.model.ModelManager;
-import main.se.tevej.game.view.gamerendering.base.RenderingFactory;
-import main.se.tevej.game.view.gamerendering.base.libgdx.RenderingLibgdxFactory;
+import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
 import main.se.tevej.game.view.gamerendering.entity.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
+import main.se.tevej.game.view.gui.base.GuiFactory;
+import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 
 public class ViewManager implements Manager {
 
     private ModelManager modelManager;
-    private RenderingFactory renderingFactory;
+
+    private GameRenderingFactory renderingFactory;
+    private GuiFactory guiFactory;
 
     private EntityViewManager entityViewManager;
 
@@ -38,7 +42,7 @@ public class ViewManager implements Manager {
 
     @Override
     public void init() {
-        initRenderFactory();
+        initFactories();
         initGui();
         initRenders();
     }
@@ -67,13 +71,14 @@ public class ViewManager implements Manager {
         buildingGui.render();
     }
 
-    private void initRenderFactory() {
-        renderingFactory = new RenderingLibgdxFactory();
+    private void initFactories() {
+        guiFactory = new GuiLibgdxFactory();
+        renderingFactory = new GameRenderingLibgdxFactory();
     }
 
     private void initGui() {
-        inventoryGui = new InventoryGui(renderingFactory, modelManager.getInventoryEntity());
-        buildingGui = new BuildingGui(renderingFactory);
+        inventoryGui = new InventoryGui(guiFactory, modelManager.getInventoryEntity());
+        buildingGui = new BuildingGui(guiFactory);
     }
 
     private void initRenders() {
