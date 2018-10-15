@@ -15,7 +15,7 @@ import main.se.tevej.game.controller.input.base.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.base.OnMovedListener;
 import main.se.tevej.game.controller.input.base.TKey;
 import main.se.tevej.game.controller.input.base.TMouse;
-import main.se.tevej.game.view.OrderedInputMultiplexer;
+import main.se.tevej.game.view.gui.base.InputProcessorListener;
 
 public class MouseLibgdxAdapter implements TMouse {
 
@@ -28,13 +28,16 @@ public class MouseLibgdxAdapter implements TMouse {
         INPUT_MAP.put(MIDDLE, TKey.MOUSE_MIDDLE);
     }
 
-    public MouseLibgdxAdapter() {
+    private InputProcessorListener processorListener;
+
+    public MouseLibgdxAdapter(InputProcessorListener listener) {
         super();
+        processorListener = listener;
     }
 
     @Override
     public void addDraggedListener(OnDraggedListener onDraggedListener) {
-        OrderedInputMultiplexer.getInstance().addGuiInputProcessor(new InputAdapter() {
+        processorListener.addGuiInputProcessor(new InputAdapter() {
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
                 onDraggedListener.onDragged(TKey.MOUSE_LEFT, screenX, screenY);
@@ -46,7 +49,7 @@ public class MouseLibgdxAdapter implements TMouse {
     @Override
     public void addClickedListener(OnMouseClickedListener onClickedListener) {
         TMouse mouse = this;
-        OrderedInputMultiplexer.getInstance().addGameRenderingInputProcessor(new InputAdapter() {
+        processorListener.addGameRenderingInputProcessor(new InputAdapter() {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 onClickedListener.onClicked(mouse, INPUT_MAP.get(button));
@@ -58,7 +61,7 @@ public class MouseLibgdxAdapter implements TMouse {
     @Override
     public void addMovedListener(OnMovedListener onMovedListener) {
         TMouse mouse = this;
-        OrderedInputMultiplexer.getInstance().addGameRenderingInputProcessor(new InputAdapter() {
+        processorListener.addGameRenderingInputProcessor(new InputAdapter() {
             @Override
             public boolean mouseMoved(int screenX, int screenY) {
                 onMovedListener.onMoved(mouse);

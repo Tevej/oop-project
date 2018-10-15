@@ -10,7 +10,7 @@ import com.badlogic.gdx.InputAdapter;
 import main.se.tevej.game.controller.input.base.OnTappedListener;
 import main.se.tevej.game.controller.input.base.TKey;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
-import main.se.tevej.game.view.OrderedInputMultiplexer;
+import main.se.tevej.game.view.gui.base.InputProcessorListener;
 
 public class KeyBoardLibgdxAdapter implements TKeyBoard {
 
@@ -71,14 +71,17 @@ public class KeyBoardLibgdxAdapter implements TKeyBoard {
 
     }
 
-    public KeyBoardLibgdxAdapter() {
+    private InputProcessorListener processorListener;
+
+    public KeyBoardLibgdxAdapter(InputProcessorListener listener) {
         super();
+        processorListener = listener;
     }
 
     @Override
     public void addTappedListener(OnTappedListener onClickedListener) {
         TKeyBoard keyboard = this;
-        OrderedInputMultiplexer.getInstance().addGameRenderingInputProcessor(new InputAdapter() {
+        processorListener.addGameRenderingInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
                 if (INPUT_MAP.containsKey(keycode)) {
@@ -88,5 +91,4 @@ public class KeyBoardLibgdxAdapter implements TKeyBoard {
             }
         });
     }
-
 }

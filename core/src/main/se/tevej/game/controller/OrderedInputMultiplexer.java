@@ -1,4 +1,4 @@
-package main.se.tevej.game.view;
+package main.se.tevej.game.controller;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -9,15 +9,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 
+import main.se.tevej.game.view.InputProcessorType;
+import main.se.tevej.game.view.gui.base.InputProcessorListener;
+
 //Since InputProcessor have a lot of methods, you  can't go around this.
 @SuppressWarnings("PMD.TooManyMethods")
-public final class OrderedInputMultiplexer implements InputProcessor {
+public class OrderedInputMultiplexer implements InputProcessor, InputProcessorListener  {
 
     private Map<InputProcessorType, List<InputProcessor>> processorsMap;
 
-    private static OrderedInputMultiplexer instance;
-
-    private OrderedInputMultiplexer() {
+    public OrderedInputMultiplexer() {
         processorsMap = new LinkedHashMap<>();
 
         processorsMap.put(InputProcessorType.GUI, new LinkedList<>());
@@ -25,17 +26,12 @@ public final class OrderedInputMultiplexer implements InputProcessor {
         Gdx.input.setInputProcessor(this);
     }
 
-    public static OrderedInputMultiplexer getInstance() {
-        if (instance == null) {
-            instance = new OrderedInputMultiplexer();
-        }
-        return instance;
-    }
-
+    @Override
     public void addGameRenderingInputProcessor(InputProcessor inputProcessor) {
         add(InputProcessorType.GUI, inputProcessor);
     }
 
+    @Override
     public void addGuiInputProcessor(InputAdapter inputProcessor) {
         add(InputProcessorType.GAME_RENDERING, inputProcessor);
     }

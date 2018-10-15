@@ -2,7 +2,7 @@ package se.tevej.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import main.se.tevej.game.GameManager;
+import main.se.tevej.game.controller.GameManager;
 
 import java.awt.*;
 

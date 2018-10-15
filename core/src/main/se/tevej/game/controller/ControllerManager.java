@@ -19,15 +19,16 @@ public class ControllerManager {
     private CameraController camera;
 
     public ControllerManager(ViewManager viewManager, ModelManager modelManager,
-                             int worldWidth, int worldHeight) {
+                             int worldWidth, int worldHeight,
+                             OrderedInputMultiplexer inputMultiplexer) {
         this.viewManager = viewManager;
         this.modelManager = modelManager;
-        initInput();
+        initInput(inputMultiplexer);
         initControllers(worldWidth, worldHeight);
     }
 
-    private void initInput() {
-        InputFactory inputFactory = new InputLibgdxFactory();
+    private void initInput(OrderedInputMultiplexer inputMultiplexer) {
+        InputFactory inputFactory = new InputLibgdxFactory(inputMultiplexer);
         mouse = inputFactory.createMouse();
         keyBoard = inputFactory.createKeyBoard();
     }
