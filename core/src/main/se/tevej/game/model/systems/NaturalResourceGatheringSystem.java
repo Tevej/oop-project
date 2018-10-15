@@ -28,11 +28,11 @@ import main.se.tevej.game.model.utils.ResourceType;
 public class NaturalResourceGatheringSystem extends EntitySystem {
 
     private Engine engine;
-    private ModelManager em;
+    private SignalHolder signalHolder;
 
-    public NaturalResourceGatheringSystem(ModelManager em) {
+    public NaturalResourceGatheringSystem(SignalHolder signalHolder) {
         super();
-        this.em = em;
+        this.signalHolder = signalHolder;
     }
 
     // Gathers resources from the occupier with the speed depending on:
@@ -57,7 +57,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             Resource remainingResource = naturalResourceC.getResource();
             inventory.addResource(remainingResource);
             occupier.add(new SignalComponent(SignalType.DELETEENTITY));
-            em.getSignal().dispatch(occupier);
+            signalHolder.getSignal().dispatch(occupier);
             System.out.println("Not enough resource left");
         }
     }
