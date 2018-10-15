@@ -21,11 +21,11 @@ public class ControllerManager {
     public ControllerManager(ViewManager viewManager, ModelManager modelManager,
                              int worldWidth, int worldHeight,
                              OrderedInputMultiplexer inputMultiplexer,
-                             OnTimeChangeListener timeChangeListener) {
+                             OnTimeChangeListener timeListener) {
         this.viewManager = viewManager;
         this.modelManager = modelManager;
         initInput(inputMultiplexer);
-        initControllers(worldWidth, worldHeight, timeChangeListener);
+        initControllers(worldWidth, worldHeight, timeListener);
     }
 
     private void initInput(OrderedInputMultiplexer inputMultiplexer) {
