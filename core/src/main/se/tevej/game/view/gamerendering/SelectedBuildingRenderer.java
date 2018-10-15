@@ -1,4 +1,4 @@
-package main.se.tevej.game.view.gamerendering.entity;
+package main.se.tevej.game.view.gamerendering;
 
 import java.util.HashMap;
 import java.util.Map;
