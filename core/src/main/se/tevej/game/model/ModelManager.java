@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.ashley;
+package main.se.tevej.game.model;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -7,6 +7,7 @@ import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.Manager;
 import main.se.tevej.game.Options;
+import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;

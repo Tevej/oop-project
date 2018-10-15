@@ -10,7 +10,7 @@ import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listeners.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnMovedListener;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
-import main.se.tevej.game.model.ashley.ModelManager;
+import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.PositionComponent;

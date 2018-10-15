@@ -10,7 +10,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 
-import main.se.tevej.game.model.ashley.ModelManager;
+import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import main.se.tevej.game.Manager;
-import main.se.tevej.game.model.ashley.ModelManager;
+import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.rendering.RenderingFactory;

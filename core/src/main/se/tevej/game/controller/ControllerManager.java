@@ -8,7 +8,7 @@ import main.se.tevej.game.controller.input.TKeyBoard;
 import main.se.tevej.game.controller.input.TMouse;
 import main.se.tevej.game.controller.input.TimeController;
 import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
-import main.se.tevej.game.model.ashley.ModelManager;
+import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;
 
 public class ControllerManager implements Manager {
