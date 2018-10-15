@@ -80,15 +80,14 @@ public class ModelManager {
     private void initStartingEntities(int worldWidth, int worldHeight) {
         worldEntity = createWorldEntity(worldWidth, worldHeight);
         inventoryEntity = createInventoryEntity();
-        Entity homeEntity = createStartingHome();
+        createStartingHome();
 
 
         addEntityToEngine(worldEntity);
         addEntityToEngine(inventoryEntity);
-        addEntityToEngine(homeEntity);
     }
 
-    private Entity createStartingHome() {
+    private void createStartingHome() {
         Entity homeEntity;
 
         try {
@@ -97,7 +96,8 @@ public class ModelManager {
             homeEntity = new Entity();
             System.out.println("Home is gone");
         }
-        return homeEntity;
+        
+        addEntityToEngine(homeEntity);
     }
 
     private Entity createInventoryEntity() {
