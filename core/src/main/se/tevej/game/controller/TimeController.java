@@ -1,11 +1,11 @@
-package main.se.tevej.game.controller.input;
+package main.se.tevej.game.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listeners.OnTappedListener;
-import main.se.tevej.game.controller.input.listeners.OnTimeChangeListener;
+import main.se.tevej.game.controller.input.base.OnTappedListener;
+import main.se.tevej.game.controller.input.base.TKey;
+import main.se.tevej.game.controller.input.base.TKeyBoard;
 
 public class TimeController implements OnTappedListener {
     private List<OnTimeChangeListener> onChangeListeners;

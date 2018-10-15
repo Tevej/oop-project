@@ -1,18 +1,15 @@
-package main.se.tevej.game.controller.input;
-
-import static main.se.tevej.game.view.gamerendering.entity.EntityViewManager.PIXEL_PER_TILE;
+package main.se.tevej.game.controller.input.base;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listeners.OnDraggedListener;
-import main.se.tevej.game.controller.input.listeners.OnMouseClickedListener;
+import main.se.tevej.game.Options;
 import main.se.tevej.game.view.ViewManager;
 
 
 public class CameraController implements OnDraggedListener, OnMouseClickedListener {
 
+    private Options options;
     private ViewManager view;
 
     // Current camera position in world coordinates!
@@ -23,20 +20,15 @@ public class CameraController implements OnDraggedListener, OnMouseClickedListen
     private float cameraPosX;
     private float cameraPosY;
 
-    private float worldWidth;
-    private float worldHeight;
-
     public CameraController(ViewManager view,
-                            float startX, float startY, int worldWidth,
-                            int worldHeight, TMouse mouse) {
+                            float startX, float startY, TMouse mouse, Options options) {
+        this.options = options;
         this.view = view;
         mouse.addDraggedListener(this);
         mouse.addClickedListener(this);
         cameraPosX = startX;
         cameraPosY = startY;
         view.setPosition(cameraPosX, cameraPosY);
-        this.worldWidth = worldWidth;
-        this.worldHeight = worldHeight;
     }
 
     private void calculateNewPos(float x, float y) {
@@ -67,10 +59,10 @@ public class CameraController implements OnDraggedListener, OnMouseClickedListen
                 newPosY = 0;
             }
 
-            float maxX = worldWidth
-                - ((float) Gdx.app.getGraphics().getWidth() / (float) PIXEL_PER_TILE);
-            float maxY = worldHeight
-                - ((float) Gdx.app.getGraphics().getHeight() / (float) PIXEL_PER_TILE);
+            float maxX = options.getWorldWidth()
+                - ((float) Gdx.app.getGraphics().getWidth() / (float) options.getPixelsPerTile());
+            float maxY = options.getWorldHeight()
+                - ((float) Gdx.app.getGraphics().getHeight() / (float) options.getPixelsPerTile());
 
             if (newPosX > maxX) {
                 newPosX = maxX;
@@ -98,12 +90,12 @@ public class CameraController implements OnDraggedListener, OnMouseClickedListen
     }
 
     public Vector2 getScreenToWorldCoord(float screenX, float screenY) {
-        float screenTileX = screenX / PIXEL_PER_TILE;
-        float screenTileY = screenY / PIXEL_PER_TILE;
+        float screenTileX = screenX / options.getPixelsPerTile();
+        float screenTileY = screenY / options.getPixelsPerTile();
 
         float screenTileXOffset = screenTileX + cameraPosX;
         float screenTileYOffset = (float) Gdx.app.getGraphics().getHeight()
-            / (float) PIXEL_PER_TILE + (cameraPosY - screenTileY);
+            / (float) options.getPixelsPerTile() + (cameraPosY - screenTileY);
         return new Vector2(screenTileXOffset, screenTileYOffset);
     }
 

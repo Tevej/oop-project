@@ -19,9 +19,9 @@ public class GameManager extends ApplicationAdapter {
 
     @Override
     public void create() {
-        Options options = new Options(100, 100);
+        Options options = new Options(100, 100, 32);
         model = new ModelManager(options);
-        view = new ViewManager(model);
+        view = new ViewManager(options, model);
         controller = new ControllerManager(options, view, model);
 
         model.init();

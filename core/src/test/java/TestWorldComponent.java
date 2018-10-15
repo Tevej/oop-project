@@ -11,7 +11,7 @@ import org.junit.Test;
 
 
 public class TestWorldComponent {
-    private ModelManager modelManager = new ModelManager(new Options(100, 100));
+    private ModelManager modelManager = new ModelManager(new Options(100, 100, 32));
     private WorldComponent worldEntity = new WorldEntity(34, 23, modelManager).getComponent(WorldComponent.class);
 
     public TestWorldComponent() {

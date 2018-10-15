@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller.input.libgdx;
+package main.se.tevej.game.controller.input.base.libgdximplementation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +7,9 @@ import static com.badlogic.gdx.Input.Keys;
 
 import com.badlogic.gdx.InputAdapter;
 
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listeners.OnTappedListener;
+import main.se.tevej.game.controller.input.base.OnTappedListener;
+import main.se.tevej.game.controller.input.base.TKey;
+import main.se.tevej.game.controller.input.base.TKeyBoard;
 
 public class KeyBoardLibgdxAdapter implements TKeyBoard {
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import main.se.tevej.game.Manager;
+import main.se.tevej.game.Options;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
@@ -16,6 +17,7 @@ import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 
 public class ViewManager implements Manager {
 
+    private Options options;
     private ModelManager modelManager;
 
     private GameRenderingFactory renderingFactory;
@@ -28,7 +30,8 @@ public class ViewManager implements Manager {
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
 
-    public ViewManager(ModelManager modelManager) {
+    public ViewManager(Options options, ModelManager modelManager) {
+        this.options = options;
         this.modelManager = modelManager;
     }
 
@@ -82,7 +85,7 @@ public class ViewManager implements Manager {
     }
 
     private void initRenders() {
-        entityViewManager = new EntityViewManager(modelManager, renderingFactory);
+        entityViewManager = new EntityViewManager(modelManager, renderingFactory, options);
         selectedRenderer = new SelectedBuildingRenderer(renderingFactory);
         buildingGui.addSelectedListener(selectedRenderer);
     }

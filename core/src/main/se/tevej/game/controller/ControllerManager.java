@@ -2,12 +2,11 @@ package main.se.tevej.game.controller;
 
 import main.se.tevej.game.Manager;
 import main.se.tevej.game.Options;
-import main.se.tevej.game.controller.input.CameraController;
-import main.se.tevej.game.controller.input.InputFactory;
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.TMouse;
-import main.se.tevej.game.controller.input.TimeController;
-import main.se.tevej.game.controller.input.libgdx.InputLibgdxFactory;
+import main.se.tevej.game.controller.input.base.CameraController;
+import main.se.tevej.game.controller.input.base.InputFactory;
+import main.se.tevej.game.controller.input.base.TKeyBoard;
+import main.se.tevej.game.controller.input.base.TMouse;
+import main.se.tevej.game.controller.input.base.libgdximplementation.InputLibgdxFactory;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;
 
@@ -54,7 +53,7 @@ public class ControllerManager implements Manager {
 
     private void initCamera() {
         camera = new CameraController(
-            viewManager, 0, 0, options.getWorldWidth(), options.getWorldHeight(), mouse);
+            viewManager, 0, 0, mouse, options);
     }
 
     private void initConstructor() {
@@ -64,7 +63,8 @@ public class ControllerManager implements Manager {
             camera,
             keyBoard,
             mouse,
-            viewManager.getSelectedBuildingRenderer()
+            viewManager.getSelectedBuildingRenderer(),
+            options
         );
 
         viewManager.getBuildingGui().addSelectedListener(constructor);

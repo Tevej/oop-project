@@ -3,13 +3,14 @@ package main.se.tevej.game.controller;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 
-import main.se.tevej.game.controller.input.CameraController;
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.TMouse;
-import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listeners.OnMouseClickedListener;
-import main.se.tevej.game.controller.input.listeners.OnMovedListener;
-import main.se.tevej.game.controller.input.listeners.OnTappedListener;
+import main.se.tevej.game.Options;
+import main.se.tevej.game.controller.input.base.CameraController;
+import main.se.tevej.game.controller.input.base.OnMouseClickedListener;
+import main.se.tevej.game.controller.input.base.OnMovedListener;
+import main.se.tevej.game.controller.input.base.OnTappedListener;
+import main.se.tevej.game.controller.input.base.TKey;
+import main.se.tevej.game.controller.input.base.TKeyBoard;
+import main.se.tevej.game.controller.input.base.TMouse;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
@@ -18,12 +19,12 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.OnBuildingSelectedToBuild;
-import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
 import main.se.tevej.game.view.gamerendering.entity.SelectedBuildingRenderer;
 
 public class ConstructionController implements OnTappedListener,
     OnMovedListener, OnMouseClickedListener, OnBuildingSelectedToBuild {
 
+    private Options options;
     private ModelManager em;
     private Entity worldEntity;
     private int mouseX = 0;
@@ -35,9 +36,10 @@ public class ConstructionController implements OnTappedListener,
 
     public ConstructionController(ModelManager em, Entity worldEntity,
                                   CameraController camera, TKeyBoard keyboard, TMouse mouse,
-                                  SelectedBuildingRenderer buildingRenderer) {
+                                  SelectedBuildingRenderer buildingRenderer, Options options) {
         buildingSelected = false;
         this.em = em;
+        this.options = options;
         this.worldEntity = worldEntity;
         mouse.addMovedListener(this);
         mouse.addClickedListener(this);
@@ -83,8 +85,8 @@ public class ConstructionController implements OnTappedListener,
         mouseX = (int) v2.x;
         mouseY = (int) v2.y;
         buildingRenderer.setPosition(
-            (mouseX - camera.getCameraPosX()) * EntityViewManager.PIXEL_PER_TILE,
-            (mouseY - camera.getCameraPosY()) * EntityViewManager.PIXEL_PER_TILE);
+            (mouseX - camera.getCameraPosX()) * options.getPixelsPerTile(),
+            (mouseY - camera.getCameraPosY()) * options.getPixelsPerTile());
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 
+import main.se.tevej.game.Options;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.TileComponent;
@@ -19,7 +20,7 @@ import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 
 public class EntityViewManager {
 
-    public static final int PIXEL_PER_TILE = 32;
+    private Options options;
 
     /**
      * Dictionary on how a component type should be rendered.
@@ -35,7 +36,9 @@ public class EntityViewManager {
     private float currCameraPosX;
     private float currCameraPosY;
 
-    public EntityViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory) {
+    public EntityViewManager(ModelManager modelManager,
+                             GameRenderingFactory renderingFactory, Options options) {
+        this.options = options;
         this.renderingFactory = renderingFactory;
         this.batchRenderer = renderingFactory.createBatchRenderer();
         this.rendererEntityMap = new LinkedHashMap<>();
@@ -60,7 +63,7 @@ public class EntityViewManager {
             try {
                 for (Entity entity : entry.getValue()) {
                     entry.getKey().render(-currCameraPosX, -currCameraPosY,
-                        batchRenderer, entity, PIXEL_PER_TILE);
+                        batchRenderer, entity, options.getPixelsPerTile());
                 }
             } catch (Exception e) {
                 System.out.println("Oops something went wrong hehe.");

@@ -1,8 +1,8 @@
-package main.se.tevej.game.controller.input.libgdx;
+package main.se.tevej.game.controller.input.base.libgdximplementation;
 
-import main.se.tevej.game.controller.input.InputFactory;
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.TMouse;
+import main.se.tevej.game.controller.input.base.InputFactory;
+import main.se.tevej.game.controller.input.base.TKeyBoard;
+import main.se.tevej.game.controller.input.base.TMouse;
 
 public class InputLibgdxFactory implements InputFactory {
 

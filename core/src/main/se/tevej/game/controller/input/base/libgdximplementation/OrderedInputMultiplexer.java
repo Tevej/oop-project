@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller.input.libgdx;
+package main.se.tevej.game.controller.input.base.libgdximplementation;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -8,8 +8,8 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
-import main.se.tevej.game.controller.input.TKeyBoard;
-import main.se.tevej.game.controller.input.TMouse;
+import main.se.tevej.game.controller.input.base.TKeyBoard;
+import main.se.tevej.game.controller.input.base.TMouse;
 import main.se.tevej.game.view.gui.base.TTable;
 
 public final class OrderedInputMultiplexer implements InputProcessor {
