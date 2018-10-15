@@ -9,7 +9,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.ashley.SignalType;
@@ -18,19 +17,19 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
+import main.se.tevej.game.model.components.buildings.BuildingCostUtils;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.utils.BuildingCostUtils;
 import main.se.tevej.game.model.utils.Resource;
 
 public class PaySystem extends EntitySystem implements SignalListener {
 
     private Engine engine;
-    private ModelManager em;
+    private SignalHolder signalHolder;
 
-    public PaySystem(ModelManager em) {
+    public PaySystem(SignalHolder signalHolder) {
         super();
-        this.em = em;
+        this.signalHolder = signalHolder;
     }
 
 
@@ -52,7 +51,7 @@ public class PaySystem extends EntitySystem implements SignalListener {
     private void sendBuildSignal(Entity signalEntity) {
         signalEntity.remove(SignalComponent.class);
         signalEntity.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(signalEntity);
+        signalHolder.getSignal().dispatch(signalEntity);
     }
 
     private boolean isOccupiedLocation(Entity entity) {
