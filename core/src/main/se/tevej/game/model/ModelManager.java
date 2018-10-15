@@ -76,13 +76,9 @@ public class ModelManager {
     }
 
     private void initStartingEntities(int worldWidth, int worldHeight) {
-        worldEntity = createWorldEntity(worldWidth, worldHeight);
-        inventoryEntity = new InventoryEntity();
+        createWorldEntity(worldWidth, worldHeight);
+        createInventoryEntity();
         createStartingHome();
-
-
-        addEntityToEngine(worldEntity);
-        addEntityToEngine(inventoryEntity);
     }
 
     private void createStartingHome() {
@@ -98,8 +94,14 @@ public class ModelManager {
         addEntityToEngine(homeEntity);
     }
 
-    private Entity createWorldEntity(int worldWidth, int worldHeight) {
-        return new WorldEntity(worldWidth, worldHeight, this);
+    private void createInventoryEntity() {
+        inventoryEntity = new InventoryEntity();
+        addEntityToEngine(inventoryEntity);
+    }
+
+    private void createWorldEntity(int worldWidth, int worldHeight) {
+        worldEntity = new WorldEntity(worldWidth, worldHeight, this);
+        addEntityToEngine(worldEntity);
     }
 
 }
