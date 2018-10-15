@@ -1,6 +1,6 @@
 package components;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.PositionComponent;
@@ -18,29 +18,29 @@ public class TestWorldComponent {
 
     @Test
     public void testGetTilesAt() {
-        assertTrue(
-            worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getX() == 1
+        assertEquals(
+            worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getX(),  1
         );
-        assertTrue(
-            worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getY() == 1
+        assertEquals(
+            worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getY(), 1
         );
-        assertTrue(
-            worldEntity.getTileAt(20, 0).getComponent(PositionComponent.class).getX() == 20
+        assertEquals(
+            worldEntity.getTileAt(20, 0).getComponent(PositionComponent.class).getX(), 20
         );
-        assertTrue(
-            worldEntity.getTileAt(20, 0).getComponent(PositionComponent.class).getY() == 0
+        assertEquals(
+            worldEntity.getTileAt(20, 0).getComponent(PositionComponent.class).getY(), 0
         );
-        assertTrue(
-            worldEntity.getTileAt(33, 22).getComponent(PositionComponent.class).getX() == 33
+        assertEquals(
+            worldEntity.getTileAt(33, 22).getComponent(PositionComponent.class).getX(), 33
         );
-        assertTrue(
-            worldEntity.getTileAt(33, 22).getComponent(PositionComponent.class).getY() == 22
+        assertEquals(
+            worldEntity.getTileAt(33, 22).getComponent(PositionComponent.class).getY(), 22
         );
     }
 
     @Test
     public void testDimensions(){
-        assertTrue(worldEntity.getHeight() == 23);
-        assertTrue(worldEntity.getWidth() == 34);
+        assertEquals(worldEntity.getHeight(),  23);
+        assertEquals(worldEntity.getWidth(), 34);
     }
 }

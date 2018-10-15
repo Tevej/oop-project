@@ -9,25 +9,30 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 
 public class TestInventoryComponent {
+
+    public TestInventoryComponent() {
+        super();
+    }
 
     @Test
     public void addResource(){
         InventoryComponent ic = new InventoryComponent();
 
-        Resource r1 = (new Resource(10, ResourceType.STONE));
-        Resource r2 = (new Resource(0.1, ResourceType.STONE));
-        Resource r3 = (new Resource(0.9, ResourceType.STONE));
+        Resource r1 = new Resource(10, ResourceType.STONE);
+        Resource r2 = new Resource(0.1, ResourceType.STONE);
+        Resource r3 = new Resource(0.9, ResourceType.STONE);
         ic.addResource(r1);
-        assertTrue(ic.getAmountOfResource(ResourceType.STONE) == 10);
+        assertEquals(ic.getAmountOfResource(ResourceType.STONE),  10, 0);
         ic.addResource(r2);
         assertTrue(ic.getAmountOfResource(ResourceType.STONE) > 10);
         ic.addResource(r3);
-        assertTrue(ic.getAmountOfResource(ResourceType.STONE) == 11);
+        assertEquals(ic.getAmountOfResource(ResourceType.STONE), 11, 0);
     }
 
     @Test
@@ -45,28 +50,28 @@ public class TestInventoryComponent {
         try {
             ic.addResource(r1);
             ic.removeFromInventory(r1);
-            assertTrue(ic.getAmountOfResource(r1.getType()) == 0);
+            assertEquals(ic.getAmountOfResource(r1.getType()), 0, 0);
         } catch (NotEnoughResourcesException e) {
             // should not throw error
-            assertTrue(false);
+            fail();
         }
 
         try {
             ic.removeFromInventory(r2);
             // should throw error
-            assertFalse(true);
+            fail();
         } catch (NotEnoughResourcesException e) {
-            assertTrue(true);
+            System.out.println("yep");
         }
 
 
         try {
             ic.addResource(new Resource(0,ResourceType.WOOD));
             ic.removeFromInventory(r3);
-            assertTrue(ic.getAmountOfResource(r3.getType()) == 100);
+            assertEquals(ic.getAmountOfResource(r3.getType()), 100, 0);
         } catch (NotEnoughResourcesException e) {
             // should not throw error
-            assertTrue(false);
+            fail();
         }
 
         InventoryComponent ic2 = new InventoryComponent();
@@ -75,10 +80,10 @@ public class TestInventoryComponent {
         }
         try {
             ic2.removeFromInventory(list);
-            assertTrue(ic2.getAmountOfResource(ResourceType.STONE) == 0);
-            assertTrue(ic2.getAmountOfResource(ResourceType.WOOD) == 0);
+            assertEquals(ic2.getAmountOfResource(ResourceType.STONE),  0, 0);
+            assertEquals(ic2.getAmountOfResource(ResourceType.WOOD), 0, 0);
         } catch (NotEnoughResourcesException e) {
-            assertTrue(false);
+            fail();
         }
     }
 }
