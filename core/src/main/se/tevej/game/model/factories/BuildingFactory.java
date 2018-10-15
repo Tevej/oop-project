@@ -35,7 +35,7 @@ public class BuildingFactory {
                 building = createPump(building);
                 break;
             default:
-                throw new NoSuchBuildingException(type);
+                throw new NoSuchBuildingException(type.toString());
         }
         return building;
     }

@@ -1,9 +1,7 @@
 package main.se.tevej.game.model.exceptions;
 
-import main.se.tevej.game.model.components.buildings.BuildingType;
-
 public class NoSuchBuildingException extends Exception {
-    public NoSuchBuildingException(BuildingType type) {
-        super("No such building " + type);
+    public NoSuchBuildingException(String buildingName) {
+        super("No such building " + buildingName);
     }
 }
