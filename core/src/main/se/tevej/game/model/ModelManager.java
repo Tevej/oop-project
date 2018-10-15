@@ -6,7 +6,6 @@ import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.ashley.SignalListener;
-import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.InventoryEntity;
@@ -16,8 +15,6 @@ import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
 
 public class ModelManager {
 
