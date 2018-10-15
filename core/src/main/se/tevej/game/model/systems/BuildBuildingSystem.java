@@ -13,8 +13,8 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
-import main.se.tevej.game.model.factories.BuildingFactory;
 
 public class BuildBuildingSystem extends EntitySystem implements SignalListener {
 
@@ -62,7 +62,7 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
 
         Entity building;
         try {
-            building = BuildingFactory.createBuilding(buildingType, posC.getX(), posC.getY());
+            building = new BuildingEntity(buildingType, posC.getX(), posC.getY());
         } catch (NoSuchBuildingException e) {
             return;
         }

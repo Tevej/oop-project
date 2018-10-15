@@ -6,14 +6,15 @@ import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.ashley.SignalListener;
-import main.se.tevej.game.model.components.InventoryComponent;
+import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.entities.BuildingEntity;
+import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
 
 public class ModelManager {
 
@@ -75,25 +76,32 @@ public class ModelManager {
     }
 
     private void initStartingEntities(int worldWidth, int worldHeight) {
-        worldEntity = createWorldEntity(worldWidth, worldHeight);
-        inventoryEntity = createInventoryEntity();
+        createWorldEntity(worldWidth, worldHeight);
+        createInventoryEntity();
+        createStartingHome();
+    }
 
-        addEntityToEngine(worldEntity);
+    private void createStartingHome() {
+        Entity homeEntity;
+
+        try {
+            homeEntity = new BuildingEntity(BuildingType.HOME,10,10);
+        } catch (NoSuchBuildingException e) {
+            homeEntity = new Entity();
+            System.out.println("Home is gone");
+        }
+
+        addEntityToEngine(homeEntity);
+    }
+
+    private void createInventoryEntity() {
+        inventoryEntity = new InventoryEntity();
         addEntityToEngine(inventoryEntity);
     }
 
-    private Entity createInventoryEntity() {
-        Entity inventoryEntity = new Entity();
-        InventoryComponent inventoryC = new InventoryComponent();
-        inventoryEntity.add(inventoryC);
-        inventoryC.addResource(new Resource(1000, ResourceType.WOOD));
-        inventoryC.addResource(new Resource(1000, ResourceType.WATER));
-        inventoryC.addResource(new Resource(1000, ResourceType.STONE));
-        return inventoryEntity;
-    }
-
-    private Entity createWorldEntity(int worldWidth, int worldHeight) {
-        return new WorldEntity(worldWidth, worldHeight, this);
+    private void createWorldEntity(int worldWidth, int worldHeight) {
+        worldEntity = new WorldEntity(worldWidth, worldHeight, this);
+        addEntityToEngine(worldEntity);
     }
 
 }
