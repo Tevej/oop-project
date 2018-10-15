@@ -28,19 +28,21 @@ public class ViewManager {
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
 
-    private float pixelPerTile = 32f;
+    private final float minTilesPerScreen = 5;
+    private final float pixelPerTile = 32f;
+
+    private float zoomMultiplier;
 
     public ViewManager(ModelManager modelManager, InputProcessorListener listener) {
         this.modelManager = modelManager;
+        zoomMultiplier = 1f;
         initFactories(listener);
         initGui();
         initRenders();
-
     }
 
     public void update(float deltaTime) {
         clearScreen();
-
         renderGameRendering();
         renderGui(deltaTime);
     }
@@ -58,7 +60,7 @@ public class ViewManager {
     }
 
     private void renderGameRendering() {
-        entityViewManager.render(pixelPerTile);
+        entityViewManager.render(pixelPerTile * zoomMultiplier);
         selectedRenderer.render();
     }
 
@@ -92,5 +94,34 @@ public class ViewManager {
 
     public float getPixelPerTile() {
         return pixelPerTile;
+    }
+
+    // Number of pixels to zoom
+    public void zoom(float newMultiplier) {
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+
+        float newTilesPerWidth = screenWidth / (newMultiplier * pixelPerTile);
+        float newTilesPerHeight = screenHeight / (newMultiplier * pixelPerTile);
+
+        int worldWidth = modelManager.getWorldWidth();
+        int worldHeight = modelManager.getWorldHeight();
+
+
+        if (newTilesPerWidth < minTilesPerScreen || newTilesPerHeight < minTilesPerScreen) {
+            float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
+            float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
+            zoomMultiplier = Math.min(maxWidthZoomMp, maxHeightZoomMp);
+        } else if (newTilesPerWidth > worldWidth || newTilesPerHeight > worldHeight) {
+            float minWidthZoomMp = screenWidth / (worldWidth * pixelPerTile);
+            float minHeightZoomMp = screenHeight / (worldHeight * pixelPerTile);
+            zoomMultiplier = Math.max(minWidthZoomMp, minHeightZoomMp);
+        } else {
+            zoomMultiplier = newMultiplier;
+        }
+    }
+
+    public float getZoomMultiplier() {
+        return zoomMultiplier;
     }
 }

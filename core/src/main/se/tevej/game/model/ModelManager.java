@@ -23,14 +23,19 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     private final Engine engine;
     private final Signal<Entity> signal;
 
+    private int worldWidth;
+    private int worldHeight;
+
     private Entity worldEntity;
     private Entity inventoryEntity;
 
     public ModelManager(int worldWidth, int worldHeight) {
+        this.worldWidth = worldWidth;
+        this.worldHeight = worldHeight;
         engine = new Engine();
         signal = new Signal<>();
         initSystems();
-        initStartingEntities(worldWidth, worldHeight);
+        initStartingEntities();
     }
 
     public void update(float deltaTime) {
@@ -79,7 +84,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         });
     }
 
-    private void initStartingEntities(int worldWidth, int worldHeight) {
+    private void initStartingEntities() {
         createWorldEntity(worldWidth, worldHeight);
         createInventoryEntity();
         createStartingHome();
@@ -108,4 +113,11 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         addEntityToEngine(worldEntity);
     }
 
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
+    }
 }

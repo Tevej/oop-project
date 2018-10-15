@@ -5,8 +5,9 @@ import com.badlogic.gdx.math.Vector2;
 
 import main.se.tevej.game.view.ViewManager;
 
-
-public class CameraController implements OnDraggedListener, OnMouseClickedListener {
+// A class to translate the user inputs to camera changes.
+public class CameraController implements OnDraggedListener,
+    OnMouseClickedListener, OnTappedListener {
 
     private ViewManager view;
 
@@ -19,14 +20,16 @@ public class CameraController implements OnDraggedListener, OnMouseClickedListen
     private float cameraPosY;
     private int worldWidth;
     private int worldHeight;
+    private final float zoomStep = 0.1f;
 
     public CameraController(ViewManager view, float startX, float startY, TMouse mouse,
-                            int worldWidth, int worldHeight) {
+                            TKeyBoard keyboard, int worldWidth, int worldHeight) {
         this.worldWidth = worldWidth;
         this.worldHeight = worldHeight;
         this.view = view;
         mouse.addDraggedListener(this);
         mouse.addClickedListener(this);
+        keyboard.addTappedListener(this);
         cameraPosX = startX;
         cameraPosY = startY;
         view.setPosition(cameraPosX, cameraPosY);
@@ -107,5 +110,27 @@ public class CameraController implements OnDraggedListener, OnMouseClickedListen
 
     public float getCameraPosY() {
         return cameraPosY;
+    }
+
+    @Override
+    public void onTapped(TKeyBoard keyBoard, TKey button) {
+        switch (button) {
+            case KEY_Z:
+                zoomIn();
+                break;
+            case KEY_X:
+                zoomOut();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void zoomIn() {
+        view.zoom(view.getZoomMultiplier() + zoomStep);
+    }
+
+    private void zoomOut() {
+        view.zoom(view.getZoomMultiplier() - zoomStep);
     }
 }
