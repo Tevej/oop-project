@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-import main.se.tevej.game.controller.input.base.libgdximplementation.OrderedInputMultiplexer;
+import main.se.tevej.game.view.OrderedInputMultiplexer;
 import main.se.tevej.game.view.gui.base.TCell;
 import main.se.tevej.game.view.gui.base.TTable;
 import main.se.tevej.game.view.gui.base.TUiElement;
@@ -21,7 +21,7 @@ public class TableLibgdxAdapter extends Table implements TTable {
         super();
         stage = new Stage();
         cells = new LinkedHashMap<>();
-        OrderedInputMultiplexer.getInstance().add(TTable.class, stage);
+        OrderedInputMultiplexer.getInstance().addGameRenderingInputProcessor(stage);
         stage.addActor(this);
     }
 

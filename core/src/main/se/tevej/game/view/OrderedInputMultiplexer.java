@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller.input.base.libgdximplementation;
+package main.se.tevej.game.view;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -6,24 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 
-import main.se.tevej.game.controller.input.base.TKeyBoard;
-import main.se.tevej.game.controller.input.base.TMouse;
-import main.se.tevej.game.view.gui.base.TTable;
-
+//Since InputProcessor have a lot of methods, you  can't go around this.
+@SuppressWarnings("PMD.TooManyMethods")
 public final class OrderedInputMultiplexer implements InputProcessor {
 
-    private Map<Class<?>, List<InputProcessor>> processorsMap;
+    private Map<InputProcessorType, List<InputProcessor>> processorsMap;
 
     private static OrderedInputMultiplexer instance;
 
     private OrderedInputMultiplexer() {
         processorsMap = new LinkedHashMap<>();
 
-        processorsMap.put(TTable.class, new LinkedList<>());
-        processorsMap.put(TMouse.class, new LinkedList<>());
-        processorsMap.put(TKeyBoard.class, new LinkedList<>());
+        processorsMap.put(InputProcessorType.GUI, new LinkedList<>());
+        processorsMap.put(InputProcessorType.GAME_RENDERING, new LinkedList<>());
         Gdx.input.setInputProcessor(this);
     }
 
@@ -34,18 +32,26 @@ public final class OrderedInputMultiplexer implements InputProcessor {
         return instance;
     }
 
-    public void add(Class<?> classType, InputProcessor inputProcessor) {
+    public void addGameRenderingInputProcessor(InputProcessor inputProcessor) {
+        add(InputProcessorType.GUI, inputProcessor);
+    }
+
+    public void addGuiInputProcessor(InputAdapter inputProcessor) {
+        add(InputProcessorType.GAME_RENDERING, inputProcessor);
+    }
+
+    private void add(InputProcessorType processorType, InputProcessor inputProcessor) {
         try {
-            processorsMap.get(classType).add(inputProcessor);
+            processorsMap.get(processorType).add(inputProcessor);
         } catch (Exception e) {
             System.out.println(
-                "Can't find classType: " + classType + "; in OrderedInputMultiplexer");
+                "Can't find classType: " + processorType + "; in OrderedInputMultiplexer");
         }
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        for (Map.Entry<Class<?>, List<InputProcessor>> entry :
+        for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
                 inputProcessor.keyDown(keycode);
@@ -56,7 +62,7 @@ public final class OrderedInputMultiplexer implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        for (Map.Entry<Class<?>, List<InputProcessor>> entry :
+        for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
                 inputProcessor.keyUp(keycode);
@@ -67,7 +73,7 @@ public final class OrderedInputMultiplexer implements InputProcessor {
 
     @Override
     public boolean keyTyped(char character) {
-        for (Map.Entry<Class<?>, List<InputProcessor>> entry :
+        for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
                 inputProcessor.keyTyped(character);
@@ -78,7 +84,7 @@ public final class OrderedInputMultiplexer implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        for (Map.Entry<Class<?>, List<InputProcessor>> entry :
+        for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
                 inputProcessor.touchDown(screenX, screenY, pointer, button);
@@ -89,7 +95,7 @@ public final class OrderedInputMultiplexer implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        for (Map.Entry<Class<?>, List<InputProcessor>> entry :
+        for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
                 inputProcessor.touchUp(screenX, screenY, pointer, button);
@@ -100,7 +106,7 @@ public final class OrderedInputMultiplexer implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        for (Map.Entry<Class<?>, List<InputProcessor>> entry :
+        for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
                 inputProcessor.touchDragged(screenX, screenY, pointer);
@@ -111,7 +117,7 @@ public final class OrderedInputMultiplexer implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        for (Map.Entry<Class<?>, List<InputProcessor>> entry :
+        for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
                 inputProcessor.mouseMoved(screenX, screenY);
@@ -122,7 +128,7 @@ public final class OrderedInputMultiplexer implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        for (Map.Entry<Class<?>, List<InputProcessor>> entry :
+        for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
                 inputProcessor.scrolled(amount);

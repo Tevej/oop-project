@@ -15,6 +15,7 @@ import main.se.tevej.game.controller.input.base.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.base.OnMovedListener;
 import main.se.tevej.game.controller.input.base.TKey;
 import main.se.tevej.game.controller.input.base.TMouse;
+import main.se.tevej.game.view.OrderedInputMultiplexer;
 
 public class MouseLibgdxAdapter implements TMouse {
 
@@ -33,7 +34,7 @@ public class MouseLibgdxAdapter implements TMouse {
 
     @Override
     public void addDraggedListener(OnDraggedListener onDraggedListener) {
-        OrderedInputMultiplexer.getInstance().add(TMouse.class, new InputAdapter() {
+        OrderedInputMultiplexer.getInstance().addGuiInputProcessor(new InputAdapter() {
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
                 onDraggedListener.onDragged(TKey.MOUSE_LEFT, screenX, screenY);
@@ -45,7 +46,7 @@ public class MouseLibgdxAdapter implements TMouse {
     @Override
     public void addClickedListener(OnMouseClickedListener onClickedListener) {
         TMouse mouse = this;
-        OrderedInputMultiplexer.getInstance().add(TMouse.class, new InputAdapter() {
+        OrderedInputMultiplexer.getInstance().addGameRenderingInputProcessor(new InputAdapter() {
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 onClickedListener.onClicked(mouse, INPUT_MAP.get(button));
@@ -57,7 +58,7 @@ public class MouseLibgdxAdapter implements TMouse {
     @Override
     public void addMovedListener(OnMovedListener onMovedListener) {
         TMouse mouse = this;
-        OrderedInputMultiplexer.getInstance().add(TMouse.class, new InputAdapter() {
+        OrderedInputMultiplexer.getInstance().addGameRenderingInputProcessor(new InputAdapter() {
             @Override
             public boolean mouseMoved(int screenX, int screenY) {
                 onMovedListener.onMoved(mouse);
