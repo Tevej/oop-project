@@ -43,7 +43,7 @@ public class TestWorldComponent {
 
     @Test
     public void getDimensions(){
-        assertTrue(wc.getHeight() == 23);
-        assertTrue(wc.getWidth() == 34);
+        assertTrue(worldEntity.getHeight() == 23);
+        assertTrue(worldEntity.getWidth() == 34);
     }
 }
