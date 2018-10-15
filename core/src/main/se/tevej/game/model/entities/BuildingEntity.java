@@ -34,7 +34,7 @@ public class BuildingEntity extends Entity {
                 createPump();
                 break;
             default:
-                throw new NoSuchBuildingException(type);
+                throw new NoSuchBuildingException(type.toString());
         }
     }
 

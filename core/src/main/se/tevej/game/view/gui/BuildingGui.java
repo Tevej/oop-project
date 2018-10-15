@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.view.OnBuildingSelectedToBuild;
+import main.se.tevej.game.view.gamerendering.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;

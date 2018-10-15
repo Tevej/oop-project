@@ -11,6 +11,7 @@ import main.se.tevej.game.view.gamerendering.entity.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
+import main.se.tevej.game.view.gui.base.InputProcessorListener;
 import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 
 public class ViewManager {
@@ -29,9 +30,9 @@ public class ViewManager {
 
     private float pixelPerTile = 32f;
 
-    public ViewManager(ModelManager modelManager) {
+    public ViewManager(ModelManager modelManager, InputProcessorListener listener) {
         this.modelManager = modelManager;
-        initFactories();
+        initFactories(listener);
         initGui();
         initRenders();
 
@@ -68,8 +69,8 @@ public class ViewManager {
         buildingGui.render();
     }
 
-    private void initFactories() {
-        guiFactory = new GuiLibgdxFactory();
+    private void initFactories(InputProcessorListener listener) {
+        guiFactory = new GuiLibgdxFactory(listener);
         renderingFactory = new GameRenderingLibgdxFactory();
     }
 
