@@ -1,7 +1,7 @@
 package components;
 
 import main.se.tevej.game.model.components.buildings.GathererComponent;
-import main.se.tevej.game.model.exceptions.MissmatchedResourceException;
+import main.se.tevej.game.model.exceptions.MismatchedResourceException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class TestGathererComponent {
         try {
             gc.setResourcePerSecond(new Resource(200, ResourceType.WOOD));
             assertEquals(gc.getGatheredResource(3f/2f).getAmount(), 300, 0);
-        } catch (MissmatchedResourceException e) {
+        } catch (MismatchedResourceException e) {
             fail();
         }
     }
