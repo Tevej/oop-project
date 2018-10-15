@@ -1,7 +1,7 @@
 package main.se.tevej.game.controller;
 
-import main.se.tevej.game.Manager;
-import main.se.tevej.game.Options;
+import main.se.tevej.game.utils.Manager;
+import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.controller.input.base.CameraController;
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.base.TKeyBoard;

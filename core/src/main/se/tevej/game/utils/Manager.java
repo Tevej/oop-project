@@ -1,4 +1,4 @@
-package main.se.tevej.game;
+package main.se.tevej.game.utils;
 
 public interface Manager {
     void init();

@@ -1,4 +1,4 @@
-package main.se.tevej.game.exceptions;
+package main.se.tevej.game.model.exceptions;
 
 import main.se.tevej.game.model.components.buildings.BuildingType;
 

@@ -1,4 +1,4 @@
-package main.se.tevej.game.exceptions;
+package main.se.tevej.game.model.exceptions;
 
 public class NotEnoughResourcesException extends Exception {
     public NotEnoughResourcesException() {

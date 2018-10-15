@@ -3,7 +3,7 @@ package main.se.tevej.game.controller.input.base;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-import main.se.tevej.game.Options;
+import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.ViewManager;
 
 

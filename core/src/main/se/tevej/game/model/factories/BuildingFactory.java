@@ -2,7 +2,7 @@ package main.se.tevej.game.model.factories;
 
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.exceptions.NoSuchBuildingException;
+import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.RadiusComponent;
 import main.se.tevej.game.model.components.SizeComponent;

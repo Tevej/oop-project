@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 
 import main.se.tevej.game.controller.ControllerManager;
 import main.se.tevej.game.model.ModelManager;
+import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.ViewManager;
 
 public class GameManager extends ApplicationAdapter {

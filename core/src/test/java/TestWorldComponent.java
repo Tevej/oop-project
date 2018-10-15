@@ -2,7 +2,7 @@ package test.java;
 
 import static org.junit.Assert.assertTrue;
 
-import main.se.tevej.game.Options;
+import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;

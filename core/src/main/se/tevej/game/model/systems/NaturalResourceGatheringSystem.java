@@ -9,7 +9,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 
-import main.se.tevej.game.exceptions.NotEnoughResourcesException;
+import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;

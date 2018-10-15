@@ -3,7 +3,7 @@ package main.se.tevej.game.controller;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 
-import main.se.tevej.game.Options;
+import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.controller.input.base.CameraController;
 import main.se.tevej.game.controller.input.base.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.base.OnMovedListener;

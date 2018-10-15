@@ -3,8 +3,8 @@ package main.se.tevej.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
-import main.se.tevej.game.Manager;
-import main.se.tevej.game.Options;
+import main.se.tevej.game.utils.Manager;
+import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
