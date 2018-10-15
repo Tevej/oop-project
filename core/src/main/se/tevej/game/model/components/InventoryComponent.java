@@ -41,6 +41,12 @@ public class InventoryComponent implements Component {
         }
     }
 
+    public void removeFromInventory(Resource resource) throws NotEnoughResourcesException {
+        checkResourceAmount(resource);
+        resources.put(resource.getType(),
+            getAmountOfResource(resource.getType()) - resource.getAmount());
+    }
+
     public void removeFromInventory(List<Resource> resourceList)
         throws NotEnoughResourcesException {
 

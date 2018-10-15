@@ -1,6 +1,6 @@
-import main.se.tevej.game.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.ashley.EntityManager;
+
 import main.se.tevej.game.model.components.InventoryComponent;
+import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 import org.junit.Test;
