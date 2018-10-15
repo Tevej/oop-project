@@ -35,8 +35,8 @@ public class GameManager extends ApplicationAdapter {
         float deltaTime = Gdx.graphics.getDeltaTime();
 
         model.update(deltaTime);
-        view.update(deltaTime);
         controller.update(deltaTime);
+        view.update(deltaTime);
     }
 
 }
