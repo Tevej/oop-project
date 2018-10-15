@@ -6,13 +6,15 @@ import com.badlogic.gdx.Gdx;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;
 
-public class GameManager extends ApplicationAdapter {
+public class GameManager extends ApplicationAdapter implements OnTimeChangeListener {
 
     private ModelManager model;
     private ViewManager view;
+    private float timeMultiplier;
 
     public GameManager() {
         super();
+        timeMultiplier = 1f;
     }
 
     @Override
@@ -22,15 +24,19 @@ public class GameManager extends ApplicationAdapter {
         model = new ModelManager(worldWidth, worldHeight);
         OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
         view = new ViewManager(model, inputMultiplexer);
-        new ControllerManager(view, model, worldWidth, worldHeight, inputMultiplexer);
+        new ControllerManager(view, model, worldWidth, worldHeight, inputMultiplexer, this);
     }
 
     @Override
     public void render() {
-        float deltaTime = Gdx.graphics.getDeltaTime();
+        float deltaTime = Gdx.graphics.getDeltaTime() * timeMultiplier;
 
         model.update(deltaTime);
         view.update(deltaTime);
     }
 
+    @Override
+    public void updateTimeMultipler(float newMultiplier) {
+        timeMultiplier = newMultiplier;
+    }
 }
