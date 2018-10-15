@@ -8,11 +8,11 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.WorldEntity;
 import org.junit.Test;
 
-public class TestWorldComponent {
+public class TestWorldAndPositionComponent {
     private ModelManager modelManager = new ModelManager(100, 100);
     private WorldComponent worldEntity = new WorldEntity(34, 23, modelManager).getComponent(WorldComponent.class);
 
-    public TestWorldComponent() {
+    public TestWorldAndPositionComponent() {
         super();
     }
 
