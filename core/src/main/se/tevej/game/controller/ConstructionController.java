@@ -3,7 +3,6 @@ package main.se.tevej.game.controller;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 
-import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.controller.input.base.CameraController;
 import main.se.tevej.game.controller.input.base.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.base.OnMovedListener;
@@ -18,6 +17,7 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.gamerendering.entity.SelectedBuildingRenderer;
 
