@@ -1,6 +1,6 @@
 package main.se.tevej.game.view.rendering.ui;
 
-import main.se.tevej.game.controller.input.listeners.OnClickedListener;
+import main.se.tevej.game.view.gui.libgdx.OnButtonClickedListener;
 
 public interface TButton extends TUiElement {
 
@@ -8,6 +8,6 @@ public interface TButton extends TUiElement {
 
     TButton text(String text);
 
-    TButton addListener(OnClickedListener onClickListener);
+    TButton addListener(OnButtonClickedListener onClickListener);
 
 }

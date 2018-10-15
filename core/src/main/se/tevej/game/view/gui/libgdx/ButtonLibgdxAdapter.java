@@ -9,8 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.view.rendering.ui.TButton;
 
 public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
@@ -41,11 +39,11 @@ public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
     }
 
     @Override
-    public TButton addListener(OnClickedListener onClickListener) {
+    public TButton addListener(OnButtonClickedListener onClickListener) {
         super.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                onClickListener.onClicked(TKey.MOUSE_LEFT);
+                onClickListener.onClicked();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

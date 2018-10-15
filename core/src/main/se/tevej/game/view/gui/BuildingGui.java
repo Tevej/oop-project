@@ -6,9 +6,8 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import main.se.tevej.game.controller.input.enums.TKey;
-import main.se.tevej.game.controller.input.listeners.OnClickedListener;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.view.gui.libgdx.OnButtonClickedListener;
 import main.se.tevej.game.view.rendering.RenderingFactory;
 import main.se.tevej.game.view.rendering.ui.TButton;
 import main.se.tevej.game.view.rendering.ui.TTable;
@@ -49,10 +48,12 @@ public class BuildingGui {
         }
     }
 
-    private TButton createBuildingButton(BuildingType buildingType, String imgPath) {
-        return renderingFactory.createButton().image(imgPath).addListener(new OnClickedListener() {
+    private TButton createBuildingButton(BuildingType buildingType, String img) {
+        TButton button = renderingFactory.createButton();
+
+        return button.image(img).addListener(new OnButtonClickedListener() {
             @Override
-            public void onClicked(TKey button) {
+            public void onClicked() {
                 for (OnBuildingSelectedToBuild selectedListener :
                     selectedListeners) {
                     selectedListener.buildingSelectedToBuild(buildingType);
