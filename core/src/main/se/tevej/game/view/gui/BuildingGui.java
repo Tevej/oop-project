@@ -11,6 +11,7 @@ import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
 import main.se.tevej.game.view.gui.base.TTable;
+import main.se.tevej.game.view.OnBuildingSelectedToBuild;
 
 
 public class BuildingGui {

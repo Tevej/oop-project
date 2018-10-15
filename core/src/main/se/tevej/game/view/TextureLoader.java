@@ -1,4 +1,4 @@
-package main.se.tevej.game.view.utils;
+package main.se.tevej.game.view;
 
 import java.io.File;
 import java.util.ArrayList;

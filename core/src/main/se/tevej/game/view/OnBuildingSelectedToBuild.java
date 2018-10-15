@@ -1,4 +1,4 @@
-package main.se.tevej.game.view.gui;
+package main.se.tevej.game.view;
 
 import main.se.tevej.game.model.components.buildings.BuildingType;
 
