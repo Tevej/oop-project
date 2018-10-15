@@ -9,9 +9,8 @@ public class WorldComponent implements Component {
     private int height;
 
     @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(
-            value="EI_EXPOSE_REP2",
-            justification="Dis is fine.")
-
+        value = "EI_EXPOSE_REP2",
+        justification = "Dis is fine.")
     public WorldComponent(int width, int height, Entity[] tiles) {
         this.tiles = tiles;
         this.width = width;
@@ -27,9 +26,10 @@ public class WorldComponent implements Component {
     }
 
     public Entity getTileAt(int x, int y) {
+        Entity tile = null;
         if (x >= 0 && y >= 0 && x < width && y < height) {
-            return tiles[x + y * width];
+            tile = tiles[x + y * width];
         }
-        return null;
+        return tile;
     }
 }

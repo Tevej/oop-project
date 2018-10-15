@@ -1,36 +1,43 @@
 package main.se.tevej.game.model.factories;
 
 import com.badlogic.ashley.core.Entity;
-import main.se.tevej.game.exceptions.NoSuchBuildingException;
-import main.se.tevej.game.model.components.buildings.GathererComponent;
+
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.RadiusComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.components.buildings.HomeComponent;
+import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
+@SuppressWarnings("PMD") // The class is to be removed.
 public class BuildingFactory {
-    public static Entity createBuilding(BuildingType type, int x, int y) throws NoSuchBuildingException {
+    public static Entity createBuilding(
+        BuildingType type, int x, int y) throws NoSuchBuildingException {
         Entity building = new Entity();
-        building.add(new PositionComponent(x,y));
-        building.add(new SizeComponent(1,1));
+        building.add(new PositionComponent(x, y));
+        building.add(new SizeComponent(1, 1));
         building.add(new BuildingComponent(type));
-        switch(type)
-        {
+        switch (type) {
             case HOME:
-                return createHome(building);
+                building = createHome(building);
+                break;
             case LUMBERMILL:
-                return createLumberMill(building);
+                building = createLumberMill(building);
+                break;
             case QUARRY:
-                return createQuarry(building);
+                building = createQuarry(building);
+                break;
             case PUMP:
-                return createPump(building);
+                building = createPump(building);
+                break;
             default:
-                throw new NoSuchBuildingException(type);
+                throw new NoSuchBuildingException(type.toString());
         }
+        return building;
     }
 
     // Should only ever be called from createBuilding, hence private access.

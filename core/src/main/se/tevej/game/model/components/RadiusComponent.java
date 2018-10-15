@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Component;
 public class RadiusComponent implements Component {
     private int radius;
 
-    public RadiusComponent(int radius){
+    public RadiusComponent(int radius) {
         this.radius = radius;
     }
 

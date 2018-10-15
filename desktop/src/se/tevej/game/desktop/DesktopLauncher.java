@@ -2,7 +2,7 @@ package se.tevej.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import main.se.tevej.game.Game;
+import main.se.tevej.game.controller.GameManager;
 
 import java.awt.*;
 
@@ -15,6 +15,6 @@ public class DesktopLauncher {
         config.height = screenSize.height / 2;
         config.vSyncEnabled = false;
         config.foregroundFPS = 0;
-        new LwjglApplication(new Game(), config);
+        new LwjglApplication(new GameManager(), config);
     }
 }
