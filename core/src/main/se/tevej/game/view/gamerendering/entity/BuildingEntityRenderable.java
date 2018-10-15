@@ -13,10 +13,10 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.view.TextureLoader;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.TTexture;
-import main.se.tevej.game.view.TextureLoader;
 
 public class BuildingEntityRenderable extends TextureLoader implements EntityRenderable {
 
