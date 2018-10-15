@@ -16,6 +16,6 @@ public class TestHomeComponent {
     public void testMethod() {
         HomeComponent homeC = new HomeComponent();
 
-        assertEquals(homeC.getCurrentPopulation(), 5);
+        assertEquals(homeC.getCurrentPopulation(), 5, 0);
     }
 }
