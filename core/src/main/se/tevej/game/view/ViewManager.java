@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import main.se.tevej.game.model.ModelManager;
-import main.se.tevej.game.utils.Manager;
 import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
@@ -15,7 +14,7 @@ import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 
-public class ViewManager implements Manager {
+public class ViewManager {
 
     private Options options;
     private ModelManager modelManager;
@@ -33,21 +32,17 @@ public class ViewManager implements Manager {
     public ViewManager(Options options, ModelManager modelManager) {
         this.options = options;
         this.modelManager = modelManager;
+        initFactories();
+        initGui();
+        initRenders();
+
     }
 
-    @Override
     public void update(float deltaTime) {
         clearScreen();
 
         renderGameRendering();
         renderGui(deltaTime);
-    }
-
-    @Override
-    public void init() {
-        initFactories();
-        initGui();
-        initRenders();
     }
 
     public void setPosition(float cameraPosX, float cameraPosY) {

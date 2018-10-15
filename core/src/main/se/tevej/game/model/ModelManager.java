@@ -14,10 +14,9 @@ import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
-import main.se.tevej.game.utils.Manager;
 import main.se.tevej.game.utils.Options;
 
-public class ModelManager implements Manager {
+public class ModelManager {
 
     private final Engine engine;
     private final Signal<Entity> signal;
@@ -32,17 +31,12 @@ public class ModelManager implements Manager {
 
         engine = new Engine();
         signal = new Signal<>();
-    }
-
-    @Override
-    public void update(float deltaTime) {
-        engine.update(deltaTime);
-    }
-
-    @Override
-    public void init() {
         initSystems();
         initStartingEntities();
+    }
+
+    public void update(float deltaTime) {
+        engine.update(deltaTime);
     }
 
     public Signal getSignal() {

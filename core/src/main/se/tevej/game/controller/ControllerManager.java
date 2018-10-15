@@ -6,11 +6,10 @@ import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.controller.input.base.TMouse;
 import main.se.tevej.game.controller.input.base.libgdximplementation.InputLibgdxFactory;
 import main.se.tevej.game.model.ModelManager;
-import main.se.tevej.game.utils.Manager;
 import main.se.tevej.game.utils.Options;
 import main.se.tevej.game.view.ViewManager;
 
-public class ControllerManager implements Manager {
+public class ControllerManager {
 
     private ViewManager viewManager;
     private ModelManager modelManager;
@@ -26,15 +25,6 @@ public class ControllerManager implements Manager {
         this.options = options;
         this.viewManager = viewManager;
         this.modelManager = modelManager;
-    }
-
-    @Override
-    public void update(float deltaTime) {
-
-    }
-
-    @Override
-    public void init() {
         initInput();
         initControllers();
     }

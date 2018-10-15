@@ -24,10 +24,6 @@ public class GameManager extends ApplicationAdapter {
         model = new ModelManager(options);
         view = new ViewManager(options, model);
         controller = new ControllerManager(options, view, model);
-
-        model.init();
-        view.init();
-        controller.init();
     }
 
     @Override
@@ -35,7 +31,6 @@ public class GameManager extends ApplicationAdapter {
         float deltaTime = Gdx.graphics.getDeltaTime();
 
         model.update(deltaTime);
-        controller.update(deltaTime);
         view.update(deltaTime);
     }
 
