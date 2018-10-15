@@ -26,11 +26,11 @@ import main.se.tevej.game.model.utils.Resource;
 public class PaySystem extends EntitySystem implements SignalListener {
 
     private Engine engine;
-    private ModelManager em;
+    private SignalHolder signalHolder;
 
-    public PaySystem(ModelManager em) {
+    public PaySystem(SignalHolder signalHolder) {
         super();
-        this.em = em;
+        this.signalHolder = signalHolder;
     }
 
 
@@ -52,7 +52,7 @@ public class PaySystem extends EntitySystem implements SignalListener {
     private void sendBuildSignal(Entity signalEntity) {
         signalEntity.remove(SignalComponent.class);
         signalEntity.add(new SignalComponent(SignalType.BUILDBUILDING));
-        em.getSignal().dispatch(signalEntity);
+        signalHolder.getSignal().dispatch(signalEntity);
     }
 
     private boolean isOccupiedLocation(Entity entity) {

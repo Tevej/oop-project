@@ -7,6 +7,7 @@ import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
@@ -15,8 +16,9 @@ import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
+import main.se.tevej.game.model.systems.SignalHolder;
 
-public class ModelManager {
+public class ModelManager implements AddToEngineListener, SignalHolder {
 
     private final Engine engine;
     private final Signal<Entity> signal;
@@ -35,10 +37,12 @@ public class ModelManager {
         engine.update(deltaTime);
     }
 
+    @Override
     public Signal getSignal() {
         return signal;
     }
 
+    @Override
     public void addEntityToEngine(Entity entity) {
         engine.addEntity(entity);
     }

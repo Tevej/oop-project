@@ -25,11 +25,11 @@ import main.se.tevej.game.model.utils.Resource;
 public class NaturalResourceGatheringSystem extends EntitySystem {
 
     private Engine engine;
-    private ModelManager em;
+    private SignalHolder signalHolder;
 
-    public NaturalResourceGatheringSystem(ModelManager em) {
+    public NaturalResourceGatheringSystem(SignalHolder signalHolder) {
         super();
-        this.em = em;
+        this.signalHolder = signalHolder;
     }
 
     private List<double[]> getLocationsInRadius(
@@ -71,7 +71,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             }
         } catch (NotEnoughResourcesException e) {
             tileE.add(new SignalComponent(SignalType.DELETEENTITY));
-            em.getSignal().dispatch(tileE);
+            signalHolder.getSignal().dispatch(tileE);
             System.out.println("Not enough utils left");
         }
     }
