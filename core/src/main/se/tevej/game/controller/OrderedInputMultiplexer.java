@@ -14,7 +14,7 @@ import main.se.tevej.game.view.gui.base.InputProcessorListener;
 
 //Since InputProcessor have a lot of methods, you  can't go around this.
 @SuppressWarnings("PMD.TooManyMethods")
-public class OrderedInputMultiplexer implements InputProcessor, InputProcessorListener  {
+public class OrderedInputMultiplexer implements InputProcessor, InputProcessorListener {
 
     private Map<InputProcessorType, List<InputProcessor>> processorsMap;
 

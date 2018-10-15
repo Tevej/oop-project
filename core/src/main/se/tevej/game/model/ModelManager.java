@@ -1,11 +1,14 @@
 package main.se.tevej.game.model;
 
+import java.util.List;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.ashley.SignalListener;
+import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
@@ -20,17 +23,30 @@ import main.se.tevej.game.model.systems.SignalHolder;
 
 public class ModelManager implements AddToEngineListener, SignalHolder {
 
-    private final Engine engine;
-    private final Signal<Entity> signal;
+    private Engine engine;
+    private Signal<Entity> signal;
 
     private Entity worldEntity;
     private Entity inventoryEntity;
 
+    private int worldWidth;
+    private int worldHeight;
+
     public ModelManager(int worldWidth, int worldHeight) {
+        this(worldWidth, worldHeight, null);
+    }
+
+    public ModelManager(int worldWidth, int worldHeight, List<Entity> entities) {
+        this.worldWidth = worldWidth;
+        this.worldHeight = worldHeight;
+
         engine = new Engine();
         signal = new Signal<>();
-        initSystems();
-        initStartingEntities(worldWidth, worldHeight);
+        if (entities == null) {
+            initEngineFromStart();
+        } else {
+            initEngineFromLoadedFile(entities);
+        }
     }
 
     public void update(float deltaTime) {
@@ -60,8 +76,32 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         return worldEntity;
     }
 
+    public Engine getEngine() {
+        return engine;
+    }
+
     public Entity getInventoryEntity() {
         return inventoryEntity;
+    }
+
+    private void initEngineFromStart() {
+        initSystems();
+        createWorldEntity(worldWidth, worldHeight, true);
+        createInventoryEntity();
+        createStartingHome();
+    }
+
+    private void initEngineFromLoadedFile(List<Entity> entities) {
+        initSystems();
+        createWorldEntity(worldWidth, worldHeight, false);
+
+        for (Entity entity : entities) {
+            if (entity.getComponent(InventoryComponent.class) != null) {
+                this.inventoryEntity = entity;
+            }
+
+            engine.addEntity(entity);
+        }
     }
 
     private void initSystems() {
@@ -79,17 +119,11 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         });
     }
 
-    private void initStartingEntities(int worldWidth, int worldHeight) {
-        createWorldEntity(worldWidth, worldHeight);
-        createInventoryEntity();
-        createStartingHome();
-    }
-
     private void createStartingHome() {
         Entity homeEntity;
 
         try {
-            homeEntity = new BuildingEntity(BuildingType.HOME,10,10);
+            homeEntity = new BuildingEntity(BuildingType.HOME, 10, 10);
         } catch (NoSuchBuildingException e) {
             homeEntity = new Entity();
             System.out.println("Home is gone");
@@ -103,9 +137,8 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         addEntityToEngine(inventoryEntity);
     }
 
-    private void createWorldEntity(int worldWidth, int worldHeight) {
-        worldEntity = new WorldEntity(worldWidth, worldHeight, this);
+    private void createWorldEntity(int worldWidth, int worldHeight, boolean generateResources) {
+        worldEntity = new WorldEntity(worldWidth, worldHeight, this, generateResources);
         addEntityToEngine(worldEntity);
     }
-
 }

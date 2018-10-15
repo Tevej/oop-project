@@ -97,7 +97,7 @@ public class CameraController implements OnDraggedListener, OnMouseClickedListen
 
         float screenTileXOffset = screenTileX + cameraPosX;
         float screenTileYOffset = (float) Gdx.app.getGraphics().getHeight()
-                / pixelPerTile + (cameraPosY - screenTileY);
+            / pixelPerTile + (cameraPosY - screenTileY);
         return new Vector2(screenTileXOffset, screenTileYOffset);
     }
 

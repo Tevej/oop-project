@@ -22,7 +22,8 @@ public class WorldEntity extends Entity {
     private int woodAmount = 1000;
     private int stoneAmount = 1000;
 
-    public WorldEntity(int width, int height, AddToEngineListener listener) {
+    public WorldEntity(int width, int height, AddToEngineListener listener,
+                       boolean generateResources) {
         super();
         Entity[] tiles = new Entity[width * height];
         for (int x = 0; x < width; x++) {
@@ -33,7 +34,9 @@ public class WorldEntity extends Entity {
             }
         }
         WorldComponent worldComponent = new WorldComponent(width, height, tiles);
-        generateNaturalResources(width, height, worldComponent, listener);
+        if (generateResources) {
+            generateNaturalResources(width, height, worldComponent, listener);
+        }
         this.add(worldComponent);
     }
 
