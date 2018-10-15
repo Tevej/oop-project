@@ -1,3 +1,5 @@
+package components;
+
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.utils.Resource;

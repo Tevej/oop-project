@@ -1,4 +1,4 @@
-package test.java;
+package components;
 
 import static org.junit.Assert.assertTrue;
 
@@ -7,9 +7,6 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.WorldEntity;
 import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class TestWorldComponent {
     private ModelManager modelManager = new ModelManager(100, 100);

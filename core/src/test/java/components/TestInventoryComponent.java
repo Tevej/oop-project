@@ -1,3 +1,4 @@
+package components;
 
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;

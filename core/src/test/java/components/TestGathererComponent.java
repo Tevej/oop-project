@@ -1,3 +1,5 @@
+package components;
+
 import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.exceptions.MissmatchedResourceException;
 import main.se.tevej.game.model.utils.Resource;

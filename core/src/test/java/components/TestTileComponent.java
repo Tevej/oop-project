@@ -1,3 +1,5 @@
+package components;
+
 import com.badlogic.ashley.core.Entity;
 import main.se.tevej.game.model.components.TileComponent;
 import org.junit.Test;
