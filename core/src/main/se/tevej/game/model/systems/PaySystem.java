@@ -18,9 +18,9 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
+import main.se.tevej.game.model.components.buildings.BuildingCostUtils;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.utils.BuildingCostUtils;
 import main.se.tevej.game.model.utils.Resource;
 
 public class PaySystem extends EntitySystem implements SignalListener {
