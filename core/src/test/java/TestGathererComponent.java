@@ -1,5 +1,5 @@
-import main.se.tevej.game.exceptions.MissmatchedResourceException;
 import main.se.tevej.game.model.components.buildings.GathererComponent;
+import main.se.tevej.game.model.exceptions.MissmatchedResourceException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 import org.junit.Test;
