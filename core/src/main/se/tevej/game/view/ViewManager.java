@@ -107,7 +107,6 @@ public class ViewManager {
         int worldWidth = modelManager.getWorldWidth();
         int worldHeight = modelManager.getWorldHeight();
 
-
         if (newTilesPerWidth < minTilesPerScreen || newTilesPerHeight < minTilesPerScreen) {
             float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
             float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
@@ -119,6 +118,8 @@ public class ViewManager {
         } else {
             zoomMultiplier = newMultiplier;
         }
+
+
     }
 
     public float getZoomMultiplier() {

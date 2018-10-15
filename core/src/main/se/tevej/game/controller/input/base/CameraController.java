@@ -56,34 +56,13 @@ public class CameraController implements OnDraggedListener,
         if (button == TKey.MOUSE_LEFT) {
             calculateNewPos(x, y);
 
-            if (newPosX < 0) {
-                newPosX = 0;
-            }
-            if (newPosY < 0) {
-                newPosY = 0;
-            }
-
-            float pixelPerTile = view.getPixelPerTile();
-
-            float maxX = worldWidth - ((float) Gdx.app.getGraphics().getWidth() / pixelPerTile);
-            float maxY = worldHeight - ((float) Gdx.app.getGraphics().getHeight() / pixelPerTile);
-
-            if (newPosX > maxX) {
-                newPosX = maxX;
-            }
-            if (newPosY > maxY) {
-                newPosY = maxY;
-            }
-
+            clampCameraPos();
             updateCameraPos();
-
             updatePrev(x, y);
         }
     }
 
     private void updateCameraPos() {
-        cameraPosX = newPosX;
-        cameraPosY = newPosY;
         view.setPosition(cameraPosX, cameraPosY);
     }
 
@@ -101,6 +80,7 @@ public class CameraController implements OnDraggedListener,
         float screenTileXOffset = screenTileX + cameraPosX;
         float screenTileYOffset = (float) Gdx.app.getGraphics().getHeight()
                 / pixelPerTile + (cameraPosY - screenTileY);
+
         return new Vector2(screenTileXOffset, screenTileYOffset);
     }
 
@@ -128,9 +108,43 @@ public class CameraController implements OnDraggedListener,
 
     private void zoomIn() {
         view.zoom(view.getZoomMultiplier() + zoomStep);
+        zoom();
     }
 
     private void zoomOut() {
         view.zoom(view.getZoomMultiplier() - zoomStep);
+        zoom();
+    }
+
+    private void zoom() {
+        newPosX = cameraPosX;
+        newPosY = cameraPosY;
+        clampCameraPos();
+        updateCameraPos();
+    }
+
+    private void clampCameraPos() {
+        // Make sure we cannot move outside the map.
+        if (newPosX < 0) {
+            newPosX = 0;
+        }
+        if (newPosY < 0) {
+            newPosY = 0;
+        }
+
+        float pixelPerTile = view.getPixelPerTile() * view.getZoomMultiplier();
+
+        float maxX = worldWidth - ((float) Gdx.app.getGraphics().getWidth() / pixelPerTile);
+        float maxY = worldHeight - ((float) Gdx.app.getGraphics().getHeight() / pixelPerTile);
+
+        if (newPosX > maxX) {
+            newPosX = maxX;
+        }
+        if (newPosY > maxY) {
+            newPosY = maxY;
+        }
+
+        cameraPosX = newPosX;
+        cameraPosY = newPosY;
     }
 }
