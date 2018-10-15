@@ -9,6 +9,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 
+import main.se.tevej.game.model.ModelManager;
 import com.sun.javafx.geom.Vec2f;
 
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
@@ -22,15 +23,16 @@ import main.se.tevej.game.model.components.RadiusComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.GathererComponent;
+import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
 public class NaturalResourceGatheringSystem extends EntitySystem {
 
     private Engine engine;
-    private EntityManager em;
+    private ModelManager em;
 
-    public NaturalResourceGatheringSystem(EntityManager em) {
+    public NaturalResourceGatheringSystem(ModelManager em) {
         super();
         this.em = em;
     }

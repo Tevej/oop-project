@@ -4,5 +4,6 @@ public enum BuildingType {
     HOME,
     LUMBERMILL,
     QUARRY,
-    PUMP
+    PUMP,
+    NONE
 }

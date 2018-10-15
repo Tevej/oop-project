@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.model.ashley.EntityManager;
+import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
@@ -23,7 +23,7 @@ public class WorldEntity extends Entity {
     private int woodAmount = 1000;
     private int stoneAmount = 1000;
 
-    public WorldEntity(int width, int height, EntityManager em) {
+    public WorldEntity(int width, int height, ModelManager em) {
         super();
         Entity[] tiles = new Entity[width * height];
         for (int x = 0; x < width; x++) {
@@ -49,7 +49,7 @@ public class WorldEntity extends Entity {
     }
 
     private void generateNaturalResources(int width, int height,
-                                          WorldComponent world, EntityManager em) {
+                                          WorldComponent world, ModelManager em) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 PositionComponent pos = new PositionComponent(x, y);
@@ -61,7 +61,7 @@ public class WorldEntity extends Entity {
 
     private List<Entity> generateRandomClusters(PositionComponent startPos,
                                                 List<PositionComponent> occupiedSpots,
-                                                WorldComponent world, EntityManager em) {
+                                                WorldComponent world, ModelManager em) {
         double prob = clusterSize;
         double n = Math.random();
         Resource resource = null;
