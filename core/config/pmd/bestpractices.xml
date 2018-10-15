@@ -519,7 +519,7 @@ public class MyTest2 {
 ]]>
         </example>
     </rule>
-
+<!--
     <rule name="JUnit4TestShouldUseTestAnnotation"
           language="java"
           since="4.0"
@@ -567,7 +567,7 @@ public class MyTest {
 ]]>
         </example>
     </rule>
-
+-->
 <!--
     <rule name="JUnitAssertionsShouldIncludeMessage"
           since="1.04"
