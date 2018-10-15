@@ -2,7 +2,7 @@ package test.java;
 
 import static org.junit.Assert.assertTrue;
 
-import main.se.tevej.game.model.ashley.EntityManager;
+import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.WorldEntity;
@@ -10,8 +10,8 @@ import org.junit.Test;
 
 
 public class TestWorldComponent {
-    private EntityManager entityManager = new EntityManager();
-    private WorldComponent worldEntity = new WorldEntity(34, 23, entityManager).getComponent(WorldComponent.class);
+    private ModelManager modelManager = new ModelManager(100, 100);
+    private WorldComponent worldEntity = new WorldEntity(34, 23, modelManager).getComponent(WorldComponent.class);
 
     public TestWorldComponent() {
         super();

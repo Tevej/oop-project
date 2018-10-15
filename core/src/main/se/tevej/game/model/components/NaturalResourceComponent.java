@@ -2,7 +2,7 @@ package main.se.tevej.game.model.components;
 
 import com.badlogic.ashley.core.Component;
 
-import main.se.tevej.game.exceptions.NotEnoughResourcesException;
+import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
