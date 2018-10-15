@@ -9,6 +9,7 @@ import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.BuildingEntity;
+import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
@@ -79,7 +80,7 @@ public class ModelManager {
 
     private void initStartingEntities(int worldWidth, int worldHeight) {
         worldEntity = createWorldEntity(worldWidth, worldHeight);
-        inventoryEntity = createInventoryEntity();
+        inventoryEntity = new InventoryEntity();
         createStartingHome();
 
 
@@ -96,18 +97,8 @@ public class ModelManager {
             homeEntity = new Entity();
             System.out.println("Home is gone");
         }
-        
-        addEntityToEngine(homeEntity);
-    }
 
-    private Entity createInventoryEntity() {
-        Entity inventoryEntity = new Entity();
-        InventoryComponent inventoryC = new InventoryComponent();
-        inventoryEntity.add(inventoryC);
-        inventoryC.addResource(new Resource(1000, ResourceType.WOOD));
-        inventoryC.addResource(new Resource(1000, ResourceType.WATER));
-        inventoryC.addResource(new Resource(1000, ResourceType.STONE));
-        return inventoryEntity;
+        addEntityToEngine(homeEntity);
     }
 
     private Entity createWorldEntity(int worldWidth, int worldHeight) {
