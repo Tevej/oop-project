@@ -2,7 +2,7 @@ package main.se.tevej.game.model.components.buildings;
 
 import com.badlogic.ashley.core.Component;
 
-import main.se.tevej.game.exceptions.MissmatchedResourceException;
+import main.se.tevej.game.model.exceptions.MissmatchedResourceException;
 import main.se.tevej.game.model.utils.Resource;
 
 public class GathererComponent implements Component {

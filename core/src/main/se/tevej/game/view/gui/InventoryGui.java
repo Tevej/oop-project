@@ -8,41 +8,41 @@ import com.badlogic.gdx.Gdx;
 
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.utils.ResourceType;
-import main.se.tevej.game.view.rendering.RenderingFactory;
-import main.se.tevej.game.view.rendering.ui.TTable;
+import main.se.tevej.game.view.gui.base.GuiFactory;
+import main.se.tevej.game.view.gui.base.TTable;
 
 public class InventoryGui {
     private Entity inventoryEntity;
     private TTable inventoryTable;
-    private RenderingFactory renderingFactory;
+    private GuiFactory guiFactory;
     private List<InventoryElement> inventoryElements;
 
-    public InventoryGui(RenderingFactory renderingFactory, Entity inventoryEntity) {
+    public InventoryGui(GuiFactory guiFactory, Entity inventoryEntity) {
         this.inventoryEntity = inventoryEntity;
-        this.renderingFactory = renderingFactory;
+        this.guiFactory = guiFactory;
         create();
     }
 
     private void create() {
         inventoryElements = new LinkedList<>();
-        inventoryElements.add(new InventoryElement(renderingFactory,
-                findAmountOfResource(ResourceType.WOOD),
-                "naturalResources/wood.jpg", ResourceType.WOOD));
-        inventoryElements.add(new InventoryElement(renderingFactory,
-                findAmountOfResource(ResourceType.WATER),
-                "naturalResources/water.jpg", ResourceType.WATER));
-        inventoryElements.add(new InventoryElement(renderingFactory,
-                findAmountOfResource(ResourceType.STONE),
-                "naturalResources/stone.jpg", ResourceType.STONE));
-        inventoryElements.add(new InventoryElement(renderingFactory,
-                findAmountOfResource(ResourceType.FOOD),
-                "food.png", ResourceType.FOOD));
-        inventoryElements.add(new InventoryElement(renderingFactory,
-                findAmountOfResource(ResourceType.POPULATION),
-                "population.png", ResourceType.POPULATION));
+        inventoryElements.add(new InventoryElement(guiFactory,
+            findAmountOfResource(ResourceType.WOOD),
+            "naturalResources/wood.jpg", ResourceType.WOOD));
+        inventoryElements.add(new InventoryElement(guiFactory,
+            findAmountOfResource(ResourceType.WATER),
+            "naturalResources/water.jpg", ResourceType.WATER));
+        inventoryElements.add(new InventoryElement(guiFactory,
+            findAmountOfResource(ResourceType.STONE),
+            "naturalResources/stone.jpg", ResourceType.STONE));
+        inventoryElements.add(new InventoryElement(guiFactory,
+            findAmountOfResource(ResourceType.FOOD),
+            "food.png", ResourceType.FOOD));
+        inventoryElements.add(new InventoryElement(guiFactory,
+            findAmountOfResource(ResourceType.POPULATION),
+            "population.png", ResourceType.POPULATION));
 
         int tableHeight = 32;
-        inventoryTable = renderingFactory.createTable()
+        inventoryTable = guiFactory.createTable()
             .positionX(Gdx.graphics.getWidth() / 2f)
             .positionY(Gdx.graphics.getHeight() - tableHeight / 2f)
             .grid(inventoryElements.size() * 2, 1)
