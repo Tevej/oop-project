@@ -12,7 +12,8 @@ import com.google.gson.JsonSerializer;
 
 public class EntitySerializer implements JsonSerializer<Entity> {
 
-    public EntitySerializer() { }
+    public EntitySerializer() {
+    }
 
     @Override
     public JsonElement serialize(Entity entity, Type typeOfSrc, JsonSerializationContext context) {

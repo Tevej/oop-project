@@ -11,14 +11,16 @@ import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;
 
-public class GameManager extends ApplicationAdapter {
+public class GameManager extends ApplicationAdapter implements OnTimeChangeListener {
 
     private ModelManager model;
     private ViewManager view;
     private GameIo gameIo;
+    private float timeMultiplier;
 
     public GameManager() {
         super();
+        timeMultiplier = 1f;
     }
 
     @Override
@@ -42,12 +44,12 @@ public class GameManager extends ApplicationAdapter {
 
         OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
         view = new ViewManager(model, inputMultiplexer);
-        new ControllerManager(view, model, worldWidth, worldHeight, inputMultiplexer);
+        new ControllerManager(view, model, worldWidth, worldHeight, inputMultiplexer, this);
     }
 
     @Override
     public void render() {
-        float deltaTime = Gdx.graphics.getDeltaTime();
+        float deltaTime = Gdx.graphics.getDeltaTime() * timeMultiplier;
 
         model.update(deltaTime);
         view.update(deltaTime);
@@ -60,5 +62,10 @@ public class GameManager extends ApplicationAdapter {
         } catch (IOException e) {
             System.out.println("Saving didn't work");
         }
+    }
+
+    @Override
+    public void updateTimeMultipler(float newMultiplier) {
+        timeMultiplier = newMultiplier;
     }
 }

@@ -9,7 +9,7 @@ public class HomeComponent implements Component {
     private Resource population;
 
     public HomeComponent() {
-        population = new Resource(0, ResourceType.POPULATION);
+        population = new Resource(5, ResourceType.POPULATION);
     }
 
     public double getCurrentPopulation() {

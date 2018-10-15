@@ -25,7 +25,8 @@ public class GameIo {
 
     private static final String WORLD_FILE = "world.json";
 
-    public GameIo() { }
+    public GameIo() {
+    }
 
     public List<Entity> load() throws IOException {
         List<Entity> entities = new ArrayList<>();

@@ -15,7 +15,8 @@ import com.google.gson.JsonParseException;
 
 public class EntityDeserializer implements JsonDeserializer<Entity> {
 
-    public EntityDeserializer() { }
+    public EntityDeserializer() {
+    }
 
     @Override
     public Entity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
