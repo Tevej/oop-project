@@ -1,9 +1,11 @@
 package main.se.tevej.game.io;
 
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +25,14 @@ public class GameIo {
 
     private static final String WORLD_FILE = "world.json";
 
+    public GameIo() { }
+
     public List<Entity> load() throws IOException {
         List<Entity> entities = new ArrayList<>();
         Gson gson = createGson();
-        JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(WORLD_FILE), "UTF-8"));
+        JsonReader reader = new JsonReader(
+            new InputStreamReader(new FileInputStream(WORLD_FILE), StandardCharsets.UTF_8)
+        );
         reader.beginArray();
         while (reader.hasNext()) {
             entities.add(gson.fromJson(reader, Entity.class));
@@ -39,7 +45,9 @@ public class GameIo {
     public void save(ModelManager modelManager) throws IOException {
         Gson gson = createGson();
 
-        JsonWriter writer = new JsonWriter(new FileWriter(WORLD_FILE));
+        JsonWriter writer = new JsonWriter(
+            new OutputStreamWriter(new FileOutputStream(WORLD_FILE), StandardCharsets.UTF_8)
+        );
         writer.setIndent("  ");
         writer.beginArray();
         for (Entity entity : modelManager.getEngine().getEntities()) {

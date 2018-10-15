@@ -34,10 +34,10 @@ public class GameManager extends ApplicationAdapter {
             System.out.println("No world created, generating new...");
         }
 
-        if (entities != null && !entities.isEmpty()) {
-            model = new ModelManager(worldWidth, worldHeight, entities);
-        } else {
+        if (entities == null || entities.isEmpty()) {
             model = new ModelManager(worldWidth, worldHeight);
+        } else {
+            model = new ModelManager(worldWidth, worldHeight, entities);
         }
 
         OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
@@ -58,7 +58,7 @@ public class GameManager extends ApplicationAdapter {
         try {
             gameIo.save(model);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Saving didn't work");
         }
     }
 }

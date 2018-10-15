@@ -14,6 +14,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 public class EntityDeserializer implements JsonDeserializer<Entity> {
+
+    public EntityDeserializer() { }
+
     @Override
     public Entity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
         throws JsonParseException {
@@ -26,7 +29,9 @@ public class EntityDeserializer implements JsonDeserializer<Entity> {
                     entry.getValue(), Class.forName(entry.getKey())
                 ));
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                System.out.println(
+                    "Error trying to find the class: " + entry.getKey() + " in EntityDeserializer"
+                );
             }
         }
         Entity entity = new Entity();

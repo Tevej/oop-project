@@ -59,7 +59,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     }
 
     @Override
-    public void addEntityToEngine(Entity entity) {
+    public final void addEntityToEngine(Entity entity) {
         engine.addEntity(entity);
     }
 
