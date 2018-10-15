@@ -11,7 +11,6 @@ import com.badlogic.ashley.utils.ImmutableArray;
 
 import com.sun.javafx.geom.Vec2f;
 
-import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.InventoryComponent;
@@ -52,7 +51,6 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             naturalResourceC.extractResource(gatheredResource);
             inventory.addResource(gatheredResource);
         } catch (NotEnoughResourcesException e) {
-
             // Extracts the resource left and deletes entity
             Resource remainingResource = naturalResourceC.getResource();
             inventory.addResource(remainingResource);
@@ -80,29 +78,23 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
                 || y >= maxHeight;
     }
 
-    // Returns false if all of the following are true:
-    // the location is in the world bounds,
-    // the location has an occupier,
-    // the occupier of the location is not null,
-    // the occupier of the location has the same ResourceType as the gatherer
-    private boolean isValidLocation(Vec2f location, Entity gatherer, WorldComponent world) {
-
+    // Returns true if all of the following are true:
+    // the location is out of world bounds,
+    // the location has no occupier,
+    // the occupier of the location is null,
+    // the occupier of the location has another ResourceType than the gatherer
+    private boolean isInvalidLocation(Vec2f location, Entity gatherer, WorldComponent world) {
+        boolean result = true;
         ResourceType gatherType = gatherer.getComponent(GathererComponent.class)
                 .getResourcePerSecond().getType();
-
-        if (isOutOfBounds((int)location.x, (int)location.y,
+        if (!isOutOfBounds((int) location.x, (int) location.y,
                 world.getWidth(), world.getHeight())) {
-            return true;
-        }
-
-        Entity occupier = getOccupierAtLocation(world, location);
-        if (occupier == null
+            Entity occupier = getOccupierAtLocation(world, location);
+            result = occupier == null
                 || occupier.getComponent(NaturalResourceComponent.class) == null
-                || occupier.getComponent(NaturalResourceComponent.class).getType() != gatherType) {
-            return true;
+                || occupier.getComponent(NaturalResourceComponent.class).getType() != gatherType;
         }
-        return false;
-
+        return result;
     }
 
     // Returns the location of the nearest location to the gatherer
@@ -129,7 +121,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++) {
                 Vec2f loc = new Vec2f(i + gathererPosition.getX(), j + gathererPosition.getY());
-                if (isValidLocation(loc, gatherer, world)) {
+                if (isInvalidLocation(loc, gatherer, world)) {
                     continue;
                 }
                 locations.add(loc);
@@ -143,15 +135,16 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
                         WorldComponent world,
                         InventoryComponent inventory,
                         float deltaTime) {
-        // Saves variables
-        PositionComponent positionC = gatherer.getComponent(PositionComponent.class);
-        GathererComponent gatherC = gatherer.getComponent(GathererComponent.class);
-        int radius = gatherer.getComponent(RadiusComponent.class).getRadius();
 
+        int radius = gatherer.getComponent(RadiusComponent.class).getRadius();
         List<Vec2f> locations = getLocationsInRadius(radius, gatherer, world);
-        if (locations.size() == 0) {
+        if (locations.isEmpty()) {
             return;
         }
+
+        PositionComponent positionC = gatherer.getComponent(PositionComponent.class);
+        GathererComponent gatherC = gatherer.getComponent(GathererComponent.class);
+
         Vec2f nearest = nearestLocation(positionC, locations);
         float distance = nearest.distance(positionC.getX(), positionC.getY());
 
