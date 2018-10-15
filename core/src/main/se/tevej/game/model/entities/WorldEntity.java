@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
@@ -23,18 +22,18 @@ public class WorldEntity extends Entity {
     private int woodAmount = 1000;
     private int stoneAmount = 1000;
 
-    public WorldEntity(int width, int height, ModelManager em) {
+    public WorldEntity(int width, int height, AddToEngineListener listener) {
         super();
         Entity[] tiles = new Entity[width * height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Entity tile = new TileEntity(x, y);
                 tiles[x + y * width] = tile;
-                em.addEntityToEngine(tile);
+                listener.addEntityToEngine(tile);
             }
         }
         WorldComponent worldComponent = new WorldComponent(width, height, tiles);
-        generateNaturalResources(width, height, worldComponent, em);
+        generateNaturalResources(width, height, worldComponent, listener);
         this.add(worldComponent);
     }
 
@@ -49,11 +48,13 @@ public class WorldEntity extends Entity {
     }
 
     private void generateNaturalResources(int width, int height,
-                                          WorldComponent world, ModelManager em) {
+                                          WorldComponent world, AddToEngineListener listener) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 PositionComponent pos = new PositionComponent(x, y);
-                List<Entity> clusters = generateRandomClusters(pos, new ArrayList<>(), world, em);
+                List<Entity> clusters = generateRandomClusters(
+                    pos, new ArrayList<>(), world, listener
+                );
                 occupyTilesInCluster(clusters, world);
             }
         }
@@ -61,7 +62,8 @@ public class WorldEntity extends Entity {
 
     private List<Entity> generateRandomClusters(PositionComponent startPos,
                                                 List<PositionComponent> occupiedSpots,
-                                                WorldComponent world, ModelManager em) {
+                                                WorldComponent world,
+                                                AddToEngineListener listener) {
         double prob = clusterSize;
         double n = Math.random();
         Resource resource = null;
@@ -81,7 +83,7 @@ public class WorldEntity extends Entity {
             Entity resourceEntity =
                 new NaturalResourceEntity(loc.getX(), loc.getY(), resource);
             nrelist.add(resourceEntity);
-            em.addEntityToEngine(resourceEntity);
+            listener.addEntityToEngine(resourceEntity);
         }
         return nrelist;
     }

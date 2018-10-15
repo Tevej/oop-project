@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.utils;
+package main.se.tevej.game.model.components.buildings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.utils.ResourceType;
 
 public final class BuildingCostUtils {
 
