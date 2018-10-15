@@ -1,27 +1,30 @@
-package main.se.tevej.game.controller.input;
+package main.se.tevej.game.controller;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Vector2;
 
+import main.se.tevej.game.controller.input.CameraController;
+import main.se.tevej.game.controller.input.TKeyBoard;
+import main.se.tevej.game.controller.input.TMouse;
 import main.se.tevej.game.controller.input.enums.TKey;
 import main.se.tevej.game.controller.input.listeners.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.listeners.OnMovedListener;
 import main.se.tevej.game.controller.input.listeners.OnTappedListener;
-import main.se.tevej.game.model.ashley.EntityManager;
+import main.se.tevej.game.model.ashley.ModelManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.view.EntityViewManager;
 import main.se.tevej.game.view.SelectedBuildingRenderer;
-import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gui.OnBuildingSelectedToBuild;
 
 public class ConstructionController implements OnTappedListener,
     OnMovedListener, OnMouseClickedListener, OnBuildingSelectedToBuild {
 
-    private EntityManager em;
+    private ModelManager em;
     private Entity worldEntity;
     private int mouseX = 0;
     private int mouseY = 0;
@@ -30,7 +33,7 @@ public class ConstructionController implements OnTappedListener,
     private BuildingType selectedBuilding;
     private SelectedBuildingRenderer buildingRenderer;
 
-    public ConstructionController(EntityManager em, Entity worldEntity,
+    public ConstructionController(ModelManager em, Entity worldEntity,
                                   CameraController camera, TKeyBoard keyboard, TMouse mouse,
                                   SelectedBuildingRenderer buildingRenderer) {
         buildingSelected = false;
@@ -63,9 +66,7 @@ public class ConstructionController implements OnTappedListener,
 
     @Override
     public void onClicked(TMouse mouse, TKey button) {
-        System.out.println("Hej");
         if (button == TKey.MOUSE_LEFT) {
-            System.out.println(button);
             buildConstruction();
         }
     }
@@ -82,8 +83,8 @@ public class ConstructionController implements OnTappedListener,
         mouseX = (int) v2.x;
         mouseY = (int) v2.y;
         buildingRenderer.setPosition(
-            (mouseX - camera.getCameraPosX()) * ViewManager.PIXEL_PER_TILE,
-            (mouseY - camera.getCameraPosY()) * ViewManager.PIXEL_PER_TILE);
+            (mouseX - camera.getCameraPosX()) * EntityViewManager.PIXEL_PER_TILE,
+            (mouseY - camera.getCameraPosY()) * EntityViewManager.PIXEL_PER_TILE);
     }
 
     @Override

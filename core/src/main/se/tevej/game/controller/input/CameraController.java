@@ -1,6 +1,6 @@
 package main.se.tevej.game.controller.input;
 
-import static main.se.tevej.game.view.ViewManager.PIXEL_PER_TILE;
+import static main.se.tevej.game.view.EntityViewManager.PIXEL_PER_TILE;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -102,7 +102,7 @@ public class CameraController implements OnDraggedListener, OnMouseClickedListen
         float screenTileY = screenY / PIXEL_PER_TILE;
 
         float screenTileXOffset = screenTileX + cameraPosX;
-        float screenTileYOffset = (float)Gdx.app.getGraphics().getHeight()
+        float screenTileYOffset = (float) Gdx.app.getGraphics().getHeight()
             / (float) PIXEL_PER_TILE + (cameraPosY - screenTileY);
         return new Vector2(screenTileXOffset, screenTileYOffset);
     }

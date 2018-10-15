@@ -88,8 +88,6 @@ public class TableLibgdxAdapter extends Table implements TTable {
             }
         }
 
-        //TODO Throw exception instead
-        System.out.println("[WARN]: Table is full");
         return cell;
     }
 

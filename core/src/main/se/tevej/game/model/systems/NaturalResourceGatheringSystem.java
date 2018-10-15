@@ -10,7 +10,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 
 import main.se.tevej.game.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.ashley.EntityManager;
+import main.se.tevej.game.model.ashley.ModelManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.InventoryComponent;
@@ -25,9 +25,9 @@ import main.se.tevej.game.model.utils.Resource;
 public class NaturalResourceGatheringSystem extends EntitySystem {
 
     private Engine engine;
-    private EntityManager em;
+    private ModelManager em;
 
-    public NaturalResourceGatheringSystem(EntityManager em) {
+    public NaturalResourceGatheringSystem(ModelManager em) {
         super();
         this.em = em;
     }
