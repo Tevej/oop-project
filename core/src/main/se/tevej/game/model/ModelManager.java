@@ -7,7 +7,10 @@ import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
+import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
@@ -77,9 +80,24 @@ public class ModelManager {
     private void initStartingEntities(int worldWidth, int worldHeight) {
         worldEntity = createWorldEntity(worldWidth, worldHeight);
         inventoryEntity = createInventoryEntity();
+        Entity homeEntity = createStartingHome();
+
 
         addEntityToEngine(worldEntity);
         addEntityToEngine(inventoryEntity);
+        addEntityToEngine(homeEntity);
+    }
+
+    private Entity createStartingHome() {
+        Entity homeEntity;
+
+        try {
+            homeEntity = new BuildingEntity(BuildingType.HOME,10,10);
+        } catch (NoSuchBuildingException e) {
+            homeEntity = new Entity();
+            System.out.println("Home is gone");
+        }
+        return homeEntity;
     }
 
     private Entity createInventoryEntity() {
