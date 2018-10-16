@@ -4,10 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import main.se.tevej.game.model.ModelManager;
+import main.se.tevej.game.view.gamerendering.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
-import main.se.tevej.game.view.gamerendering.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
@@ -21,15 +22,21 @@ public class ViewManager {
     private GameRenderingFactory renderingFactory;
     private GuiFactory guiFactory;
 
-    private EntityViewManager entityViewManager;
+    private TBatchRenderer batchRenderer;
 
+    private EntityViewManager entityViewManager;
     private SelectedBuildingRenderer selectedRenderer;
 
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
 
-    private final float minTilesPerScreen = 5;
-    private final float pixelPerTile = 32f;
+    //Min tiles for screen
+    private static final float MIN_TILES = 5;
+    private static final float PIXELS_PER_TILES = 32f;
+
+    // The current camera positions in world coordinates.
+    private float currCameraPosX;
+    private float currCameraPosY;
 
     private float zoomMultiplier;
 
@@ -48,7 +55,8 @@ public class ViewManager {
     }
 
     public void setPosition(float cameraPosX, float cameraPosY) {
-        entityViewManager.setPosition(cameraPosX, cameraPosY);
+        this.currCameraPosX = cameraPosX;
+        this.currCameraPosY = cameraPosY;
     }
 
     public SelectedBuildingRenderer getSelectedBuildingRenderer() {
@@ -60,8 +68,14 @@ public class ViewManager {
     }
 
     private void renderGameRendering() {
-        entityViewManager.render(pixelPerTile * zoomMultiplier);
-        selectedRenderer.render();
+        batchRenderer.beginRendering();
+        entityViewManager.render(
+            batchRenderer, currCameraPosX, currCameraPosY, PIXELS_PER_TILES * zoomMultiplier
+        );
+        selectedRenderer.render(
+            batchRenderer, PIXELS_PER_TILES * zoomMultiplier
+        );
+        batchRenderer.endRendering();
     }
 
     private void renderGui(float deltaTime) {
@@ -82,6 +96,8 @@ public class ViewManager {
     }
 
     private void initRenders() {
+        batchRenderer = renderingFactory.createBatchRenderer();
+
         entityViewManager = new EntityViewManager(modelManager, renderingFactory);
         selectedRenderer = new SelectedBuildingRenderer(renderingFactory);
         buildingGui.addSelectedListener(selectedRenderer);
@@ -93,7 +109,7 @@ public class ViewManager {
     }
 
     public float getPixelPerTile() {
-        return pixelPerTile;
+        return PIXELS_PER_TILES;
     }
 
     // Number of pixels to zoom
@@ -101,19 +117,19 @@ public class ViewManager {
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
 
-        float newTilesPerWidth = screenWidth / (newMultiplier * pixelPerTile);
-        float newTilesPerHeight = screenHeight / (newMultiplier * pixelPerTile);
+        float newTilesPerWidth = screenWidth / (newMultiplier * PIXELS_PER_TILES);
+        float newTilesPerHeight = screenHeight / (newMultiplier * PIXELS_PER_TILES);
 
         int worldWidth = modelManager.getWorldWidth();
         int worldHeight = modelManager.getWorldHeight();
 
-        if (newTilesPerWidth < minTilesPerScreen || newTilesPerHeight < minTilesPerScreen) {
-            float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
-            float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
+        if (newTilesPerWidth < MIN_TILES || newTilesPerHeight < MIN_TILES) {
+            float maxWidthZoomMp = screenWidth / (MIN_TILES * PIXELS_PER_TILES);
+            float maxHeightZoomMp = screenHeight / (MIN_TILES * PIXELS_PER_TILES);
             zoomMultiplier = Math.min(maxWidthZoomMp, maxHeightZoomMp);
         } else if (newTilesPerWidth > worldWidth || newTilesPerHeight > worldHeight) {
-            float minWidthZoomMp = screenWidth / (worldWidth * pixelPerTile);
-            float minHeightZoomMp = screenHeight / (worldHeight * pixelPerTile);
+            float minWidthZoomMp = screenWidth / (worldWidth * PIXELS_PER_TILES);
+            float minHeightZoomMp = screenHeight / (worldHeight * PIXELS_PER_TILES);
             zoomMultiplier = Math.max(minWidthZoomMp, minHeightZoomMp);
         } else {
             zoomMultiplier = newMultiplier;
@@ -125,4 +141,5 @@ public class ViewManager {
     public float getZoomMultiplier() {
         return zoomMultiplier;
     }
+
 }

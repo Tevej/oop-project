@@ -81,13 +81,16 @@ public class ConstructionController implements OnTappedListener,
 
     @Override
     public void onMoved(TMouse mouse) {
+        float zoom = view.getZoomMultiplier();
         Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
         mouseX = (int) v2.x;
         mouseY = (int) v2.y;
         float pixelPerTile = view.getPixelPerTile();
+
         buildingRenderer.setPosition(
-            (mouseX - camera.getCameraPosX()) * pixelPerTile,
-            (mouseY - camera.getCameraPosY()) * pixelPerTile);
+            (mouseX - camera.getCameraPosX()) * (pixelPerTile * zoom),
+            (mouseY - camera.getCameraPosY()) * (pixelPerTile * zoom)
+        );
     }
 
     @Override

@@ -20,7 +20,7 @@ public class CameraController implements OnDraggedListener,
     private float cameraPosY;
     private int worldWidth;
     private int worldHeight;
-    private final float zoomStep = 0.1f;
+    private static final float ZOOM_STEP = 0.1f;
 
     public CameraController(ViewManager view, float startX, float startY, TMouse mouse,
                             TKeyBoard keyboard, int worldWidth, int worldHeight) {
@@ -74,12 +74,13 @@ public class CameraController implements OnDraggedListener,
 
     public Vector2 getScreenToWorldCoord(float screenX, float screenY) {
         float pixelPerTile = view.getPixelPerTile();
-        float screenTileX = screenX / pixelPerTile;
-        float screenTileY = screenY / pixelPerTile;
+        float zoom = view.getZoomMultiplier();
+        float screenTileX = screenX / (pixelPerTile * zoom);
+        float screenTileY = screenY / (pixelPerTile * zoom);
 
         float screenTileXOffset = screenTileX + cameraPosX;
         float screenTileYOffset = (float) Gdx.app.getGraphics().getHeight()
-                / pixelPerTile + (cameraPosY - screenTileY);
+            / (pixelPerTile * zoom) + (cameraPosY - screenTileY);
 
         return new Vector2(screenTileXOffset, screenTileYOffset);
     }
@@ -107,12 +108,12 @@ public class CameraController implements OnDraggedListener,
     }
 
     private void zoomIn() {
-        view.zoom(view.getZoomMultiplier() + zoomStep);
+        view.zoom(view.getZoomMultiplier() + ZOOM_STEP);
         zoom();
     }
 
     private void zoomOut() {
-        view.zoom(view.getZoomMultiplier() - zoomStep);
+        view.zoom(view.getZoomMultiplier() - ZOOM_STEP);
         zoom();
     }
 
@@ -146,5 +147,9 @@ public class CameraController implements OnDraggedListener,
 
         cameraPosX = newPosX;
         cameraPosY = newPosY;
+    }
+
+    public float getZoom() {
+        return ZOOM_STEP;
     }
 }

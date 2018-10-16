@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.view.gamerendering.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.TTexture;
@@ -12,7 +11,6 @@ import main.se.tevej.game.view.gamerendering.base.TTexture;
 public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
 
     private final Map<BuildingType, TTexture> textureMap;
-    private final TBatchRenderer batchRenderer;
 
     private BuildingType selectedBuilding;
     private float positionX;
@@ -39,19 +37,14 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
             BuildingType.PUMP,
             renderingFactory.createTexture("buildings/pump.png")
         );
-
-        batchRenderer = renderingFactory.createBatchRenderer();
     }
 
-    public void render() {
+    public void render(TBatchRenderer batchRenderer, float pixelPerTile) {
         if (selectedBuilding != null && selectedBuilding != BuildingType.NONE) {
-            batchRenderer.beginRendering();
-            batchRenderer.renderTexture(
-                this.textureMap.get(selectedBuilding),
-                positionX,
-                positionY
-            );
-            batchRenderer.endRendering();
+            TTexture texture = this.textureMap.get(selectedBuilding);
+            batchRenderer.renderTexture(texture, positionX,
+                positionY, pixelPerTile,
+                pixelPerTile);
         }
     }
 
