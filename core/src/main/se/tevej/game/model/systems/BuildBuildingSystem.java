@@ -65,6 +65,7 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
         } catch (NoSuchBuildingException e) {
             return;
         }
+
         engine.addEntity(building);
         tileC.occupy(building);
     }

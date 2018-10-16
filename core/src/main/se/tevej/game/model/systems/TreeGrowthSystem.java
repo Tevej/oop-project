@@ -9,23 +9,34 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.sun.webkit.dom.EntityImpl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
+import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
-import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.utils.ResourceType;
 
 public class TreeGrowthSystem extends EntitySystem {
     private Engine engine;
+    private SignalHolder signalHolder;
+
     // The number of trees to spawn
-    private final double treeSpawnRate = 1 / 2500;
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
+    private final double treeSpawnRate = 1.0 / (25 * 2 * 1000);
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
     private final float treeSpawnTime = 1f;
     private float treeSpawnProgress;
 
-    public TreeGrowthSystem() {
+    public TreeGrowthSystem(SignalHolder signalHolder) {
         super();
+        this.signalHolder = signalHolder;
     }
 
     @Override
@@ -41,9 +52,15 @@ public class TreeGrowthSystem extends EntitySystem {
             List<Entity> availableTiles = getAvailableTreeSpawnLocations(getTreeEntities());
 
             Random rand = new Random();
+            PositionComponent posC;
             for (Entity entity : availableTiles) {
+                posC = entity.getComponent(PositionComponent.class);
                 if (rand.nextFloat() <= treeSpawnRate) {
-                    // Call a spawnNaturalResourceSystem or something
+                    System.out.println("Tree grew at " + posC.getX() + ", " + posC.getY());
+
+                    Entity signalEntity = SpawnNaturalResourceSystem.getSignalEntity(
+                        ResourceType.WOOD, 1000, posC.getX(), posC.getY());
+                    signalHolder.getSignal().dispatch(signalEntity);
                 }
             }
 
@@ -84,7 +101,7 @@ public class TreeGrowthSystem extends EntitySystem {
     }
 
     private List<Entity> getAvailableNeighbours(Entity treeE) {
-        List<Entity> availableNeighbours = new ArrayList<>();
+        List<Entity> availableTiles = new ArrayList<>();
 
         Entity worldE = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first();
         WorldComponent worldC = worldE.getComponent(WorldComponent.class);
@@ -92,11 +109,15 @@ public class TreeGrowthSystem extends EntitySystem {
         Entity[] treeNeighbours = worldC.getTileNeighbours(treeE, true);
 
         for (Entity neighbour : treeNeighbours) {
+            if (neighbour == null) {
+                continue;
+            }
+
             tileC = neighbour.getComponent(TileComponent.class);
             if (tileC.isOccupied() == false) {
-                availableNeighbours.add(neighbour);
+                availableTiles.add(neighbour);
             }
         }
-        return availableNeighbours;
+        return availableTiles;
     }
 }
