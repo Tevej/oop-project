@@ -25,8 +25,8 @@ import main.se.tevej.game.model.systems.SignalHolder;
 
 public class ModelManager implements AddToEngineListener, SignalHolder {
 
-    private Engine engine;
-    private Signal<Entity> signal;
+    private final Engine engine;
+    private final Signal<Entity> signal;
 
     private int worldWidth;
     private int worldHeight;
