@@ -52,14 +52,17 @@ public class TestDeleteEntitySystem {
             public void addEntityToEngine(Entity entity) {
             }
         });
+        // Add world to engine
+        WorldComponent worldC = worldEntity.getComponent(WorldComponent.class);
+        engine.addEntity(worldEntity);
 
+        // Add building to engine
         Entity entity = new Entity();
         BuildingComponent buildingC = new BuildingComponent(BuildingType.LUMBERMILL);
         entity.add(buildingC);
         PositionComponent positionC = worldEntity.getComponent(WorldComponent.class)
             .getTileAt(2, 3).getComponent(PositionComponent.class);
         entity.add(positionC);
-        WorldComponent worldC = worldEntity.getComponent(WorldComponent.class);
         entity.add(worldC);
         SignalComponent signalC = new SignalComponent(SignalType.BUILDBUILDING);
         entity.add(signalC);
@@ -71,38 +74,23 @@ public class TestDeleteEntitySystem {
         Entity buildingE = engine.getEntitiesFor(Family.one(BuildingComponent.class).get()).first();
         assertNotNull(buildingE);
 
-
-        assertEquals(engine.getEntities().size(), 1);
-
-
-        Entity entity1 = new Entity();
-        BuildingComponent buildingC1 = new BuildingComponent(BuildingType.LUMBERMILL);
-        entity.add(buildingC1);
-        PositionComponent positionC1 = worldEntity.getComponent(WorldComponent.class)
-            .getTileAt(3, 4).getComponent(PositionComponent.class);
-        entity.add(positionC1);
-        entity.add(worldC);
-        SignalComponent signalC1 = new SignalComponent(SignalType.BUILDBUILDING);
-        entity.add(signalC1);
-        signal.dispatch(entity1);
-
-
-        assertEquals(engine.getEntities().size(), 2);
-
+        // se att både world och building finns
+        assertEquals(2, engine.getEntities().size());
 
         //se att tile har building
         TileComponent tileC = worldC.getTileAt(2,3).getComponent(TileComponent.class);
         assertEquals(tileC.getOccupier(), buildingE);
         assertNotNull(tileC.getOccupier());
 
-        //delete entity
+        //----------------delete entity---------------
         buildingE.add(new SignalComponent(SignalType.DELETEENTITY));
         signal.dispatch(buildingE);
 
-        //Check if deleted from system correctly
+        // se att tile inte har någon byggnad
         assertNull(tileC.getOccupier());
 
-        assertEquals( engine.getEntities().size(), 1);
+        // se att det nu bara finns en entity
+        assertEquals(1,  engine.getEntities().size());
 
     }
 }
