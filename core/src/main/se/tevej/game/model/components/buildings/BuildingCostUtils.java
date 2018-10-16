@@ -15,18 +15,18 @@ public final class BuildingCostUtils {
 
     static {
         BUILDING_COST.put(BuildingType.HOME, new ArrayList<>(Arrays.asList(
-            new Resource(100, ResourceType.WOOD),
-            new Resource(100, ResourceType.WATER))));
-        BUILDING_COST.put(BuildingType.LUMBERMILL, new ArrayList<>(Arrays.asList(
-            new Resource(300, ResourceType.WOOD),
-            new Resource(200, ResourceType.STONE))));
-        BUILDING_COST.put(BuildingType.QUARRY, new ArrayList<>(Arrays.asList(
-            new Resource(100, ResourceType.WOOD),
             new Resource(100, ResourceType.WATER),
-            new Resource(200, ResourceType.STONE))));
+            new Resource(100, ResourceType.WOOD))));
+        BUILDING_COST.put(BuildingType.LUMBERMILL, new ArrayList<>(Arrays.asList(
+            new Resource(200, ResourceType.STONE),
+            new Resource(300, ResourceType.WOOD))));
+        BUILDING_COST.put(BuildingType.QUARRY, new ArrayList<>(Arrays.asList(
+            new Resource(200, ResourceType.STONE),
+            new Resource(100, ResourceType.WATER),
+            new Resource(100, ResourceType.WOOD))));
         BUILDING_COST.put(BuildingType.PUMP, new ArrayList<>(Arrays.asList(
-            new Resource(100, ResourceType.WOOD),
-            new Resource(400, ResourceType.STONE))));
+            new Resource(400, ResourceType.STONE),
+            new Resource(100, ResourceType.WOOD))));
     }
 
     private BuildingCostUtils() {

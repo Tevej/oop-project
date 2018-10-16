@@ -3,7 +3,6 @@ package components;
 import static org.junit.Assert.assertEquals;
 
 import main.se.tevej.game.model.components.buildings.HomeComponent;
-
 import org.junit.Test;
 
 public class TestHomeComponent {

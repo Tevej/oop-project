@@ -1,14 +1,14 @@
 package components;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class TestNaturalResourceComponent {
 
@@ -19,7 +19,7 @@ public class TestNaturalResourceComponent {
     @Test
     public void testMethod() {
         NaturalResourceComponent nrc = new NaturalResourceComponent
-                (new Resource(20, ResourceType.WOOD));
+            (new Resource(20, ResourceType.WOOD));
         assertEquals(nrc.getAmountLeft(), 20, 0);
         assertEquals(nrc.getType(), ResourceType.WOOD);
         try {

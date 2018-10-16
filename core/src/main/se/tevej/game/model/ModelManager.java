@@ -25,10 +25,15 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     private final Engine engine;
     private final Signal<Entity> signal;
 
+    private int worldWidth;
+    private int worldHeight;
+
     private Entity worldEntity;
     private Entity inventoryEntity;
 
     public ModelManager(int worldWidth, int worldHeight) {
+        this.worldWidth = worldWidth;
+        this.worldHeight = worldHeight;
         engine = new Engine();
         signal = new Signal<>();
         initSystems();
@@ -45,7 +50,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     }
 
     @Override
-    public void addEntityToEngine(Entity entity) {
+    public final void addEntityToEngine(Entity entity) {
         engine.addEntity(entity);
     }
 
@@ -115,4 +120,11 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         addEntityToEngine(worldEntity);
     }
 
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
+    }
 }

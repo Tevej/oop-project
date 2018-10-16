@@ -71,7 +71,6 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
         } catch (NotEnoughResourcesException e) {
             tileE.add(new SignalComponent(SignalType.DELETEENTITY));
             signalHolder.getSignal().dispatch(tileE);
-            System.out.println("Not enough utils left");
         }
     }
 
