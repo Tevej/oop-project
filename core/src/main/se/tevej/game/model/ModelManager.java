@@ -89,7 +89,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         Entity homeEntity;
 
         try {
-            homeEntity = new BuildingEntity(BuildingType.HOME,10,10);
+            homeEntity = new BuildingEntity(BuildingType.HOME, 10, 10);
         } catch (NoSuchBuildingException e) {
             homeEntity = new Entity();
             System.out.println("Home is gone");

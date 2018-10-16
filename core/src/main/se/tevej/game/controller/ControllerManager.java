@@ -47,8 +47,8 @@ public class ControllerManager {
 
     private void initConstructor() {
         ConstructionController constructor = new ConstructionController(modelManager,
-                modelManager.getWorldEntity(), camera, keyBoard, mouse,
-                viewManager.getSelectedBuildingRenderer(), viewManager);
+            modelManager.getWorldEntity(), camera, keyBoard, mouse,
+            viewManager.getSelectedBuildingRenderer(), viewManager);
 
         viewManager.getBuildingGui().addSelectedListener(constructor);
     }

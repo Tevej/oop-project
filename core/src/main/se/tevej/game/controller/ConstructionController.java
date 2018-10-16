@@ -50,26 +50,22 @@ public class ConstructionController implements OnTappedListener,
 
 
     private void buildConstruction(BuildingType type) {
-        Entity entity = new Entity();
-        entity.add(new BuildingComponent(type));
-        entity.add(worldEntity.getComponent(WorldComponent.class)
-            .getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
-        entity.add(worldEntity.getComponent(WorldComponent.class));
-        entity.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
-        em.getSignal().dispatch(entity);
-    }
-
-    private void buildConstruction() {
         if (buildingSelected) {
-            buildingSelected = false;
-            buildConstruction(selectedBuilding);
+            Entity entity = new Entity();
+            entity.add(new BuildingComponent(type));
+            entity.add(worldEntity.getComponent(WorldComponent.class)
+                .getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
+            entity.add(worldEntity.getComponent(WorldComponent.class));
+            entity.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
+            em.getSignal().dispatch(entity);
         }
     }
+
 
     @Override
     public void onClicked(TMouse mouse, TKey button) {
         if (button == TKey.MOUSE_LEFT) {
-            buildConstruction();
+            buildConstruction(selectedBuilding);
         }
     }
 

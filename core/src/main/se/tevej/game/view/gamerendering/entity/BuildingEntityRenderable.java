@@ -42,7 +42,7 @@ public class BuildingEntityRenderable extends TextureLoader implements EntityRen
 
     @Override
     public void render(float offsetX, float offsetY, TBatchRenderer batchRenderer,
-        Entity entity, float pixelPerTile) throws IllegalArgumentException {
+                       Entity entity, float pixelPerTile) throws IllegalArgumentException {
 
         BuildingComponent buildingC = entity.getComponent(BuildingComponent.class);
         PositionComponent posC = entity.getComponent(PositionComponent.class);
