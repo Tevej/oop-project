@@ -35,7 +35,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         engine = new Engine();
         signal = new Signal<>();
         initSystems();
-        initStartingEntities();
+        initStartingEntities(worldWidth, worldHeight);
     }
 
     public void update(float deltaTime) {
@@ -84,7 +84,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         });
     }
 
-    private void initStartingEntities() {
+    private void initStartingEntities(int worldWidth, int worldHeight) {
         createWorldEntity(worldWidth, worldHeight);
         createInventoryEntity();
         createStartingHome();

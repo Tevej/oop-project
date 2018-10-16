@@ -3,6 +3,7 @@ package main.se.tevej.game.controller.input.base;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.view.ViewManager;
 
 // A class to translate the user inputs to camera changes.
@@ -20,7 +21,12 @@ public class CameraController implements OnDraggedListener,
     private float cameraPosY;
     private int worldWidth;
     private int worldHeight;
-    private static final float ZOOM_STEP = 0.1f;
+
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
+    private final float zoomStep = 0.1f;
 
     public CameraController(ViewManager view, float startX, float startY, TMouse mouse,
                             TKeyBoard keyboard, int worldWidth, int worldHeight) {
@@ -108,12 +114,12 @@ public class CameraController implements OnDraggedListener,
     }
 
     private void zoomIn() {
-        view.zoom(view.getZoomMultiplier() + ZOOM_STEP);
+        view.zoom(view.getZoomMultiplier() + zoomStep);
         zoom();
     }
 
     private void zoomOut() {
-        view.zoom(view.getZoomMultiplier() - ZOOM_STEP);
+        view.zoom(view.getZoomMultiplier() - zoomStep);
         zoom();
     }
 
@@ -149,7 +155,4 @@ public class CameraController implements OnDraggedListener,
         cameraPosY = newPosY;
     }
 
-    public float getZoom() {
-        return ZOOM_STEP;
-    }
 }
