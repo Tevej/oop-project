@@ -46,7 +46,6 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
                         PositionComponent posC = signalEntity.getComponent(PositionComponent.class);
                         Entity tile = signalEntity.getComponent(WorldComponent.class)
                             .getTileAt((int) posC.getX(), (int) posC.getY());
-                        System.out.println(posC.getX() + ", " + posC.getY());
                         TileComponent tileC = tile.getComponent(TileComponent.class);
                         buildBuilding(tileC, posC, buildingC.getType());
                         break;

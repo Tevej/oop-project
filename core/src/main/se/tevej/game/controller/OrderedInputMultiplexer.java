@@ -47,89 +47,153 @@ public class OrderedInputMultiplexer implements InputProcessor, InputProcessorLi
 
     @Override
     public boolean keyDown(int keycode) {
+        boolean breakProcessing = false;
         for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
-                inputProcessor.keyDown(keycode);
+                if (inputProcessor.keyDown(keycode)) {
+                    breakProcessing = true;
+                    break;
+                }
+            }
+
+            if (breakProcessing) {
+                break;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        boolean breakProcessing = false;
         for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
-                inputProcessor.keyUp(keycode);
+                if (inputProcessor.keyUp(keycode)) {
+                    breakProcessing = true;
+                    break;
+                }
+            }
+
+            if (breakProcessing) {
+                break;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean keyTyped(char character) {
+        boolean breakProcessing = false;
         for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
-                inputProcessor.keyTyped(character);
+                if (inputProcessor.keyTyped(character)) {
+                    breakProcessing = true;
+                    break;
+                }
+            }
+
+            if (breakProcessing) {
+                break;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        boolean breakProcessing = false;
         for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
-                inputProcessor.touchDown(screenX, screenY, pointer, button);
+                if (inputProcessor.touchDown(screenX, screenY, pointer, button)) {
+                    breakProcessing = true;
+                    break;
+                }
+            }
+
+            if (breakProcessing) {
+                break;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        boolean breakProcessing = false;
         for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
-                inputProcessor.touchUp(screenX, screenY, pointer, button);
+                if (inputProcessor.touchUp(screenX, screenY, pointer, button)) {
+                    breakProcessing = true;
+                    break;
+                }
+            }
+
+            if (breakProcessing) {
+                break;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        boolean breakProcessing = false;
         for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
-                inputProcessor.touchDragged(screenX, screenY, pointer);
+                if (inputProcessor.touchDragged(screenX, screenY, pointer)) {
+                    breakProcessing = true;
+                    break;
+                }
+            }
+
+            if (breakProcessing) {
+                break;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        boolean breakProcessing = false;
         for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
-                inputProcessor.mouseMoved(screenX, screenY);
+                if (inputProcessor.mouseMoved(screenX, screenY)) {
+                    breakProcessing = true;
+                    break;
+                }
+            }
+
+            if (breakProcessing) {
+                break;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
     public boolean scrolled(int amount) {
+        boolean breakProcessing = false;
         for (Map.Entry<InputProcessorType, List<InputProcessor>> entry :
             processorsMap.entrySet()) {
             for (InputProcessor inputProcessor : entry.getValue()) {
-                inputProcessor.scrolled(amount);
+                if (inputProcessor.scrolled(amount)) {
+                    breakProcessing = true;
+                    break;
+                }
+            }
+
+            if (breakProcessing) {
+                break;
             }
         }
-        return false;
+        return true;
     }
 }
