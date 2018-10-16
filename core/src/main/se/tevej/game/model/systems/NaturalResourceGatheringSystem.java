@@ -92,8 +92,8 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
                 world.getWidth(), world.getHeight())) {
             Entity occupier = getOccupierAtLocation(world, location);
             result = occupier == null
-                    || occupier.getComponent(NaturalResourceComponent.class) == null
-                    || occupier.getComponent(NaturalResourceComponent.class).getType() != gatherType;
+                || occupier.getComponent(NaturalResourceComponent.class) == null
+                || occupier.getComponent(NaturalResourceComponent.class).getType() != gatherType;
         }
         return result;
     }
@@ -116,12 +116,12 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
     // Returns a list of all the valid locations
     private List<Vec2f> getLocationsInRadius(int radius, Entity gatherer, WorldComponent world) {
 
-        PositionComponent gathererPosition = gatherer.getComponent(PositionComponent.class);
+        PositionComponent gatherPosition = gatherer.getComponent(PositionComponent.class);
 
         List<Vec2f> locations = new ArrayList<>();
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++) {
-                Vec2f loc = new Vec2f(i + gathererPosition.getX(), j + gathererPosition.getY());
+                Vec2f loc = new Vec2f(i + gatherPosition.getX(), j + gatherPosition.getY());
                 if (isInvalidLocation(loc, gatherer, world)) {
                     continue;
                 }
