@@ -1,0 +1,108 @@
+package systems;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.signals.Signal;
+
+import main.se.tevej.game.model.ashley.SignalComponent;
+import main.se.tevej.game.model.ashley.SignalListener;
+import main.se.tevej.game.model.ashley.SignalType;
+import main.se.tevej.game.model.components.PositionComponent;
+import main.se.tevej.game.model.components.TileComponent;
+import main.se.tevej.game.model.components.WorldComponent;
+import main.se.tevej.game.model.components.buildings.BuildingComponent;
+import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.entities.AddToEngineListener;
+import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.model.systems.BuildBuildingSystem;
+import main.se.tevej.game.model.systems.DeleteEntitySystem;
+import org.junit.Test;
+
+public class TestDeleteEntitySystem {
+
+    public TestDeleteEntitySystem() {
+        super();
+    }
+
+    @Test
+    public void testDeleteBuilding() {
+
+        ////// SETUP THE SYSTEM
+        Engine engine = new Engine();
+        Signal<Entity> signal = new Signal<>();
+
+        engine.addSystem(new DeleteEntitySystem());
+        engine.addSystem(new BuildBuildingSystem());
+
+        SignalListener signalListener = engine.getSystem(BuildBuildingSystem.class);
+        signalListener.setSignal(signal);
+        signal.add(signalListener.getSignalListener());
+
+        SignalListener signalListener1 = engine.getSystem(DeleteEntitySystem.class);
+        signalListener1.setSignal(signal);
+        signal.add(signalListener1.getSignalListener());
+
+        Entity worldEntity = new WorldEntity(10, 10, new AddToEngineListener() {
+            @Override
+            public void addEntityToEngine(Entity entity) {
+            }
+        });
+
+        Entity entity = new Entity();
+        BuildingComponent buildingC = new BuildingComponent(BuildingType.LUMBERMILL);
+        entity.add(buildingC);
+        PositionComponent positionC = worldEntity.getComponent(WorldComponent.class)
+            .getTileAt(2, 3).getComponent(PositionComponent.class);
+        entity.add(positionC);
+        WorldComponent worldC = worldEntity.getComponent(WorldComponent.class);
+        entity.add(worldC);
+        SignalComponent signalC = new SignalComponent(SignalType.BUILDBUILDING);
+        entity.add(signalC);
+        signal.dispatch(entity);
+
+        ////// LET THE TESTS BEGIN
+
+        // se att building finns i systemet
+        Entity buildingE = engine.getEntitiesFor(Family.one(BuildingComponent.class).get()).first();
+        assertNotNull(buildingE);
+
+
+        assertEquals(engine.getEntities().size(), 1);
+
+
+        Entity entity1 = new Entity();
+        BuildingComponent buildingC1 = new BuildingComponent(BuildingType.LUMBERMILL);
+        entity.add(buildingC1);
+        PositionComponent positionC1 = worldEntity.getComponent(WorldComponent.class)
+            .getTileAt(3, 4).getComponent(PositionComponent.class);
+        entity.add(positionC1);
+        entity.add(worldC);
+        SignalComponent signalC1 = new SignalComponent(SignalType.BUILDBUILDING);
+        entity.add(signalC1);
+        signal.dispatch(entity1);
+
+
+        assertEquals(engine.getEntities().size(), 2);
+
+
+        //se att tile har building
+        TileComponent tileC = worldC.getTileAt(2,3).getComponent(TileComponent.class);
+        assertEquals(tileC.getOccupier(), buildingE);
+        assertNotNull(tileC.getOccupier());
+
+        //delete entity
+        buildingE.add(new SignalComponent(SignalType.DELETEENTITY));
+        signal.dispatch(buildingE);
+
+        //Check if deleted from system correctly
+        assertNull(tileC.getOccupier());
+
+        assertEquals( engine.getEntities().size(), 1);
+
+    }
+}
