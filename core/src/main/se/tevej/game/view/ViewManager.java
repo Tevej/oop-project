@@ -3,11 +3,13 @@ package main.se.tevej.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.ModelManager;
+import main.se.tevej.game.view.gamerendering.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
+import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
-import main.se.tevej.game.view.gamerendering.entity.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
@@ -21,32 +23,49 @@ public class ViewManager {
     private GameRenderingFactory renderingFactory;
     private GuiFactory guiFactory;
 
-    private EntityViewManager entityViewManager;
+    private TBatchRenderer batchRenderer;
 
+    private EntityViewManager entityViewManager;
     private SelectedBuildingRenderer selectedRenderer;
 
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
 
-    private float pixelPerTile = 32f;
+    // The current camera positions in world coordinates.
+    private float currCameraPosX;
+    private float currCameraPosY;
+
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
+    private final float minTilesPerScreen = 5;
+
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
+    private final float pixelPerTile = 32f;
+
+    private float zoomMultiplier;
 
     public ViewManager(ModelManager modelManager, InputProcessorListener listener) {
         this.modelManager = modelManager;
+        zoomMultiplier = 1f;
         initFactories(listener);
         initGui();
         initRenders();
-
     }
 
     public void update(float deltaTime) {
         clearScreen();
-
         renderGameRendering();
         renderGui(deltaTime);
     }
 
     public void setPosition(float cameraPosX, float cameraPosY) {
-        entityViewManager.setPosition(cameraPosX, cameraPosY);
+        this.currCameraPosX = cameraPosX;
+        this.currCameraPosY = cameraPosY;
     }
 
     public SelectedBuildingRenderer getSelectedBuildingRenderer() {
@@ -58,8 +77,14 @@ public class ViewManager {
     }
 
     private void renderGameRendering() {
-        entityViewManager.render(pixelPerTile);
-        selectedRenderer.render();
+        batchRenderer.beginRendering();
+        entityViewManager.render(
+            batchRenderer, currCameraPosX, currCameraPosY, pixelPerTile * zoomMultiplier
+        );
+        selectedRenderer.render(
+            batchRenderer, pixelPerTile * zoomMultiplier
+        );
+        batchRenderer.endRendering();
     }
 
     private void renderGui(float deltaTime) {
@@ -80,6 +105,8 @@ public class ViewManager {
     }
 
     private void initRenders() {
+        batchRenderer = renderingFactory.createBatchRenderer();
+
         entityViewManager = new EntityViewManager(modelManager, renderingFactory);
         selectedRenderer = new SelectedBuildingRenderer(renderingFactory);
         buildingGui.addSelectedListener(selectedRenderer);
@@ -93,4 +120,36 @@ public class ViewManager {
     public float getPixelPerTile() {
         return pixelPerTile;
     }
+
+    // Number of pixels to zoom
+    public void zoom(float newMultiplier) {
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+
+        float newTilesPerWidth = screenWidth / (newMultiplier * pixelPerTile);
+        float newTilesPerHeight = screenHeight / (newMultiplier * pixelPerTile);
+
+        int worldWidth = modelManager.getWorldWidth();
+        int worldHeight = modelManager.getWorldHeight();
+
+        // Makes sure we keep within reasonable zoom levels.
+        if (newTilesPerWidth < minTilesPerScreen || newTilesPerHeight < minTilesPerScreen) {
+            float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
+            float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
+            zoomMultiplier = Math.min(maxWidthZoomMp, maxHeightZoomMp);
+        } else if (newTilesPerWidth > worldWidth || newTilesPerHeight > worldHeight) {
+            float minWidthZoomMp = screenWidth / (worldWidth * pixelPerTile);
+            float minHeightZoomMp = screenHeight / (worldHeight * pixelPerTile);
+            zoomMultiplier = Math.max(minWidthZoomMp, minHeightZoomMp);
+        } else {
+            zoomMultiplier = newMultiplier;
+        }
+
+
+    }
+
+    public float getZoomMultiplier() {
+        return zoomMultiplier;
+    }
+
 }

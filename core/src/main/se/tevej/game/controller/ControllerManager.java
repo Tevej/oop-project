@@ -42,13 +42,13 @@ public class ControllerManager {
 
     private void initCamera(int worldWidth, int worldHeight) {
         camera = new CameraController(
-            viewManager, 0, 0, mouse, worldWidth, worldHeight);
+            viewManager, 0, 0, mouse, keyBoard, worldWidth, worldHeight);
     }
 
     private void initConstructor() {
         ConstructionController constructor = new ConstructionController(modelManager,
-                modelManager.getWorldEntity(), camera, keyBoard, mouse,
-                viewManager.getSelectedBuildingRenderer(), viewManager);
+            modelManager.getWorldEntity(), camera, keyBoard, mouse,
+            viewManager.getSelectedBuildingRenderer(), viewManager);
 
         viewManager.getBuildingGui().addSelectedListener(constructor);
     }

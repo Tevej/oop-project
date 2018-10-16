@@ -19,7 +19,7 @@ public class TestWorldAndPositionComponent {
     @Test
     public void testGetTilesAt() {
         assertEquals(
-            worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getX(),  1
+            worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getX(), 1
         );
         assertEquals(
             worldEntity.getTileAt(1, 1).getComponent(PositionComponent.class).getY(), 1
@@ -39,8 +39,8 @@ public class TestWorldAndPositionComponent {
     }
 
     @Test
-    public void testDimensions(){
-        assertEquals(worldEntity.getHeight(),  23);
+    public void testDimensions() {
+        assertEquals(worldEntity.getHeight(), 23);
         assertEquals(worldEntity.getWidth(), 34);
     }
 }

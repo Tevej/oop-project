@@ -26,46 +26,29 @@ public class EntityViewManager {
 
     private Map<EntityRenderable, List<Entity>> rendererEntityMap;
 
-    private TBatchRenderer batchRenderer;
     private GameRenderingFactory renderingFactory;
-
-    // The current camera positions in world coordinates.
-    private float currCameraPosX;
-    private float currCameraPosY;
 
     public EntityViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory) {
         this.renderingFactory = renderingFactory;
-        this.batchRenderer = renderingFactory.createBatchRenderer();
         this.rendererEntityMap = new LinkedHashMap<>();
 
         typeToRenderable = getTypeToRenderables();
 
         modelManager.addEntityListener(getNewEntityListener());
-
-        currCameraPosX = 0;
-        currCameraPosY = 0;
     }
 
-    public void setPosition(float x, float y) {
-        this.currCameraPosX = x;
-        this.currCameraPosY = y;
-    }
-
-    public void render(float pixelPerTile) {
-        batchRenderer.beginRendering();
-
+    public void render(TBatchRenderer batchRenderer, float offsetX,
+                       float offsetY, float pixelPerTile) {
         for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererEntityMap.entrySet()) {
             try {
                 for (Entity entity : entry.getValue()) {
-                    entry.getKey().render(-currCameraPosX, -currCameraPosY,
+                    entry.getKey().render(-offsetX, -offsetY,
                         batchRenderer, entity, pixelPerTile);
                 }
             } catch (Exception e) {
                 System.out.println("Oops something went wrong hehe.");
             }
         }
-
-        batchRenderer.endRendering();
     }
 
     /**
