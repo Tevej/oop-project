@@ -70,7 +70,7 @@ public class TestBuildBuildingSystem {
         assertNotNull(buildingE);
 
         //se att tile har building
-        TileComponent tileC = worldC.getTileAt(2,3).getComponent(TileComponent.class);
+        TileComponent tileC = worldC.getTileAt(2, 3).getComponent(TileComponent.class);
         assertEquals(tileC.getOccupier(), buildingE);
 
         //se att building har rätt position

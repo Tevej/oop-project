@@ -85,7 +85,7 @@ public class TestPaySystem {
 
 
     //These method are supposed to make the test more readable since there is much repetition
-    public void payAndBuild(Entity worldEntity, Signal signal, BuildingType type, int x, int y ) {
+    public void payAndBuild(Entity worldEntity, Signal signal, BuildingType type, int x, int y) {
         Entity entity = new Entity();
         BuildingComponent buildingC = new BuildingComponent(type);
         entity.add(buildingC);
@@ -123,7 +123,7 @@ public class TestPaySystem {
         WorldComponent wc = world.getComponent(WorldComponent.class);
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                wc.getTileAt(i,j).getComponent(TileComponent.class).occupy(null);
+                wc.getTileAt(i, j).getComponent(TileComponent.class).occupy(null);
             }
         }
     }
