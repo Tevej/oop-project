@@ -32,7 +32,7 @@ public class TestPaySystem {
     }
 
     @Test
-    public void testBuildBuilding() {
+    public void testPayment() {
 
         ////// SETUP THE SYSTEM
         Engine engine = new Engine();
