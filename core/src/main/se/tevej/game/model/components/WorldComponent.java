@@ -1,7 +1,5 @@
 package main.se.tevej.game.model.components;
 
-import java.util.List;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 
@@ -35,17 +33,18 @@ public class WorldComponent implements Component {
         return tile;
     }
 
-    // Returns an array with 8 elements that can be either null or a tileEntity that neighbours
+    // Returns an array with 4/8 (depending on includeDiagonal)
+    // elements that can be either null or a tileEntity that neighbours
     // the given entity. The order of the neighbours will be:
     // up, right, down, left, topRight, bottomRight, bottomLeft, topLeft
     public Entity[] getTileNeighbours(Entity entity, boolean includeDiagonal) {
         PositionComponent posC = entity.getComponent(PositionComponent.class);
         Entity[] neighbours;
-        if (posC != null) {
-            neighbours = getNeighboursForTile(posC, includeDiagonal);
-        } else {
+        if (posC == null) {
             System.out.println("getTileNeighbours was given an entity without a position!");
             neighbours = null;
+        } else {
+            neighbours = getNeighboursForTile(posC, includeDiagonal);
         }
         return neighbours;
     }
