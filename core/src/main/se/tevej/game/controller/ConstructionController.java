@@ -14,6 +14,7 @@ import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.PositionComponent;
+import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
@@ -50,11 +51,11 @@ public class ConstructionController implements OnTappedListener,
 
 
     private void buildConstruction(BuildingType type) {
-        if (buildingSelected) {
+        Entity tileAt = worldEntity.getComponent(WorldComponent.class).getTileAt(mouseX, mouseY);
+        if (buildingSelected && !tileAt.getComponent(TileComponent.class).isOccupied()) {
             Entity entity = new Entity();
             entity.add(new BuildingComponent(type));
-            entity.add(worldEntity.getComponent(WorldComponent.class)
-                .getTileAt(mouseX, mouseY).getComponent(PositionComponent.class));
+            entity.add(tileAt.getComponent(PositionComponent.class));
             entity.add(worldEntity.getComponent(WorldComponent.class));
             entity.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
             em.getSignal().dispatch(entity);

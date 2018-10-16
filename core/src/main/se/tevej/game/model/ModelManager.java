@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.ashley.SignalListener;
+import main.se.tevej.game.model.components.TileComponent;
+import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
@@ -87,13 +89,18 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
 
     private void createStartingHome() {
         Entity homeEntity;
+        int homeX = 10;
+        int homeY = 10;
 
         try {
-            homeEntity = new BuildingEntity(BuildingType.HOME, 10, 10);
+            homeEntity = new BuildingEntity(BuildingType.HOME, homeX, homeY);
         } catch (NoSuchBuildingException e) {
             homeEntity = new Entity();
             System.out.println("Home is gone");
         }
+
+        Entity tileAt = worldEntity.getComponent(WorldComponent.class).getTileAt(homeX, homeY);
+        tileAt.getComponent(TileComponent.class).occupy(homeEntity);
 
         addEntityToEngine(homeEntity);
     }
