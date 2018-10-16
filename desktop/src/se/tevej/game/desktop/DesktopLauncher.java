@@ -11,8 +11,8 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        config.width = screenSize.width / 2;
-        config.height = screenSize.height / 2;
+        config.width = screenSize.width / 1;
+        config.height = screenSize.height / 1;
         config.vSyncEnabled = false;
         config.foregroundFPS = 0;
         new LwjglApplication(new GameManager(), config);
