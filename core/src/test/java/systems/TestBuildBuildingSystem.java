@@ -44,7 +44,7 @@ public class TestBuildBuildingSystem {
             @Override
             public void addEntityToEngine(Entity entity) {
             }
-        }, true);
+        });
 
         Entity entity = new Entity();
         BuildingComponent buildingC = new BuildingComponent(BuildingType.LUMBERMILL);

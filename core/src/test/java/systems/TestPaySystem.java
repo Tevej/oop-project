@@ -59,7 +59,7 @@ public class TestPaySystem {
             @Override
             public void addEntityToEngine(Entity entity) {
             }
-        }, true);
+        });
         clearMap(worldEntity);
         engine.addEntity(worldEntity);
 

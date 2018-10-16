@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
 
-import javafx.geometry.Pos;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
