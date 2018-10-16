@@ -1,13 +1,21 @@
 package main.se.tevej.game.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
+import com.badlogic.ashley.utils.ImmutableArray;
 
 import main.se.tevej.game.model.ashley.SignalListener;
+import main.se.tevej.game.model.components.InventoryComponent;
+import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
+import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
@@ -28,16 +36,30 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     private int worldWidth;
     private int worldHeight;
 
-    private Entity worldEntity;
+    private WorldEntity worldEntity;
     private Entity inventoryEntity;
 
     public ModelManager(int worldWidth, int worldHeight) {
+        this(worldWidth, worldHeight, null);
+    }
+
+    public ModelManager(int worldWidth, int worldHeight, List<Entity> entities) {
         this.worldWidth = worldWidth;
         this.worldHeight = worldHeight;
+
         engine = new Engine();
         signal = new Signal<>();
+
+        worldEntity = new WorldEntity(worldWidth, worldHeight, this);
+        addEntityToEngine(worldEntity);
+
+        if (entities == null) {
+            initEngineFromStart(worldEntity);
+        } else {
+            initEngineFromLoadedFile(worldEntity, entities);
+        }
+
         initSystems();
-        initStartingEntities(worldWidth, worldHeight);
     }
 
     public void update(float deltaTime) {
@@ -67,8 +89,33 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         return worldEntity;
     }
 
+    public Engine getEngine() {
+        return engine;
+    }
+
     public Entity getInventoryEntity() {
         return inventoryEntity;
+    }
+
+    private void initEngineFromStart(WorldEntity worldE) {
+        createInventoryEntity();
+        createStartingHome();
+        worldE.createNewWorld();
+    }
+
+    private void initEngineFromLoadedFile(WorldEntity worldE, List<Entity> entities) {
+        for (Entity entity : entities) {
+            if (entity.getComponent(InventoryComponent.class) != null) {
+                this.inventoryEntity = entity;
+            }
+
+            engine.addEntity(entity);
+        }
+
+        ImmutableArray<Entity> occupierArray = engine.getEntitiesFor(Family.all(
+            NaturalResourceComponent.class, BuildingComponent.class).get());
+        List<Entity> occupierEntities = Arrays.asList(occupierArray.toArray());
+        worldE.createWorldFromSave(occupierEntities);
     }
 
     private void initSystems() {
@@ -84,12 +131,6 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
                 signal.add(signalListener.getSignalListener());
             }
         });
-    }
-
-    private void initStartingEntities(int worldWidth, int worldHeight) {
-        createWorldEntity(worldWidth, worldHeight);
-        createInventoryEntity();
-        createStartingHome();
     }
 
     private void createStartingHome() {
@@ -115,11 +156,6 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         addEntityToEngine(inventoryEntity);
     }
 
-    private void createWorldEntity(int worldWidth, int worldHeight) {
-        worldEntity = new WorldEntity(worldWidth, worldHeight, this);
-        addEntityToEngine(worldEntity);
-    }
-
     public int getWorldWidth() {
         return worldWidth;
     }
@@ -127,4 +163,5 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     public int getWorldHeight() {
         return worldHeight;
     }
+
 }

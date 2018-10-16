@@ -52,6 +52,7 @@ public class TestDeleteEntitySystem {
             public void addEntityToEngine(Entity entity) {
             }
         });
+
         // Add world to engine
         WorldComponent worldC = worldEntity.getComponent(WorldComponent.class);
         engine.addEntity(worldEntity);

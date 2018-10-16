@@ -21,6 +21,9 @@ public class WorldEntity extends Entity {
     private int waterAmount = 1000;
     private int woodAmount = 1000;
     private int stoneAmount = 1000;
+    private final int width;
+    private final int height;
+    private final AddToEngineListener engineListener;
 
     public WorldEntity(int width, int height, AddToEngineListener listener) {
         super();
@@ -32,9 +35,25 @@ public class WorldEntity extends Entity {
                 listener.addEntityToEngine(tile);
             }
         }
-        WorldComponent worldComponent = new WorldComponent(width, height, tiles);
-        generateNaturalResources(width, height, worldComponent, listener);
-        this.add(worldComponent);
+        this.width = width;
+        this.height = height;
+        this.engineListener = listener;
+        add(new WorldComponent(width, height, tiles));
+    }
+
+    public void createNewWorld() {
+        generateNaturalResources();
+    }
+
+    public void createWorldFromSave(List<Entity> tileOccupiers) {
+        WorldComponent worldC = getComponent(WorldComponent.class);
+        PositionComponent posC;
+        TileComponent tileC;
+        for (Entity occupier : tileOccupiers) {
+            posC = occupier.getComponent(PositionComponent.class);
+            tileC = worldC.getTileAt(posC.getX(), posC.getY()).getComponent(TileComponent.class);
+            tileC.occupy(occupier);
+        }
     }
 
     private void occupyTilesInCluster(List<Entity> clusters, WorldComponent wc) {
@@ -47,13 +66,13 @@ public class WorldEntity extends Entity {
         }
     }
 
-    private void generateNaturalResources(int width, int height,
-                                          WorldComponent world, AddToEngineListener listener) {
+    private void generateNaturalResources() {
+        WorldComponent world = getComponent(WorldComponent.class);
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 PositionComponent pos = new PositionComponent(x, y);
                 List<Entity> clusters = generateRandomClusters(
-                    pos, new ArrayList<>(), world, listener
+                    pos, new ArrayList<>(), world, engineListener
                 );
                 occupyTilesInCluster(clusters, world);
             }
