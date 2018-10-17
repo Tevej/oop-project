@@ -77,24 +77,20 @@ public class TreeGrowthSystem extends EntitySystem {
             if (tileC == null || tileC.isOccupied()) {
                 value = -1;
             } else {
-                value = getTreeNeighbourCount(tileE.getComponent(PositionComponent.class), worldC);
+                value = getTreeNeighbourCount(tileE, worldC);
             }
         }
         return value;
     }
 
-    private int getTreeNeighbourCount(PositionComponent posC, WorldComponent worldC) {
+    private int getTreeNeighbourCount(Entity tileE, WorldComponent worldC) {
         int value = 0;
-        if (posC == null) {
-            System.out.println("Recieved null positionComponent!");
-            value = -1;
-        } else {
-            Entity[] neighbours = worldC.getTileNeighbours(posC, true);
-            for (Entity neighbour : neighbours) {
-                if (neighbour != null) {
-                    TileComponent tileC = neighbour.getComponent(TileComponent.class);
-                    value += hasTree(tileC) ? 1 : 0;
-                }
+
+        Entity[] neighbours = worldC.getTileNeighbours(tileE, true);
+        for (Entity neighbour : neighbours) {
+            if (neighbour != null) {
+                TileComponent tileC = neighbour.getComponent(TileComponent.class);
+                value += hasTree(tileC) ? 1 : 0;
             }
         }
         return value;
