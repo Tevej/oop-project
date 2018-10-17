@@ -10,11 +10,9 @@ import main.se.tevej.game.model.utils.ResourceType;
 
 
 public class FarmComponent implements Component {
-    private Resource food;
     private List<Entity> farmLandEntities;
 
     public FarmComponent(List<Entity> farmLandEntities) {
-        food = new Resource(0, ResourceType.FOOD);
         this.farmLandEntities = farmLandEntities;
     }
 
@@ -29,9 +27,5 @@ public class FarmComponent implements Component {
                 .getGatheredResource(deltaTime).getAmount();
         }
         return new Resource(totalAmount, ResourceType.FOOD);
-    }
-
-    public Resource getFood() {
-        return food;
     }
 }
