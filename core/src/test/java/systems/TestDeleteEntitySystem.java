@@ -79,7 +79,7 @@ public class TestDeleteEntitySystem {
         assertEquals(2, engine.getEntities().size());
 
         //se att tile har building
-        TileComponent tileC = worldC.getTileAt(2,3).getComponent(TileComponent.class);
+        TileComponent tileC = worldC.getTileAt(2, 3).getComponent(TileComponent.class);
         assertEquals(tileC.getOccupier(), buildingE);
         assertNotNull(tileC.getOccupier());
 
@@ -91,7 +91,7 @@ public class TestDeleteEntitySystem {
         assertNull(tileC.getOccupier());
 
         // se att det nu bara finns en entity
-        assertEquals(1,  engine.getEntities().size());
+        assertEquals(1, engine.getEntities().size());
 
     }
 }
