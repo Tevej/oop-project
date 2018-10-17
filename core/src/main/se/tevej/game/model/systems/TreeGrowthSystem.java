@@ -1,14 +1,12 @@
 package main.se.tevej.game.model.systems;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.utils.ImmutableArray;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
@@ -17,54 +15,100 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.utils.ResourceType;
 
-public class TreeGrowthSystem extends EntitySystem {
+public class TreeGrowthSystem extends EntitySystem implements EntityListener {
     private Engine engine;
     private SignalHolder signalHolder;
 
-    // The number of trees to spawn
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
-    private final double treeSpawnRate = 1.0 / (25 * 2 * 1000);
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "No need to be static and checkbugs will complain if it is."
-    )
-    private final float treeSpawnTime = 1f;
-    private float treeSpawnProgress;
+    private final double chanceMultiplier = 1.0 / 1000;
 
-    // A matrix that represents the world where the values of each tile
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
+    private final double baseSpawnChance = 1.0 / (25 * 1000 * 1000);
+
+    // A matrix that represents the world where the values of8 each tile
     // is the number of trees neighbouring it,
     // or -1 if it's occupied.
-    private int[][] numNeighbouringTrees;
+    private int[][] treesMap;
+    private EntityCreator entityCreator;
 
-    public TreeGrowthSystem(SignalHolder signalHolder) {
+    public TreeGrowthSystem(SignalHolder signalHolder, EntityCreator entityCreator) {
         super();
         this.signalHolder = signalHolder;
+        this.entityCreator = entityCreator;
     }
 
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
+        init();
     }
 
     private void init() {
-        init();
         WorldComponent worldC = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
             .first().getComponent(WorldComponent.class);
 
         int width = worldC.getWidth();
         int height = worldC.getHeight();
 
-        numNeighbouringTrees = new int[width][height];
+        treesMap = new int[width][height];
         Entity tileE;
 
         // Init the tree matrix.
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 tileE = worldC.getTileAt(x, y);
-                numNeighbouringTrees[x][y] = getValueForTile(tileE, worldC);
+                treesMap[x][y] = getValueForTile(tileE, worldC);
+            }
+        }
+
+        // Now register on Entity created and make sure to keep the matrix up to date.
+        entityCreator.addEntityListener(this);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        Random rand = new Random();
+        int value;
+        double spawnChance;
+        double currValue;
+
+        for (int x = 0; x < treesMap.length; x++) {
+            for (int y = 0; y < treesMap[x].length; y++) {
+                value = treesMap[x][y];
+                if (value > -1) {
+                    spawnChance = baseSpawnChance + ((value * chanceMultiplier) * deltaTime);
+                    currValue = rand.nextDouble();
+                    if (currValue < spawnChance) {
+                        spawnTreeAt(x, y);
+                    }
+                }
+            }
+        }
+    }
+
+    private void spawnTreeAt(int x, int y) {
+        Entity signalEntity = SpawnNaturalResourceSystem.getSignalEntity(
+            ResourceType.WOOD, 1000, x, y);
+        signalHolder.getSignal().dispatch(signalEntity);
+        System.out.println("Spawned tree at " + x + ", " + y);
+    }
+
+    private void updateValuesAroundTile(int x, int y, Entity tileE, WorldComponent worldC) {
+        treesMap[x][y] = getValueForTile(tileE, worldC);
+        Entity[] tileNeighbours = worldC.getTileNeighbours(tileE, true);
+        PositionComponent posC;
+        for (Entity neighbour : tileNeighbours) {
+            if (neighbour != null) {
+                posC = neighbour.getComponent(PositionComponent.class);
+
+                int value = getValueForTile(neighbour, worldC);
+                treesMap[posC.getX()][posC.getY()] = value;
             }
         }
     }
@@ -114,79 +158,28 @@ public class TreeGrowthSystem extends EntitySystem {
     }
 
     @Override
-    public void update(float deltaTime) {
-        treeSpawnProgress += deltaTime;
+    public void entityAdded(Entity entity) {
+        entityChanged(entity);
+    }
 
-        if (treeSpawnProgress >= treeSpawnTime) {
-            List<Entity> availableTiles = getAvailableTreeSpawnLocations(getTreeEntities());
+    @Override
+    public void entityRemoved(Entity entity) {
+        entityChanged(entity);
+    }
 
-            Random rand = new Random();
-            PositionComponent posC;
-            for (Entity entity : availableTiles) {
-                posC = entity.getComponent(PositionComponent.class);
-                if (rand.nextFloat() <= treeSpawnRate) {
-                    System.out.println("Tree grew at " + posC.getX() + ", " + posC.getY());
-
-                    Entity signalEntity = SpawnNaturalResourceSystem.getSignalEntity(
-                        ResourceType.WOOD, 1000, posC.getX(), posC.getY());
-                    signalHolder.getSignal().dispatch(signalEntity);
-                }
-            }
-
-            treeSpawnProgress = 0;
+    private void entityChanged(Entity entity) {
+        PositionComponent posC = entity.getComponent(PositionComponent.class);
+        if (posC != null) {
+            updateTreeCountAt(posC.getX(), posC.getY());
         }
     }
 
-    private List<Entity> getTreeEntities() {
-        ImmutableArray<Entity> naturalResources = engine.getEntitiesFor(
-            Family.all(NaturalResourceComponent.class).get()
-        );
-
-        List<Entity> treeEntities = new ArrayList<>();
-
-        NaturalResourceComponent naturalResourceC;
-        for (Entity entity : naturalResources) {
-            naturalResourceC = entity.getComponent(NaturalResourceComponent.class);
-            if (naturalResourceC.getType() == ResourceType.WOOD) {
-                treeEntities.add(entity);
-            }
+    private void updateTreeCountAt(int x, int y) {
+        WorldComponent worldC = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
+            .first().getComponent(WorldComponent.class);
+        Entity tileE = worldC.getTileAt(x, y);
+        if (tileE != null) {
+            updateValuesAroundTile(x, y, tileE, worldC);
         }
-
-        return treeEntities;
-    }
-
-    private List<Entity> getAvailableTreeSpawnLocations(List<Entity> treeEntities) {
-        List<Entity> availableTiles = new ArrayList();
-        List<Entity> treeNeighbours;
-
-        for (Entity treeE : treeEntities) {
-            treeNeighbours = getAvailableNeighbours(treeE);
-            for (Entity neighbour : treeNeighbours) {
-                availableTiles.add(neighbour);
-            }
-        }
-
-        return availableTiles;
-    }
-
-    private List<Entity> getAvailableNeighbours(Entity treeE) {
-        List<Entity> availableTiles = new ArrayList<>();
-
-        Entity worldE = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first();
-        WorldComponent worldC = worldE.getComponent(WorldComponent.class);
-        TileComponent tileC;
-        Entity[] treeNeighbours = worldC.getTileNeighbours(treeE, true);
-
-        for (Entity neighbour : treeNeighbours) {
-            if (neighbour == null) {
-                continue;
-            }
-
-            tileC = neighbour.getComponent(TileComponent.class);
-            if (tileC.isOccupied() == false) {
-                availableTiles.add(neighbour);
-            }
-        }
-        return availableTiles;
     }
 }
