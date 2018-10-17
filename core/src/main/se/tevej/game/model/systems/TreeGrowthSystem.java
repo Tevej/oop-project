@@ -113,7 +113,7 @@ public class TreeGrowthSystem extends EntitySystem implements EntityListener {
         }
     }
 
-    private int getValueForTile(Entity tileE, WorldComponent worldC) {
+    public int getValueForTile(Entity tileE, WorldComponent worldC) {
         TileComponent tileC;
         int value = 0;
         if (tileE != null) {
