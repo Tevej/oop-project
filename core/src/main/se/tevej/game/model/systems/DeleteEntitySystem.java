@@ -10,7 +10,6 @@ import com.badlogic.ashley.signals.Signal;
 import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.PositionComponent;
-import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 
 public class DeleteEntitySystem extends EntitySystem implements SignalListener {
@@ -25,9 +24,7 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener {
         WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
             .first().getComponent(WorldComponent.class);
         PositionComponent pc = signalEntity.getComponent(PositionComponent.class);
-        Entity tile = wc.getTileAt((int) pc.getX(), (int) pc.getY());
-        TileComponent tc = tile.getComponent(TileComponent.class);
-        tc.occupy(null);
+        wc.removeOccupier(pc.getX(), pc.getY());
         engine.removeEntity(signalEntity);
     }
 

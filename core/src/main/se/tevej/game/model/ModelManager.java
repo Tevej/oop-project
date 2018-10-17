@@ -11,7 +11,6 @@ import com.badlogic.ashley.signals.Signal;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
-import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
@@ -146,8 +145,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
             System.out.println("Home is gone");
         }
 
-        Entity tileAt = worldEntity.getComponent(WorldComponent.class).getTileAt(homeX, homeY);
-        tileAt.getComponent(TileComponent.class).occupy(homeEntity);
+        worldEntity.getComponent(WorldComponent.class).occupyTile(homeX, homeY, homeEntity);
 
         addEntityToEngine(homeEntity);
     }
