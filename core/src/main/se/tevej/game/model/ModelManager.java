@@ -145,8 +145,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
             System.out.println("Home is gone");
         }
 
-        Entity tileAt = worldEntity.getComponent(WorldComponent.class).getTileAt(homeX, homeY);
-        tileAt.getComponent(TileComponent.class).occupy(homeEntity);
+        worldEntity.getComponent(WorldComponent.class).occupyTile(homeX, homeY, homeEntity);
 
         addEntityToEngine(homeEntity);
     }
