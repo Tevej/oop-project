@@ -61,12 +61,6 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
         }
     }
 
-    private Entity getOccupierAtLocation(WorldComponent world, Vec2f location) {
-        Entity tileEntity = world.getTileAt((int)location.x, (int)location.y);
-        TileComponent tileComponent = tileEntity.getComponent(TileComponent.class);
-        return tileComponent.getOccupier();
-    }
-
     private float getDistance(Vec2f location, PositionComponent gathererPosition) {
         return location.distance(gathererPosition.getX(), gathererPosition.getY());
     }
@@ -90,7 +84,8 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
                 .getResourcePerSecond().getType();
         if (!isOutOfBounds((int) location.x, (int) location.y,
                 world.getWidth(), world.getHeight())) {
-            Entity occupier = getOccupierAtLocation(world, location);
+            Entity occupier = world.getTileOccupier(location.x, location.y );
+
             result = occupier == null
                 || occupier.getComponent(NaturalResourceComponent.class) == null
                 || occupier.getComponent(NaturalResourceComponent.class).getType() != gatherType;
@@ -118,7 +113,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
 
         PositionComponent gatherPosition = gatherer.getComponent(PositionComponent.class);
 
-        List<Vec2f> locations = new ArrayList<>();
+        List<Vec2f> locations = new ArrayList<Vec2f>();
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++) {
                 Vec2f loc = new Vec2f(i + gatherPosition.getX(), j + gatherPosition.getY());
@@ -149,7 +144,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
         Vec2f nearest = nearestLocation(positionC, locations);
         float distance = nearest.distance(positionC.getX(), positionC.getY());
 
-        Entity occupier = getOccupierAtLocation(world, nearest);
+        Entity occupier = world.getTileOccupier(nearest.x, nearest.y)
         gatherFromLocation(deltaTime, distance, occupier, inventory, gatherC);
     }
 
