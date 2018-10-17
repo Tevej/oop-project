@@ -9,6 +9,7 @@ public enum TKey {
     KEY_Q,
     KEY_X,
     KEY_Z,
+    KEY_F,
 
     KEY_LEFT,
     KEY_RIGHT,

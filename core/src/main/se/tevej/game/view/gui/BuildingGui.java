@@ -37,6 +37,8 @@ public class BuildingGui {
             createBuildingButton(BuildingType.QUARRY, "buildings/quarry.jpg"));
         buttonList.add(
             createBuildingButton(BuildingType.HOME, "buildings/home.jpg"));
+        buttonList.add(
+            createBuildingButton(BuildingType.FARM, "food.png"));
 
         buildingTable = guiFactory.createTable()
             .positionX(Gdx.graphics.getWidth() - (imageSize / 2f))

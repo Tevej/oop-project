@@ -5,5 +5,7 @@ public enum BuildingType {
     LUMBERMILL,
     QUARRY,
     PUMP,
+    FARM,
+    FARM_LAND,
     NONE
 }
