@@ -73,7 +73,7 @@ public class BuildingEntity extends Entity {
 
     // Should only ever be called from createBuilding, hence private access.
     private void createHome() {
-        this.add(new HomeComponent(new Resource(5, ResourceType.POPULATION)));
+        this.add(new HomeComponent(new Resource(5, ResourceType.MAXPOPULATION)));
     }
 
     private void createLumberMill() {

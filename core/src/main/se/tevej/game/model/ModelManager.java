@@ -21,12 +21,7 @@ import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
-import main.se.tevej.game.model.systems.BuildBuildingSystem;
-import main.se.tevej.game.model.systems.DeleteEntitySystem;
-import main.se.tevej.game.model.systems.FoodGatheringSystem;
-import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
-import main.se.tevej.game.model.systems.PaySystem;
-import main.se.tevej.game.model.systems.SignalHolder;
+import main.se.tevej.game.model.systems.*;
 
 public class ModelManager implements AddToEngineListener, SignalHolder {
 
@@ -123,6 +118,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         engine.addSystem(new DeleteEntitySystem());
         engine.addSystem(new PaySystem(this));
         engine.addSystem(new NaturalResourceGatheringSystem(this));
+        engine.addSystem(new PopulationSystem());
         engine.addSystem(new FoodGatheringSystem());
 
         engine.getSystems().forEach(entitySystem -> {

@@ -4,6 +4,7 @@ public enum ResourceType {
     WATER,
     STONE,
     WOOD,
-    POPULATION,
+    CURRENTPOPULATION,
+    MAXPOPULATION,
     FOOD
 }

@@ -11,7 +11,7 @@ public class HomeComponent implements Component {
 
     public HomeComponent(Resource maxPopulation) {
         this.maxPopulation = maxPopulation;
-        population = new Resource(0, ResourceType.POPULATION);
+        population = new Resource(0, ResourceType.CURRENTPOPULATION);
     }
 
     public double getCurrentPopulation() {
