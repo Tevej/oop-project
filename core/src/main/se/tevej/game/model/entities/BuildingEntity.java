@@ -56,7 +56,7 @@ public class BuildingEntity extends Entity {
         WorldComponent worldC = engine.getEntitiesFor(
             Family.all(WorldComponent.class).get()).first().getComponent(WorldComponent.class);
 
-        List<Entity> neighbours = worldC.getTileNeighbours(this, true);
+        Entity[] neighbours = worldC.getTileNeighbours(this, true);
 
         List<Entity> farmLandEntities = new LinkedList<>();
 

@@ -1,8 +1,5 @@
 package main.se.tevej.game.model.components;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 
@@ -40,9 +37,9 @@ public class WorldComponent implements Component {
     // elements that can be either null or a tileEntity that neighbours
     // the given entity. The order of the neighbours will be:
     // up, right, down, left, topRight, bottomRight, bottomLeft, topLeft
-    public List<Entity> getTileNeighbours(Entity entity, boolean includeDiagonal) {
+    public Entity[] getTileNeighbours(Entity entity, boolean includeDiagonal) {
         PositionComponent posC = entity.getComponent(PositionComponent.class);
-        List<Entity> neighbours;
+        Entity[] neighbours;
         if (posC == null) {
             System.out.println("getTileNeighbours was given an entity without a position!");
             neighbours = null;
@@ -53,21 +50,21 @@ public class WorldComponent implements Component {
     }
 
     // Returns a list of entities that are directly neighbouring a positionComponent.
-    private List<Entity> getNeighboursForTile(PositionComponent posC, boolean includeDiagonal) {
-        List<Entity> neighbours = new LinkedList<>();
+    private Entity[] getNeighboursForTile(PositionComponent posC, boolean includeDiagonal) {
+        Entity[] neighbours = includeDiagonal ? new Entity[8] : new Entity[4];
         int x = posC.getX();
         int y = posC.getY();
 
-        neighbours.add(getTileAt(x, y + 1));
-        neighbours.add(getTileAt(x + 1, y));
-        neighbours.add(getTileAt(x, y - 1));
-        neighbours.add(getTileAt(x - 1, y));
+        neighbours[0] = getTileAt(x, y + 1);
+        neighbours[1] = getTileAt(x + 1, y);
+        neighbours[2] = getTileAt(x, y - 1);
+        neighbours[3] = getTileAt(x - 1, y);
 
         if (includeDiagonal) {
-            neighbours.add(getTileAt(x + 1, y + 1));
-            neighbours.add(getTileAt(x + 1, y - 1));
-            neighbours.add(getTileAt(x - 1, y - 1));
-            neighbours.add(getTileAt(x - 1, y + 1));
+            neighbours[4] = getTileAt(x + 1, y + 1);
+            neighbours[5] = getTileAt(x + 1, y - 1);
+            neighbours[6] = getTileAt(x - 1, y - 1);
+            neighbours[7] = getTileAt(x - 1, y + 1);
         }
         return neighbours;
     }
