@@ -7,12 +7,22 @@ import main.se.tevej.game.model.utils.ResourceType;
 
 public class HomeComponent implements Component {
     private Resource population;
+    private Resource maxPopulation;
 
-    public HomeComponent() {
-        population = new Resource(5, ResourceType.POPULATION);
+    public HomeComponent(Resource maxPopulation) {
+        this.maxPopulation = maxPopulation;
+        population = new Resource(0, ResourceType.POPULATION);
     }
 
     public double getCurrentPopulation() {
         return population.getAmount();
+    }
+
+    public double getMaxPopulation() {
+        return maxPopulation.getAmount();
+    }
+
+    public void updateCurrentPopulation(int amount) {
+        population = population.updateAmount(amount);
     }
 }
