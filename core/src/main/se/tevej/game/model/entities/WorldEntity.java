@@ -13,12 +13,14 @@ import main.se.tevej.game.model.utils.ResourceType;
 
 public class WorldEntity extends Entity {
 
-    private double clusterSize = 0.7;
     private double clusterDilution = 0.5;
-    private double waterSpawnProb = 0.006;
+    private double waterClusterSize = 2000;
+    private double woodClusterSize = 1;
+    private double stoneClusterSize = 1;
+    private double waterSpawnProb = 0.001;
     private double woodSpawnProb = 0.004;
     private double stoneSpawnProb = 0.003;
-    private int waterAmount = 1000;
+    private int waterAmount = -1;
     private int woodAmount = 1000;
     private int stoneAmount = 1000;
     private final int width;
@@ -81,19 +83,18 @@ public class WorldEntity extends Entity {
                                                 List<PositionComponent> occupiedSpots,
                                                 WorldComponent world,
                                                 AddToEngineListener listener) {
-        double prob = clusterSize;
         double n = Math.random();
         Resource resource = null;
         List<PositionComponent> locations = new ArrayList<>();
         List<Entity> nrelist = new ArrayList<>();
         if (n < waterSpawnProb) {
-            locations = generateCluster(prob, startPos, world, occupiedSpots);
+            locations = generateCluster(waterClusterSize, startPos, world, occupiedSpots);
             resource = new Resource(waterAmount, ResourceType.WATER);
         } else if (n < woodSpawnProb + waterSpawnProb) {
-            locations = generateCluster(prob, startPos, world, occupiedSpots);
+            locations = generateCluster(woodClusterSize, startPos, world, occupiedSpots);
             resource = new Resource(woodAmount, ResourceType.WOOD);
         } else if (n < stoneSpawnProb + woodSpawnProb + waterSpawnProb) {
-            locations = generateCluster(prob, startPos, world, occupiedSpots);
+            locations = generateCluster(stoneClusterSize, startPos, world, occupiedSpots);
             resource = new Resource(stoneAmount, ResourceType.STONE);
         }
         for (PositionComponent loc : locations) {

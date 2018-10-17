@@ -8,9 +8,13 @@ import main.se.tevej.game.model.utils.ResourceType;
 
 public class NaturalResourceComponent implements Component {
     private Resource resource;
+    private boolean undepletable = false;
 
     public NaturalResourceComponent(Resource resource) {
         this.resource = resource;
+        if (resource.getAmount() < 0) {
+            undepletable = true;
+        }
     }
 
     public double getAmountLeft() {
@@ -18,7 +22,9 @@ public class NaturalResourceComponent implements Component {
     }
 
     public void extractResource(Resource extractedResource) throws NotEnoughResourcesException {
-        if (resource.getAmount() < extractedResource.getAmount()) {
+        if (undepletable) {
+            return;
+        } else if (resource.getAmount() < extractedResource.getAmount()) {
             throw new NotEnoughResourcesException();
         }
         resource = this.resource.updateAmount(resource.getAmount() - extractedResource.getAmount());
