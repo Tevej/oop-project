@@ -48,7 +48,6 @@ public class WorldEntity extends Entity {
     public void createWorldFromSave(List<Entity> tileOccupiers) {
         WorldComponent worldC = getComponent(WorldComponent.class);
         PositionComponent posC;
-        TileComponent tileC;
         for (Entity occupier : tileOccupiers) {
             posC = occupier.getComponent(PositionComponent.class);
             worldC.occupyTile(posC.getX(), posC.getY(), occupier);
@@ -117,8 +116,8 @@ public class WorldEntity extends Entity {
                     continue;
                 }
 
-                if (Math.random() < prob && !occupiedSpots.contains(pos) &&
-                            !world.isTileOccupied(pos.getX(), pos.getY())) {
+                if (Math.random() < prob && !occupiedSpots.contains(pos)
+                        && !world.isTileOccupied(pos.getX(), pos.getY())) {
                     occupiedSpots.add(pos);
                     generateCluster(prob * clusterDilution, pos, world, occupiedSpots);
                 }

@@ -13,7 +13,6 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
-import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;

@@ -14,7 +14,6 @@ import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.PositionComponent;
-import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingCostUtils;

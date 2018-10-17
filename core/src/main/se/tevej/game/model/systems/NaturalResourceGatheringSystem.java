@@ -16,7 +16,6 @@ import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.RadiusComponent;
-import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
