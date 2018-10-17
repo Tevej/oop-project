@@ -14,7 +14,6 @@ import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.PositionComponent;
-import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingCostUtils;
@@ -58,9 +57,7 @@ public class PaySystem extends EntitySystem implements SignalListener {
         PositionComponent position = entity.getComponent(PositionComponent.class);
         Entity worldEntity = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first();
         WorldComponent world = worldEntity.getComponent(WorldComponent.class);
-        Entity tile = world.getTileAt(position.getX(), position.getY());
-        TileComponent tileComponent = tile.getComponent(TileComponent.class);
-        return tileComponent.isOccupied();
+        return world.isTileOccupied(position.getX(), position.getY());
     }
 
     @Override
