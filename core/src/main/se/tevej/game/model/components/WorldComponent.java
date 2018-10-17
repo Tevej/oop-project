@@ -54,10 +54,11 @@ public class WorldComponent implements Component {
         Entity[] neighbours = includeDiagonal ? new Entity[8] : new Entity[4];
         int x = posC.getX();
         int y = posC.getY();
+
         neighbours[0] = getTileAt(x, y + 1);
         neighbours[1] = getTileAt(x + 1, y);
         neighbours[2] = getTileAt(x, y - 1);
-        neighbours[3] = getTileAt(x, y + 1);
+        neighbours[3] = getTileAt(x - 1, y);
 
         if (includeDiagonal) {
             neighbours[4] = getTileAt(x + 1, y + 1);

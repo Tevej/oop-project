@@ -37,6 +37,16 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
             BuildingType.PUMP,
             renderingFactory.createTexture("buildings/pump.png")
         );
+
+        textureMap.put(
+            BuildingType.FARM,
+            renderingFactory.createTexture("food.png")
+        );
+
+        textureMap.put(
+            BuildingType.FARM_LAND,
+            renderingFactory.createTexture("food.png")
+        );
     }
 
     public void render(TBatchRenderer batchRenderer, float pixelPerTile) {

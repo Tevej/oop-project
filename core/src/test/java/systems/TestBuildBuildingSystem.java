@@ -44,7 +44,7 @@ public class TestBuildBuildingSystem {
             public void addEntityToEngine(Entity entity) {
             }
         });
-
+        engine.addEntity(worldEntity);
         Entity entity = new Entity();
         BuildingComponent buildingC = new BuildingComponent(BuildingType.LUMBERMILL);
         entity.add(buildingC);

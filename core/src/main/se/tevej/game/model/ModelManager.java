@@ -23,6 +23,7 @@ import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
+import main.se.tevej.game.model.systems.FoodGatheringSystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
 import main.se.tevej.game.model.systems.SignalHolder;
@@ -122,6 +123,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         engine.addSystem(new DeleteEntitySystem());
         engine.addSystem(new PaySystem(this));
         engine.addSystem(new NaturalResourceGatheringSystem(this));
+        engine.addSystem(new FoodGatheringSystem());
 
         engine.getSystems().forEach(entitySystem -> {
             if (entitySystem instanceof SignalListener) {
@@ -138,7 +140,12 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         int homeY = 10;
 
         try {
-            homeEntity = new BuildingEntity(BuildingType.HOME, homeX, homeY);
+            homeEntity = new BuildingEntity(
+                worldEntity.getComponent(WorldComponent.class),
+                BuildingType.HOME,
+                homeX,
+                homeY
+            );
         } catch (NoSuchBuildingException e) {
             homeEntity = new Entity();
             System.out.println("Home is gone");
