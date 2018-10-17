@@ -48,6 +48,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             // Moves the Resource from the natural resource to inventory
             naturalResourceC.extractResource(gatheredResource);
             inventory.addResource(gatheredResource);
+
         } catch (NotEnoughResourcesException e) {
             // Extracts the resource left and deletes entity
             Resource remainingResource = new Resource(naturalResourceC.getAmountLeft(),
@@ -55,7 +56,6 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             inventory.addResource(remainingResource);
             occupier.add(new SignalComponent(SignalType.DELETEENTITY));
             signalHolder.getSignal().dispatch(occupier);
-            System.out.println("Not enough resource left");
         }
     }
 

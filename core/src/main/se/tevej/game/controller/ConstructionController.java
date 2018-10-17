@@ -102,6 +102,9 @@ public class ConstructionController implements OnTappedListener,
             case KEY_P:
                 buildConstruction(BuildingType.PUMP);
                 break;
+            case KEY_F:
+                buildConstruction(BuildingType.FARM);
+                break;
             default:
                 break;
         }

@@ -1,14 +1,12 @@
 package main.se.tevej.game.model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
-import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
-import com.badlogic.ashley.utils.ImmutableArray;
 
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
@@ -23,6 +21,7 @@ import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
+import main.se.tevej.game.model.systems.FoodGatheringSystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
 import main.se.tevej.game.model.systems.SignalHolder;
@@ -105,17 +104,20 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     }
 
     private void initEngineFromLoadedFile(WorldEntity worldE, List<Entity> entities) {
+        List<Entity> occupierEntities = new ArrayList();
+
         for (Entity entity : entities) {
             if (entity.getComponent(InventoryComponent.class) != null) {
                 this.inventoryEntity = entity;
             }
 
+            if (entity.getComponent(NaturalResourceComponent.class) != null
+                || entity.getComponent(BuildingComponent.class) != null) {
+                occupierEntities.add(entity);
+            }
+
             engine.addEntity(entity);
         }
-
-        ImmutableArray<Entity> occupierArray = engine.getEntitiesFor(Family.all(
-            NaturalResourceComponent.class, BuildingComponent.class).get());
-        List<Entity> occupierEntities = Arrays.asList(occupierArray.toArray());
         worldE.createWorldFromSave(occupierEntities);
     }
 
@@ -126,6 +128,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         engine.addSystem(new NaturalResourceGatheringSystem(this));
         engine.addSystem(new SpawnNaturalResourceSystem());
         engine.addSystem(new TreeGrowthSystem(this));
+        engine.addSystem(new FoodGatheringSystem());
 
         engine.getSystems().forEach(entitySystem -> {
             if (entitySystem instanceof SignalListener) {
@@ -142,7 +145,12 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         int homeY = 10;
 
         try {
-            homeEntity = new BuildingEntity(BuildingType.HOME, homeX, homeY);
+            homeEntity = new BuildingEntity(
+                worldEntity.getComponent(WorldComponent.class),
+                BuildingType.HOME,
+                homeX,
+                homeY
+            );
         } catch (NoSuchBuildingException e) {
             homeEntity = new Entity();
             System.out.println("Home is gone");
