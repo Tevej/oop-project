@@ -123,7 +123,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         engine.addSystem(new DeleteEntitySystem());
         engine.addSystem(new PaySystem(this));
         engine.addSystem(new NaturalResourceGatheringSystem(this));
-        engine.addSystem(new FoodGatheringSystem(this));
+        engine.addSystem(new FoodGatheringSystem());
 
         engine.getSystems().forEach(entitySystem -> {
             if (entitySystem instanceof SignalListener) {

@@ -1,10 +1,10 @@
 package main.se.tevej.game.model.components;
 
-import com.badlogic.ashley.core.Component;
-import com.badlogic.ashley.core.Entity;
-
 import java.util.LinkedList;
 import java.util.List;
+
+import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 
 public class WorldComponent implements Component {
     private Entity[] tiles;
@@ -58,16 +58,16 @@ public class WorldComponent implements Component {
         int x = posC.getX();
         int y = posC.getY();
 
-        if (!isTileOccupied(x, y + 1)) neighbours.add(getTileAt(x, y + 1));
-        if (!isTileOccupied(x + 1, y)) neighbours.add(getTileAt(x + 1, y));
-        if (!isTileOccupied(x, y - 1)) neighbours.add(getTileAt(x, y - 1));
-        if (!isTileOccupied(x, y + 1)) neighbours.add(getTileAt(x -1 , y));
+        neighbours.add(getTileAt(x, y + 1));
+        neighbours.add(getTileAt(x + 1, y));
+        neighbours.add(getTileAt(x, y - 1));
+        neighbours.add(getTileAt(x - 1, y));
 
         if (includeDiagonal) {
-            if (!isTileOccupied(x + 1, y + 1)) neighbours.add(getTileAt(x + 1, y + 1));
-            if (!isTileOccupied(x + 1, y - 1)) neighbours.add(getTileAt(x + 1, y - 1));
-            if (!isTileOccupied(x - 1, y - 1)) neighbours.add(getTileAt(x - 1, y - 1));
-            if (!isTileOccupied(x - 1, y + 1)) neighbours.add(getTileAt(x - 1, y + 1));
+            neighbours.add(getTileAt(x + 1, y + 1));
+            neighbours.add(getTileAt(x + 1, y - 1));
+            neighbours.add(getTileAt(x - 1, y - 1));
+            neighbours.add(getTileAt(x - 1, y + 1));
         }
         return neighbours;
     }

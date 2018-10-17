@@ -1,11 +1,12 @@
 package main.se.tevej.game.model.components.buildings;
 
 import com.badlogic.ashley.core.Component;
+
 import main.se.tevej.game.model.exceptions.MismatchedResourceException;
 import main.se.tevej.game.model.utils.Resource;
 
 public class FarmLandComponent implements Component {
-    Resource resourcePerSecond;
+    private Resource resourcePerSecond;
 
     public FarmLandComponent(Resource resourcePerSecond) {
         this.resourcePerSecond = resourcePerSecond;

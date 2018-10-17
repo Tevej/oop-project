@@ -5,26 +5,20 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-import main.se.tevej.game.model.ModelManager;
+
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.PositionComponent;
-import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.FarmComponent;
-import main.se.tevej.game.model.components.buildings.FarmLandComponent;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
-import java.util.LinkedList;
-import java.util.List;
 
 public class FoodGatheringSystem extends EntitySystem {
 
     private Engine engine;
-    private ModelManager modelManager;
 
-    public FoodGatheringSystem(ModelManager modelManager) {
+    public FoodGatheringSystem() {
         super();
-        this.modelManager = modelManager;
     }
 
     @Override
@@ -41,12 +35,10 @@ public class FoodGatheringSystem extends EntitySystem {
                 Family.all(InventoryComponent.class).get()
         ).first().getComponent(InventoryComponent.class);
 
-        WorldComponent worldC = engine.getEntitiesFor(
-                Family.all(WorldComponent.class).get()).first().getComponent(WorldComponent.class);
-
         double totalAmount = 0;
         for (Entity farm : farms) {
-            totalAmount += farm.getComponent(FarmComponent.class).getGatheredResources(deltaTime).getAmount();
+            totalAmount +=
+                farm.getComponent(FarmComponent.class).getGatheredResources(deltaTime).getAmount();
         }
         inventoryC.addResource(new Resource(totalAmount, ResourceType.FOOD));
 

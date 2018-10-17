@@ -1,9 +1,12 @@
 package main.se.tevej.game.model.entities;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-
 import com.badlogic.ashley.core.Family;
+
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.RadiusComponent;
 import main.se.tevej.game.model.components.SizeComponent;
@@ -18,11 +21,12 @@ import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
-import java.util.List;
 
 public class BuildingEntity extends Entity {
 
-    public BuildingEntity(Engine engine, BuildingType type, int x, int y) throws NoSuchBuildingException {
+    public BuildingEntity(
+        Engine engine, BuildingType type, int x, int y)
+        throws NoSuchBuildingException {
         super();
         this.add(new PositionComponent(x, y));
         this.add(new SizeComponent(1, 1));
@@ -49,9 +53,19 @@ public class BuildingEntity extends Entity {
     }
 
     private void createFarm(Engine engine) {
-        List<Entity> farmLandEntities = engine.getEntitiesFor(
-            Family.all(WorldComponent.class).get()).first().getComponent(WorldComponent.class)
-            .getTileNeighbours(this, true);
+        WorldComponent worldC = engine.getEntitiesFor(
+            Family.all(WorldComponent.class).get()).first().getComponent(WorldComponent.class);
+
+        List<Entity> neighbours = worldC.getTileNeighbours(this, true);
+
+        List<Entity> farmLandEntities = new LinkedList<>();
+
+        for (Entity neighbour : neighbours) {
+            PositionComponent posC = neighbour.getComponent(PositionComponent.class);
+            if (!worldC.isTileOccupied(posC.getX(), posC.getY())) {
+                farmLandEntities.add(neighbour);
+            }
+        }
 
         for (Entity entity : farmLandEntities) {
             entity.add(new FarmLandComponent(new Resource(5, ResourceType.FOOD)));
