@@ -58,9 +58,7 @@ public class PaySystem extends EntitySystem implements SignalListener {
         PositionComponent position = entity.getComponent(PositionComponent.class);
         Entity worldEntity = engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first();
         WorldComponent world = worldEntity.getComponent(WorldComponent.class);
-        Entity tile = world.getTileAt(position.getX(), position.getY());
-        TileComponent tileComponent = tile.getComponent(TileComponent.class);
-        return tileComponent.isOccupied();
+        return world.isTileOccupied(position.getX(), position.getY());
     }
 
     @Override
