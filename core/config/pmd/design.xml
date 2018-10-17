@@ -1183,6 +1183,7 @@ public class SimpleTest extends TestCase {
         </example>
     </rule>
 
+<!--
     <rule name="SimplifyBooleanExpressions"
           language="java"
           since="1.05"
@@ -1214,6 +1215,7 @@ public class Bar {
 ]]>
         </example>
     </rule>
+-->
 
     <rule name="SimplifyBooleanReturns"
           since="0.9"
