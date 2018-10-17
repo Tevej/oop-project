@@ -67,4 +67,24 @@ public class WorldComponent implements Component {
         }
         return neighbours;
     }
+
+
+    public void occupyTile(int worldX, int worldY, Entity entity) {
+        TileComponent tileC = getTileAt(worldX, worldY).getComponent(TileComponent.class);
+        tileC.occupy(entity);
+    }
+
+    public boolean isTileOccupied(int worldX, int worldY) {
+        TileComponent tileC = getTileAt(worldX, worldY).getComponent(TileComponent.class);
+        return tileC.isOccupied();
+    }
+
+    public void removeOccupier(int worldX, int worldY) {
+        getTileAt(worldX, worldY).getComponent(TileComponent.class).occupy(null);
+    }
+
+    public Entity getTileOccupier(int worldX, int worldY) {
+        return getTileAt(worldX, worldY).getComponent(TileComponent.class).getOccupier();
+    }
+
 }
