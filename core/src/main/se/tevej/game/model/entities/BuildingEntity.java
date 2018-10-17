@@ -45,17 +45,17 @@ public class BuildingEntity extends Entity {
     }
 
     private void createLumberMill() {
-        this.add(new RadiusComponent(3));
-        this.add(new GathererComponent(new Resource(50, ResourceType.WOOD)));
+        this.add(new RadiusComponent(10));
+        this.add(new GathererComponent(new Resource(5, ResourceType.WOOD)));
     }
 
     private void createQuarry() {
-        this.add(new RadiusComponent(3));
-        this.add(new GathererComponent(new Resource(50, ResourceType.STONE)));
+        this.add(new RadiusComponent(10));
+        this.add(new GathererComponent(new Resource(5, ResourceType.STONE)));
     }
 
     private void createPump() {
-        this.add(new RadiusComponent(3));
-        this.add(new GathererComponent(new Resource(50, ResourceType.WATER)));
+        this.add(new RadiusComponent(1));
+        this.add(new GathererComponent(new Resource(2.5, ResourceType.WATER)));
     }
 }
