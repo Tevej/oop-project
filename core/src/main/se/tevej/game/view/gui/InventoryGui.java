@@ -27,13 +27,13 @@ public class InventoryGui {
         inventoryElements = new LinkedList<>();
         inventoryElements.add(new InventoryElement(guiFactory,
             findAmountOfResource(ResourceType.WOOD),
-            "naturalResources/wood.jpg", ResourceType.WOOD));
+            "naturalResources/wood.png", ResourceType.WOOD));
         inventoryElements.add(new InventoryElement(guiFactory,
             findAmountOfResource(ResourceType.WATER),
             "naturalResources/water.jpg", ResourceType.WATER));
         inventoryElements.add(new InventoryElement(guiFactory,
             findAmountOfResource(ResourceType.STONE),
-            "naturalResources/stone.jpg", ResourceType.STONE));
+            "naturalResources/stone.png", ResourceType.STONE));
         inventoryElements.add(new InventoryElement(guiFactory,
             findAmountOfResource(ResourceType.FOOD),
             "food.png", ResourceType.FOOD));
