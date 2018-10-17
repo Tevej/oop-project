@@ -8,7 +8,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
-
 import com.sun.javafx.geom.Vec2f;
 
 import main.se.tevej.game.model.ashley.SignalComponent;
@@ -50,6 +49,7 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             // Moves the Resource from the natural resource to inventory
             naturalResourceC.extractResource(gatheredResource);
             inventory.addResource(gatheredResource);
+
         } catch (NotEnoughResourcesException e) {
             // Extracts the resource left and deletes entity
             Resource remainingResource = new Resource(naturalResourceC.getAmountLeft(),
@@ -57,7 +57,6 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             inventory.addResource(remainingResource);
             occupier.add(new SignalComponent(SignalType.DELETEENTITY));
             signalHolder.getSignal().dispatch(occupier);
-            System.out.println("Not enough resource left");
         }
     }
 

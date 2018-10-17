@@ -1,14 +1,12 @@
 package main.se.tevej.game.model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
-import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
-import com.badlogic.ashley.utils.ImmutableArray;
 
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
@@ -104,17 +102,20 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     }
 
     private void initEngineFromLoadedFile(WorldEntity worldE, List<Entity> entities) {
+        List<Entity> occupierEntities = new ArrayList();
+
         for (Entity entity : entities) {
             if (entity.getComponent(InventoryComponent.class) != null) {
                 this.inventoryEntity = entity;
             }
 
+            if (entity.getComponent(NaturalResourceComponent.class) != null
+                || entity.getComponent(BuildingComponent.class) != null) {
+                occupierEntities.add(entity);
+            }
+
             engine.addEntity(entity);
         }
-
-        ImmutableArray<Entity> occupierArray = engine.getEntitiesFor(Family.all(
-            NaturalResourceComponent.class, BuildingComponent.class).get());
-        List<Entity> occupierEntities = Arrays.asList(occupierArray.toArray());
         worldE.createWorldFromSave(occupierEntities);
     }
 

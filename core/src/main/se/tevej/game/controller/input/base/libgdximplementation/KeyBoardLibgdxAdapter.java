@@ -44,14 +44,12 @@ public class KeyBoardLibgdxAdapter extends InputAdapter implements TKeyBoard {
 
     }
 
-    private InputProcessorListener processorListener;
     private List<OnTappedListener> onTappedListeners;
 
     public KeyBoardLibgdxAdapter(InputProcessorListener listener) {
         super();
         onTappedListeners = new ArrayList<>();
-        processorListener = listener;
-        processorListener.addGameRenderingInputProcessor(this);
+        listener.addGameRenderingInputProcessor(this);
     }
 
     @Override
