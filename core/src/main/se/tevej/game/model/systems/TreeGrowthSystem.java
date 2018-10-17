@@ -34,6 +34,11 @@ public class TreeGrowthSystem extends EntitySystem {
     private final float treeSpawnTime = 1f;
     private float treeSpawnProgress;
 
+    // A matrix that represents the world where the values of each tile
+    // is the number of trees neighbouring it,
+    // or -1 if it's occupied.
+    private int[][] numNeighbouringTrees;
+
     public TreeGrowthSystem(SignalHolder signalHolder) {
         super();
         this.signalHolder = signalHolder;
@@ -42,6 +47,74 @@ public class TreeGrowthSystem extends EntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
+    }
+
+    private void init() {
+        init();
+        WorldComponent worldC = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
+            .first().getComponent(WorldComponent.class);
+
+        int width = worldC.getWidth();
+        int height = worldC.getHeight();
+
+        numNeighbouringTrees = new int[width][height];
+        Entity tileE;
+
+        // Init the tree matrix.
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                tileE = worldC.getTileAt(x, y);
+                numNeighbouringTrees[x][y] = getValueForTile(tileE, worldC);
+            }
+        }
+    }
+
+    private int getValueForTile(Entity tileE, WorldComponent worldC) {
+        TileComponent tileC;
+        int value = 0;
+        if (tileE != null) {
+            tileC = tileE.getComponent(TileComponent.class);
+            if (tileC == null || tileC.isOccupied()) {
+                value = -1;
+            } else {
+                value = getTreeNeighbourCount(tileE.getComponent(PositionComponent.class), worldC);
+            }
+        }
+        return value;
+    }
+
+    private int getTreeNeighbourCount(PositionComponent posC, WorldComponent worldC) {
+        int value = 0;
+        if (posC == null) {
+            System.out.println("Recieved null positionComponent!");
+            value = -1;
+        } else {
+            Entity[] neighbours = worldC.getTileNeighbours(posC, true);
+            for (Entity neighbour : neighbours) {
+                if (neighbour != null) {
+                    TileComponent tileC = neighbour.getComponent(TileComponent.class);
+                    value += hasTree(tileC) ? 1 : 0;
+                }
+            }
+        }
+        return value;
+    }
+
+    private boolean hasTree(TileComponent component) {
+        boolean hasTree = false;
+        if (component == null) {
+            System.out.println("Recieved null tileComponent!");
+        } else {
+            Entity occupier = component.getOccupier();
+            if (occupier != null) {
+                NaturalResourceComponent naturalResourceC = occupier
+                    .getComponent(NaturalResourceComponent.class);
+
+                hasTree = naturalResourceC != null
+                    && naturalResourceC.getType() == ResourceType.WOOD;
+            }
+        }
+        return hasTree;
     }
 
     @Override

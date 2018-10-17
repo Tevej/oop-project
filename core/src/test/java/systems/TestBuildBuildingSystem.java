@@ -12,7 +12,6 @@ import main.se.tevej.game.model.ashley.SignalComponent;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.PositionComponent;
-import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
@@ -66,16 +65,13 @@ public class TestBuildBuildingSystem {
         // se att building finns i systemet
         Entity buildingE = engine.getEntitiesFor(Family.all(BuildingComponent.class,
             GathererComponent.class).get()).first();
-
         assertNotNull(buildingE);
 
         //se att tile har building
-        TileComponent tileC = worldC.getTileAt(2, 3).getComponent(TileComponent.class);
-        assertEquals(tileC.getOccupier(), buildingE);
+        assertEquals(worldC.getTileOccupier(2, 3), buildingE);
 
         //se att building har rätt position
         PositionComponent buildingPositionC = buildingE.getComponent(PositionComponent.class);
-
         assertEquals(2, buildingPositionC.getX());
         assertEquals(3, buildingPositionC.getY());
 
