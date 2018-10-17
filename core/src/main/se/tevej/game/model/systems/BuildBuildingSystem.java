@@ -61,7 +61,7 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
 
         Entity building;
         try {
-            building = new BuildingEntity(buildingType, posC.getX(), posC.getY());
+            building = new BuildingEntity(engine, buildingType, posC.getX(), posC.getY());
         } catch (NoSuchBuildingException e) {
             return;
         }

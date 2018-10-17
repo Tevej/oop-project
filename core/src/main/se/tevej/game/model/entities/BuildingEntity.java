@@ -1,21 +1,28 @@
 package main.se.tevej.game.model.entities;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 
+import com.badlogic.ashley.core.Family;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.RadiusComponent;
 import main.se.tevej.game.model.components.SizeComponent;
+import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.components.buildings.FarmComponent;
+import main.se.tevej.game.model.components.buildings.FarmLandComponent;
 import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.components.buildings.HomeComponent;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
+import java.util.List;
+
 public class BuildingEntity extends Entity {
 
-    public BuildingEntity(BuildingType type, int x, int y) throws NoSuchBuildingException {
+    public BuildingEntity(Engine engine, BuildingType type, int x, int y) throws NoSuchBuildingException {
         super();
         this.add(new PositionComponent(x, y));
         this.add(new SizeComponent(1, 1));
@@ -33,9 +40,25 @@ public class BuildingEntity extends Entity {
             case PUMP:
                 createPump();
                 break;
+            case FARM:
+                createFarm(engine);
+                break;
             default:
                 throw new NoSuchBuildingException(type.toString());
         }
+    }
+
+    private void createFarm(Engine engine) {
+        List<Entity> farmLandEntities = engine.getEntitiesFor(
+            Family.all(WorldComponent.class).get()).first().getComponent(WorldComponent.class)
+            .getTileNeighbours(this, true);
+
+        for (Entity entity : farmLandEntities) {
+            entity.add(new FarmLandComponent(new Resource(5, ResourceType.FOOD)));
+            entity.add(new BuildingComponent(BuildingType.FARM_LAND));
+
+        }
+        this.add(new FarmComponent(farmLandEntities));
     }
 
 
