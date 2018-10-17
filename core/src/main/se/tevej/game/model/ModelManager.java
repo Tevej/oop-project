@@ -140,7 +140,12 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         int homeY = 10;
 
         try {
-            homeEntity = new BuildingEntity(engine, BuildingType.HOME, homeX, homeY);
+            homeEntity = new BuildingEntity(
+                worldEntity.getComponent(WorldComponent.class),
+                BuildingType.HOME,
+                homeX,
+                homeY
+            );
         } catch (NoSuchBuildingException e) {
             homeEntity = new Entity();
             System.out.println("Home is gone");

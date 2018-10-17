@@ -3,9 +3,7 @@ package main.se.tevej.game.model.entities;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
 
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.RadiusComponent;
@@ -25,7 +23,7 @@ import main.se.tevej.game.model.utils.ResourceType;
 public class BuildingEntity extends Entity {
 
     public BuildingEntity(
-        Engine engine, BuildingType type, int x, int y)
+        WorldComponent worldC, BuildingType type, int x, int y)
         throws NoSuchBuildingException {
         super();
         this.add(new PositionComponent(x, y));
@@ -45,17 +43,14 @@ public class BuildingEntity extends Entity {
                 createPump();
                 break;
             case FARM:
-                createFarm(engine);
+                createFarm(worldC);
                 break;
             default:
                 throw new NoSuchBuildingException(type.toString());
         }
     }
 
-    private void createFarm(Engine engine) {
-        WorldComponent worldC = engine.getEntitiesFor(
-            Family.all(WorldComponent.class).get()).first().getComponent(WorldComponent.class);
-
+    private void createFarm(WorldComponent worldC) {
         Entity[] neighbours = worldC.getTileNeighbours(this, true);
 
         List<Entity> farmLandEntities = new LinkedList<>();

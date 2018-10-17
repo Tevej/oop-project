@@ -3,6 +3,7 @@ package main.se.tevej.game.model.systems;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
@@ -61,7 +62,13 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
 
         Entity building;
         try {
-            building = new BuildingEntity(engine, buildingType, posC.getX(), posC.getY());
+            building = new BuildingEntity(
+                engine.getEntitiesFor(Family.all(WorldComponent.class).get()).first()
+                    .getComponent(WorldComponent.class),
+                buildingType,
+                posC.getX(),
+                posC.getY()
+            );
         } catch (NoSuchBuildingException e) {
             return;
         }
