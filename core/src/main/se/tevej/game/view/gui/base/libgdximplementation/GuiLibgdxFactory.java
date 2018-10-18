@@ -34,11 +34,6 @@ public class GuiLibgdxFactory implements GuiFactory {
     }
 
     @Override
-    public TLabel createLabel(float red, float green, float blue, float alpha) {
-        return new LabelLibgdxAdapter(SKIN, red, green, blue, alpha);
-    }
-
-    @Override
     public TTable createTable() {
         return new TableLibgdxAdapter(SKIN, processorListener);
     }

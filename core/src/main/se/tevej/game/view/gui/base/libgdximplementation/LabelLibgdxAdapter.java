@@ -12,18 +12,16 @@ public class LabelLibgdxAdapter extends Label implements TLabel {
         super("", skin);
     }
 
-    public LabelLibgdxAdapter(Skin skin, float red, float green, float blue, float alpha) {
-        super("", skin, "Arial", new Color(red, green, blue, alpha));
-    }
-
     @Override
     public TLabel text(String text) {
         super.setText(text);
         return this;
     }
 
+    @Override
     public void setColor(float red, float green, float blue, float alpha) {
-        LabelStyle labelStyle = new LabelStyle(new BitmapFont(), new Color(red, green, blue, alpha));
+        LabelStyle labelStyle = new LabelStyle(
+            new BitmapFont(), new Color(red, green, blue, alpha));
         this.setStyle(labelStyle);
     }
 }

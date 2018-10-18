@@ -15,14 +15,15 @@ import main.se.tevej.game.view.gui.base.TTable;
 
 
 public class BuildingGui {
+    private static final int IMAGESIZE = 32;
+    private static final int PADDING = 5;
     private GuiFactory guiFactory;
     private TTable buildingTable;
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
-    private final int IMAGESIZE = 32;
-    private final int PADDING = 5;
+
     private List<OnBuildingSelectedToBuild> selectedListeners;
 
     public BuildingGui(GuiFactory guiFactory) {
@@ -47,8 +48,7 @@ public class BuildingGui {
             .grid(1, buttonList.size())
             .backgroundColor(0,0,0,0.7f)
             .alignCenter()
-            .setPadding(PADDING)
-            .debug(false);
+            .padding(PADDING);
 
         for (TButton buildingButton : buttonList) {
             buildingTable.addElement(buildingButton).width(IMAGESIZE).height(IMAGESIZE);

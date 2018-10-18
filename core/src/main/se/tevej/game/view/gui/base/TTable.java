@@ -12,13 +12,11 @@ public interface TTable {
 
     TTable grid(int rows, int columns);
 
-    TTable debug(boolean debug);
-
     TTable alignLeft();
 
     TTable alignCenter();
 
-    TTable setPadding(float amount);
+    TTable padding(float amount);
 
     void update(float deltaTime);
 

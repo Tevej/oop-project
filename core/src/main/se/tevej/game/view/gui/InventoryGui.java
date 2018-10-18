@@ -6,7 +6,6 @@ import java.util.List;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 
-import com.badlogic.gdx.utils.Align;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.gui.base.GuiFactory;
@@ -50,8 +49,7 @@ public class InventoryGui {
             .grid(2, inventoryElements.size())
             .backgroundColor(0, 0, 0, 0.7f)
             .alignLeft()
-            .setPadding(5)
-            .debug(false);
+            .padding(5);
         for (InventoryElement inventoryElement : inventoryElements) {
             inventoryTable.addElement(
                 inventoryElement.getImage()).height(tableDimension).width(tableDimension);

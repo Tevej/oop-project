@@ -19,8 +19,9 @@ import main.se.tevej.game.view.gui.base.TCell;
 import main.se.tevej.game.view.gui.base.TTable;
 import main.se.tevej.game.view.gui.base.TUiElement;
 
+// Not our fault that the libgdx class has too many methods ¯\_(ツ)_/¯
+@SuppressWarnings("PMD.TooManyMethods")
 public class TableLibgdxAdapter extends Table implements TTable {
-
     private Stage stage;
     private Map<Cell, TUiElement> cells;
     private boolean positionUpdated;
@@ -85,12 +86,6 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
-    public TTable debug(boolean debug) {
-        super.setDebug(debug);
-        return this;
-    }
-
-    @Override
     public void update(float deltaTime) {
         if (!positionUpdated) {
             positionX(super.getX() - super.getWidth() / 2);
@@ -145,7 +140,7 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
-    public TTable setPadding(float amount) {
+    public TTable padding(float amount) {
         super.pad(amount);
         return this;
     }
