@@ -32,10 +32,10 @@ public class InventoryElement implements TUiElement {
         if (amount < suffixNumbers[0]) {
             result = amount;
         } else if (amount < suffixNumbers[1]) {
-            result = amount / 1000;
+            result = amount / suffixNumbers[0];
             suffix = "K";
         } else {
-            result = amount / (1000 * 1000);
+            result = amount / suffixNumbers[1];
             suffix = "M";
         }
         return round(result) + suffix;
