@@ -21,7 +21,13 @@ import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
-import main.se.tevej.game.model.systems.*;
+import main.se.tevej.game.model.systems.BuildBuildingSystem;
+import main.se.tevej.game.model.systems.DeleteEntitySystem;
+import main.se.tevej.game.model.systems.FoodGatheringSystem;
+import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
+import main.se.tevej.game.model.systems.PaySystem;
+import main.se.tevej.game.model.systems.PopulationSystem;
+import main.se.tevej.game.model.systems.SignalHolder;
 
 public class ModelManager implements AddToEngineListener, SignalHolder {
 
