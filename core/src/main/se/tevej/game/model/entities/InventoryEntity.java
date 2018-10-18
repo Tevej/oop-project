@@ -3,8 +3,8 @@ package main.se.tevej.game.model.entities;
 import com.badlogic.ashley.core.Entity;
 
 import main.se.tevej.game.model.components.InventoryComponent;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 
 public class InventoryEntity extends Entity {
     public InventoryEntity() {

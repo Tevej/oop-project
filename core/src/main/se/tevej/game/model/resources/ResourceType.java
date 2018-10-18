@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.utils;
+package main.se.tevej.game.model.resources;
 
 public enum ResourceType {
     WATER,

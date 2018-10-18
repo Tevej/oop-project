@@ -2,8 +2,8 @@ package main.se.tevej.game.model.components.buildings;
 
 import com.badlogic.ashley.core.Component;
 
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 
 public class HomeComponent implements Component {
     private Resource population;

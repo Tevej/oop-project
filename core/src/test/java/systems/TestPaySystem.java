@@ -19,10 +19,10 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.PaySystem;
 import main.se.tevej.game.model.systems.SignalHolder;
-import main.se.tevej.game.model.utils.ResourceType;
 import org.junit.Test;
 
 public class TestPaySystem {

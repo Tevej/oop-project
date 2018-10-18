@@ -13,8 +13,8 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
-import main.se.tevej.game.model.utils.ResourceType;
 import org.junit.Test;
 
 public class TestSpawnNaturalResourceSystem {
