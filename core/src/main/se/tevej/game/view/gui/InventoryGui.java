@@ -41,16 +41,19 @@ public class InventoryGui {
             findAmountOfResource(ResourceType.POPULATION),
             "population.png", ResourceType.POPULATION));
 
-        int tableElementHeight = 32;
+        int tableDimension = 32;
 
         inventoryTable = guiFactory.createTable()
-            .positionX(32)
-            .positionY(Gdx.graphics.getHeight() - (tableElementHeight * inventoryElements.size() / 2f))
+            .positionX(tableDimension)
+            .positionY(
+                Gdx.graphics.getHeight() - (tableDimension * inventoryElements.size() / 2f))
             .grid(2, inventoryElements.size())
             .debug(false);
         for (InventoryElement inventoryElement : inventoryElements) {
-            inventoryTable.addElement(inventoryElement.getImage()).height(32).width(32);
-            inventoryTable.addElement(inventoryElement.getLabel()).height(32).width(32);
+            inventoryTable.addElement(
+                inventoryElement.getImage()).height(tableDimension).width(tableDimension);
+            inventoryTable.addElement(
+                inventoryElement.getLabel()).height(tableDimension).width(tableDimension);
         }
     }
 

@@ -1,14 +1,13 @@
 package main.se.tevej.game.view.gui;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TUiElement;
-
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.Arrays;
 
 public class InventoryElement implements TUiElement {
     private TLabel label;
@@ -28,10 +27,11 @@ public class InventoryElement implements TUiElement {
 
     private String parseDoubleWithSuffix(double amount) {
         double result;
+        int[] suffixNumbers = {1000, 1000000};
         String suffix = "";
-        if (amount < 1000) {
+        if (amount < suffixNumbers[0]) {
             result = amount;
-        } else if (amount < 1000 * 1000) {
+        } else if (amount < suffixNumbers[1]) {
             result = amount / 1000;
             suffix = "K";
         } else {
