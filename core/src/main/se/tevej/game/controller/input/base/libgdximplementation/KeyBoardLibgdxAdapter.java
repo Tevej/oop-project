@@ -1,6 +1,8 @@
 package main.se.tevej.game.controller.input.base.libgdximplementation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.badlogic.gdx.Input.Keys;
@@ -12,7 +14,7 @@ import main.se.tevej.game.controller.input.base.TKey;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.view.gui.base.InputProcessorListener;
 
-public class KeyBoardLibgdxAdapter implements TKeyBoard {
+public class KeyBoardLibgdxAdapter extends InputAdapter implements TKeyBoard {
 
     private static final Map<Integer, TKey> INPUT_MAP;
 
@@ -42,24 +44,26 @@ public class KeyBoardLibgdxAdapter implements TKeyBoard {
 
     }
 
-    private InputProcessorListener processorListener;
+    private List<OnTappedListener> onTappedListeners;
 
     public KeyBoardLibgdxAdapter(InputProcessorListener listener) {
         super();
-        processorListener = listener;
+        onTappedListeners = new ArrayList<>();
+        listener.addGameRenderingInputProcessor(this);
     }
 
     @Override
     public void addTappedListener(OnTappedListener onClickedListener) {
-        TKeyBoard keyboard = this;
-        processorListener.addGameRenderingInputProcessor(new InputAdapter() {
-            @Override
-            public boolean keyDown(int keycode) {
-                if (INPUT_MAP.containsKey(keycode)) {
-                    onClickedListener.onTapped(keyboard, INPUT_MAP.get(keycode));
-                }
-                return true;
+        onTappedListeners.add(onClickedListener);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (INPUT_MAP.containsKey(keycode)) {
+            for (OnTappedListener listener : onTappedListeners) {
+                listener.onTapped(this, INPUT_MAP.get(keycode));
             }
-        });
+        }
+        return true;
     }
 }
