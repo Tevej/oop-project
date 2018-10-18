@@ -20,7 +20,7 @@ import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 
 public class BuildBuildingSystem
     extends EntitySystem
-    implements SignalListener, AddToEngineListener {
+    implements SignalListener, AddToEngineListener, Listener<Entity> {
 
     private Engine engine;
 
@@ -39,25 +39,25 @@ public class BuildBuildingSystem
 
     @Override
     public Listener<Entity> getSignalListener() {
-        return new Listener<Entity>() {
-            @Override
-            public void receive(Signal<Entity> signal, Entity signalEntity) {
-                SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
-                switch (signalComponent.getType()) {
-                    case BUILDBUILDING:
-                        BuildingComponent buildingC =
-                            signalEntity.getComponent(BuildingComponent.class);
-                        PositionComponent posC = signalEntity.getComponent(PositionComponent.class);
-                        Entity tile = signalEntity.getComponent(WorldComponent.class)
-                            .getTileAt((int) posC.getX(), (int) posC.getY());
-                        TileComponent tileC = tile.getComponent(TileComponent.class);
-                        buildBuilding(tileC, posC, buildingC.getType());
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
+        return this;
+    }
+
+    @Override
+    public void receive(Signal<Entity> signal, Entity signalEntity) {
+        SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
+        switch (signalComponent.getType()) {
+            case BUILDBUILDING:
+                BuildingComponent buildingC =
+                    signalEntity.getComponent(BuildingComponent.class);
+                PositionComponent posC = signalEntity.getComponent(PositionComponent.class);
+                Entity tile = signalEntity.getComponent(WorldComponent.class)
+                    .getTileAt((int) posC.getX(), (int) posC.getY());
+                TileComponent tileC = tile.getComponent(TileComponent.class);
+                buildBuilding(tileC, posC, buildingC.getType());
+                break;
+            default:
+                break;
+        }
     }
 
     private void buildBuilding(

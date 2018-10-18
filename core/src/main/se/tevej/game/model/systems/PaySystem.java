@@ -21,7 +21,7 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
 import main.se.tevej.game.model.utils.Resource;
 
-public class PaySystem extends EntitySystem implements SignalListener {
+public class PaySystem extends EntitySystem implements SignalListener, Listener<Entity> {
 
     private Engine engine;
     private SignalHolder signalHolder;
@@ -71,22 +71,22 @@ public class PaySystem extends EntitySystem implements SignalListener {
 
     @Override
     public Listener<Entity> getSignalListener() {
-        return new Listener<Entity>() {
-            @Override
-            public void receive(Signal<Entity> signal, Entity signalEntity) {
-                SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
-                switch (signalComponent.getType()) {
-                    case PAYFORCONSTRUCTION:
-                        if (isOccupiedLocation(signalEntity)) {
-                            break;
-                        } else {
-                            pay(signalEntity);
-                        }
-                        break;
-                    default:
-                        break;
+        return this;
+    }
+
+    @Override
+    public void receive(Signal<Entity> signal, Entity signalEntity) {
+        SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
+        switch (signalComponent.getType()) {
+            case PAYFORCONSTRUCTION:
+                if (isOccupiedLocation(signalEntity)) {
+                    break;
+                } else {
+                    pay(signalEntity);
                 }
-            }
-        };
+                break;
+            default:
+                break;
+        }
     }
 }
