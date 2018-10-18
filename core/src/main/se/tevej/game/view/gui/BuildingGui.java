@@ -21,7 +21,8 @@ public class BuildingGui {
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
-    private final int imageSize = 32;
+    private final int IMAGESIZE = 32;
+    private final int PADDING = 5;
     private List<OnBuildingSelectedToBuild> selectedListeners;
 
     public BuildingGui(GuiFactory guiFactory) {
@@ -41,13 +42,16 @@ public class BuildingGui {
             createBuildingButton(BuildingType.FARM, "buildings/farm.png"));
 
         buildingTable = guiFactory.createTable()
-            .positionX(Gdx.graphics.getWidth() - (imageSize / 2f))
+            .positionX(Gdx.graphics.getWidth() - ((IMAGESIZE + PADDING * 2) / 2f))
             .positionY(Gdx.graphics.getHeight() / 2f)
-            .grid(1, 32)
-            .debug(true);
+            .grid(1, buttonList.size())
+            .backgroundColor(0,0,0,0.7f)
+            .alignCenter()
+            .setPadding(PADDING)
+            .debug(false);
 
         for (TButton buildingButton : buttonList) {
-            buildingTable.addElement(buildingButton).width(imageSize).height(imageSize);
+            buildingTable.addElement(buildingButton).width(IMAGESIZE).height(IMAGESIZE);
         }
     }
 

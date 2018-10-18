@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.utils.Align;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.utils.ResourceType;
 import main.se.tevej.game.view.gui.base.GuiFactory;
@@ -44,17 +45,24 @@ public class InventoryGui {
         int tableDimension = 32;
 
         inventoryTable = guiFactory.createTable()
-            .positionX(tableDimension)
             .positionY(
                 Gdx.graphics.getHeight() - (tableDimension * inventoryElements.size() / 2f))
             .grid(2, inventoryElements.size())
+            .backgroundColor(0, 0, 0, 0.7f)
+            .alignLeft()
+            .setPadding(5)
             .debug(false);
         for (InventoryElement inventoryElement : inventoryElements) {
             inventoryTable.addElement(
                 inventoryElement.getImage()).height(tableDimension).width(tableDimension);
             inventoryTable.addElement(
-                inventoryElement.getLabel()).height(tableDimension).width(tableDimension);
+                inventoryElement.getLabel()).height(tableDimension);
         }
+        alignTable();
+    }
+
+    private void alignTable() {
+        inventoryTable.positionX(0);
     }
 
     private int findAmountOfResource(ResourceType resourceType) {
@@ -71,6 +79,7 @@ public class InventoryGui {
         for (InventoryElement inventoryElement : inventoryElements) {
             inventoryElement.update(findAmountOfResource(inventoryElement.getResourceType()));
         }
+        alignTable();
         inventoryTable.update(deltaTime);
     }
 

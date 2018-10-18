@@ -6,6 +6,8 @@ public interface GuiFactory {
 
     TLabel createLabel();
 
+    TLabel createLabel(float red, float green, float blue, float alpha);
+
     TTable createTable();
 
     TTextField createTextField();
