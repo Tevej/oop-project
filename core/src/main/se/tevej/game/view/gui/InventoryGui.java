@@ -7,7 +7,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 
 import main.se.tevej.game.model.components.InventoryComponent;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.TTable;
 

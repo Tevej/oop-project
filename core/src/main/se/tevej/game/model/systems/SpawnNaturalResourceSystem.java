@@ -15,8 +15,8 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.NaturalResourceEntity;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 
 public class SpawnNaturalResourceSystem
     extends EntitySystem

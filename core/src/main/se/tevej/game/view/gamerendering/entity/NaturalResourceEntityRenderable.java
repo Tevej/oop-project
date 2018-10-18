@@ -12,7 +12,7 @@ import com.badlogic.ashley.core.Entity;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.view.gamerendering.TextureLoader;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;

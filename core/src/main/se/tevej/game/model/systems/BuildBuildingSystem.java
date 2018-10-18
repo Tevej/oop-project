@@ -16,7 +16,7 @@ import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
-import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
+import main.se.tevej.game.model.entities.NoSuchBuildingException;
 
 public class BuildBuildingSystem
     extends EntitySystem

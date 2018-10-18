@@ -18,9 +18,9 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.RadiusComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.GathererComponent;
-import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.NotEnoughResourcesException;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 
 public class NaturalResourceGatheringSystem extends EntitySystem {
 

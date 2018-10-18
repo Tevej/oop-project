@@ -8,9 +8,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import main.se.tevej.game.model.components.InventoryComponent;
-import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.NotEnoughResourcesException;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 import org.junit.Test;
 
 

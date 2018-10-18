@@ -13,7 +13,7 @@ import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.ResourceType;
 
 public class TreeGrowthSystem extends EntitySystem implements EntityListener {
     private Engine engine;

@@ -3,7 +3,7 @@ package main.se.tevej.game.view.gui;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;

@@ -15,9 +15,8 @@ import main.se.tevej.game.model.components.buildings.FarmComponent;
 import main.se.tevej.game.model.components.buildings.FarmLandComponent;
 import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.components.buildings.HomeComponent;
-import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 
 
 public class BuildingEntity extends Entity {
