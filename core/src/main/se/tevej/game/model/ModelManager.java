@@ -8,8 +8,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
-
 import com.badlogic.ashley.utils.ImmutableArray;
+
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
@@ -89,6 +89,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
     public ImmutableArray<Entity> getTiles() {
         return engine.getEntitiesFor(Family.all(TileComponent.class).get());
     }
+    
     public Entity getWorldEntity() {
         return worldEntity;
     }

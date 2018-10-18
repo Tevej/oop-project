@@ -22,8 +22,6 @@ import main.se.tevej.game.model.utils.ResourceType;
 
 public class BuildingEntity extends Entity {
 
-    private AddToEngineListener engineListener;
-
     public BuildingEntity(
         WorldComponent worldC, BuildingType type, int x, int y, AddToEngineListener engineListener)
         throws NoSuchBuildingException {
@@ -81,7 +79,7 @@ public class BuildingEntity extends Entity {
         entity.add(new SizeComponent(1, 1));
         entity.add(new FarmLandComponent(new Resource(5, ResourceType.FOOD)));
         entity.add(new BuildingComponent(BuildingType.FARM_LAND));
-        entity.add(posC.clone());
+        entity.add(posC.copy());
         return entity;
     }
 

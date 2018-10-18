@@ -18,7 +18,9 @@ import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 
-public class BuildBuildingSystem extends EntitySystem implements SignalListener, AddToEngineListener {
+public class BuildBuildingSystem
+    extends EntitySystem
+    implements SignalListener, AddToEngineListener {
 
     private Engine engine;
 

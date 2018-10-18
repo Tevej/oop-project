@@ -11,7 +11,7 @@ public class PositionComponent implements Component {
         this.posY = y;
     }
 
-    public PositionComponent clone() {
+    public PositionComponent copy() {
         return new PositionComponent(posX, posY);
     }
 
