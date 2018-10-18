@@ -70,22 +70,22 @@ public class TestPaySystem {
 
         testInventoryValues(engine, 1000, 1000, 1000);
 
-        payAndBuild(worldEntity, signal, BuildingType.HOME, 1, 2);
+        payAndBuild(engine, worldEntity, signal, BuildingType.HOME, 1, 2);
         testInventoryValues(engine, 1000, 900, 900);
 
-        payAndBuild(worldEntity, signal, BuildingType.LUMBERMILL, 2, 3);
+        payAndBuild(engine, worldEntity, signal, BuildingType.LUMBERMILL, 2, 3);
         testInventoryValues(engine, 800, 900, 600);
 
-        payAndBuild(worldEntity, signal, BuildingType.QUARRY, 3, 4);
+        payAndBuild(engine, worldEntity, signal, BuildingType.QUARRY, 3, 4);
         testInventoryValues(engine, 600, 800, 500);
 
-        payAndBuild(worldEntity, signal, BuildingType.PUMP, 4, 5);
+        payAndBuild(engine, worldEntity, signal, BuildingType.PUMP, 4, 5);
         testInventoryValues(engine, 200, 800, 400);
     }
 
 
     //These method are supposed to make the test more readable since there is much repetition
-    public void payAndBuild(Entity worldEntity, Signal signal, BuildingType type, int x, int y) {
+    public void payAndBuild(Engine engine, Entity worldEntity, Signal signal, BuildingType type, int x, int y) {
         Entity entity = new Entity();
         BuildingComponent buildingC = new BuildingComponent(type);
         entity.add(buildingC);
@@ -100,6 +100,10 @@ public class TestPaySystem {
         SignalComponent signalC = new SignalComponent(SignalType.PAYFORCONSTRUCTION);
         entity.add(signalC);
         signal.dispatch(entity);
+        InventoryComponent inventoryC = engine.getEntitiesFor(
+                Family.all(InventoryComponent.class).get())
+                .first().getComponent(InventoryComponent.class);
+        System.out.println(inventoryC.getAmountOfResource(ResourceType.STONE));
 
     }
 

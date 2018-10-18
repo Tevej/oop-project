@@ -32,7 +32,7 @@ public final class BuildingCostUtils {
                 new Resource(100, ResourceType.WOOD))));
         BUILDING_COST.put(BuildingType.FARM, new ArrayList<>(Arrays.asList(
                 new Resource(1, ResourceType.CURRENTPOPULATION),
-                new Resource(400, ResourceType.STONE),
+                new Resource(400, ResourceType.WATER),
                 new Resource(100, ResourceType.WOOD))));
     }
 
