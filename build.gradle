@@ -54,6 +54,12 @@ project(":core") {
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
     apply plugin: 'checkstyle'
+    apply plugin: "application"
+    apply plugin: "jacoco"
+
+    repositories {
+        mavenCentral()
+    }
 
     findbugs {
         ignoreFailures = false
@@ -78,6 +84,17 @@ project(":core") {
         consoleOutput false
         sourceSets = [sourceSets.main]
         ruleSetFiles = files("config/pmd/ruleSet.xml", "config/pmd/bestpractices.xml", "config/pmd/design.xml", "config/pmd/errorprone.xml")
+    }
+
+    jacocoTestReport {
+        reports {
+            html.enabled = true
+        }
+    }
+
+    jacoco  {
+        toolVersion '0.8.2'
+        reportsDir = file("$buildDir/reports")
     }
 
     checkstyle {
@@ -122,6 +139,9 @@ project(":core") {
 
     test {
         useJUnitPlatform()
+
+        jacoco {
+        }
     }
 }
 
