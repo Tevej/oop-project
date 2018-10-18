@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.gamerendering.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.gui.base.GuiFactory;
@@ -19,10 +18,6 @@ public class BuildingGui {
     private static final int PADDING = 5;
     private GuiFactory guiFactory;
     private TTable buildingTable;
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "No need to be static and checkbugs will complain if it is."
-    )
 
     private List<OnBuildingSelectedToBuild> selectedListeners;
 
