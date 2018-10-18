@@ -57,6 +57,8 @@ project(":core") {
     apply plugin: "application"
     apply plugin: "jacoco"
 
+    mainClassName = 'desktop.src.se.tevej.game.desktop'
+
     repositories {
         mavenCentral()
     }
