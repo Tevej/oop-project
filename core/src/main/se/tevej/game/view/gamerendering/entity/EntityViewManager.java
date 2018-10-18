@@ -40,13 +40,9 @@ public class EntityViewManager {
     public void render(TBatchRenderer batchRenderer, float offsetX,
                        float offsetY, float pixelPerTile) {
         for (Map.Entry<EntityRenderable, List<Entity>> entry : rendererEntityMap.entrySet()) {
-            try {
-                for (Entity entity : entry.getValue()) {
-                    entry.getKey().render(-offsetX, -offsetY,
-                        batchRenderer, entity, pixelPerTile);
-                }
-            } catch (Exception e) {
-                System.out.println("Oops something went wrong hehe.");
+            for (Entity entity : entry.getValue()) {
+                entry.getKey().render(-offsetX, -offsetY,
+                    batchRenderer, entity, pixelPerTile);
             }
         }
     }

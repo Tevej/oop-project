@@ -23,7 +23,7 @@ import main.se.tevej.game.model.utils.ResourceType;
 public class BuildingEntity extends Entity {
 
     public BuildingEntity(
-        WorldComponent worldC, BuildingType type, int x, int y)
+        WorldComponent worldC, BuildingType type, int x, int y, AddToEngineListener engineListener)
         throws NoSuchBuildingException {
         super();
         this.add(new PositionComponent(x, y));
@@ -43,31 +43,44 @@ public class BuildingEntity extends Entity {
                 createPump();
                 break;
             case FARM:
-                createFarm(worldC);
+                createFarm(worldC, engineListener);
                 break;
             default:
                 throw new NoSuchBuildingException(type.toString());
         }
     }
 
-    private void createFarm(WorldComponent worldC) {
+    private void createFarm(WorldComponent worldC, AddToEngineListener engineListener) {
         Entity[] neighbours = worldC.getTileNeighbours(this, true);
 
-        List<Entity> farmLandEntities = new LinkedList<>();
+        List<Entity> emptyNeighbours = new LinkedList<>();
 
         for (Entity neighbour : neighbours) {
             PositionComponent posC = neighbour.getComponent(PositionComponent.class);
             if (!worldC.isTileOccupied(posC.getX(), posC.getY())) {
-                farmLandEntities.add(neighbour);
+                emptyNeighbours.add(neighbour);
             }
         }
 
-        for (Entity entity : farmLandEntities) {
-            entity.add(new FarmLandComponent(new Resource(5, ResourceType.FOOD)));
-            entity.add(new BuildingComponent(BuildingType.FARM_LAND));
+        List<Entity> farmLandEntities = new LinkedList<>();
 
+        for (Entity entity : emptyNeighbours) {
+            PositionComponent posC = entity.getComponent(PositionComponent.class);
+            Entity farmLand = createFarmLand(posC);
+            farmLandEntities.add(farmLand);
+            worldC.occupyTile(posC.getX(), posC.getY(), farmLand);
+            engineListener.addEntityToEngine(farmLand);
         }
         this.add(new FarmComponent(farmLandEntities));
+    }
+
+    private Entity createFarmLand(PositionComponent posC) {
+        Entity entity = new Entity();
+        entity.add(new SizeComponent(1, 1));
+        entity.add(new FarmLandComponent(new Resource(5, ResourceType.FOOD)));
+        entity.add(new BuildingComponent(BuildingType.FARM_LAND));
+        entity.add(posC.copy());
+        return entity;
     }
 
 
@@ -90,4 +103,5 @@ public class BuildingEntity extends Entity {
         this.add(new RadiusComponent(1));
         this.add(new GathererComponent(new Resource(2.5, ResourceType.WATER)));
     }
+
 }
