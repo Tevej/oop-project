@@ -40,12 +40,12 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
 
         textureMap.put(
             BuildingType.FARM,
-            renderingFactory.createTexture("food.png")
+            renderingFactory.createTexture("buildings/farm.png")
         );
 
         textureMap.put(
             BuildingType.FARM_LAND,
-            renderingFactory.createTexture("food.png")
+            renderingFactory.createTexture("buildings/farm_land.png")
         );
     }
 

@@ -6,11 +6,14 @@ import java.util.List;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
 
+import com.badlogic.ashley.utils.ImmutableArray;
 import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
+import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
@@ -21,15 +24,12 @@ import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
-import main.se.tevej.game.model.systems.EntityCreator;
 import main.se.tevej.game.model.systems.FoodGatheringSystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
 import main.se.tevej.game.model.systems.SignalHolder;
-import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
-import main.se.tevej.game.model.systems.TreeGrowthSystem;
 
-public class ModelManager implements AddToEngineListener, SignalHolder, EntityCreator {
+public class ModelManager implements AddToEngineListener, SignalHolder {
 
     private final Engine engine;
     private final Signal<Entity> signal;
@@ -77,7 +77,6 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
         engine.addEntity(entity);
     }
 
-    @Override
     public void addEntityListener(EntityListener entityListener) {
         engine.addEntityListener(entityListener);
 
@@ -87,6 +86,9 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
         }
     }
 
+    public ImmutableArray<Entity> getTiles() {
+        return engine.getEntitiesFor(Family.all(TileComponent.class).get());
+    }
     public Entity getWorldEntity() {
         return worldEntity;
     }
@@ -128,8 +130,6 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
         engine.addSystem(new DeleteEntitySystem());
         engine.addSystem(new PaySystem(this));
         engine.addSystem(new NaturalResourceGatheringSystem(this));
-        engine.addSystem(new SpawnNaturalResourceSystem());
-        engine.addSystem(new TreeGrowthSystem(this, this));
         engine.addSystem(new FoodGatheringSystem());
 
         engine.getSystems().forEach(entitySystem -> {
@@ -151,7 +151,8 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
                 worldEntity.getComponent(WorldComponent.class),
                 BuildingType.HOME,
                 homeX,
-                homeY
+                homeY,
+                this
             );
         } catch (NoSuchBuildingException e) {
             homeEntity = new Entity();

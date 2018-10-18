@@ -14,10 +14,11 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
 
-public class BuildBuildingSystem extends EntitySystem implements SignalListener {
+public class BuildBuildingSystem extends EntitySystem implements SignalListener, AddToEngineListener {
 
     private Engine engine;
 
@@ -67,7 +68,8 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
                     .getComponent(WorldComponent.class),
                 buildingType,
                 posC.getX(),
-                posC.getY()
+                posC.getY(),
+                this
             );
         } catch (NoSuchBuildingException e) {
             return;
@@ -75,5 +77,10 @@ public class BuildBuildingSystem extends EntitySystem implements SignalListener 
 
         engine.addEntity(building);
         tileC.occupy(building);
+    }
+
+    @Override
+    public void addEntityToEngine(Entity entity) {
+        engine.addEntity(entity);
     }
 }

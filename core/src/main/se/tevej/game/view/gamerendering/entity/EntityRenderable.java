@@ -6,5 +6,5 @@ import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 
 public interface EntityRenderable {
     void render(float offsetX, float offsetY, TBatchRenderer batchRenderer,
-                Entity entity, float pixelPerTile) throws Exception;
+                Entity entity, float pixelPerTile);
 }

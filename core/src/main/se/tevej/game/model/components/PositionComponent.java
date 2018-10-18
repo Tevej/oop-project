@@ -11,6 +11,10 @@ public class PositionComponent implements Component {
         this.posY = y;
     }
 
+    public PositionComponent clone() {
+        return new PositionComponent(posX, posY);
+    }
+
     public void setX(int x) {
         this.posX = x;
     }
