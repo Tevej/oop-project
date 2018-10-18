@@ -32,13 +32,13 @@ public class BuildingGui {
         buttonList.add(
             createBuildingButton(BuildingType.PUMP, "buildings/pump.png"));
         buttonList.add(
-            createBuildingButton(BuildingType.LUMBERMILL, "buildings/lumberMill.jpg"));
+            createBuildingButton(BuildingType.LUMBERMILL, "buildings/lumbermill.png"));
         buttonList.add(
-            createBuildingButton(BuildingType.QUARRY, "buildings/quarry.jpg"));
+            createBuildingButton(BuildingType.QUARRY, "buildings/quarry.png"));
         buttonList.add(
-            createBuildingButton(BuildingType.HOME, "buildings/home.jpg"));
+            createBuildingButton(BuildingType.HOME, "buildings/home.png"));
         buttonList.add(
-            createBuildingButton(BuildingType.FARM, "food.png"));
+            createBuildingButton(BuildingType.FARM, "buildings/farm.png"));
 
         buildingTable = guiFactory.createTable()
             .positionX(Gdx.graphics.getWidth() - (imageSize / 2f))
