@@ -18,6 +18,7 @@ public class InventoryElement implements TUiElement {
                             String imagePath, ResourceType resourceType) {
         this.resourceType = resourceType;
         label = guiFactory.createLabel().text(parseDoubleWithSuffix(amount));
+        label.setColor(1,1,1,1);
         image = guiFactory.createImage().image(imagePath);
     }
 
@@ -28,15 +29,15 @@ public class InventoryElement implements TUiElement {
     private String parseDoubleWithSuffix(double amount) {
         double result;
         int[] suffixNumbers = {1000, 1000000};
-        String suffix = "";
+        String suffix = " ";
         if (amount < suffixNumbers[0]) {
             result = amount;
         } else if (amount < suffixNumbers[1]) {
             result = amount / suffixNumbers[0];
-            suffix = "K";
+            suffix = " K";
         } else {
             result = amount / suffixNumbers[1];
-            suffix = "M";
+            suffix = " M";
         }
         return round(result) + suffix;
     }

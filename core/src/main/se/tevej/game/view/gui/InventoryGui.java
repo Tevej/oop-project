@@ -44,17 +44,23 @@ public class InventoryGui {
         int tableDimension = 32;
 
         inventoryTable = guiFactory.createTable()
-            .positionX(tableDimension)
             .positionY(
                 Gdx.graphics.getHeight() - (tableDimension * inventoryElements.size() / 2f))
             .grid(2, inventoryElements.size())
-            .debug(false);
+            .backgroundColor(0, 0, 0, 0.7f)
+            .alignLeft()
+            .padding(5);
         for (InventoryElement inventoryElement : inventoryElements) {
             inventoryTable.addElement(
                 inventoryElement.getImage()).height(tableDimension).width(tableDimension);
             inventoryTable.addElement(
-                inventoryElement.getLabel()).height(tableDimension).width(tableDimension);
+                inventoryElement.getLabel()).height(tableDimension);
         }
+        alignTable();
+    }
+
+    private void alignTable() {
+        inventoryTable.positionX(0);
     }
 
     private int findAmountOfResource(ResourceType resourceType) {
@@ -71,6 +77,7 @@ public class InventoryGui {
         for (InventoryElement inventoryElement : inventoryElements) {
             inventoryElement.update(findAmountOfResource(inventoryElement.getResourceType()));
         }
+        alignTable();
         inventoryTable.update(deltaTime);
     }
 
