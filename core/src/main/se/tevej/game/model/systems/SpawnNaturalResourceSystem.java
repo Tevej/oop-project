@@ -18,7 +18,10 @@ import main.se.tevej.game.model.entities.NaturalResourceEntity;
 import main.se.tevej.game.model.utils.Resource;
 import main.se.tevej.game.model.utils.ResourceType;
 
-public class SpawnNaturalResourceSystem extends EntitySystem implements SignalListener {
+public class SpawnNaturalResourceSystem
+    extends EntitySystem
+    implements SignalListener, Listener<Entity> {
+
     private Engine engine;
 
     public SpawnNaturalResourceSystem() {
@@ -36,19 +39,7 @@ public class SpawnNaturalResourceSystem extends EntitySystem implements SignalLi
 
     @Override
     public Listener<Entity> getSignalListener() {
-        return new Listener<Entity>() {
-            @Override
-            public void receive(Signal<Entity> signal, Entity signalEntity) {
-                SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
-                switch (signalComponent.getType()) {
-                    case SPAWNENTITY:
-                        spawnNaturalResource(signalEntity);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
+        return this;
     }
 
     private void spawnNaturalResource(Entity entity) {
@@ -82,5 +73,17 @@ public class SpawnNaturalResourceSystem extends EntitySystem implements SignalLi
         signalEntity.add(new NaturalResourceComponent(resource));
         signalEntity.add(new SignalComponent(SignalType.SPAWNENTITY));
         return signalEntity;
+    }
+
+    @Override
+    public void receive(Signal<Entity> signal, Entity signalEntity) {
+        SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
+        switch (signalComponent.getType()) {
+            case SPAWNENTITY:
+                spawnNaturalResource(signalEntity);
+                break;
+            default:
+                break;
+        }
     }
 }
