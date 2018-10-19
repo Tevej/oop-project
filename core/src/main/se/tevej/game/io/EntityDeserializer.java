@@ -1,4 +1,4 @@
-package main.se.tevej.game.io.deserializer;
+package main.se.tevej.game.io;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
