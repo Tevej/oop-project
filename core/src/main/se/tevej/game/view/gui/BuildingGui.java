@@ -40,7 +40,7 @@ public class BuildingGui {
         buildingTable = guiFactory.createTable()
             .positionX(Gdx.graphics.getWidth() - ((IMAGESIZE + PADDING * 2) / 2f))
             .positionY(Gdx.graphics.getHeight() / 2f)
-            .grid(1, buttonList.size())
+            .grid(buttonList.size(), 1)
             .backgroundColor(0,0,0,0.7f)
             .alignCenter()
             .padding(PADDING);
