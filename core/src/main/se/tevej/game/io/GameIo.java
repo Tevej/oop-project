@@ -15,8 +15,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-import main.se.tevej.game.io.deserializer.EntityDeserializer;
-import main.se.tevej.game.io.serializer.EntitySerializer;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
