@@ -7,8 +7,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.ashley.SignalComponent;
-import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
@@ -17,6 +15,8 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.NoSuchBuildingException;
+import main.se.tevej.game.model.signals.SignalComponent;
+import main.se.tevej.game.model.signals.SignalListener;
 
 public class BuildBuildingSystem
     extends EntitySystem

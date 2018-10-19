@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.ashley;
+package main.se.tevej.game.model.signals;
 
 public enum SignalType {
     BUILDBUILDING,

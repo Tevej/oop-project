@@ -7,13 +7,13 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.resources.ResourceType;
+import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
 import org.junit.Test;
 
