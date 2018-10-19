@@ -10,8 +10,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector2;
 
-import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalType;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
@@ -21,6 +19,8 @@ import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.resources.NotEnoughResourcesException;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
+import main.se.tevej.game.model.signals.SignalComponent;
+import main.se.tevej.game.model.signals.SignalType;
 
 public class NaturalResourceGatheringSystem extends EntitySystem {
 

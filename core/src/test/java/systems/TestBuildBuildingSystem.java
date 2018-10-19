@@ -8,9 +8,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
-import main.se.tevej.game.model.signals.SignalType;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
@@ -18,6 +15,9 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.components.buildings.GathererComponent;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.model.signals.SignalComponent;
+import main.se.tevej.game.model.signals.SignalListener;
+import main.se.tevej.game.model.signals.SignalType;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import org.junit.Test;
 
