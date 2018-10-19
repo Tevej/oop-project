@@ -46,7 +46,7 @@ public class InventoryGui {
         inventoryTable = guiFactory.createTable()
             .positionY(
                 Gdx.graphics.getHeight() - (tableDimension * inventoryElements.size() / 2f))
-            .grid(2, inventoryElements.size())
+            .grid(inventoryElements.size(), 2)
             .backgroundColor(0, 0, 0, 0.7f)
             .alignLeft()
             .padding(5);

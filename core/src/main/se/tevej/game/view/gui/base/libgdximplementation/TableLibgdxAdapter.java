@@ -74,8 +74,8 @@ public class TableLibgdxAdapter extends Table implements TTable {
         super.clearChildren();
         cells.clear();
 
-        for (int column = 0; column < columns; column++) {
-            for (int row = 0; row < rows - 1; row++) {
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns - 1; column++) {
                 cells.put(super.add(), null);
             }
             Cell cell = super.add();
