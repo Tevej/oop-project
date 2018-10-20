@@ -10,6 +10,7 @@ import main.se.tevej.game.view.gui.base.TLabel;
 public class LabelLibgdxAdapter extends Label implements TLabel {
     public LabelLibgdxAdapter(Skin skin) {
         super("", skin);
+        setColor(1,1,1,1);
     }
 
     @Override

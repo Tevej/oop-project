@@ -11,6 +11,7 @@ import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
 import main.se.tevej.game.view.gui.BuildingGui;
+import main.se.tevej.game.view.gui.BuildingInfoGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.InputProcessorListener;
@@ -30,6 +31,7 @@ public class ViewManager {
 
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
+    private BuildingInfoGui buildingInfoGui;
 
     // The current camera positions in world coordinates.
     private float currCameraPosX;
@@ -76,6 +78,10 @@ public class ViewManager {
         return buildingGui;
     }
 
+    public BuildingInfoGui getBuildingInfoGui() {
+        return buildingInfoGui;
+    }
+
     private void renderGameRendering() {
         batchRenderer.beginRendering();
         entityViewManager.render(
@@ -92,6 +98,8 @@ public class ViewManager {
         inventoryGui.render();
         buildingGui.update(deltaTime);
         buildingGui.render();
+        buildingInfoGui.update(deltaTime);
+        buildingInfoGui.render();
     }
 
     private void initFactories(InputProcessorListener listener) {
@@ -102,6 +110,7 @@ public class ViewManager {
     private void initGui() {
         inventoryGui = new InventoryGui(guiFactory, modelManager.getInventoryEntity());
         buildingGui = new BuildingGui(guiFactory);
+        buildingInfoGui = new BuildingInfoGui(guiFactory);
     }
 
     private void initRenders() {

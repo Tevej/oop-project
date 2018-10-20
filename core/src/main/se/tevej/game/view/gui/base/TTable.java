@@ -1,5 +1,7 @@
 package main.se.tevej.game.view.gui.base;
 
+import java.util.List;
+
 public interface TTable {
 
     TCell addElement(TUiElement element);
@@ -15,6 +17,8 @@ public interface TTable {
     TTable alignLeft();
 
     TTable alignCenter();
+
+    TTable debug(boolean debug);
 
     TTable padding(float amount);
 
