@@ -72,15 +72,16 @@ public class MainMenuScreen extends DigitScreen {
             .positionY(Gdx.graphics.getHeight() - 200);
     }
 
-    private TButton createPlayButton(GuiFactory guiFactory, String text, boolean newGame, GameIo gameIo) {
+    private TButton createPlayButton(GuiFactory guiFactory, String text,
+                                     boolean newGame, GameIo gameIo) {
         return guiFactory
             .createButton()
             .text(text)
             .addListener(new OnButtonClickedListener() {
                 @Override
                 public void onClicked() {
-                    if (newGame) {
-                        gameIo.removeSavedGame();
+                    if (newGame && !gameIo.removeSavedGame()) {
+                        System.out.println("Something went wrong removing the saved game");
                     }
                     MainMenuScreen.super.screenChanger.changeScreen(DigitScreens.PLAY);
                 }

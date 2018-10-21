@@ -27,11 +27,13 @@ public class GameIo {
     public GameIo() {
     }
 
-    public void removeSavedGame() {
+    public boolean removeSavedGame() {
+        boolean gameRemoved = true;
         if (hasSavedGame()) {
             File f = new File(WORLD_FILE);
-            f.delete();
+            gameRemoved = f.delete();
         }
+        return gameRemoved;
     }
 
     public boolean hasSavedGame() {
@@ -40,21 +42,21 @@ public class GameIo {
     }
 
     public List<Entity> load() throws IOException {
-        if (!hasSavedGame()) {
-            return null;
-        }
+        List<Entity> entities = null;
+        if (hasSavedGame()) {
+            entities = new ArrayList<>();
 
-        List<Entity> entities = new ArrayList<>();
-        Gson gson = createGson();
-        JsonReader reader = new JsonReader(
-            new InputStreamReader(new FileInputStream(WORLD_FILE), StandardCharsets.UTF_8)
-        );
-        reader.beginArray();
-        while (reader.hasNext()) {
-            entities.add(gson.fromJson(reader, Entity.class));
+            Gson gson = createGson();
+            JsonReader reader = new JsonReader(
+                new InputStreamReader(new FileInputStream(WORLD_FILE), StandardCharsets.UTF_8)
+            );
+            reader.beginArray();
+            while (reader.hasNext()) {
+                entities.add(gson.fromJson(reader, Entity.class));
+            }
+            reader.endArray();
+            reader.close();
         }
-        reader.endArray();
-        reader.close();
         return entities;
     }
 
