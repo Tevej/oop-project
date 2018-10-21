@@ -86,6 +86,11 @@ public class PopulationSystem extends EntitySystem {
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
+        giveBirth();
+        giveBirth();
+        giveBirth();
+        giveBirth();
+        giveBirth();
     }
 
     @Override

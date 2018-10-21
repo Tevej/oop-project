@@ -11,6 +11,7 @@ public class InventoryEntity extends Entity {
         super();
         InventoryComponent inventoryC = new InventoryComponent();
         this.add(inventoryC);
+
         inventoryC.addResource(new Resource(1000, ResourceType.WOOD));
         inventoryC.addResource(new Resource(1000, ResourceType.WATER));
         inventoryC.addResource(new Resource(1000, ResourceType.STONE));
