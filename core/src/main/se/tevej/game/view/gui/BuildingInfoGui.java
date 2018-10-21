@@ -1,23 +1,16 @@
 package main.se.tevej.game.view.gui;
 
-import com.badlogic.gdx.Gdx;
+import java.util.HashMap;
+import java.util.Map;
+
 import main.se.tevej.game.model.components.buildings.BuildingCostUtils;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.resources.Resource;
-import main.se.tevej.game.view.gamerendering.base.TTexture;
 import main.se.tevej.game.view.gui.base.GuiFactory;
-import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
-import main.se.tevej.game.view.gui.base.TCell;
 import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TTable;
-
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 public class BuildingInfoGui {
     private static final int ROWHEIGHT = 40;
@@ -25,8 +18,8 @@ public class BuildingInfoGui {
     private static final int COLUMNWIDTH_2 = 40;
     private static final int PADDING = 5;
 
-    private static final Map<BuildingType, String> buildingImageMap = new HashMap<>();
-    private static final Map<BuildingType, String> buildingNameMap = new HashMap<>();
+    private static final Map<BuildingType, String> BUILDINGIMAGEMAP = new HashMap<>();
+    private static final Map<BuildingType, String> BUILDINGNAMEMAP = new HashMap<>();
 
     private TTable table;
 
@@ -39,29 +32,19 @@ public class BuildingInfoGui {
 
     public BuildingInfoGui(GuiFactory guiFactory) {
 
-        buildingImageMap.put(BuildingType.FARM, "buildings/farm.png");
-        buildingImageMap.put(BuildingType.FARM_LAND, "buildings/farm_land.png");
-        buildingImageMap.put(BuildingType.HOME, "buildings/home.png");
-        buildingImageMap.put(BuildingType.LUMBERMILL, "buildings/lumbermill.png");
-        buildingImageMap.put(BuildingType.PUMP, "buildings/pump.png");
-        buildingImageMap.put(BuildingType.QUARRY, "buildings/quarry.png");
+        BUILDINGIMAGEMAP.put(BuildingType.FARM, "buildings/farm.png");
+        BUILDINGIMAGEMAP.put(BuildingType.FARM_LAND, "buildings/farm_land.png");
+        BUILDINGIMAGEMAP.put(BuildingType.HOME, "buildings/home.png");
+        BUILDINGIMAGEMAP.put(BuildingType.LUMBERMILL, "buildings/lumbermill.png");
+        BUILDINGIMAGEMAP.put(BuildingType.PUMP, "buildings/pump.png");
+        BUILDINGIMAGEMAP.put(BuildingType.QUARRY, "buildings/quarry.png");
 
-        buildingNameMap.put(BuildingType.FARM, "Farm");
-        buildingNameMap.put(BuildingType.FARM_LAND, "Farm land");
-        buildingNameMap.put(BuildingType.HOME, "Home");
-        buildingNameMap.put(BuildingType.LUMBERMILL, "Lumber mill");
-        buildingNameMap.put(BuildingType.PUMP, "Water pump");
-        buildingNameMap.put(BuildingType.QUARRY, "Quarry");
-
-
-        TLabel title = guiFactory.createLabel().text("Hello");
-        TButton remove = guiFactory.createButton().image("remove.png");
-        buildingName = guiFactory.createLabel().text("BuildingName");
-        buildingImage = guiFactory.createImage().image("buildings/farm.png");
-        waterCost = guiFactory.createLabel();
-        stoneCost = guiFactory.createLabel();
-        woodCost = guiFactory.createLabel();
-        populationCost = guiFactory.createLabel();
+        BUILDINGNAMEMAP.put(BuildingType.FARM, "Farm");
+        BUILDINGNAMEMAP.put(BuildingType.FARM_LAND, "Farm land");
+        BUILDINGNAMEMAP.put(BuildingType.HOME, "Home");
+        BUILDINGNAMEMAP.put(BuildingType.LUMBERMILL, "Lumber mill");
+        BUILDINGNAMEMAP.put(BuildingType.PUMP, "Water pump");
+        BUILDINGNAMEMAP.put(BuildingType.QUARRY, "Quarry");
 
         table = guiFactory.createTable()
             .positionX((PADDING + COLUMNWIDTH_1 + COLUMNWIDTH_2 + PADDING) / 2f)
@@ -71,19 +54,51 @@ public class BuildingInfoGui {
             .debug(true)
             .grid(6, 2);
 
-        table.addElement(title).width(COLUMNWIDTH_1).height(ROWHEIGHT);
-        table.addElement(remove).width(COLUMNWIDTH_2).height(ROWHEIGHT);
-        table.addElement(buildingName).width(COLUMNWIDTH_1).height(ROWHEIGHT);
-        table.addElement(buildingImage).width(COLUMNWIDTH_2).height(ROWHEIGHT);
+        TLabel title = guiFactory.createLabel().text("Hello");
+        table.addElement(title)
+            .width(COLUMNWIDTH_1)
+            .height(ROWHEIGHT);
+        TButton remove = guiFactory.createButton().image("remove.png");
+        table.addElement(remove)
+            .width(COLUMNWIDTH_2)
+            .height(ROWHEIGHT);
+        buildingName = guiFactory.createLabel().text("BuildingName");
+        table.addElement(buildingName)
+            .width(COLUMNWIDTH_1)
+            .height(ROWHEIGHT);
+        buildingImage = guiFactory.createImage().image("buildings/farm.png");
+        table.addElement(buildingImage)
+            .width(COLUMNWIDTH_2)
+            .height(ROWHEIGHT);
 
-        table.addElement(guiFactory.createLabel().text("Water: ")).width(COLUMNWIDTH_1).height(ROWHEIGHT);
-        table.addElement(waterCost).width(COLUMNWIDTH_2).height(ROWHEIGHT);
-        table.addElement(guiFactory.createLabel().text("Stone: ")).width(COLUMNWIDTH_1).height(ROWHEIGHT);
-        table.addElement(stoneCost).width(COLUMNWIDTH_2).height(ROWHEIGHT);
-        table.addElement(guiFactory.createLabel().text("Wood: ")).width(COLUMNWIDTH_1).height(ROWHEIGHT);
-        table.addElement(woodCost).width(COLUMNWIDTH_2).height(ROWHEIGHT);
-        table.addElement(guiFactory.createLabel().text("Population: ")).width(COLUMNWIDTH_1).height(ROWHEIGHT);
-        table.addElement(populationCost).width(COLUMNWIDTH_2).height(ROWHEIGHT);
+        table.addElement(guiFactory.createLabel().text("Water: "))
+            .width(COLUMNWIDTH_1)
+            .height(ROWHEIGHT);
+        waterCost = guiFactory.createLabel();
+        table.addElement(waterCost)
+            .width(COLUMNWIDTH_2)
+            .height(ROWHEIGHT);
+        table.addElement(guiFactory.createLabel().text("Stone: "))
+            .width(COLUMNWIDTH_1)
+            .height(ROWHEIGHT);
+        stoneCost = guiFactory.createLabel();
+        table.addElement(stoneCost)
+            .width(COLUMNWIDTH_2)
+            .height(ROWHEIGHT);
+        table.addElement(guiFactory.createLabel().text("Wood: "))
+            .width(COLUMNWIDTH_1)
+            .height(ROWHEIGHT);
+        woodCost = guiFactory.createLabel();
+        table.addElement(woodCost)
+            .width(COLUMNWIDTH_2)
+            .height(ROWHEIGHT);
+        table.addElement(guiFactory.createLabel().text("Population: "))
+            .width(COLUMNWIDTH_1)
+            .height(ROWHEIGHT);
+        populationCost = guiFactory.createLabel();
+        table.addElement(populationCost)
+            .width(COLUMNWIDTH_2)
+            .height(ROWHEIGHT);
     }
 
     private void resetCostLabels() {
@@ -98,8 +113,8 @@ public class BuildingInfoGui {
     }
 
     public void updateInfo(BuildingType buildingType) {
-        this.buildingName.text(buildingNameMap.get(buildingType));
-        this.buildingImage.image(buildingImageMap.get(buildingType));
+        this.buildingName.text(BUILDINGNAMEMAP.get(buildingType));
+        this.buildingImage.image(BUILDINGIMAGEMAP.get(buildingType));
 
         resetCostLabels();
 
@@ -116,6 +131,8 @@ public class BuildingInfoGui {
                     break;
                 case POPULATION:
                     populationCost.text(Double.toString(resource.getAmount()));
+                    break;
+                default:
                     break;
             }
         }

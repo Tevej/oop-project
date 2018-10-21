@@ -1,7 +1,7 @@
 package main.se.tevej.game.view.gui.base;
 
-import java.util.List;
-
+// Not our fault that the libgdx class has too many methods ¯\_(ツ)_/¯
+@SuppressWarnings("PMD.TooManyMethods")
 public interface TTable {
 
     TCell addElement(TUiElement element);

@@ -2,7 +2,6 @@ package main.se.tevej.game.controller;
 
 import main.se.tevej.game.controller.input.base.CameraController;
 import main.se.tevej.game.controller.input.base.InputFactory;
-import main.se.tevej.game.controller.input.base.OnMouseClickedListener;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.controller.input.base.TMouse;
 import main.se.tevej.game.controller.input.base.libgdximplementation.InputLibgdxFactory;
@@ -62,7 +61,7 @@ public class ControllerManager {
     }
 
     private void initInfo() {
-        InfoController infoController = new InfoController(
+        new InfoController(
             modelManager.getWorldEntity().getComponent(WorldComponent.class),
             camera,
             viewManager.getBuildingInfoGui(),
