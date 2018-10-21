@@ -125,7 +125,7 @@ public class BuildingInfoGui {
                     case WOOD:
                         woodCost.text(Integer.toString((int) resource.getAmount()));
                         break;
-                    case POPULATION:
+                    case CURRENTPOPULATION:
                         populationCost.text(Integer.toString((int) resource.getAmount()));
                         break;
                     default:

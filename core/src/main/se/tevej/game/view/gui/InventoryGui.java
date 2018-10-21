@@ -38,8 +38,8 @@ public class InventoryGui {
             findAmountOfResource(ResourceType.FOOD),
             "food.png", ResourceType.FOOD));
         inventoryElements.add(new InventoryElement(guiFactory,
-            findAmountOfResource(ResourceType.POPULATION),
-            "population.png", ResourceType.POPULATION));
+            findAmountOfResource(ResourceType.CURRENTPOPULATION),
+            "population.png", ResourceType.CURRENTPOPULATION));
 
         int tableDimension = 32;
 
@@ -51,10 +51,8 @@ public class InventoryGui {
             .alignLeft()
             .padding(5);
         for (InventoryElement inventoryElement : inventoryElements) {
-            inventoryTable.addElement(
-                inventoryElement.getImage()).height(tableDimension).width(tableDimension);
-            inventoryTable.addElement(
-                inventoryElement.getLabel()).height(tableDimension);
+            inventoryTable.addElement(inventoryElement.getImage()).height(32).width(32);
+            inventoryTable.addElement(inventoryElement.getLabel()).height(32).width(70);
         }
         alignTable();
     }

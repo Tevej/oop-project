@@ -24,12 +24,17 @@ import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
+import main.se.tevej.game.model.systems.EntityCreator;
 import main.se.tevej.game.model.systems.FoodGatheringSystem;
 import main.se.tevej.game.model.systems.NaturalResourceGatheringSystem;
 import main.se.tevej.game.model.systems.PaySystem;
+import main.se.tevej.game.model.systems.PopulationSystem;
 import main.se.tevej.game.model.systems.SignalHolder;
+import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
+import main.se.tevej.game.model.systems.TreeGrowthSystem;
 
-public class ModelManager implements AddToEngineListener, SignalHolder {
+@SuppressWarnings("PMD.ExcessiveImports")
+public class ModelManager implements AddToEngineListener, SignalHolder, EntityCreator {
 
     private final Engine engine;
     private final Signal<Entity> signal;
@@ -77,6 +82,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         engine.addEntity(entity);
     }
 
+    @Override
     public void addEntityListener(EntityListener entityListener) {
         engine.addEntityListener(entityListener);
 
@@ -131,6 +137,9 @@ public class ModelManager implements AddToEngineListener, SignalHolder {
         engine.addSystem(new DeleteEntitySystem());
         engine.addSystem(new PaySystem(this));
         engine.addSystem(new NaturalResourceGatheringSystem(this));
+        engine.addSystem(new SpawnNaturalResourceSystem());
+        engine.addSystem(new TreeGrowthSystem(this, this));
+        engine.addSystem(new PopulationSystem());
         engine.addSystem(new FoodGatheringSystem());
 
         engine.getSystems().forEach(entitySystem -> {

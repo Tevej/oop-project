@@ -16,6 +16,7 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalComponent;
 import main.se.tevej.game.model.signals.SignalListener;
@@ -65,27 +66,33 @@ public class TestPaySystem {
 
         Entity inventoryE = new InventoryEntity();
         engine.addEntity(inventoryE);
+        inventoryE.getComponent(InventoryComponent.class).addResource(
+            new Resource(10, ResourceType.CURRENTPOPULATION));
+
 
         ////// LET THE TESTS BEGIN
 
-        testInventoryValues(engine, 1000, 1000, 1000);
+        testInventoryValues(engine, 1000, 1000, 1000, 10);
 
-        payAndBuild(worldEntity, signal, BuildingType.HOME, 1, 2);
-        testInventoryValues(engine, 1000, 900, 900);
+        payAndBuild(engine, worldEntity, signal, BuildingType.HOME, 1, 2);
+        testInventoryValues(engine, 1000, 900, 900, 10);
 
-        payAndBuild(worldEntity, signal, BuildingType.LUMBERMILL, 2, 3);
-        testInventoryValues(engine, 800, 900, 600);
+        payAndBuild(engine, worldEntity, signal, BuildingType.LUMBERMILL, 2, 3);
+        testInventoryValues(engine, 800, 900, 600, 9);
 
-        payAndBuild(worldEntity, signal, BuildingType.QUARRY, 3, 4);
-        testInventoryValues(engine, 600, 800, 500);
+        payAndBuild(engine, worldEntity, signal, BuildingType.QUARRY, 3, 4);
+        testInventoryValues(engine, 600, 800, 500, 8);
 
-        payAndBuild(worldEntity, signal, BuildingType.PUMP, 4, 5);
-        testInventoryValues(engine, 200, 800, 400);
+        payAndBuild(engine, worldEntity, signal, BuildingType.PUMP, 4, 5);
+        testInventoryValues(engine, 200, 800, 400, 7);
+
+        payAndBuild(engine, worldEntity, signal, BuildingType.FARM, 5, 6);
+        testInventoryValues(engine, 200, 400, 300, 6);
     }
 
 
     //These method are supposed to make the test more readable since there is much repetition
-    public void payAndBuild(Entity worldEntity, Signal signal, BuildingType type, int x, int y) {
+    public void payAndBuild(Engine engine, Entity worldEntity, Signal signal, BuildingType type, int x, int y) {
         Entity entity = new Entity();
         BuildingComponent buildingC = new BuildingComponent(type);
         entity.add(buildingC);
@@ -100,11 +107,15 @@ public class TestPaySystem {
         SignalComponent signalC = new SignalComponent(SignalType.PAYFORCONSTRUCTION);
         entity.add(signalC);
         signal.dispatch(entity);
+        InventoryComponent inventoryC = engine.getEntitiesFor(
+                Family.all(InventoryComponent.class).get())
+                .first().getComponent(InventoryComponent.class);
+        System.out.println(inventoryC.getAmountOfResource(ResourceType.STONE));
 
     }
 
     public void testInventoryValues(Engine engine,
-                                    double stone, double water, double wood) {
+                                    double stone, double water, double wood, double population) {
         InventoryComponent inventoryC = engine.getEntitiesFor(
             Family.all(InventoryComponent.class).get())
             .first().getComponent(InventoryComponent.class);
@@ -117,6 +128,8 @@ public class TestPaySystem {
 
         assertEquals(wood,
             inventoryC.getAmountOfResource(ResourceType.WOOD), 0);
+        assertEquals(population,
+            inventoryC.getAmountOfResource(ResourceType.CURRENTPOPULATION), 0.01);
     }
 
     public void clearMap(Entity world) {
