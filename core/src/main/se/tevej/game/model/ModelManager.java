@@ -95,7 +95,7 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
     public ImmutableArray<Entity> getTiles() {
         return engine.getEntitiesFor(Family.all(TileComponent.class).get());
     }
-    
+
     public Entity getWorldEntity() {
         return worldEntity;
     }

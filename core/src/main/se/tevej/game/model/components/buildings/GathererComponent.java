@@ -16,16 +16,16 @@ public class GathererComponent implements Component {
         return resourcePerSecond;
     }
 
-    public Resource getGatheredResource(float deltaTime) {
-        return new Resource(resourcePerSecond.getAmount() * deltaTime,
-            resourcePerSecond.getType());
-    }
-
     public void setResourcePerSecond(Resource newSpeed) throws MismatchedResourceException {
         if (newSpeed.getType() == resourcePerSecond.getType()) {
             this.resourcePerSecond = resourcePerSecond.updateAmount(newSpeed.getAmount());
         } else {
             throw new MismatchedResourceException();
         }
+    }
+
+    public Resource getGatheredResource(float deltaTime) {
+        return new Resource(resourcePerSecond.getAmount() * deltaTime,
+            resourcePerSecond.getType());
     }
 }

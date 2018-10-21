@@ -18,7 +18,7 @@ public class InventoryElement implements TUiElement {
                             String imagePath, ResourceType resourceType) {
         this.resourceType = resourceType;
         label = guiFactory.createLabel().text(parseDoubleWithSuffix(amount));
-        label.setColor(1,1,1,1);
+        label.setColor(1, 1, 1, 1);
         image = guiFactory.createImage().image(imagePath);
     }
 

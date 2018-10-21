@@ -10,8 +10,12 @@ import main.se.tevej.game.view.ViewManager;
 public class CameraController implements OnDraggedListener,
     OnMouseClickedListener, OnTappedListener {
 
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
+    private final float zoomStep = 0.1f;
     private ViewManager view;
-
     // Current camera position in world coordinates!
     private float prevX;
     private float prevY;
@@ -21,12 +25,6 @@ public class CameraController implements OnDraggedListener,
     private float cameraPosY;
     private int worldWidth;
     private int worldHeight;
-
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "No need to be static and checkbugs will complain if it is."
-    )
-    private final float zoomStep = 0.1f;
 
     public CameraController(ViewManager view, float startX, float startY, TMouse mouse,
                             TKeyBoard keyboard, int worldWidth, int worldHeight) {

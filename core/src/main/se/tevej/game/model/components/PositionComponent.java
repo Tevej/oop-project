@@ -15,20 +15,20 @@ public class PositionComponent implements Component {
         return new PositionComponent(posX, posY);
     }
 
-    public void setX(int x) {
-        this.posX = x;
-    }
-
-    public void setY(int y) {
-        this.posY = y;
-    }
-
     public int getX() {
         return posX;
     }
 
+    public void setX(int x) {
+        this.posX = x;
+    }
+
     public int getY() {
         return posY;
+    }
+
+    public void setY(int y) {
+        this.posY = y;
     }
 
     @Override

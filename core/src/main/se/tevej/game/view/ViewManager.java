@@ -4,26 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import main.se.tevej.game.controller.screen.ChangeScreen;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.gamerendering.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
-import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.BuildingInfoGui;
+import main.se.tevej.game.view.gui.GameControlsGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
-import main.se.tevej.game.view.gui.base.InputProcessorListener;
-import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 
 public class ViewManager {
 
     private ModelManager modelManager;
-
-    private GameRenderingFactory renderingFactory;
-    private GuiFactory guiFactory;
-
     private TBatchRenderer batchRenderer;
 
     private EntityViewManager entityViewManager;
@@ -32,6 +27,9 @@ public class ViewManager {
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
     private BuildingInfoGui buildingInfoGui;
+    private GameControlsGui gameControlsGui;
+
+    private float zoomMultiplier;
 
     // The current camera positions in world coordinates.
     private float currCameraPosX;
@@ -42,21 +40,19 @@ public class ViewManager {
         justification = "No need to be static and checkbugs will complain if it is."
     )
     private final float minTilesPerScreen = 5;
-
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
     private final float pixelPerTile = 32f;
 
-    private float zoomMultiplier;
-
-    public ViewManager(ModelManager modelManager, InputProcessorListener listener) {
+    public ViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory,
+                       GuiFactory guiFactory, ChangeScreen screenChanger) {
         this.modelManager = modelManager;
+
         zoomMultiplier = 1f;
-        initFactories(listener);
-        initGui();
-        initRenders();
+        initGui(guiFactory, screenChanger);
+        initRenders(renderingFactory);
     }
 
     public void update(float deltaTime) {
@@ -98,22 +94,20 @@ public class ViewManager {
         inventoryGui.render();
         buildingGui.update(deltaTime);
         buildingGui.render();
+        gameControlsGui.update(deltaTime);
+        gameControlsGui.render();
         buildingInfoGui.update(deltaTime);
         buildingInfoGui.render();
     }
 
-    private void initFactories(InputProcessorListener listener) {
-        guiFactory = new GuiLibgdxFactory(listener);
-        renderingFactory = new GameRenderingLibgdxFactory();
-    }
-
-    private void initGui() {
+    private void initGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
         inventoryGui = new InventoryGui(guiFactory, modelManager.getInventoryEntity());
         buildingGui = new BuildingGui(guiFactory);
+        gameControlsGui = new GameControlsGui(guiFactory, screenChanger);
         buildingInfoGui = new BuildingInfoGui(guiFactory);
     }
 
-    private void initRenders() {
+    private void initRenders(GameRenderingFactory renderingFactory) {
         batchRenderer = renderingFactory.createBatchRenderer();
 
         entityViewManager = new EntityViewManager(modelManager, renderingFactory);

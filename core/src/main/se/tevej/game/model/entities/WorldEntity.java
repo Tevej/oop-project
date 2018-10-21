@@ -13,6 +13,9 @@ import main.se.tevej.game.model.resources.ResourceType;
 
 public class WorldEntity extends Entity {
 
+    private final int width;
+    private final int height;
+    private final AddToEngineListener engineListener;
     private double clusterDilution = 0.5;
     private double waterClusterSize = 2000;
     private double woodClusterSize = 1;
@@ -23,9 +26,6 @@ public class WorldEntity extends Entity {
     private int waterAmount = -1;
     private int woodAmount = 1000;
     private int stoneAmount = 1000;
-    private final int width;
-    private final int height;
-    private final AddToEngineListener engineListener;
 
     public WorldEntity(int width, int height, AddToEngineListener listener) {
         super();
@@ -118,7 +118,7 @@ public class WorldEntity extends Entity {
                 }
 
                 if (Math.random() < prob && !occupiedSpots.contains(pos)
-                        && !world.isTileOccupied(pos.getX(), pos.getY())) {
+                    && !world.isTileOccupied(pos.getX(), pos.getY())) {
                     occupiedSpots.add(pos);
                     generateCluster(prob * clusterDilution, pos, world, occupiedSpots);
                 }
