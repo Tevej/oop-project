@@ -14,6 +14,7 @@ import main.se.tevej.game.view.gui.base.TTable;
 
 public class BuildingInfoGui {
     private static final int ROWHEIGHT = 40;
+    private static final int NUMBEROFROWS = 5;
     private static final int COLUMNWIDTH_1 = 100;
     private static final int COLUMNWIDTH_2 = 40;
     private static final int PADDING = 5;
@@ -48,20 +49,12 @@ public class BuildingInfoGui {
 
         table = guiFactory.createTable()
             .positionX((PADDING + COLUMNWIDTH_1 + COLUMNWIDTH_2 + PADDING) / 2f)
-            .positionY((6 * ROWHEIGHT) / 2f + PADDING)
+            .positionY((NUMBEROFROWS * ROWHEIGHT) / 2f + PADDING)
             .backgroundColor(0, 0, 0, 0.8f)
             .padding(PADDING)
-            .grid(6, 2);
+            .grid(NUMBEROFROWS, 2);
         table.setVisible(false);
 
-        TLabel title = guiFactory.createLabel().text("Building information:");
-        table.addElement(title)
-            .width(COLUMNWIDTH_1)
-            .height(ROWHEIGHT);
-        TButton remove = guiFactory.createButton().image("remove.png");
-        table.addElement(remove)
-            .width(COLUMNWIDTH_2)
-            .height(ROWHEIGHT);
         buildingName = guiFactory.createLabel().text("Name: ");
         table.addElement(buildingName)
             .width(COLUMNWIDTH_1)
