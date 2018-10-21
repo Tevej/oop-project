@@ -26,7 +26,7 @@ public class GameControlsGui {
         controlsTable.render();
     }
 
-    public void initializeTable() {
+    private void initializeTable() {
         this.controlsTable
             .grid(1, 2)
             .positionX(Gdx.graphics.getWidth() - 100)

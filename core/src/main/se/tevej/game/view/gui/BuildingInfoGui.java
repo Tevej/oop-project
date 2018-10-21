@@ -1,7 +1,6 @@
 package main.se.tevej.game.view.gui;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import main.se.tevej.game.model.components.buildings.BuildingCostUtils;
@@ -42,13 +41,13 @@ public class BuildingInfoGui {
 
     private final TTable table;
 
-    private Map<ResourceType, TLabel> buildingToLabelMap;
+    private Map<ResourceType, TLabel> buildingToLabel;
 
     private TLabel buildingName;
     private TImage buildingImage;
 
     public BuildingInfoGui(GuiFactory guiFactory) {
-        buildingToLabelMap = new HashMap<>();
+        buildingToLabel = new HashMap<>();
         table = guiFactory.createTable();
 
         initializeTable();
@@ -67,13 +66,13 @@ public class BuildingInfoGui {
         }
     }
 
-    private void updateCostLabels(BuildingType buildingType){
+    private void updateCostLabels(BuildingType buildingType) {
         this.buildingName.text(BUILDING_TO_NAME.get(buildingType));
         this.buildingImage.image(BUILDING_TO_IMAGE.get(buildingType));
 
         resetCostLabels();
         for (Resource resource : BuildingCostUtils.getCostOfBuilding(buildingType)) {
-            buildingToLabelMap.get(resource.getType()).text(Double.toString(resource.getAmount()));
+            buildingToLabel.get(resource.getType()).text(Double.toString(resource.getAmount()));
         }
     }
 
@@ -81,7 +80,7 @@ public class BuildingInfoGui {
         table.update(deltaTime);
     }
 
-    private void initializeTable(){
+    private void initializeTable() {
         table
             .positionX((PADDING + COLUMN_1_WIDTH + COLUMN_2_WIDTH + PADDING) / 2f)
             .positionY((NUMBER_OF_ROWS * ROW_HEIGHT) / 2f + PADDING)
@@ -91,71 +90,53 @@ public class BuildingInfoGui {
             .visible(false);
     }
 
-    private void populateTable(GuiFactory guiFactory){
-        createBuildingNameLabel(guiFactory);
-        createBuildingImage(guiFactory);
-
-        createLabelForColumn1(guiFactory, "Water: ");
-        createWaterCostLabel(guiFactory);
-
-        createLabelForColumn1(guiFactory, "Stone: ");
-        createStoneCostLabel(guiFactory);
-
-        createLabelForColumn1(guiFactory, "Wood: ");
-        createWoodCostLabel(guiFactory);
-
-        createLabelForColumn1(guiFactory, "Population: ");
-        createPopulationCostLabel(guiFactory);
-    }
-
-    private void createBuildingNameLabel(GuiFactory guiFactory){
+    private void populateTable(GuiFactory guiFactory) {
         buildingName = guiFactory.createLabel().text("Name: ");
         addToTable(buildingName, BuildingInfoGui.COLUMN_1_WIDTH);
-    }
 
-    private void createBuildingImage(GuiFactory guiFactory){
         buildingImage = guiFactory.createImage().image("buildings/farm.png");
         addToTable(buildingImage, COLUMN_2_WIDTH);
+
+        createLabelForColumn1(guiFactory, "Water: ");
+        buildingToLabel.put(ResourceType.WATER,
+            createModifiableLabelForColumn2(guiFactory)
+        );
+
+        createLabelForColumn1(guiFactory, "Stone: ");
+        buildingToLabel.put(ResourceType.STONE,
+            createModifiableLabelForColumn2(guiFactory)
+        );
+
+        createLabelForColumn1(guiFactory, "Wood: ");
+        buildingToLabel.put(ResourceType.WOOD,
+            createModifiableLabelForColumn2(guiFactory)
+        );
+
+        createLabelForColumn1(guiFactory, "Population: ");
+        buildingToLabel.put(ResourceType.CURRENTPOPULATION,
+            createModifiableLabelForColumn2(guiFactory)
+        );
+
     }
 
-    private void createWaterCostLabel(GuiFactory guiFactory){
-        TLabel waterCost = createModifiableLabelForColumn2(guiFactory);
-        buildingToLabelMap.put(ResourceType.WATER, waterCost);
-    }
-
-    private void createStoneCostLabel(GuiFactory guiFactory){
-        TLabel stoneCost = createModifiableLabelForColumn2(guiFactory);
-        buildingToLabelMap.put(ResourceType.STONE, stoneCost);
-    }
-
-    private void createWoodCostLabel(GuiFactory guiFactory){
-        TLabel woodCost = createModifiableLabelForColumn2(guiFactory);
-        buildingToLabelMap.put(ResourceType.WOOD, woodCost);
-    }
-
-    private void createPopulationCostLabel(GuiFactory guiFactory){
-        TLabel populationCost = createModifiableLabelForColumn2(guiFactory);
-        buildingToLabelMap.put(ResourceType.CURRENTPOPULATION, populationCost);
-    }
-
-    private void createLabelForColumn1(GuiFactory guiFactory, String text){
+    private void createLabelForColumn1(GuiFactory guiFactory, String text) {
         addToTable(guiFactory.createLabel().text(text), COLUMN_1_WIDTH);
     }
 
-    private TLabel createModifiableLabelForColumn2(GuiFactory guiFactory){
+    private TLabel createModifiableLabelForColumn2(GuiFactory guiFactory) {
         TLabel label = guiFactory.createLabel();
         addToTable(label, COLUMN_2_WIDTH);
         return label;
     }
 
-    private void addToTable(TUiElement element, int width){
+    private void addToTable(TUiElement element, int width) {
         table.addElement(element)
             .width(width)
             .height(ROW_HEIGHT);
     }
 
     private void resetCostLabels() {
-        for (TLabel label : buildingToLabelMap.values()) {
+        for (TLabel label : buildingToLabel.values()) {
             label.text("0");
         }
     }

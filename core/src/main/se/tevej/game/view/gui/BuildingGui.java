@@ -61,7 +61,8 @@ public class BuildingGui {
         createBuildingButton(guiFactory, BuildingType.FARM, "buildings/farm.png");
     }
 
-    private void createBuildingButton(GuiFactory guiFactory, BuildingType buildingType, String img) {
+    private void createBuildingButton(GuiFactory guiFactory,
+                                      BuildingType buildingType, String img) {
         TButton button = guiFactory
             .createButton()
             .image(img)
