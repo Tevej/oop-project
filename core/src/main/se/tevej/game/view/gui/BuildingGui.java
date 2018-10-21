@@ -18,7 +18,7 @@ public class BuildingGui {
     private static final int NUMBER_OF_ROWS = 5;
     private static final int IMAGE_SIZE = 32;
     private static final int PADDING = 5;
-    
+
     private TTable buildingTable;
 
     private List<OnBuildingSelectedToBuild> selectedListeners;
