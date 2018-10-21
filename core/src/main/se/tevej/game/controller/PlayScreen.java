@@ -1,13 +1,12 @@
-package main.se.tevej.game.controller.screen;
+package main.se.tevej.game.controller;
 
 import java.io.IOException;
 import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
 
-import main.se.tevej.game.controller.ControllerManager;
-import main.se.tevej.game.controller.OnTimeChangeListener;
 import main.se.tevej.game.controller.input.base.InputFactory;
+import main.se.tevej.game.controller.time.OnTimeChangeListener;
 import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;

@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller.screen;
+package main.se.tevej.game.controller;
 
 import main.se.tevej.game.view.gui.ChangeScreen;
 
