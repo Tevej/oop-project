@@ -47,12 +47,13 @@ public class TestTreeGrowthSystem {
                 public Signal getSignal() {
                     return null;
                 }
-            }, new EntityCreator() {
-            @Override
-            public void addEntityListener(EntityListener listener) {
+            },
+            new EntityCreator() {
+                @Override
+                public void addEntityListener(EntityListener listener) {
 
-            }
-        });
+                }
+            });
 
         WorldComponent worldC = worldEntity.getComponent(WorldComponent.class);
         spawnTreeAt(6, 5, worldC);
