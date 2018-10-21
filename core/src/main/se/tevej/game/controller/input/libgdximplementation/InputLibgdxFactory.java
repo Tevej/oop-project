@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller.input.base.libgdximplementation;
+package main.se.tevej.game.controller.input.libgdximplementation;
 
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
