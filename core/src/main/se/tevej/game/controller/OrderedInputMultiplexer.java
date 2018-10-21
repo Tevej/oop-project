@@ -196,4 +196,10 @@ public class OrderedInputMultiplexer implements InputProcessor, InputProcessorLi
         }
         return true;
     }
+
+    public void clear() {
+        for (List<InputProcessor> inputProcessor : processorsMap.values()) {
+            inputProcessor.clear();
+        }
+    }
 }
