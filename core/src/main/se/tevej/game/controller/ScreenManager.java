@@ -1,9 +1,5 @@
 package main.se.tevej.game.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 
@@ -15,15 +11,12 @@ import main.se.tevej.game.controller.screen.DigitScreens;
 import main.se.tevej.game.controller.screen.GameOverScreen;
 import main.se.tevej.game.controller.screen.MainMenuScreen;
 import main.se.tevej.game.controller.screen.PlayScreen;
-import main.se.tevej.game.io.GameIo;
-import main.se.tevej.game.model.ModelManager;
-import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 
-public class ScreenManager extends ApplicationAdapter{
+public class ScreenManager extends ApplicationAdapter {
 
     private ChangeScreen screenChanger;
 
@@ -48,7 +41,7 @@ public class ScreenManager extends ApplicationAdapter{
         screenChanger = new ChangeScreen() {
             @Override
             public void changeScreen(DigitScreens digitScreen) {
-                switch(digitScreen){
+                switch (digitScreen) {
                     case PLAY:
                         currentScreen = new PlayScreen(
                             screenChanger,

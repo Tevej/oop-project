@@ -29,10 +29,10 @@ public class FoodGatheringSystem extends EntitySystem {
     @Override
     public void update(float deltaTime) {
         ImmutableArray<Entity> farms = engine.getEntitiesFor(
-                Family.all(FarmComponent.class, PositionComponent.class).get());
+            Family.all(FarmComponent.class, PositionComponent.class).get());
 
         InventoryComponent inventoryC = engine.getEntitiesFor(
-                Family.all(InventoryComponent.class).get()
+            Family.all(InventoryComponent.class).get()
         ).first().getComponent(InventoryComponent.class);
 
         double totalAmount = 0;

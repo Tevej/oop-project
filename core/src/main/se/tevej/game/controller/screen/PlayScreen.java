@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
 
 import main.se.tevej.game.controller.ControllerManager;
 import main.se.tevej.game.controller.OnTimeChangeListener;
-import main.se.tevej.game.controller.OrderedInputMultiplexer;
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.model.ModelManager;
@@ -24,7 +22,7 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     private float timeMultiplier;
 
     public PlayScreen(ChangeScreen screenChanger, GameRenderingFactory gameRenderingFactory,
-                      GuiFactory guiFactory, InputFactory inputFactory){
+                      GuiFactory guiFactory, InputFactory inputFactory) {
         super(screenChanger);
         timeMultiplier = 1f;
 
@@ -32,18 +30,18 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     }
 
     @Override
-    public void update(float deltaTime){
+    public void update(float deltaTime) {
         model.update(deltaTime);
         view.update(deltaTime);
     }
 
     @Override
-    public void render(){
+    public void render() {
 
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
         try {
             gameIo.save(model);
         } catch (IOException e) {
@@ -51,7 +49,7 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
         }
     }
 
-    private void initalizeMVC(GameRenderingFactory gameRenderingFactory, GuiFactory guiFactory, InputFactory inputFactory){
+    private void initalizeMVC(GameRenderingFactory gameRenderingFactory, GuiFactory guiFactory, InputFactory inputFactory) {
         int worldWidth = 100;
         int worldHeight = 100;
 

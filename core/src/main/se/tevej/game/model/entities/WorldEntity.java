@@ -118,7 +118,7 @@ public class WorldEntity extends Entity {
                 }
 
                 if (Math.random() < prob && !occupiedSpots.contains(pos)
-                        && !world.isTileOccupied(pos.getX(), pos.getY())) {
+                    && !world.isTileOccupied(pos.getX(), pos.getY())) {
                     occupiedSpots.add(pos);
                     generateCluster(prob * clusterDilution, pos, world, occupiedSpots);
                 }

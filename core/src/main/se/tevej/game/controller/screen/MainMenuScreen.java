@@ -7,7 +7,7 @@ import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
 import main.se.tevej.game.view.gui.base.TTable;
 
-public class MainMenuScreen extends DigitScreen{
+public class MainMenuScreen extends DigitScreen {
 
     private final TTable table;
 
@@ -72,7 +72,7 @@ public class MainMenuScreen extends DigitScreen{
             });
     }
 
-    private OnButtonClickedListener changeScreenOnClick(DigitScreens digitScreen){
+    private OnButtonClickedListener changeScreenOnClick(DigitScreens digitScreen) {
         return new OnButtonClickedListener() {
             @Override
             public void onClicked() {

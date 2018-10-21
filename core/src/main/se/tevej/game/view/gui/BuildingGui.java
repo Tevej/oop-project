@@ -41,7 +41,7 @@ public class BuildingGui {
             .positionX(Gdx.graphics.getWidth() - ((IMAGESIZE + PADDING * 2) / 2f))
             .positionY(Gdx.graphics.getHeight() / 2f)
             .grid(buttonList.size(), 1)
-            .backgroundColor(0,0,0,0.7f)
+            .backgroundColor(0, 0, 0, 0.7f)
             .alignCenter()
             .padding(PADDING);
 
