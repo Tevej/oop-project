@@ -37,20 +37,20 @@ public class InfoController implements OnMouseClickedListener, OnBuildingSelecte
         int posX = (int) cameraController.getScreenToWorldCoord(mouse.getX(), mouse.getY()).x;
         int posY = (int) cameraController.getScreenToWorldCoord(mouse.getX(), mouse.getY()).y;
         if (key == TKey.MOUSE_LEFT && !buildingSelected) {
+            updateBuildingInfoGui(posX, posY);
+        }
+    }
 
-            if (worldC.isTileOccupied(posX, posY)) {
-                Entity entity = worldC.getTileOccupier(posX, posY);
-                BuildingComponent component = entity.getComponent(BuildingComponent.class);
-                if (component != null) {
-                    BuildingType buildingType = component.getType();
-                    buildingInfoGui.updateInfo(buildingType);
-                } else {
-                    buildingInfoGui.updateInfo(null);
-                }
-            } else {
-                buildingInfoGui.updateInfo(null);
+    private void updateBuildingInfoGui(int posX, int posY) {
+        BuildingType buildingType = null;
+        if (worldC.isTileOccupied(posX, posY)) {
+            Entity entity = worldC.getTileOccupier(posX, posY);
+            BuildingComponent component = entity.getComponent(BuildingComponent.class);
+            if (component != null) {
+                buildingType = component.getType();
             }
         }
+        buildingInfoGui.updateInfo(buildingType);
     }
 
     @Override
