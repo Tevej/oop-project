@@ -34,6 +34,9 @@ public final class BuildingCostUtils {
                 new Resource(1, ResourceType.CURRENTPOPULATION),
                 new Resource(400, ResourceType.WATER),
                 new Resource(100, ResourceType.WOOD))));
+        // Farm Lands can't be constructed manually by the user but still need to have a cost
+        // to be considered "true" buildings
+        BUILDING_COST.put(BuildingType.FARM_LAND, new ArrayList<>());
     }
 
     private BuildingCostUtils() {
