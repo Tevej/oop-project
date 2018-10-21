@@ -61,11 +61,12 @@ public class ControllerManager {
     }
 
     private void initInfo() {
-        new InfoController(
+        InfoController infoController = new InfoController(
             modelManager.getWorldEntity().getComponent(WorldComponent.class),
             camera,
             viewManager.getBuildingInfoGui(),
             mouse);
+        viewManager.getBuildingGui().addSelectedListener(infoController);
     }
 
 }

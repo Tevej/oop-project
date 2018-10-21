@@ -9,12 +9,15 @@ import main.se.tevej.game.controller.input.base.TMouse;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
+import main.se.tevej.game.view.gamerendering.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.gui.BuildingInfoGui;
 
-public class InfoController implements OnMouseClickedListener {
+public class InfoController implements OnMouseClickedListener, OnBuildingSelectedToBuild {
     private WorldComponent worldC;
     private CameraController cameraController;
     private BuildingInfoGui buildingInfoGui;
+    private boolean buildingSelected;
+    private BuildingType selectedBuilding;
 
     public InfoController(
         WorldComponent worldC,
@@ -26,22 +29,27 @@ public class InfoController implements OnMouseClickedListener {
         this.cameraController = cameraController;
         this.buildingInfoGui = buildingInfoGui;
         mouse.addClickedListener(this);
+        buildingSelected = false;
     }
 
     @Override
     public void onClicked(TMouse mouse, TKey key) {
-        System.out.println("Mouse clicked");
         int posX = (int) cameraController.getScreenToWorldCoord(mouse.getX(), mouse.getY()).x;
         int posY = (int) cameraController.getScreenToWorldCoord(mouse.getX(), mouse.getY()).y;
-        if (key == TKey.MOUSE_LEFT && worldC.isTileOccupied(posX, posY)) {
+        if (key == TKey.MOUSE_LEFT && worldC.isTileOccupied(posX, posY) && !buildingSelected) {
             Entity entity = worldC.getTileOccupier(posX, posY);
-            try {
-                BuildingComponent component = entity.getComponent(BuildingComponent.class);
+            BuildingComponent component = entity.getComponent(BuildingComponent.class);
+            if (component != null) {
                 BuildingType buildingType = component.getType();
                 buildingInfoGui.updateInfo(buildingType);
-            } catch (NullPointerException e) {
-                System.out.println("Non-building tile clicked");
             }
         }
+    }
+
+    @Override
+    public void buildingSelectedToBuild(BuildingType buildingType) {
+        buildingSelected = selectedBuilding == null || buildingType != selectedBuilding;
+        selectedBuilding = buildingType;
+        buildingInfoGui.updateInfo(selectedBuilding);
     }
 }

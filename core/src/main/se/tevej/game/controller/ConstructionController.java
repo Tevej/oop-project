@@ -65,7 +65,6 @@ public class ConstructionController implements OnTappedListener,
 
     @Override
     public void onClicked(TMouse mouse, TKey button) {
-        System.out.println("ConstructionController onClicked()");
         if (button == TKey.MOUSE_LEFT) {
             buildConstruction(selectedBuilding);
         }
