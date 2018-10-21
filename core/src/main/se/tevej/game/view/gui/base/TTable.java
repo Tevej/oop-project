@@ -22,6 +22,8 @@ public interface TTable {
 
     TTable padding(float amount);
 
+    void setVisible(boolean visible);
+
     void update(float deltaTime);
 
     void render();

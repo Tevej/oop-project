@@ -52,8 +52,9 @@ public class BuildingInfoGui {
             .backgroundColor(0, 0, 0, 0.8f)
             .padding(PADDING)
             .grid(6, 2);
+        table.setVisible(false);
 
-        TLabel title = guiFactory.createLabel().text("Hello");
+        TLabel title = guiFactory.createLabel().text("Building information:");
         table.addElement(title)
             .width(COLUMNWIDTH_1)
             .height(ROWHEIGHT);
@@ -61,7 +62,7 @@ public class BuildingInfoGui {
         table.addElement(remove)
             .width(COLUMNWIDTH_2)
             .height(ROWHEIGHT);
-        buildingName = guiFactory.createLabel().text("BuildingName");
+        buildingName = guiFactory.createLabel().text("Name: ");
         table.addElement(buildingName)
             .width(COLUMNWIDTH_1)
             .height(ROWHEIGHT);
@@ -112,27 +113,32 @@ public class BuildingInfoGui {
     }
 
     public void updateInfo(BuildingType buildingType) {
-        this.buildingName.text(BUILDINGNAMEMAP.get(buildingType));
-        this.buildingImage.image(BUILDINGIMAGEMAP.get(buildingType));
+        if (buildingType == null) {
+            table.setVisible(false);
+        } else {
+            table.setVisible(true);
+            this.buildingName.text(BUILDINGNAMEMAP.get(buildingType));
+            this.buildingImage.image(BUILDINGIMAGEMAP.get(buildingType));
 
-        resetCostLabels();
+            resetCostLabels();
 
-        for (Resource resource : BuildingCostUtils.getCostOfBuilding(buildingType)) {
-            switch (resource.getType()) {
-                case WATER:
-                    waterCost.text(Integer.toString((int) resource.getAmount()));
-                    break;
-                case STONE:
-                    stoneCost.text(Integer.toString((int) resource.getAmount()));
-                    break;
-                case WOOD:
-                    woodCost.text(Integer.toString((int) resource.getAmount()));
-                    break;
-                case POPULATION:
-                    populationCost.text(Integer.toString((int) resource.getAmount()));
-                    break;
-                default:
-                    break;
+            for (Resource resource : BuildingCostUtils.getCostOfBuilding(buildingType)) {
+                switch (resource.getType()) {
+                    case WATER:
+                        waterCost.text(Integer.toString((int) resource.getAmount()));
+                        break;
+                    case STONE:
+                        stoneCost.text(Integer.toString((int) resource.getAmount()));
+                        break;
+                    case WOOD:
+                        woodCost.text(Integer.toString((int) resource.getAmount()));
+                        break;
+                    case POPULATION:
+                        populationCost.text(Integer.toString((int) resource.getAmount()));
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
