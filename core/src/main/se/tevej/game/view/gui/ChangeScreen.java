@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller.screen;
+package main.se.tevej.game.view.gui;
 
 public interface ChangeScreen {
 

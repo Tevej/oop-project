@@ -2,8 +2,6 @@ package main.se.tevej.game.view.gui;
 
 import com.badlogic.gdx.Gdx;
 
-import main.se.tevej.game.controller.screen.ChangeScreen;
-import main.se.tevej.game.controller.screen.DigitScreens;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TTable;

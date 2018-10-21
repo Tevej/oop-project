@@ -1,5 +1,7 @@
 package main.se.tevej.game.controller.screen;
 
+import main.se.tevej.game.view.gui.ChangeScreen;
+
 public abstract class DigitScreen {
 
     //This is package private, it is only used in this package.

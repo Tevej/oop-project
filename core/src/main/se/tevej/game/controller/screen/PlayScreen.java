@@ -12,6 +12,7 @@ import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
+import main.se.tevej.game.view.gui.ChangeScreen;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 
 public class PlayScreen extends DigitScreen implements OnTimeChangeListener {

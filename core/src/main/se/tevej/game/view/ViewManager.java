@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import main.se.tevej.game.controller.screen.ChangeScreen;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.gamerendering.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
@@ -12,6 +11,7 @@ import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
 import main.se.tevej.game.view.gui.BuildingGui;
 import main.se.tevej.game.view.gui.BuildingInfoGui;
+import main.se.tevej.game.view.gui.ChangeScreen;
 import main.se.tevej.game.view.gui.GameControlsGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
