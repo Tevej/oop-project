@@ -8,12 +8,14 @@ import main.se.tevej.game.view.gamerendering.base.TTexture;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
+import main.se.tevej.game.view.gui.base.TCell;
 import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TTable;
 
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,6 @@ public class BuildingInfoGui {
     private static final int ROWHEIGHT = 40;
     private static final int COLUMNWIDTH_1 = 100;
     private static final int COLUMNWIDTH_2 = 40;
-    private static final int IMAGESIZE = 40;
     private static final int PADDING = 5;
 
     private static final Map<BuildingType, String> buildingImageMap = new HashMap<>();
@@ -63,9 +64,10 @@ public class BuildingInfoGui {
         populationCost = guiFactory.createLabel();
 
         table = guiFactory.createTable()
-            .positionX((COLUMNWIDTH_1 + COLUMNWIDTH_2) / 2f)
-            .positionY((6 * ROWHEIGHT) / 2f)
+            .positionX((PADDING + COLUMNWIDTH_1 + COLUMNWIDTH_2 + PADDING) / 2f)
+            .positionY((6 * ROWHEIGHT) / 2f + PADDING)
             .backgroundColor(0, 0, 0, 0.8f)
+            .padding(PADDING)
             .debug(true)
             .grid(6, 2);
 
@@ -73,6 +75,7 @@ public class BuildingInfoGui {
         table.addElement(remove).width(COLUMNWIDTH_2).height(ROWHEIGHT);
         table.addElement(buildingName).width(COLUMNWIDTH_1).height(ROWHEIGHT);
         table.addElement(buildingImage).width(COLUMNWIDTH_2).height(ROWHEIGHT);
+
         table.addElement(guiFactory.createLabel().text("Water: ")).width(COLUMNWIDTH_1).height(ROWHEIGHT);
         table.addElement(waterCost).width(COLUMNWIDTH_2).height(ROWHEIGHT);
         table.addElement(guiFactory.createLabel().text("Stone: ")).width(COLUMNWIDTH_1).height(ROWHEIGHT);
@@ -81,7 +84,6 @@ public class BuildingInfoGui {
         table.addElement(woodCost).width(COLUMNWIDTH_2).height(ROWHEIGHT);
         table.addElement(guiFactory.createLabel().text("Population: ")).width(COLUMNWIDTH_1).height(ROWHEIGHT);
         table.addElement(populationCost).width(COLUMNWIDTH_2).height(ROWHEIGHT);
-
     }
 
     private void resetCostLabels() {
