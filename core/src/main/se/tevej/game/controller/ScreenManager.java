@@ -8,7 +8,6 @@ import main.se.tevej.game.controller.input.base.libgdximplementation.InputLibgdx
 import main.se.tevej.game.controller.screen.ChangeScreen;
 import main.se.tevej.game.controller.screen.DigitScreen;
 import main.se.tevej.game.controller.screen.DigitScreens;
-import main.se.tevej.game.controller.screen.GameOverScreen;
 import main.se.tevej.game.controller.screen.MainMenuScreen;
 import main.se.tevej.game.controller.screen.PlayScreen;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
@@ -52,9 +51,6 @@ public class ScreenManager extends ApplicationAdapter {
                         break;
                     case MAIN_MENU:
                         currentScreen = new MainMenuScreen(screenChanger, guiFactory);
-                        break;
-                    case GAME_OVER:
-                        currentScreen = new GameOverScreen(screenChanger, guiFactory);
                         break;
                     default:
                         break;
