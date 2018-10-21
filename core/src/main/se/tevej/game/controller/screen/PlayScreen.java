@@ -26,7 +26,7 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
         super(screenChanger);
         timeMultiplier = 1f;
 
-        initalizeMvc(renderingFactory, guiFactory, inputFactory);
+        initializeMac(renderingFactory, guiFactory, inputFactory);
     }
 
     @Override
@@ -50,8 +50,8 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
         }
     }
 
-    private void initalizeMvc(GameRenderingFactory renderingFactory,
-                              GuiFactory guiFactory, InputFactory inputFactory) {
+    private void initializeMac(GameRenderingFactory renderingFactory,
+                               GuiFactory guiFactory, InputFactory inputFactory) {
         int worldWidth = 100;
         int worldHeight = 100;
 
