@@ -5,6 +5,7 @@ import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.controller.input.base.TMouse;
 import main.se.tevej.game.model.ModelManager;
+import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.view.ViewManager;
 
 public class ControllerManager {
@@ -36,6 +37,7 @@ public class ControllerManager {
         initCamera(worldWidth, worldHeight);
         initConstructor();
         initTime(listener);
+        initInfo();
     }
 
     private void initCamera(int worldWidth, int worldHeight) {
@@ -54,6 +56,15 @@ public class ControllerManager {
     private void initTime(OnTimeChangeListener listener) {
         TimeController timeController = new TimeController(keyBoard);
         timeController.registerOnTimeChange(listener);
+    }
+
+    private void initInfo() {
+        InfoController infoController = new InfoController(
+            modelManager.getWorldEntity().getComponent(WorldComponent.class),
+            camera,
+            viewManager.getBuildingInfoGui(),
+            mouse);
+        viewManager.getBuildingGui().addSelectedListener(infoController);
     }
 
 }

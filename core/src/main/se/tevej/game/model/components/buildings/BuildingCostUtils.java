@@ -30,6 +30,9 @@ public final class BuildingCostUtils {
         BUILDING_COST.put(BuildingType.FARM, new ArrayList<>(Arrays.asList(
             new Resource(400, ResourceType.STONE),
             new Resource(100, ResourceType.WOOD))));
+        // Farm Lands can't be constructed manually by the user but still need to have a cost
+        // to be considered "true" buildings
+        BUILDING_COST.put(BuildingType.FARM_LAND, new ArrayList<>());
     }
 
     private BuildingCostUtils() {

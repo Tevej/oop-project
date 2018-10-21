@@ -11,11 +11,29 @@ import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
 import main.se.tevej.game.view.gui.BuildingGui;
+import main.se.tevej.game.view.gui.BuildingInfoGui;
 import main.se.tevej.game.view.gui.GameControlsGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 
 public class ViewManager {
+
+    private ModelManager modelManager;
+    private TBatchRenderer batchRenderer;
+
+    private EntityViewManager entityViewManager;
+    private SelectedBuildingRenderer selectedRenderer;
+
+    private InventoryGui inventoryGui;
+    private BuildingGui buildingGui;
+    private BuildingInfoGui buildingInfoGui;
+    private GameControlsGui gameControlsGui;
+
+    private float zoomMultiplier;
+
+    // The current camera positions in world coordinates.
+    private float currCameraPosX;
+    private float currCameraPosY;
 
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
@@ -27,27 +45,14 @@ public class ViewManager {
         justification = "No need to be static and checkbugs will complain if it is."
     )
     private final float pixelPerTile = 32f;
-    private ModelManager modelManager;
-    private GameRenderingFactory renderingFactory;
-    private TBatchRenderer batchRenderer;
-    private EntityViewManager entityViewManager;
-    private SelectedBuildingRenderer selectedRenderer;
-    private InventoryGui inventoryGui;
-    private BuildingGui buildingGui;
-    private GameControlsGui gameControlsGui;
-    // The current camera positions in world coordinates.
-    private float currCameraPosX;
-    private float currCameraPosY;
-    private float zoomMultiplier;
 
     public ViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory,
                        GuiFactory guiFactory, ChangeScreen screenChanger) {
         this.modelManager = modelManager;
-        this.renderingFactory = renderingFactory;
 
         zoomMultiplier = 1f;
         initGui(guiFactory, screenChanger);
-        initRenders();
+        initRenders(renderingFactory);
     }
 
     public void update(float deltaTime) {
@@ -69,6 +74,10 @@ public class ViewManager {
         return buildingGui;
     }
 
+    public BuildingInfoGui getBuildingInfoGui() {
+        return buildingInfoGui;
+    }
+
     private void renderGameRendering() {
         batchRenderer.beginRendering();
         entityViewManager.render(
@@ -87,15 +96,18 @@ public class ViewManager {
         buildingGui.render();
         gameControlsGui.update(deltaTime);
         gameControlsGui.render();
+        buildingInfoGui.update(deltaTime);
+        buildingInfoGui.render();
     }
 
     private void initGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
         inventoryGui = new InventoryGui(guiFactory, modelManager.getInventoryEntity());
         buildingGui = new BuildingGui(guiFactory);
         gameControlsGui = new GameControlsGui(guiFactory, screenChanger);
+        buildingInfoGui = new BuildingInfoGui(guiFactory);
     }
 
-    private void initRenders() {
+    private void initRenders(GameRenderingFactory renderingFactory) {
         batchRenderer = renderingFactory.createBatchRenderer();
 
         entityViewManager = new EntityViewManager(modelManager, renderingFactory);

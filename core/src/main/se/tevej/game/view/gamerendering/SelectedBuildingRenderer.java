@@ -70,4 +70,8 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
                 ? null
                 : selectedBuilding;
     }
+
+    public Map<BuildingType, TTexture> getTextureMap() {
+        return textureMap;
+    }
 }
