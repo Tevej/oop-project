@@ -1,5 +1,7 @@
 package main.se.tevej.game.view.gui.base;
 
+// Not our fault that the libgdx class has too many methods ¯\_(ツ)_/¯
+@SuppressWarnings("PMD.TooManyMethods")
 public interface TTable {
 
     TCell addElement(TUiElement element);
@@ -16,7 +18,11 @@ public interface TTable {
 
     TTable alignCenter();
 
+    TTable debug(boolean debug);
+
     TTable padding(float amount);
+
+    void setVisible(boolean visible);
 
     void update(float deltaTime);
 

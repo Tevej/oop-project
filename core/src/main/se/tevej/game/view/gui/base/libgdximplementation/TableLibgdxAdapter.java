@@ -58,6 +58,14 @@ public class TableLibgdxAdapter extends Table implements TTable {
     }
 
     @Override
+    public TTable debug(boolean debug) {
+        if (debug) {
+            super.debug();
+        }
+        return this;
+    }
+
+    @Override
     public TTable positionX(float x) {
         super.setX(x);
         return this;
