@@ -49,10 +49,13 @@ public class ViewManager {
 
     private float zoomMultiplier;
 
-    public ViewManager(ModelManager modelManager, InputProcessorListener listener) {
+    public ViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory,
+                       GuiFactory guiFactory) {
         this.modelManager = modelManager;
+        this.renderingFactory = renderingFactory;
+        this.guiFactory = guiFactory;
+
         zoomMultiplier = 1f;
-        initFactories(listener);
         initGui();
         initRenders();
     }
@@ -92,11 +95,6 @@ public class ViewManager {
         inventoryGui.render();
         buildingGui.update(deltaTime);
         buildingGui.render();
-    }
-
-    private void initFactories(InputProcessorListener listener) {
-        guiFactory = new GuiLibgdxFactory(listener);
-        renderingFactory = new GameRenderingLibgdxFactory();
     }
 
     private void initGui() {

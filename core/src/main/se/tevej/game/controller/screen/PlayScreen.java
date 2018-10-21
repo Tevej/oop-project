@@ -9,9 +9,12 @@ import com.badlogic.gdx.Gdx;
 import main.se.tevej.game.controller.ControllerManager;
 import main.se.tevej.game.controller.OnTimeChangeListener;
 import main.se.tevej.game.controller.OrderedInputMultiplexer;
+import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;
+import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
+import main.se.tevej.game.view.gui.base.GuiFactory;
 
 public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
 
@@ -20,11 +23,12 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     private GameIo gameIo;
     private float timeMultiplier;
 
-    public PlayScreen(ChangeScreen screenChanger){
+    public PlayScreen(ChangeScreen screenChanger, GameRenderingFactory gameRenderingFactory,
+                      GuiFactory guiFactory, InputFactory inputFactory){
         super(screenChanger);
         timeMultiplier = 1f;
 
-        initalizeMVC();
+        initalizeMVC(gameRenderingFactory, guiFactory, inputFactory);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
         }
     }
 
-    private void initalizeMVC(){
+    private void initalizeMVC(GameRenderingFactory gameRenderingFactory, GuiFactory guiFactory, InputFactory inputFactory){
         int worldWidth = 100;
         int worldHeight = 100;
 
@@ -65,9 +69,8 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
             model = new ModelManager(worldWidth, worldHeight, entities);
         }
 
-        OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
-        view = new ViewManager(model, inputMultiplexer);
-        new ControllerManager(view, model, worldWidth, worldHeight, inputMultiplexer, this);
+        view = new ViewManager(model, gameRenderingFactory, guiFactory);
+        new ControllerManager(view, model, worldWidth, worldHeight, inputFactory, this);
     }
 
     @Override

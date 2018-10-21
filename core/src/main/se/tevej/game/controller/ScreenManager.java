@@ -39,8 +39,8 @@ public class ScreenManager extends ApplicationAdapter{
 
     @Override
     public void create() {
-
         OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
+
         gameRenderingFactory = new GameRenderingLibgdxFactory();
         guiFactory = new GuiLibgdxFactory(inputMultiplexer);
         inputFactory = new InputLibgdxFactory(inputMultiplexer);
@@ -50,7 +50,12 @@ public class ScreenManager extends ApplicationAdapter{
             public void changeScreen(DigitScreens digitScreen) {
                 switch(digitScreen){
                     case PLAY:
-                        currentScreen = new PlayScreen(screenChanger);
+                        currentScreen = new PlayScreen(
+                            screenChanger,
+                            gameRenderingFactory,
+                            guiFactory,
+                            inputFactory
+                        );
                         break;
                     case MAIN_MENU:
                         currentScreen = new MainMenuScreen(screenChanger, guiFactory);
