@@ -22,7 +22,7 @@ public interface TTable {
 
     TTable padding(float amount);
 
-    void setVisible(boolean visible);
+    TTable visible(boolean visible);
 
     void update(float deltaTime);
 
