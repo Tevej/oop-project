@@ -17,35 +17,27 @@ import main.se.tevej.game.view.gui.base.GuiFactory;
 
 public class ViewManager {
 
-    private ModelManager modelManager;
-
-    private GameRenderingFactory renderingFactory;
-
-    private TBatchRenderer batchRenderer;
-
-    private EntityViewManager entityViewManager;
-    private SelectedBuildingRenderer selectedRenderer;
-
-    private InventoryGui inventoryGui;
-    private BuildingGui buildingGui;
-    private GameControlsGui gameControlsGui;
-
-    // The current camera positions in world coordinates.
-    private float currCameraPosX;
-    private float currCameraPosY;
-
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
     private final float minTilesPerScreen = 5;
-
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
     private final float pixelPerTile = 32f;
-
+    private ModelManager modelManager;
+    private GameRenderingFactory renderingFactory;
+    private TBatchRenderer batchRenderer;
+    private EntityViewManager entityViewManager;
+    private SelectedBuildingRenderer selectedRenderer;
+    private InventoryGui inventoryGui;
+    private BuildingGui buildingGui;
+    private GameControlsGui gameControlsGui;
+    // The current camera positions in world coordinates.
+    private float currCameraPosX;
+    private float currCameraPosY;
     private float zoomMultiplier;
 
     public ViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory,

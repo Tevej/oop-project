@@ -28,6 +28,15 @@ public class SpawnNaturalResourceSystem
         super();
     }
 
+    public static Entity getSignalEntity(ResourceType type, float amount, int x, int y) {
+        Entity signalEntity = new Entity();
+        signalEntity.add(new PositionComponent(x, y));
+        Resource resource = new Resource(amount, type);
+        signalEntity.add(new NaturalResourceComponent(resource));
+        signalEntity.add(new SignalComponent(SignalType.SPAWNENTITY));
+        return signalEntity;
+    }
+
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
@@ -64,15 +73,6 @@ public class SpawnNaturalResourceSystem
                 tileC.occupy(newEntity);
             }
         }
-    }
-
-    public static Entity getSignalEntity(ResourceType type, float amount, int x, int y) {
-        Entity signalEntity = new Entity();
-        signalEntity.add(new PositionComponent(x, y));
-        Resource resource = new Resource(amount, type);
-        signalEntity.add(new NaturalResourceComponent(resource));
-        signalEntity.add(new SignalComponent(SignalType.SPAWNENTITY));
-        return signalEntity;
     }
 
     @Override

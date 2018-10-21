@@ -48,10 +48,11 @@ public class TestTreeGrowthSystem {
                     return null;
                 }
             }, new EntityCreator() {
-                @Override
-                public void addEntityListener(EntityListener listener) {
+            @Override
+            public void addEntityListener(EntityListener listener) {
 
-            }});
+            }
+        });
 
         WorldComponent worldC = worldEntity.getComponent(WorldComponent.class);
         spawnTreeAt(6, 5, worldC);

@@ -18,7 +18,9 @@ import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
 import org.junit.Test;
 
 public class TestSpawnNaturalResourceSystem {
-    public TestSpawnNaturalResourceSystem() { super(); }
+    public TestSpawnNaturalResourceSystem() {
+        super();
+    }
 
     @Test
     public void testSpawnNaturalResource() {

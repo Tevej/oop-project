@@ -79,7 +79,7 @@ public class MainMenuScreen extends DigitScreen {
             .addListener(new OnButtonClickedListener() {
                 @Override
                 public void onClicked() {
-                    if(newGame){
+                    if (newGame) {
                         gameIo.removeSavedGame();
                     }
                     MainMenuScreen.super.screenChanger.changeScreen(DigitScreens.PLAY);

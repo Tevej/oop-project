@@ -27,8 +27,8 @@ public class GameIo {
     public GameIo() {
     }
 
-    public void removeSavedGame(){
-        if(hasSavedGame()){
+    public void removeSavedGame() {
+        if (hasSavedGame()) {
             File f = new File(WORLD_FILE);
             f.delete();
         }
@@ -40,7 +40,7 @@ public class GameIo {
     }
 
     public List<Entity> load() throws IOException {
-        if(!hasSavedGame()){
+        if (!hasSavedGame()) {
             return null;
         }
 

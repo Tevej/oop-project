@@ -13,22 +13,22 @@ public class GameControlsGui {
 
     private TTable controlsTable;
 
-    public GameControlsGui(GuiFactory guiFactory, ChangeScreen screenChanger){
+    public GameControlsGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
         this.controlsTable = guiFactory.createTable();
 
         populateTable(guiFactory, screenChanger);
     }
 
-    public void update(float deltaTime){
+    public void update(float deltaTime) {
         controlsTable.update(deltaTime);
     }
 
-    public void render(){
+    public void render() {
         controlsTable.render();
     }
 
-    private void populateTable(GuiFactory guiFactory, ChangeScreen screenChanger){
-        this.controlsTable.grid(1,2);
+    private void populateTable(GuiFactory guiFactory, ChangeScreen screenChanger) {
+        this.controlsTable.grid(1, 2);
 
         this.controlsTable
             .addElement(createMainMenuButton(guiFactory, screenChanger))
