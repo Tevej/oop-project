@@ -33,6 +33,7 @@ import main.se.tevej.game.model.systems.SignalHolder;
 import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
 import main.se.tevej.game.model.systems.TreeGrowthSystem;
 
+@SuppressWarnings("PMD.ExcessiveImports")
 public class ModelManager implements AddToEngineListener, SignalHolder, EntityCreator {
 
     private final Engine engine;
