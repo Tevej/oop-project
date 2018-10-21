@@ -51,7 +51,6 @@ public class BuildingInfoGui {
             .positionY((6 * ROWHEIGHT) / 2f + PADDING)
             .backgroundColor(0, 0, 0, 0.8f)
             .padding(PADDING)
-            .debug(true)
             .grid(6, 2);
 
         TLabel title = guiFactory.createLabel().text("Hello");
@@ -121,16 +120,16 @@ public class BuildingInfoGui {
         for (Resource resource : BuildingCostUtils.getCostOfBuilding(buildingType)) {
             switch (resource.getType()) {
                 case WATER:
-                    waterCost.text(Double.toString(resource.getAmount()));
+                    waterCost.text(Integer.toString((int) resource.getAmount()));
                     break;
                 case STONE:
-                    stoneCost.text(Double.toString(resource.getAmount()));
+                    stoneCost.text(Integer.toString((int) resource.getAmount()));
                     break;
                 case WOOD:
-                    woodCost.text(Double.toString(resource.getAmount()));
+                    woodCost.text(Integer.toString((int) resource.getAmount()));
                     break;
                 case POPULATION:
-                    populationCost.text(Double.toString(resource.getAmount()));
+                    populationCost.text(Integer.toString((int) resource.getAmount()));
                     break;
                 default:
                     break;
