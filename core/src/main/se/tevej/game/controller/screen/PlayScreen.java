@@ -69,7 +69,7 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
             model = new ModelManager(worldWidth, worldHeight, entities);
         }
 
-        view = new ViewManager(model, renderingFactory, guiFactory);
+        view = new ViewManager(model, renderingFactory, guiFactory, screenChanger);
         new ControllerManager(view, model, worldWidth, worldHeight, inputFactory, this);
     }
 
