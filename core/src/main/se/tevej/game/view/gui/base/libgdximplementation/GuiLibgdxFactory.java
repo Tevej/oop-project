@@ -35,7 +35,7 @@ public class GuiLibgdxFactory implements GuiFactory {
 
     @Override
     public TTable createTable() {
-        return new TableLibgdxAdapter(processorListener);
+        return new TableLibgdxAdapter(SKIN, processorListener);
     }
 
     @Override

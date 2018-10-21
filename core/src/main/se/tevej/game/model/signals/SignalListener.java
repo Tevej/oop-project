@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.ashley;
+package main.se.tevej.game.model.signals;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.signals.Listener;

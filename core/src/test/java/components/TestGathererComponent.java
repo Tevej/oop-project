@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import main.se.tevej.game.model.components.buildings.GathererComponent;
-import main.se.tevej.game.model.exceptions.MismatchedResourceException;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.MismatchedResourceException;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 import org.junit.Test;
 
 public class TestGathererComponent {

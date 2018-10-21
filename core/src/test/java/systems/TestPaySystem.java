@@ -7,9 +7,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.ashley.SignalComponent;
-import main.se.tevej.game.model.ashley.SignalListener;
-import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
@@ -19,10 +16,13 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
+import main.se.tevej.game.model.resources.ResourceType;
+import main.se.tevej.game.model.signals.SignalComponent;
+import main.se.tevej.game.model.signals.SignalListener;
+import main.se.tevej.game.model.signals.SignalType;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.PaySystem;
 import main.se.tevej.game.model.systems.SignalHolder;
-import main.se.tevej.game.model.utils.ResourceType;
 import org.junit.Test;
 
 public class TestPaySystem {

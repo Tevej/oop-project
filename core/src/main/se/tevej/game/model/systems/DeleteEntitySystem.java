@@ -7,12 +7,12 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.ashley.SignalComponent;
-import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
+import main.se.tevej.game.model.signals.SignalComponent;
+import main.se.tevej.game.model.signals.SignalListener;
 
-public class DeleteEntitySystem extends EntitySystem implements SignalListener {
+public class DeleteEntitySystem extends EntitySystem implements SignalListener, Listener<Entity> {
 
     private Engine engine;
 
@@ -39,18 +39,18 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener {
 
     @Override
     public Listener<Entity> getSignalListener() {
-        return new Listener<Entity>() {
-            @Override
-            public void receive(Signal<Entity> signal, Entity signalEntity) {
-                SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
-                switch (signalComponent.getType()) {
-                    case DELETEENTITY:
-                        deleteEntity(signalEntity);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
+        return this;
+    }
+
+    @Override
+    public void receive(Signal<Entity> signal, Entity signalEntity) {
+        SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
+        switch (signalComponent.getType()) {
+            case DELETEENTITY:
+                deleteEntity(signalEntity);
+                break;
+            default:
+                break;
+        }
     }
 }

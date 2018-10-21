@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
-import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.resources.Resource;
 
 public class NaturalResourceEntity extends Entity {
     public NaturalResourceEntity(int x, int y, Resource resource) {

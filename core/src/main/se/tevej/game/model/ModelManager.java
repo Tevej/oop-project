@@ -6,19 +6,22 @@ import java.util.List;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
+import com.badlogic.ashley.utils.ImmutableArray;
 
-import main.se.tevej.game.model.ashley.SignalListener;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
+import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.InventoryEntity;
+import main.se.tevej.game.model.entities.NoSuchBuildingException;
 import main.se.tevej.game.model.entities.WorldEntity;
-import main.se.tevej.game.model.exceptions.NoSuchBuildingException;
+import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import main.se.tevej.game.model.systems.EntityCreator;
@@ -88,6 +91,10 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
         }
     }
 
+    public ImmutableArray<Entity> getTiles() {
+        return engine.getEntitiesFor(Family.all(TileComponent.class).get());
+    }
+    
     public Entity getWorldEntity() {
         return worldEntity;
     }
@@ -153,7 +160,8 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
                 worldEntity.getComponent(WorldComponent.class),
                 BuildingType.HOME,
                 homeX,
-                homeY
+                homeY,
+                this
             );
         } catch (NoSuchBuildingException e) {
             homeEntity = new Entity();

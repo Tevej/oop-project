@@ -1,4 +1,4 @@
-package main.se.tevej.game.io.serializer;
+package main.se.tevej.game.io;
 
 import java.lang.reflect.Type;
 

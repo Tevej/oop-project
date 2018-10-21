@@ -9,9 +9,9 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.buildings.HomeComponent;
-import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.NotEnoughResourcesException;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 
 public class PopulationSystem extends EntitySystem {
 

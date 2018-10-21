@@ -9,19 +9,19 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.ashley.SignalComponent;
-import main.se.tevej.game.model.ashley.SignalListener;
-import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.model.components.buildings.BuildingCostUtils;
 import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.utils.Resource;
+import main.se.tevej.game.model.resources.NotEnoughResourcesException;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.signals.SignalComponent;
+import main.se.tevej.game.model.signals.SignalListener;
+import main.se.tevej.game.model.signals.SignalType;
 
-public class PaySystem extends EntitySystem implements SignalListener {
+public class PaySystem extends EntitySystem implements SignalListener, Listener<Entity> {
 
     private Engine engine;
     private SignalHolder signalHolder;
@@ -71,22 +71,22 @@ public class PaySystem extends EntitySystem implements SignalListener {
 
     @Override
     public Listener<Entity> getSignalListener() {
-        return new Listener<Entity>() {
-            @Override
-            public void receive(Signal<Entity> signal, Entity signalEntity) {
-                SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
-                switch (signalComponent.getType()) {
-                    case PAYFORCONSTRUCTION:
-                        if (isOccupiedLocation(signalEntity)) {
-                            break;
-                        } else {
-                            pay(signalEntity);
-                        }
-                        break;
-                    default:
-                        break;
+        return this;
+    }
+
+    @Override
+    public void receive(Signal<Entity> signal, Entity signalEntity) {
+        SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
+        switch (signalComponent.getType()) {
+            case PAYFORCONSTRUCTION:
+                if (isOccupiedLocation(signalEntity)) {
+                    break;
+                } else {
+                    pay(signalEntity);
                 }
-            }
-        };
+                break;
+            default:
+                break;
+        }
     }
 }

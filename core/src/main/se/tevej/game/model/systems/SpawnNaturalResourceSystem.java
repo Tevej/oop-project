@@ -7,18 +7,21 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.ashley.SignalComponent;
-import main.se.tevej.game.model.ashley.SignalListener;
-import main.se.tevej.game.model.ashley.SignalType;
 import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.NaturalResourceEntity;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
+import main.se.tevej.game.model.signals.SignalComponent;
+import main.se.tevej.game.model.signals.SignalListener;
+import main.se.tevej.game.model.signals.SignalType;
 
-public class SpawnNaturalResourceSystem extends EntitySystem implements SignalListener {
+public class SpawnNaturalResourceSystem
+    extends EntitySystem
+    implements SignalListener, Listener<Entity> {
+
     private Engine engine;
 
     public SpawnNaturalResourceSystem() {
@@ -36,19 +39,7 @@ public class SpawnNaturalResourceSystem extends EntitySystem implements SignalLi
 
     @Override
     public Listener<Entity> getSignalListener() {
-        return new Listener<Entity>() {
-            @Override
-            public void receive(Signal<Entity> signal, Entity signalEntity) {
-                SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
-                switch (signalComponent.getType()) {
-                    case SPAWNENTITY:
-                        spawnNaturalResource(signalEntity);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
+        return this;
     }
 
     private void spawnNaturalResource(Entity entity) {
@@ -82,5 +73,17 @@ public class SpawnNaturalResourceSystem extends EntitySystem implements SignalLi
         signalEntity.add(new NaturalResourceComponent(resource));
         signalEntity.add(new SignalComponent(SignalType.SPAWNENTITY));
         return signalEntity;
+    }
+
+    @Override
+    public void receive(Signal<Entity> signal, Entity signalEntity) {
+        SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
+        switch (signalComponent.getType()) {
+            case SPAWNENTITY:
+                spawnNaturalResource(signalEntity);
+                break;
+            default:
+                break;
+        }
     }
 }

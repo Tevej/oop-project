@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.gamerendering.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.gui.base.GuiFactory;
@@ -15,13 +14,11 @@ import main.se.tevej.game.view.gui.base.TTable;
 
 
 public class BuildingGui {
+    private static final int IMAGESIZE = 32;
+    private static final int PADDING = 5;
     private GuiFactory guiFactory;
     private TTable buildingTable;
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "No need to be static and checkbugs will complain if it is."
-    )
-    private final int imageSize = 32;
+
     private List<OnBuildingSelectedToBuild> selectedListeners;
 
     public BuildingGui(GuiFactory guiFactory) {
@@ -32,22 +29,24 @@ public class BuildingGui {
         buttonList.add(
             createBuildingButton(BuildingType.PUMP, "buildings/pump.png"));
         buttonList.add(
-            createBuildingButton(BuildingType.LUMBERMILL, "buildings/lumberMill.jpg"));
+            createBuildingButton(BuildingType.LUMBERMILL, "buildings/lumbermill.png"));
         buttonList.add(
-            createBuildingButton(BuildingType.QUARRY, "buildings/quarry.jpg"));
+            createBuildingButton(BuildingType.QUARRY, "buildings/quarry.png"));
         buttonList.add(
-            createBuildingButton(BuildingType.HOME, "buildings/home.jpg"));
+            createBuildingButton(BuildingType.HOME, "buildings/home.png"));
         buttonList.add(
-            createBuildingButton(BuildingType.FARM, "food.png"));
+            createBuildingButton(BuildingType.FARM, "buildings/farm.png"));
 
         buildingTable = guiFactory.createTable()
-            .positionX(Gdx.graphics.getWidth() - (imageSize / 2f))
+            .positionX(Gdx.graphics.getWidth() - ((IMAGESIZE + PADDING * 2) / 2f))
             .positionY(Gdx.graphics.getHeight() / 2f)
-            .grid(1, 32)
-            .debug(true);
+            .grid(buttonList.size(), 1)
+            .backgroundColor(0,0,0,0.7f)
+            .alignCenter()
+            .padding(PADDING);
 
         for (TButton buildingButton : buttonList) {
-            buildingTable.addElement(buildingButton).width(imageSize).height(imageSize);
+            buildingTable.addElement(buildingButton).width(IMAGESIZE).height(IMAGESIZE);
         }
     }
 

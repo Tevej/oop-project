@@ -6,9 +6,9 @@ import java.util.Map;
 
 import com.badlogic.ashley.core.Component;
 
-import main.se.tevej.game.model.exceptions.NotEnoughResourcesException;
-import main.se.tevej.game.model.utils.Resource;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.NotEnoughResourcesException;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
 
 public class InventoryComponent implements Component {
     private Map<ResourceType, Double> resources;

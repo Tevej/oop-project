@@ -13,7 +13,7 @@ import main.se.tevej.game.model.components.NaturalResourceComponent;
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
-import main.se.tevej.game.model.utils.ResourceType;
+import main.se.tevej.game.model.resources.ResourceType;
 
 public class TreeGrowthSystem extends EntitySystem implements EntityListener {
     private Engine engine;
@@ -23,7 +23,7 @@ public class TreeGrowthSystem extends EntitySystem implements EntityListener {
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
-    private final double chanceMultiplier = 1.0 / 1000;
+    private final double chanceMultiplier = 1.0 / (20 * 1000);
 
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
@@ -96,7 +96,6 @@ public class TreeGrowthSystem extends EntitySystem implements EntityListener {
         Entity signalEntity = SpawnNaturalResourceSystem.getSignalEntity(
             ResourceType.WOOD, 1000, x, y);
         signalHolder.getSignal().dispatch(signalEntity);
-        System.out.println("Spawned tree at " + x + ", " + y);
     }
 
     private void updateValuesAroundTile(int x, int y, Entity tileE, WorldComponent worldC) {

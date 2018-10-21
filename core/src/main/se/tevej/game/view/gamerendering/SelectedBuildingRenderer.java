@@ -20,17 +20,17 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
         textureMap = new HashMap<>();
         textureMap.put(
             BuildingType.HOME,
-            renderingFactory.createTexture("buildings/home.jpg")
+            renderingFactory.createTexture("buildings/home.png")
         );
 
         textureMap.put(
             BuildingType.LUMBERMILL,
-            renderingFactory.createTexture("buildings/lumberMill.jpg")
+            renderingFactory.createTexture("buildings/lumbermill.png")
         );
 
         textureMap.put(
             BuildingType.QUARRY,
-            renderingFactory.createTexture("buildings/quarry.jpg")
+            renderingFactory.createTexture("buildings/quarry.png")
         );
 
         textureMap.put(
@@ -40,12 +40,12 @@ public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
 
         textureMap.put(
             BuildingType.FARM,
-            renderingFactory.createTexture("food.png")
+            renderingFactory.createTexture("buildings/farm.png")
         );
 
         textureMap.put(
             BuildingType.FARM_LAND,
-            renderingFactory.createTexture("food.png")
+            renderingFactory.createTexture("buildings/farm_land.png")
         );
     }
 
