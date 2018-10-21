@@ -20,7 +20,7 @@ public class ScreenManager extends ApplicationAdapter {
 
     private ChangeScreen screenChanger;
 
-    private GameRenderingFactory gameRenderingFactory;
+    private GameRenderingFactory renderingFactory;
     private GuiFactory guiFactory;
     private InputFactory inputFactory;
 
@@ -34,7 +34,7 @@ public class ScreenManager extends ApplicationAdapter {
     public void create() {
         OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
 
-        gameRenderingFactory = new GameRenderingLibgdxFactory();
+        renderingFactory = new GameRenderingLibgdxFactory();
         guiFactory = new GuiLibgdxFactory(inputMultiplexer);
         inputFactory = new InputLibgdxFactory(inputMultiplexer);
 
@@ -45,7 +45,7 @@ public class ScreenManager extends ApplicationAdapter {
                     case PLAY:
                         currentScreen = new PlayScreen(
                             screenChanger,
-                            gameRenderingFactory,
+                            renderingFactory,
                             guiFactory,
                             inputFactory
                         );
@@ -55,6 +55,8 @@ public class ScreenManager extends ApplicationAdapter {
                         break;
                     case GAME_OVER:
                         currentScreen = new GameOverScreen(screenChanger, guiFactory);
+                        break;
+                    default:
                         break;
                 }
             }

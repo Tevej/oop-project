@@ -2,9 +2,10 @@ package main.se.tevej.game.controller.screen;
 
 public abstract class DigitScreen {
 
-    protected final ChangeScreen screenChanger;
+    @SuppressWarnings("PMD.DefaultPackage")
+    /* package */ final ChangeScreen screenChanger;
 
-    DigitScreen(ChangeScreen screenChanger) {
+    /* package */ DigitScreen(ChangeScreen screenChanger) {
         this.screenChanger = screenChanger;
     }
 

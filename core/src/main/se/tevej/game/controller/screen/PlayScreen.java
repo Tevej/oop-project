@@ -21,18 +21,19 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     private GameIo gameIo;
     private float timeMultiplier;
 
-    public PlayScreen(ChangeScreen screenChanger, GameRenderingFactory gameRenderingFactory,
+    public PlayScreen(ChangeScreen screenChanger, GameRenderingFactory renderingFactory,
                       GuiFactory guiFactory, InputFactory inputFactory) {
         super(screenChanger);
         timeMultiplier = 1f;
 
-        initalizeMVC(gameRenderingFactory, guiFactory, inputFactory);
+        initalizeMvc(renderingFactory, guiFactory, inputFactory);
     }
 
     @Override
     public void update(float deltaTime) {
-        model.update(deltaTime);
-        view.update(deltaTime);
+        float newDeltaTime = deltaTime * timeMultiplier;
+        model.update(newDeltaTime);
+        view.update(newDeltaTime);
     }
 
     @Override
@@ -49,7 +50,8 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
         }
     }
 
-    private void initalizeMVC(GameRenderingFactory gameRenderingFactory, GuiFactory guiFactory, InputFactory inputFactory) {
+    private void initalizeMvc(GameRenderingFactory renderingFactory,
+                              GuiFactory guiFactory, InputFactory inputFactory) {
         int worldWidth = 100;
         int worldHeight = 100;
 
@@ -67,7 +69,7 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
             model = new ModelManager(worldWidth, worldHeight, entities);
         }
 
-        view = new ViewManager(model, gameRenderingFactory, guiFactory);
+        view = new ViewManager(model, renderingFactory, guiFactory);
         new ControllerManager(view, model, worldWidth, worldHeight, inputFactory, this);
     }
 

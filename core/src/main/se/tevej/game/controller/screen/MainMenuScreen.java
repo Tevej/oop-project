@@ -48,7 +48,7 @@ public class MainMenuScreen extends DigitScreen {
             .height(50);
 
         table
-            .positionX(Gdx.graphics.getWidth() / 2)
+            .positionX(Gdx.graphics.getWidth() / 2.0f)
             .positionY(Gdx.graphics.getHeight() - 200);
 
     }
