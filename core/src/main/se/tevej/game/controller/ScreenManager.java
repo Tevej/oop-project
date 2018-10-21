@@ -44,6 +44,10 @@ public class ScreenManager extends ApplicationAdapter {
         screenChanger = new ChangeScreen() {
             @Override
             public void changeScreen(DigitScreens digitScreen) {
+                if(currentScreen != null){
+                    currentScreen.dispose();
+                }
+
                 switch (digitScreen) {
                     case PLAY:
                         currentScreen = new PlayScreen(
