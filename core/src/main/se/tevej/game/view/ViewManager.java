@@ -35,6 +35,9 @@ public class ViewManager {
     private float currCameraPosX;
     private float currCameraPosY;
 
+    private float maxZoom;
+    private float minZoom;
+
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
@@ -53,12 +56,14 @@ public class ViewManager {
         zoomMultiplier = 1f;
         initGui(guiFactory, screenChanger);
         initRenders(renderingFactory);
+        calcMinMaxZoom(modelManager);
     }
 
     public void update(float deltaTime) {
         clearScreen();
         renderGameRendering();
-        renderGui(deltaTime);
+        updateGui(deltaTime);
+        renderGui();
     }
 
     public void setPosition(float cameraPosX, float cameraPosY) {
@@ -89,15 +94,18 @@ public class ViewManager {
         batchRenderer.endRendering();
     }
 
-    private void renderGui(float deltaTime) {
-        inventoryGui.update(deltaTime);
+    private void renderGui() {
         inventoryGui.render();
-        buildingGui.update(deltaTime);
         buildingGui.render();
-        gameControlsGui.update(deltaTime);
         gameControlsGui.render();
-        buildingInfoGui.update(deltaTime);
         buildingInfoGui.render();
+    }
+
+    private void updateGui(float deltaTime) {
+        inventoryGui.update(deltaTime);
+        buildingGui.update(deltaTime);
+        gameControlsGui.update(deltaTime);
+        buildingInfoGui.update(deltaTime);
     }
 
     private void initGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
@@ -125,34 +133,38 @@ public class ViewManager {
     }
 
     // Number of pixels to zoom
+
     public void zoom(float newMultiplier) {
-        float screenWidth = Gdx.graphics.getWidth();
-        float screenHeight = Gdx.graphics.getHeight();
-
-        float newTilesPerWidth = screenWidth / (newMultiplier * pixelPerTile);
-        float newTilesPerHeight = screenHeight / (newMultiplier * pixelPerTile);
-
-        int worldWidth = modelManager.getWorldWidth();
-        int worldHeight = modelManager.getWorldHeight();
-
-        // Makes sure we keep within reasonable zoom levels.
-        if (newTilesPerWidth < minTilesPerScreen || newTilesPerHeight < minTilesPerScreen) {
-            float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
-            float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
-            zoomMultiplier = Math.min(maxWidthZoomMp, maxHeightZoomMp);
-        } else if (newTilesPerWidth > worldWidth || newTilesPerHeight > worldHeight) {
-            float minWidthZoomMp = screenWidth / (worldWidth * pixelPerTile);
-            float minHeightZoomMp = screenHeight / (worldHeight * pixelPerTile);
-            zoomMultiplier = Math.max(minWidthZoomMp, minHeightZoomMp);
-        } else {
-            zoomMultiplier = newMultiplier;
-        }
-
-
+        zoomMultiplier = limitZoom(newMultiplier);
     }
 
     public float getZoomMultiplier() {
         return zoomMultiplier;
+    }
+
+    private float limitZoom(float newZoom) {
+        float result = newZoom;
+        result = Math.max(minZoom, result);
+        result = Math.min(maxZoom, result);
+        return result;
+    }
+
+    private void calcMinMaxZoom(ModelManager modelManager) {
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+
+        int worldWidth = modelManager.getWorldWidth();
+        int worldHeight = modelManager.getWorldHeight();
+
+        float minWidthZoomMp = screenWidth / (worldWidth * pixelPerTile);
+        float minHeightZoomMp = screenHeight / (worldHeight * pixelPerTile);
+
+        this.minZoom = Math.max(minWidthZoomMp, minHeightZoomMp);
+
+        float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
+        float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
+
+        this.maxZoom = Math.min(maxWidthZoomMp, maxHeightZoomMp);
     }
 
 }
