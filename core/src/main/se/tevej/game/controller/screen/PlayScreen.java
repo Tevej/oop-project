@@ -22,11 +22,12 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     private float timeMultiplier;
 
     public PlayScreen(ChangeScreen screenChanger, GameRenderingFactory renderingFactory,
-                      GuiFactory guiFactory, InputFactory inputFactory) {
+                      GuiFactory guiFactory, InputFactory inputFactory, GameIo gameIo) {
         super(screenChanger);
         timeMultiplier = 1f;
+        this.gameIo = gameIo;
 
-        initializeMac(renderingFactory, guiFactory, inputFactory);
+        initializeMvc(renderingFactory, guiFactory, inputFactory);
     }
 
     @Override
@@ -50,12 +51,11 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
         }
     }
 
-    private void initializeMac(GameRenderingFactory renderingFactory,
+    private void initializeMvc(GameRenderingFactory renderingFactory,
                                GuiFactory guiFactory, InputFactory inputFactory) {
         int worldWidth = 100;
         int worldHeight = 100;
 
-        gameIo = new GameIo();
         List<Entity> entities = null;
         try {
             entities = gameIo.load();

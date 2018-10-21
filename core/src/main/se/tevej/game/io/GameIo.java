@@ -1,5 +1,6 @@
 package main.se.tevej.game.io;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,7 +27,23 @@ public class GameIo {
     public GameIo() {
     }
 
+    public void removeSavedGame(){
+        if(hasSavedGame()){
+            File f = new File(WORLD_FILE);
+            f.delete();
+        }
+    }
+
+    public boolean hasSavedGame() {
+        File f = new File(WORLD_FILE);
+        return f.exists() && !f.isDirectory();
+    }
+
     public List<Entity> load() throws IOException {
+        if(!hasSavedGame()){
+            return null;
+        }
+
         List<Entity> entities = new ArrayList<>();
         Gson gson = createGson();
         JsonReader reader = new JsonReader(

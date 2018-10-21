@@ -10,6 +10,7 @@ import main.se.tevej.game.controller.screen.DigitScreen;
 import main.se.tevej.game.controller.screen.DigitScreens;
 import main.se.tevej.game.controller.screen.MainMenuScreen;
 import main.se.tevej.game.controller.screen.PlayScreen;
+import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gui.base.GuiFactory;
@@ -22,6 +23,7 @@ public class ScreenManager extends ApplicationAdapter {
     private GameRenderingFactory renderingFactory;
     private GuiFactory guiFactory;
     private InputFactory inputFactory;
+    private GameIo gameIo;
 
     private DigitScreen currentScreen;
 
@@ -37,6 +39,8 @@ public class ScreenManager extends ApplicationAdapter {
         guiFactory = new GuiLibgdxFactory(inputMultiplexer);
         inputFactory = new InputLibgdxFactory(inputMultiplexer);
 
+        gameIo = new GameIo();
+
         screenChanger = new ChangeScreen() {
             @Override
             public void changeScreen(DigitScreens digitScreen) {
@@ -46,11 +50,12 @@ public class ScreenManager extends ApplicationAdapter {
                             screenChanger,
                             renderingFactory,
                             guiFactory,
-                            inputFactory
+                            inputFactory,
+                            gameIo
                         );
                         break;
                     case MAIN_MENU:
-                        currentScreen = new MainMenuScreen(screenChanger, guiFactory);
+                        currentScreen = new MainMenuScreen(screenChanger, guiFactory, gameIo);
                         break;
                     default:
                         break;
