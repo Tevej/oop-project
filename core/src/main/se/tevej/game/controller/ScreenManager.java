@@ -5,14 +5,14 @@ import com.badlogic.gdx.Gdx;
 
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.libgdximplementation.InputLibgdxFactory;
-import main.se.tevej.game.controller.screen.ChangeScreen;
 import main.se.tevej.game.controller.screen.DigitScreen;
-import main.se.tevej.game.controller.screen.DigitScreens;
 import main.se.tevej.game.controller.screen.MainMenuScreen;
 import main.se.tevej.game.controller.screen.PlayScreen;
 import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
+import main.se.tevej.game.view.gui.ChangeScreen;
+import main.se.tevej.game.view.gui.DigitScreens;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 

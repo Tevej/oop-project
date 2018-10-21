@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 import main.se.tevej.game.io.GameIo;
+import main.se.tevej.game.view.gui.ChangeScreen;
+import main.se.tevej.game.view.gui.DigitScreens;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
