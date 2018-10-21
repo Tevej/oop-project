@@ -7,7 +7,6 @@ import main.se.tevej.game.model.components.buildings.BuildingCostUtils;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.view.gui.base.GuiFactory;
-import main.se.tevej.game.view.gui.base.TButton;
 import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TTable;
