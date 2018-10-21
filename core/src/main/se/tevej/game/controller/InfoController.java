@@ -56,7 +56,11 @@ public class InfoController implements OnMouseClickedListener, OnBuildingSelecte
     @Override
     public void buildingSelectedToBuild(BuildingType buildingType) {
         buildingSelected = selectedBuilding == null || buildingType != selectedBuilding;
-        selectedBuilding = buildingType;
+        if (buildingSelected) {
+            selectedBuilding = buildingType;
+        } else {
+            selectedBuilding = null;
+        }
         buildingInfoGui.updateInfo(selectedBuilding);
     }
 }
