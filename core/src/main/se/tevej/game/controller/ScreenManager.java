@@ -33,11 +33,7 @@ public class ScreenManager extends ApplicationAdapter {
 
     @Override
     public void create() {
-        OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
 
-        renderingFactory = new GameRenderingLibgdxFactory();
-        guiFactory = new GuiLibgdxFactory(inputMultiplexer);
-        inputFactory = new InputLibgdxFactory(inputMultiplexer);
 
         gameIo = new GameIo();
 
@@ -47,6 +43,12 @@ public class ScreenManager extends ApplicationAdapter {
                 if (currentScreen != null) {
                     currentScreen.dispose();
                 }
+
+                OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
+
+                renderingFactory = new GameRenderingLibgdxFactory();
+                guiFactory = new GuiLibgdxFactory(inputMultiplexer);
+                inputFactory = new InputLibgdxFactory(inputMultiplexer);
 
                 switch (digitScreen) {
                     case PLAY:
@@ -73,6 +75,7 @@ public class ScreenManager extends ApplicationAdapter {
 
     @Override
     public void render() {
+        System.out.println(currentScreen.getClass().getSimpleName());
         currentScreen.update(Gdx.graphics.getDeltaTime());
         currentScreen.render();
     }
