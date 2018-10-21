@@ -3,11 +3,9 @@ package main.se.tevej.game.controller;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 
+import main.se.tevej.game.controller.input.OrderedInputMultiplexer;
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.libgdximplementation.InputLibgdxFactory;
-import main.se.tevej.game.controller.screen.DigitScreen;
-import main.se.tevej.game.controller.screen.MainMenuScreen;
-import main.se.tevej.game.controller.screen.PlayScreen;
 import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;

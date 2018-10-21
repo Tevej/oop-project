@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller;
+package main.se.tevej.game.controller.input;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;

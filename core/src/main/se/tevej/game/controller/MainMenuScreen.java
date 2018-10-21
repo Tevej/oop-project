@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller.screen;
+package main.se.tevej.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
