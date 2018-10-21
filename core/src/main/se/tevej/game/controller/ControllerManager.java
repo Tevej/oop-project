@@ -4,7 +4,7 @@ import main.se.tevej.game.controller.input.base.CameraController;
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.controller.input.base.TMouse;
-import main.se.tevej.game.controller.input.base.libgdximplementation.InputLibgdxFactory;
+import main.se.tevej.game.controller.input.libgdximplementation.InputLibgdxFactory;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;
 
