@@ -13,9 +13,7 @@ public abstract class DigitScreen {
         this.screenChanger = screenChanger;
     }
 
-    public abstract void update(float deltaTime);
-
-    public abstract void render();
+    public abstract void updateAndRender(float deltaTime);
 
     public abstract void dispose();
 

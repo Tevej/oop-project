@@ -23,15 +23,16 @@ public class MainMenuScreen extends DigitScreen {
     }
 
     @Override
-    public void update(float deltaTime) {
+    public void updateAndRender(float deltaTime) {
         table.update(deltaTime);
+
+        clearScreen();
+        table.render();
     }
 
-    @Override
-    public void render() {
+    private void clearScreen(){
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        table.render();
     }
 
     @Override
