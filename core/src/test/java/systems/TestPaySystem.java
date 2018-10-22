@@ -108,8 +108,8 @@ public class TestPaySystem {
         entity.add(signalC);
         signal.dispatch(entity);
         InventoryComponent inventoryC = engine.getEntitiesFor(
-                Family.all(InventoryComponent.class).get())
-                .first().getComponent(InventoryComponent.class);
+            Family.all(InventoryComponent.class).get())
+            .first().getComponent(InventoryComponent.class);
         System.out.println(inventoryC.getAmountOfResource(ResourceType.STONE));
 
     }

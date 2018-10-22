@@ -6,7 +6,6 @@ import java.util.Map;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
-import main.se.tevej.game.view.gamerendering.base.TTexture;
 
 public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
 

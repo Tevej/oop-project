@@ -8,7 +8,6 @@ import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TTable;
-import main.se.tevej.game.view.gui.base.TUiElement;
 
 public class InventoryElement {
 
@@ -27,7 +26,7 @@ public class InventoryElement {
     }
 
     private void initializeElements(GuiFactory guiFactory, TTable inventoryTable,
-                                    int amount, String imagePath){
+                                    int amount, String imagePath) {
         label = guiFactory.createLabel().text(parseDoubleWithSuffix(amount));
         label.setColor(1, 1, 1, 1);
         TImage image = guiFactory.createImage().image(imagePath);

@@ -43,9 +43,11 @@ public class InventoryGui {
     }
 
     private void initializeTable() {
+        float halfHeight = TABLE_DIMENSION * NUMBER_OF_COLUMNS * NUMBER_OF_ROWS / 2f;
+
         inventoryTable
             .positionX(0)
-            .positionY(Gdx.graphics.getHeight() - (TABLE_DIMENSION * NUMBER_OF_COLUMNS * NUMBER_OF_ROWS / 2f))
+            .positionY(Gdx.graphics.getHeight() - halfHeight)
             .grid(NUMBER_OF_ROWS, NUMBER_OF_COLUMNS)
             .backgroundColor(0, 0, 0, 0.7f)
             .alignLeft()
@@ -53,14 +55,35 @@ public class InventoryGui {
     }
 
     private void populateTable(GuiFactory guiFactory) {
-        createInventoryElement(guiFactory, ResourceType.WOOD, "naturalResources/wood.png");
-        createInventoryElement(guiFactory, ResourceType.WATER, "naturalResources/water.jpg");
-        createInventoryElement(guiFactory, ResourceType.STONE, "naturalResources/stone.png");
-        createInventoryElement(guiFactory, ResourceType.FOOD, "food.png");
-        createInventoryElement(guiFactory, ResourceType.CURRENTPOPULATION, "population.png");
+        createInventoryElement(
+            guiFactory,
+            ResourceType.WOOD,
+            "naturalResources/wood.png"
+        );
+        createInventoryElement(
+            guiFactory,
+            ResourceType.WATER,
+            "naturalResources/water.jpg"
+        );
+        createInventoryElement(
+            guiFactory,
+            ResourceType.STONE,
+            "naturalResources/stone.png"
+        );
+        createInventoryElement(
+            guiFactory,
+            ResourceType.FOOD,
+            "food.png"
+        );
+        createInventoryElement(
+            guiFactory,
+            ResourceType.CURRENTPOPULATION,
+            "population.png"
+        );
     }
 
-    private void createInventoryElement(GuiFactory guiFactory, ResourceType resourceType, String imagePath){
+    private void createInventoryElement(GuiFactory guiFactory,
+                                        ResourceType resourceType, String imagePath) {
         InventoryElement inventoryElement = new InventoryElement(
             guiFactory,
             inventoryTable,
