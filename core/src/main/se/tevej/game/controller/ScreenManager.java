@@ -58,7 +58,13 @@ public class ScreenManager extends ApplicationAdapter {
 
                 switch (digitScreen) {
                     case PLAY:
-                        currentScreen = createPlayScreen(screenChanger, renderingFactory, guiFactory, inputFactory, gameIo);
+                        currentScreen = createPlayScreen(
+                            screenChanger,
+                            renderingFactory,
+                            guiFactory,
+                            inputFactory,
+                            gameIo
+                        );
                         break;
                     case MAIN_MENU:
                         currentScreen = createMainMenuScreen(screenChanger, guiFactory, gameIo);
@@ -70,7 +76,10 @@ public class ScreenManager extends ApplicationAdapter {
         };
     }
 
-    private PlayScreen createPlayScreen(ChangeScreen screenChanger, GameRenderingFactory renderingFactory, GuiFactory guiFactory, InputFactory inputFactory, GameIo gameIo){
+    private PlayScreen createPlayScreen(ChangeScreen screenChanger,
+                                        GameRenderingFactory renderingFactory,
+                                        GuiFactory guiFactory,
+                                        InputFactory inputFactory, GameIo gameIo) {
         return new PlayScreen(
             screenChanger,
             renderingFactory,
@@ -80,7 +89,8 @@ public class ScreenManager extends ApplicationAdapter {
         );
     }
 
-    private MainMenuScreen createMainMenuScreen(ChangeScreen screenChanger, GuiFactory guiFactory, GameIo gameIo){
+    private MainMenuScreen createMainMenuScreen(ChangeScreen screenChanger,
+                                                GuiFactory guiFactory, GameIo gameIo) {
         return new MainMenuScreen(
             screenChanger,
             guiFactory,
