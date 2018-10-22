@@ -62,7 +62,7 @@ public class NaturalResourceEntityRenderable extends TextureLoader implements En
     public final void filesToMap(List<File> files, GameRenderingFactory renderFactory) {
         for (final File fileEntry : files) {
             String name = fileEntry.getName();
-            for (String ending : imageTypes) {
+            for (String ending : imagesTypes) {
                 if (name.endsWith(ending)) {
                     String typeName = name.substring(0, name.length() - ending.length());
                     ResourceType type = ResourceType.valueOf(typeName.toUpperCase(Locale.ENGLISH));

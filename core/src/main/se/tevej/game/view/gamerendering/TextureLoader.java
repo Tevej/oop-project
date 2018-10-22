@@ -8,23 +8,20 @@ import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 
 public abstract class TextureLoader {
 
-    public List<String> imageTypes;
+    protected final String[] imagesTypes;
 
     public TextureLoader() {
-        imageTypes = new ArrayList<>();
-        imageTypes.add(".jpg");
-        imageTypes.add(".png");
-        imageTypes.add(".jpeg");
+        imagesTypes = new String[] {
+            ".jpg", ".png", ".gif"
+        };
     }
 
-    public List<File> getFilesInDir(String path) throws IllegalArgumentException {
-
+    protected List<File> getFilesInDir(String path) throws IllegalArgumentException {
         File folder = new File(path);
 
         File[] filesAndFolders = folder.listFiles();
         if (filesAndFolders == null) {
-            System.out.println("FOLDER NULL?!");
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(path + " doesn't exist");
         }
 
         List<File> files = new ArrayList<>();
@@ -35,6 +32,8 @@ public abstract class TextureLoader {
         return files;
     }
 
+    protected abstract void filesToMap(List<File> files, GameRenderingFactory renderingFactory);
+
     private void addFileToList(File fileEntry, List<File> files) throws IllegalArgumentException {
         if (fileEntry.isDirectory()) {
             getFilesInDir(fileEntry.getPath());
@@ -42,6 +41,4 @@ public abstract class TextureLoader {
             files.add(fileEntry);
         }
     }
-
-    protected abstract void filesToMap(List<File> files, GameRenderingFactory renderingFactory);
 }
