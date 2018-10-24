@@ -31,7 +31,7 @@ public class ScreenManager extends ApplicationAdapter {
 
     @Override
     public void render() {
-        currentScreen.updateAndRender(Gdx.graphics.getDeltaTime());
+        currentScreen.update(Gdx.graphics.getDeltaTime());
     }
 
     @Override

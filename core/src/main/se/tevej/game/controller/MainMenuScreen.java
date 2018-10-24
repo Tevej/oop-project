@@ -23,7 +23,7 @@ public class MainMenuScreen extends DigitScreen {
     }
 
     @Override
-    public void updateAndRender(float deltaTime) {
+    public void update(float deltaTime) {
         table.update(deltaTime);
 
         clearScreen();

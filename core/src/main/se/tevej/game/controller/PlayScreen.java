@@ -31,7 +31,7 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     }
 
     @Override
-    public void updateAndRender(float deltaTime) {
+    public void update(float deltaTime) {
         float newDeltaTime = deltaTime * timeMultiplier;
         model.update(newDeltaTime);
         view.update(newDeltaTime);
