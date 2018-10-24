@@ -103,7 +103,6 @@ public class ViewManager {
         buildingGui.render();
         gameControlsGui.render();
         buildingInfoGui.render();
-        timeControlGui.update(deltaTime);
         timeControlGui.render();
     }
 
@@ -112,6 +111,7 @@ public class ViewManager {
         buildingGui.update(deltaTime);
         gameControlsGui.update(deltaTime);
         buildingInfoGui.update(deltaTime);
+        timeControlGui.update(deltaTime);
     }
 
     private void initGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
