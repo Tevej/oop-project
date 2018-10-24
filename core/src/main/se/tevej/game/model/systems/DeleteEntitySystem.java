@@ -2,17 +2,14 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
 
-public class DeleteEntitySystem extends EntitySystem implements SignalListener, Listener<Entity> {
+public class DeleteEntitySystem extends TSystem {
 
     private Engine engine;
 
@@ -31,15 +28,6 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener, 
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
-    }
-
-    @Override
-    public void setSignal(Signal<Entity> signal) {
-    }
-
-    @Override
-    public Listener<Entity> getSignalListener() {
-        return this;
     }
 
     @Override

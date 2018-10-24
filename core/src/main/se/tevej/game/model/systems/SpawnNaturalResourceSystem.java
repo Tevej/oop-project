@@ -2,9 +2,7 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.components.NaturalResourceComponent;
@@ -15,12 +13,9 @@ import main.se.tevej.game.model.entities.NaturalResourceEntity;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.signals.SignalType;
 
-public class SpawnNaturalResourceSystem
-    extends EntitySystem
-    implements SignalListener, Listener<Entity> {
+public class SpawnNaturalResourceSystem extends TSystem {
 
     private Engine engine;
 
@@ -40,15 +35,6 @@ public class SpawnNaturalResourceSystem
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
-    }
-
-    @Override
-    public void setSignal(Signal<Entity> signal) {
-    }
-
-    @Override
-    public Listener<Entity> getSignalListener() {
-        return this;
     }
 
     private void spawnNaturalResource(Entity entity) {

@@ -13,6 +13,7 @@
         <exclude name="MethodArgumentCouldBeFinal"/>
         <exclude name="ShortVariable"/>
         <exclude name="UnnecessaryConstructor"/>
+        <exclude name="EmptyMethodInAbstractClassShouldBeAbstract" />
     </rule>
 
     <!-- Rules, that have been moved into a category -->
