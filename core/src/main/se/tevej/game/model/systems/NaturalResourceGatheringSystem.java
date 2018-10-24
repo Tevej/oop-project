@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector2;
@@ -22,7 +21,7 @@ import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalComponent;
 import main.se.tevej.game.model.signals.SignalType;
 
-public class NaturalResourceGatheringSystem extends EntitySystem {
+public class NaturalResourceGatheringSystem extends TSystem {
 
     private Engine engine;
     private SignalHolder signalHolder;
@@ -168,5 +167,4 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
             gather(gatherer, world, inventory, deltaTime);
         }
     }
-
 }

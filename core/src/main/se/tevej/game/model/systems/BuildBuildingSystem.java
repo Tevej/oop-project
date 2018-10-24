@@ -2,9 +2,7 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.components.PositionComponent;
@@ -16,11 +14,8 @@ import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.NoSuchBuildingException;
 import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
 
-public class BuildBuildingSystem
-    extends EntitySystem
-    implements SignalListener, AddToEngineListener, Listener<Entity> {
+public class BuildBuildingSystem extends TSystem implements AddToEngineListener {
 
     private Engine engine;
 
@@ -31,15 +26,6 @@ public class BuildBuildingSystem
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
-    }
-
-    @Override
-    public void setSignal(Signal<Entity> signal) {
-    }
-
-    @Override
-    public Listener<Entity> getSignalListener() {
-        return this;
     }
 
     @Override
