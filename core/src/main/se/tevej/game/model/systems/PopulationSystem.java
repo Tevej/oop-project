@@ -2,7 +2,6 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 
@@ -13,7 +12,7 @@ import main.se.tevej.game.model.resources.NotEnoughResourcesException;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
-public class PopulationSystem extends EntitySystem {
+public class PopulationSystem extends TSystem {
 
     private Engine engine;
     private float gestationProgress;

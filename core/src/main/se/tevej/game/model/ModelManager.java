@@ -21,7 +21,6 @@ import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.InventoryEntity;
 import main.se.tevej.game.model.entities.NoSuchBuildingException;
 import main.se.tevej.game.model.entities.WorldEntity;
-import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.systems.BuildBuildingSystem;
 import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import main.se.tevej.game.model.systems.EntityCreator;
@@ -31,6 +30,7 @@ import main.se.tevej.game.model.systems.PaySystem;
 import main.se.tevej.game.model.systems.PopulationSystem;
 import main.se.tevej.game.model.systems.SignalHolder;
 import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
+import main.se.tevej.game.model.systems.TSystem;
 import main.se.tevej.game.model.systems.TreeGrowthSystem;
 
 @SuppressWarnings("PMD.ExcessiveImports")
@@ -133,22 +133,20 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
     }
 
     private void initSystems() {
-        engine.addSystem(new BuildBuildingSystem());
-        engine.addSystem(new DeleteEntitySystem());
-        engine.addSystem(new PaySystem(this));
-        engine.addSystem(new NaturalResourceGatheringSystem(this));
-        engine.addSystem(new SpawnNaturalResourceSystem());
-        engine.addSystem(new TreeGrowthSystem(this, this));
-        engine.addSystem(new PopulationSystem());
-        engine.addSystem(new FoodGatheringSystem());
+        addSystem(new BuildBuildingSystem());
+        addSystem(new DeleteEntitySystem());
+        addSystem(new PaySystem(this));
+        addSystem(new NaturalResourceGatheringSystem(this));
+        addSystem(new SpawnNaturalResourceSystem());
+        addSystem(new TreeGrowthSystem(this, this));
+        addSystem(new PopulationSystem());
+        addSystem(new FoodGatheringSystem());
+    }
 
-        engine.getSystems().forEach(entitySystem -> {
-            if (entitySystem instanceof SignalListener) {
-                SignalListener signalListener = (SignalListener) entitySystem;
-                signalListener.setSignal(signal);
-                signal.add(signalListener.getSignalListener());
-            }
-        });
+    private void addSystem(TSystem system) {
+        engine.addSystem(system);
+        system.setSignal(signal);
+        signal.add(system.getSignalListener());
     }
 
     private void createStartingHome() {

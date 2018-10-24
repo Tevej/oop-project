@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.components.InventoryComponent;
@@ -18,10 +16,9 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.resources.NotEnoughResourcesException;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.signals.SignalType;
 
-public class PaySystem extends EntitySystem implements SignalListener, Listener<Entity> {
+public class PaySystem  extends TSystem {
 
     private Engine engine;
     private SignalHolder signalHolder;
@@ -63,15 +60,6 @@ public class PaySystem extends EntitySystem implements SignalListener, Listener<
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
-    }
-
-    @Override
-    public void setSignal(Signal<Entity> signal) {
-    }
-
-    @Override
-    public Listener<Entity> getSignalListener() {
-        return this;
     }
 
     @Override
