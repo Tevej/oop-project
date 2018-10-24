@@ -107,6 +107,7 @@ public class ViewManager {
         gameControlsGui.update(deltaTime);
         buildingInfoGui.update(deltaTime);
         timeControlGui.update(deltaTime);
+        timeControlGui.render();
     }
 
     private void initGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
@@ -168,6 +169,12 @@ public class ViewManager {
         float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
 
         this.maxZoom = Math.min(maxWidthZoomMp, maxHeightZoomMp);
+    }
+
+    public void setTimeControllers(RegisterTimeController registerTime,
+                                   ChangeTimeScale changeTimeScale) {
+        registerTime.registerTimeController(timeControlGui);
+        timeControlGui.setChangeTimeScale(changeTimeScale);
     }
 
     public void setTimeControllers(RegisterTimeController registerTime,
