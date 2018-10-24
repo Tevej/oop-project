@@ -6,13 +6,13 @@ import java.util.List;
 import com.badlogic.ashley.core.Entity;
 
 import main.se.tevej.game.controller.input.base.InputFactory;
-import main.se.tevej.game.controller.time.OnTimeChangeListener;
 import main.se.tevej.game.io.GameIo;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gui.ChangeScreen;
 import main.se.tevej.game.view.gui.base.GuiFactory;
+import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
 
 public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
 
@@ -74,7 +74,7 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     }
 
     @Override
-    public void updateTimeMultipler(float newMultiplier) {
+    public void updateTimeMultiplier(float newMultiplier) {
         timeMultiplier = newMultiplier;
     }
 

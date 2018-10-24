@@ -15,6 +15,9 @@ import main.se.tevej.game.view.gui.ChangeScreen;
 import main.se.tevej.game.view.gui.GameControlsGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
+import main.se.tevej.game.view.gui.time.ChangeTimeScale;
+import main.se.tevej.game.view.gui.time.RegisterTimeController;
+import main.se.tevej.game.view.gui.time.TimeControlGui;
 
 public class ViewManager {
 
@@ -28,6 +31,7 @@ public class ViewManager {
     private BuildingGui buildingGui;
     private BuildingInfoGui buildingInfoGui;
     private GameControlsGui gameControlsGui;
+    private TimeControlGui timeControlGui;
 
     private float zoomMultiplier;
 
@@ -98,6 +102,8 @@ public class ViewManager {
         gameControlsGui.render();
         buildingInfoGui.update(deltaTime);
         buildingInfoGui.render();
+        timeControlGui.update(deltaTime);
+        timeControlGui.render();
     }
 
     private void initGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
@@ -105,6 +111,7 @@ public class ViewManager {
         buildingGui = new BuildingGui(guiFactory);
         gameControlsGui = new GameControlsGui(guiFactory, screenChanger);
         buildingInfoGui = new BuildingInfoGui(guiFactory);
+        timeControlGui = new TimeControlGui(guiFactory);
     }
 
     private void initRenders(GameRenderingFactory renderingFactory) {
@@ -153,6 +160,12 @@ public class ViewManager {
 
     public float getZoomMultiplier() {
         return zoomMultiplier;
+    }
+
+    public void setTimeControllers(RegisterTimeController registerTime,
+                                   ChangeTimeScale changeTimeScale) {
+        registerTime.registerTimeController(timeControlGui);
+        timeControlGui.setChangeTimeScale(changeTimeScale);
     }
 
 }

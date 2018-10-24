@@ -4,16 +4,18 @@ import main.se.tevej.game.controller.input.base.CameraController;
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.controller.input.base.TMouse;
-import main.se.tevej.game.controller.time.OnTimeChangeListener;
 import main.se.tevej.game.controller.time.TimeController;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.view.ViewManager;
+import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
 
 public class ControllerManager {
 
     private ViewManager viewManager;
     private ModelManager modelManager;
+
+    private TimeController timeController;
 
     private TMouse mouse;
     private TKeyBoard keyBoard;
@@ -28,6 +30,10 @@ public class ControllerManager {
         this.modelManager = modelManager;
         initInput(inputFactory);
         initControllers(worldWidth, worldHeight, timeListener);
+    }
+
+    public void registerTimeController(OnTimeChangeListener onTimeChange) {
+        timeController.registerOnTimeChange(onTimeChange);
     }
 
     private void initInput(InputFactory inputFactory) {
@@ -56,8 +62,9 @@ public class ControllerManager {
     }
 
     private void initTime(OnTimeChangeListener listener) {
-        TimeController timeController = new TimeController(keyBoard);
+        timeController = new TimeController(keyBoard);
         timeController.registerOnTimeChange(listener);
+        viewManager.setTimeControllers(timeController, timeController);
     }
 
     private void initInfo() {
@@ -68,5 +75,4 @@ public class ControllerManager {
             mouse);
         viewManager.getBuildingGui().addSelectedListener(infoController);
     }
-
 }

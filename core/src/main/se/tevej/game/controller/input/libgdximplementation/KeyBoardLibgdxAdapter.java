@@ -23,6 +23,7 @@ public class KeyBoardLibgdxAdapter extends InputAdapter implements TKeyBoard {
         INPUT_MAP.put(Keys.NUM_1, TKey.KEY_1);
         INPUT_MAP.put(Keys.NUM_2, TKey.KEY_2);
         INPUT_MAP.put(Keys.NUM_3, TKey.KEY_3);
+        INPUT_MAP.put(Keys.NUM_4, TKey.KEY_4);
         INPUT_MAP.put(Keys.L, TKey.KEY_L);
         INPUT_MAP.put(Keys.P, TKey.KEY_P);
         INPUT_MAP.put(Keys.Q, TKey.KEY_Q);

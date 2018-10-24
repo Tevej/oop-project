@@ -4,6 +4,7 @@ public enum TKey {
     KEY_1,
     KEY_2,
     KEY_3,
+    KEY_4,
     KEY_L,
     KEY_P,
     KEY_Q,
