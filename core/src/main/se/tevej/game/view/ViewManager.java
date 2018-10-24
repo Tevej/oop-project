@@ -46,11 +46,6 @@ public class ViewManager {
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
-    private final float minTilesPerScreen = 5;
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "No need to be static and checkbugs will complain if it is."
-    )
     private final float pixelPerTile = 32f;
 
     public ViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory,
@@ -168,6 +163,7 @@ public class ViewManager {
 
         this.minZoom = Math.max(minWidthZoomMp, minHeightZoomMp);
 
+        float minTilesPerScreen = 5;
         float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
         float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
 
