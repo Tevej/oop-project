@@ -20,9 +20,16 @@ public class OrderedInputMultiplexer implements InputProcessor, InputProcessorLi
 
     public OrderedInputMultiplexer() {
         processorsMap = new LinkedHashMap<>();
+        initializeProcessorsMap();
+        connectToLibgdxInput();
+    }
 
+    private void initializeProcessorsMap() {
         processorsMap.put(InputProcessorType.GUI, new LinkedList<>());
         processorsMap.put(InputProcessorType.GAME_RENDERING, new LinkedList<>());
+    }
+
+    private void connectToLibgdxInput() {
         Gdx.input.setInputProcessor(this);
     }
 

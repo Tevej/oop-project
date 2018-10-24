@@ -18,13 +18,13 @@ public class PopulationSystem extends TSystem {
     private float gestationProgress;
     private int alivePop;
     @SuppressFBWarnings(
-            value = "SS_SHOULD_BE_STATIC",
-            justification = "No need to be static and checkbugs will complain if it is."
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
     )
     private final int popHunger = 10;
     @SuppressFBWarnings(
-            value = "SS_SHOULD_BE_STATIC",
-            justification = "No need to be static and checkbugs will complain if it is."
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
     )
     private final float gestationPeriod = 10f;
 
@@ -34,10 +34,10 @@ public class PopulationSystem extends TSystem {
 
     private void giveBirth() {
         ImmutableArray<Entity> homes = engine.getEntitiesFor(
-                Family.all(HomeComponent.class).get());
+            Family.all(HomeComponent.class).get());
         InventoryComponent inventoryC = engine.getEntitiesFor(
-                Family.all(InventoryComponent.class).get())
-                .first().getComponent(InventoryComponent.class);
+            Family.all(InventoryComponent.class).get())
+            .first().getComponent(InventoryComponent.class);
 
         for (int i = 0; i < homes.size(); i++) {
             HomeComponent homeC = homes.get(i).getComponent(HomeComponent.class);
@@ -51,12 +51,12 @@ public class PopulationSystem extends TSystem {
 
     private void eatFood(float deltaTime) {
         InventoryComponent inventoryC = engine.getEntitiesFor(
-                Family.all(InventoryComponent.class).get())
-                .first().getComponent(InventoryComponent.class);
+            Family.all(InventoryComponent.class).get())
+            .first().getComponent(InventoryComponent.class);
         float foodCost = popHunger * deltaTime;
         try {
             inventoryC.removeFromInventory(
-                    new Resource(foodCost * alivePop, ResourceType.FOOD));
+                new Resource(foodCost * alivePop, ResourceType.FOOD));
         } catch (NotEnoughResourcesException e) {
             killPopulation(foodCost, inventoryC);
         }
@@ -67,14 +67,14 @@ public class PopulationSystem extends TSystem {
         int deaths = alivePop - survivors;
         try {
             inventoryC.removeFromInventory(
-                    new Resource(deaths * foodCost, ResourceType.FOOD));
+                new Resource(deaths * foodCost, ResourceType.FOOD));
         } catch (NotEnoughResourcesException e) {
             System.out.println("This should never happen");
         }
         if (inventoryC.getAmountOfResource(ResourceType.CURRENTPOPULATION) > survivors) {
             try {
                 inventoryC.removeFromInventory(
-                        new Resource(survivors, ResourceType.CURRENTPOPULATION));
+                    new Resource(survivors, ResourceType.CURRENTPOPULATION));
             } catch (NotEnoughResourcesException ex) {
                 System.out.println("This should never happen!");
             }
