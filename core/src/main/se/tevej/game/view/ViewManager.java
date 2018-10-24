@@ -177,10 +177,4 @@ public class ViewManager {
         timeControlGui.setChangeTimeScale(changeTimeScale);
     }
 
-    public void setTimeControllers(RegisterTimeController registerTime,
-                                   ChangeTimeScale changeTimeScale) {
-        registerTime.registerTimeController(timeControlGui);
-        timeControlGui.setChangeTimeScale(changeTimeScale);
-    }
-
 }
