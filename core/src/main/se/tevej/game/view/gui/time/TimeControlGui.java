@@ -44,7 +44,7 @@ public class TimeControlGui implements OnTimeChangeListener {
     private void initializeTable() {
         timeControlTable
             .positionX(Gdx.graphics.getWidth() / 2.0f)
-            .positionY(Gdx.graphics.getHeight() - 25)
+            .positionY(Gdx.graphics.getHeight() - 20)
             .backgroundColor(0, 0, 0, 0.7f)
             .grid(1, 4);
 
@@ -86,13 +86,14 @@ public class TimeControlGui implements OnTimeChangeListener {
                     );
                 }
             });
+
         timeControlTable
-            .addElement(playButton)
+            .addElement(pauseButton)
             .width(100)
             .height(40);
 
         timeControlTable
-            .addElement(pauseButton)
+            .addElement(playButton)
             .width(100)
             .height(40);
 
