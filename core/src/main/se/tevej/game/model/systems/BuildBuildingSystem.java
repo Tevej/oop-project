@@ -32,7 +32,7 @@ public class BuildBuildingSystem extends TSystem implements AddToEngineListener 
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case BUILDBUILDING:
+            case BUILD_BUILDING:
                 BuildingComponent buildingC =
                     signalEntity.getComponent(BuildingComponent.class);
                 PositionComponent posC = signalEntity.getComponent(PositionComponent.class);

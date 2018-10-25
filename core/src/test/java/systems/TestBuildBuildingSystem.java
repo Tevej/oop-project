@@ -56,7 +56,7 @@ public class TestBuildBuildingSystem {
         WorldComponent worldC = worldEntity.getComponent(WorldComponent.class);
         entity.add(worldC);
 
-        SignalComponent signalC = new SignalComponent(SignalType.BUILDBUILDING);
+        SignalComponent signalC = new SignalComponent(SignalType.BUILD_BUILDING);
         entity.add(signalC);
         signal.dispatch(entity);
 

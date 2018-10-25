@@ -53,7 +53,7 @@ public class NaturalResourceGatheringSystem extends TSystem {
             Resource remainingResource = new Resource(naturalResourceC.getAmountLeft(),
                 naturalResourceC.getType());
             inventory.addResource(remainingResource);
-            occupier.add(new SignalComponent(SignalType.DELETEENTITY));
+            occupier.add(new SignalComponent(SignalType.DELETE_ENTITY));
             signalHolder.getSignal().dispatch(occupier);
         }
     }

@@ -46,7 +46,7 @@ public class PaySystem  extends TSystem {
 
     private void sendBuildSignal(Entity signalEntity) {
         signalEntity.remove(SignalComponent.class);
-        signalEntity.add(new SignalComponent(SignalType.BUILDBUILDING));
+        signalEntity.add(new SignalComponent(SignalType.BUILD_BUILDING));
         signalHolder.getSignal().dispatch(signalEntity);
     }
 
@@ -66,7 +66,7 @@ public class PaySystem  extends TSystem {
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case PAYFORCONSTRUCTION:
+            case PAY_FOR_CONSTRUCTION:
                 if (isOccupiedLocation(signalEntity)) {
                     break;
                 } else {

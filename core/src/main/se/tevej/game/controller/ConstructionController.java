@@ -61,7 +61,7 @@ public class ConstructionController implements OnTappedListener,
             entity.add(new BuildingComponent(type));
             entity.add(tileAt.getComponent(PositionComponent.class));
             entity.add(worldEntity.getComponent(WorldComponent.class));
-            entity.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
+            entity.add(new SignalComponent(SignalType.PAY_FOR_CONSTRUCTION));
             modelManager.getSignal().dispatch(entity);
         }
     }

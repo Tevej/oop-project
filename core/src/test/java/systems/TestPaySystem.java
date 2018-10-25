@@ -104,7 +104,7 @@ public class TestPaySystem {
         WorldComponent worldC = worldEntity.getComponent(WorldComponent.class);
         entity.add(worldC);
 
-        SignalComponent signalC = new SignalComponent(SignalType.PAYFORCONSTRUCTION);
+        SignalComponent signalC = new SignalComponent(SignalType.PAY_FOR_CONSTRUCTION);
         entity.add(signalC);
         signal.dispatch(entity);
         InventoryComponent inventoryC = engine.getEntitiesFor(

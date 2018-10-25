@@ -34,7 +34,7 @@ public class DeleteEntitySystem extends TSystem {
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case DELETEENTITY:
+            case DELETE_ENTITY:
                 deleteEntity(signalEntity);
                 break;
             default:

@@ -65,7 +65,7 @@ public class TestDeleteEntitySystem {
             .getTileAt(2, 3).getComponent(PositionComponent.class);
         entity.add(positionC);
         entity.add(worldC);
-        SignalComponent signalC = new SignalComponent(SignalType.BUILDBUILDING);
+        SignalComponent signalC = new SignalComponent(SignalType.BUILD_BUILDING);
         entity.add(signalC);
         signal.dispatch(entity);
 
@@ -84,7 +84,7 @@ public class TestDeleteEntitySystem {
         assertNotNull(tileC.getOccupier());
 
         //----------------delete entity---------------
-        buildingE.add(new SignalComponent(SignalType.DELETEENTITY));
+        buildingE.add(new SignalComponent(SignalType.DELETE_ENTITY));
         signal.dispatch(buildingE);
 
         // se att tile inte har någon byggnad
