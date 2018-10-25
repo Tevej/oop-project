@@ -12,7 +12,7 @@ public class TimeControlGui implements OnTimeChangeListener {
 
     private TTable timeControlTable;
 
-    private ChangeTimeScale changeTimeScale;
+    private SetTimeMultiplier setTimeMultiplier;
 
     private TLabel scaleLabel;
 
@@ -37,8 +37,8 @@ public class TimeControlGui implements OnTimeChangeListener {
         timeControlTable.render();
     }
 
-    public void setChangeTimeScale(ChangeTimeScale changeTimeScale) {
-        this.changeTimeScale = changeTimeScale;
+    public void setSetTimeMultiplier(SetTimeMultiplier setTimeMultiplier) {
+        this.setTimeMultiplier = setTimeMultiplier;
     }
 
     private void initializeTable() {
@@ -61,7 +61,7 @@ public class TimeControlGui implements OnTimeChangeListener {
             .addListener(new OnButtonClickedListener() {
                 @Override
                 public void onClicked() {
-                    changeTimeScale.setScale(1.0f);
+                    setTimeMultiplier.setTimeMultiplier(1.0f);
                 }
             });
 
@@ -71,7 +71,7 @@ public class TimeControlGui implements OnTimeChangeListener {
             .addListener(new OnButtonClickedListener() {
                 @Override
                 public void onClicked() {
-                    changeTimeScale.setScale(0.0f);
+                    setTimeMultiplier.setTimeMultiplier(0.0f);
                 }
             });
 
@@ -81,7 +81,7 @@ public class TimeControlGui implements OnTimeChangeListener {
             .addListener(new OnButtonClickedListener() {
                 @Override
                 public void onClicked() {
-                    changeTimeScale.setScale(
+                    setTimeMultiplier.setTimeMultiplier(
                         possibleScales[scalesIndex++ % possibleScales.length]
                     );
                 }
