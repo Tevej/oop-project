@@ -2,6 +2,8 @@ package main.se.tevej.game.model.components;
 
 import com.badlogic.ashley.core.Component;
 
+import java.util.Objects;
+
 public class PositionComponent implements Component {
     private int posX;
     private int posY;
@@ -45,8 +47,7 @@ public class PositionComponent implements Component {
 
     @Override
     public int hashCode() {
-        assert false : "hashCode not designed";
-        return 42; // any arbitrary constant will do
+        return Objects.hash(posX*, posY*1.99);
     }
 
 }
