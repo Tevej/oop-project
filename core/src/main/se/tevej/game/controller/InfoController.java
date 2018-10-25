@@ -16,7 +16,7 @@ public class InfoController implements OnMouseClickedListener, OnBuildingSelecte
     private WorldComponent worldC;
     private CameraController cameraController;
     private BuildingInfoGui buildingInfoGui;
-    private boolean noBuildingSelected;
+    private boolean buildingSelected;
     private BuildingType selectedBuilding;
 
     public InfoController(
@@ -29,14 +29,14 @@ public class InfoController implements OnMouseClickedListener, OnBuildingSelecte
         this.cameraController = cameraController;
         this.buildingInfoGui = buildingInfoGui;
         mouse.addClickedListener(this);
-        noBuildingSelected = false;
+        buildingSelected = false;
     }
 
     @Override
     public void onClicked(TMouse mouse, TKey key) {
         int posX = (int) cameraController.getScreenToWorldCoord(mouse.getX(), mouse.getY()).x;
         int posY = (int) cameraController.getScreenToWorldCoord(mouse.getX(), mouse.getY()).y;
-        if (key == TKey.MOUSE_LEFT && !noBuildingSelected) {
+        if (key == TKey.MOUSE_LEFT && !buildingSelected) {
             updateBuildingInfoGui(posX, posY);
         }
     }
@@ -55,8 +55,8 @@ public class InfoController implements OnMouseClickedListener, OnBuildingSelecte
 
     @Override
     public void buildingSelectedToBuild(BuildingType buildingType) {
-        noBuildingSelected = selectedBuilding == null || buildingType != selectedBuilding;
-        if (noBuildingSelected) {
+        buildingSelected = selectedBuilding == null || buildingType != selectedBuilding;
+        if (buildingSelected) {
             selectedBuilding = buildingType;
         } else {
             selectedBuilding = null;
