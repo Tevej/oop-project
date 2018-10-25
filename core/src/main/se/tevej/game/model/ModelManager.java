@@ -45,6 +45,10 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
     private WorldEntity worldEntity;
     private Entity inventoryEntity;
 
+    /***
+     * This constructor is called if there is no previously saved game. It passes null to the
+     * entity_parameter which then prompts the constructor to create a new world from scratch.
+     */
     public ModelManager(int worldWidth, int worldHeight) {
         this(worldWidth, worldHeight, null);
     }
