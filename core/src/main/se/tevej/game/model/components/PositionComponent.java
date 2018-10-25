@@ -47,7 +47,7 @@ public class PositionComponent implements Component {
 
     @Override
     public int hashCode() {
-        return Objects.hash(posX*, posY*1.99);
+        return Objects.hash(posX, posY*1.99);
     }
 
 }
