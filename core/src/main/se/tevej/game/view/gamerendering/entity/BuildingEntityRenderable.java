@@ -58,7 +58,7 @@ public class BuildingEntityRenderable extends TextureLoader implements EntityRen
     public final void filesToMap(List<File> files, GameRenderingFactory renderFactory) {
         for (final File fileEntry : files) {
             String name = fileEntry.getName();
-            for (String ending : imageTypes) {
+            for (String ending : imagesTypes) {
                 if (name.endsWith(ending)) {
                     String typeName = name.substring(0, name.length() - ending.length());
                     BuildingType type = BuildingType.valueOf(typeName.toUpperCase(Locale.ENGLISH));

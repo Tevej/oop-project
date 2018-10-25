@@ -14,6 +14,7 @@ public class GameControlsGui {
     public GameControlsGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
         this.controlsTable = guiFactory.createTable();
 
+        initializeTable();
         populateTable(guiFactory, screenChanger);
     }
 
@@ -25,17 +26,18 @@ public class GameControlsGui {
         controlsTable.render();
     }
 
-    private void populateTable(GuiFactory guiFactory, ChangeScreen screenChanger) {
-        this.controlsTable.grid(1, 2);
+    private void initializeTable() {
+        this.controlsTable
+            .grid(1, 2)
+            .positionX(Gdx.graphics.getWidth() - 100)
+            .positionY(Gdx.graphics.getHeight() - 25);
+    }
 
+    private void populateTable(GuiFactory guiFactory, ChangeScreen screenChanger) {
         this.controlsTable
             .addElement(createMainMenuButton(guiFactory, screenChanger))
             .width(200)
             .height(50);
-
-        this.controlsTable
-            .positionX(Gdx.graphics.getWidth() - 100)
-            .positionY(Gdx.graphics.getHeight() - 25);
     }
 
     private TUiElement createMainMenuButton(GuiFactory guiFactory, ChangeScreen screenChanger) {

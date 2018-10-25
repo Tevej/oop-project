@@ -152,4 +152,10 @@ public class TableLibgdxAdapter extends Table implements TTable {
         super.pad(amount);
         return this;
     }
+
+    @Override
+    public TTable visible(boolean visible) {
+        super.setVisible(visible);
+        return this;
+    }
 }

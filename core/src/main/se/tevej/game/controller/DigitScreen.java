@@ -15,8 +15,6 @@ public abstract class DigitScreen {
 
     public abstract void update(float deltaTime);
 
-    public abstract void render();
-
     public abstract void dispose();
 
 }

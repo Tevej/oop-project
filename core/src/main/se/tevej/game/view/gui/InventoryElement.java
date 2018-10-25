@@ -7,23 +7,32 @@ import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;
-import main.se.tevej.game.view.gui.base.TUiElement;
+import main.se.tevej.game.view.gui.base.TTable;
 
-public class InventoryElement implements TUiElement {
+public class InventoryElement {
+
     private TLabel label;
-    private TImage image;
     private ResourceType resourceType;
 
-    public InventoryElement(GuiFactory guiFactory, int amount,
+    public InventoryElement(GuiFactory guiFactory, TTable inventoryTable, int amount,
                             String imagePath, ResourceType resourceType) {
         this.resourceType = resourceType;
-        label = guiFactory.createLabel().text(parseDoubleWithSuffix(amount));
-        label.setColor(1, 1, 1, 1);
-        image = guiFactory.createImage().image(imagePath);
+
+        initializeElements(guiFactory, inventoryTable, amount, imagePath);
     }
 
     public void update(int newAmount) {
         label.text(parseDoubleWithSuffix(newAmount));
+    }
+
+    private void initializeElements(GuiFactory guiFactory, TTable inventoryTable,
+                                    int amount, String imagePath) {
+        label = guiFactory.createLabel().text(parseDoubleWithSuffix(amount));
+        label.setColor(1, 1, 1, 1);
+        TImage image = guiFactory.createImage().image(imagePath);
+
+        inventoryTable.addElement(image).height(32).width(32);
+        inventoryTable.addElement(label).height(32).width(70);
     }
 
     private String parseDoubleWithSuffix(double amount) {
@@ -50,13 +59,5 @@ public class InventoryElement implements TUiElement {
 
     public ResourceType getResourceType() {
         return resourceType;
-    }
-
-    public TImage getImage() {
-        return image;
-    }
-
-    public TLabel getLabel() {
-        return label;
     }
 }

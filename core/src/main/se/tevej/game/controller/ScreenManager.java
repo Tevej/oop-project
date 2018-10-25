@@ -17,12 +17,6 @@ import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 public class ScreenManager extends ApplicationAdapter {
 
     private ChangeScreen screenChanger;
-
-    private GameRenderingFactory renderingFactory;
-    private GuiFactory guiFactory;
-    private InputFactory inputFactory;
-    private GameIo gameIo;
-
     private DigitScreen currentScreen;
 
     public ScreenManager() {
@@ -31,15 +25,29 @@ public class ScreenManager extends ApplicationAdapter {
 
     @Override
     public void create() {
+        screenChanger = createScreenChanger();
+        screenChanger.changeScreen(DigitScreens.MAIN_MENU);
+    }
+
+    @Override
+    public void render() {
+        currentScreen.update(Gdx.graphics.getDeltaTime());
+    }
+
+    @Override
+    public void dispose() {
+        currentScreen.dispose();
+    }
+
+    private ChangeScreen createScreenChanger() {
         OrderedInputMultiplexer inputMultiplexer = new OrderedInputMultiplexer();
 
-        renderingFactory = new GameRenderingLibgdxFactory();
-        guiFactory = new GuiLibgdxFactory(inputMultiplexer);
-        inputFactory = new InputLibgdxFactory(inputMultiplexer);
+        GameRenderingFactory renderingFactory = new GameRenderingLibgdxFactory();
+        GuiFactory guiFactory = new GuiLibgdxFactory(inputMultiplexer);
+        InputFactory inputFactory = new InputLibgdxFactory(inputMultiplexer);
+        GameIo gameIo = new GameIo();
 
-        gameIo = new GameIo();
-
-        screenChanger = new ChangeScreen() {
+        return new ChangeScreen() {
             @Override
             public void changeScreen(DigitScreens digitScreen) {
                 if (currentScreen != null) {
@@ -50,7 +58,7 @@ public class ScreenManager extends ApplicationAdapter {
 
                 switch (digitScreen) {
                     case PLAY:
-                        currentScreen = new PlayScreen(
+                        currentScreen = createPlayScreen(
                             screenChanger,
                             renderingFactory,
                             guiFactory,
@@ -59,27 +67,35 @@ public class ScreenManager extends ApplicationAdapter {
                         );
                         break;
                     case MAIN_MENU:
-                        currentScreen = new MainMenuScreen(screenChanger, guiFactory, gameIo);
+                        currentScreen = createMainMenuScreen(screenChanger, guiFactory, gameIo);
                         break;
                     default:
                         break;
                 }
             }
         };
-
-        screenChanger.changeScreen(DigitScreens.MAIN_MENU);
-
     }
 
-    @Override
-    public void render() {
-        currentScreen.update(Gdx.graphics.getDeltaTime());
-        currentScreen.render();
+    private PlayScreen createPlayScreen(ChangeScreen screenChanger,
+                                        GameRenderingFactory renderingFactory,
+                                        GuiFactory guiFactory,
+                                        InputFactory inputFactory, GameIo gameIo) {
+        return new PlayScreen(
+            screenChanger,
+            renderingFactory,
+            guiFactory,
+            inputFactory,
+            gameIo
+        );
     }
 
-    @Override
-    public void dispose() {
-        currentScreen.dispose();
+    private MainMenuScreen createMainMenuScreen(ChangeScreen screenChanger,
+                                                GuiFactory guiFactory, GameIo gameIo) {
+        return new MainMenuScreen(
+            screenChanger,
+            guiFactory,
+            gameIo
+        );
     }
 
 }

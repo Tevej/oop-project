@@ -38,11 +38,6 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     }
 
     @Override
-    public void render() {
-
-    }
-
-    @Override
     public void dispose() {
         try {
             gameIo.save(model);

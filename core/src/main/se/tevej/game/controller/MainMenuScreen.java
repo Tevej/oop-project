@@ -25,13 +25,14 @@ public class MainMenuScreen extends DigitScreen {
     @Override
     public void update(float deltaTime) {
         table.update(deltaTime);
+
+        clearScreen();
+        table.render();
     }
 
-    @Override
-    public void render() {
+    private void clearScreen() {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        table.render();
     }
 
     @Override
@@ -46,12 +47,22 @@ public class MainMenuScreen extends DigitScreen {
                 .grid(3, 1);
 
             table
-                .addElement(createPlayButton(guiFactory, "Continue last game", false, gameIo))
+                .addElement(createPlayButton(
+                    guiFactory,
+                    "Continue last game",
+                    false,
+                    gameIo)
+                )
                 .width(300)
                 .height(50);
 
             table
-                .addElement(createPlayButton(guiFactory, "Start new game", true, gameIo))
+                .addElement(createPlayButton(
+                    guiFactory,
+                    "Start new game",
+                    true,
+                    gameIo)
+                )
                 .width(300)
                 .height(50);
         } else {
