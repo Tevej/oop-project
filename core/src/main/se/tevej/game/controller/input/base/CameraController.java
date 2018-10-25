@@ -145,12 +145,8 @@ public class CameraController implements OnDraggedListener,
         float maxX = worldWidth - ((float) Gdx.app.getGraphics().getWidth() / pixelPerTile);
         float maxY = worldHeight - ((float) Gdx.app.getGraphics().getHeight() / pixelPerTile);
 
-        if (newPosX > maxX) {
-            newPosX = maxX;
-        }
-        if (newPosY > maxY) {
-            newPosY = maxY;
-        }
+        newPosX = Math.min(newPosX, maxX);
+        newPosY = Math.min(newPosY, maxY);
 
         cameraPosX = newPosX;
         cameraPosY = newPosY;
