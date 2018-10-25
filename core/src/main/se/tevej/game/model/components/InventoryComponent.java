@@ -11,25 +11,25 @@ import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
 public class InventoryComponent implements Component {
-    private Map<ResourceType, Double> resources;
+    private Map<ResourceType, Double> typeToAmount;
 
     public InventoryComponent() {
-        resources = new HashMap<ResourceType, Double>();
+        typeToAmount = new HashMap<ResourceType, Double>();
     }
 
     public void addResource(Resource resource) {
-        if (resources.containsKey(resource.getType())) {
-            resources.put(resource.getType(),
-                resources.get(resource.getType()) + resource.getAmount());
+        if (typeToAmount.containsKey(resource.getType())) {
+            typeToAmount.put(resource.getType(),
+                typeToAmount.get(resource.getType()) + resource.getAmount());
         } else {
-            resources.put(resource.getType(), resource.getAmount());
+            typeToAmount.put(resource.getType(), resource.getAmount());
         }
     }
 
     public double getAmountOfResource(ResourceType type) {
         double amount = 0;
-        if (resources.containsKey(type)) {
-            amount = resources.get(type);
+        if (typeToAmount.containsKey(type)) {
+            amount = typeToAmount.get(type);
         }
         return amount;
     }
@@ -43,7 +43,7 @@ public class InventoryComponent implements Component {
 
     public void removeFromInventory(Resource resource) throws NotEnoughResourcesException {
         checkResourceAmount(resource);
-        resources.put(resource.getType(),
+        typeToAmount.put(resource.getType(),
             getAmountOfResource(resource.getType()) - resource.getAmount());
     }
 
@@ -54,7 +54,7 @@ public class InventoryComponent implements Component {
             checkResourceAmount(resource);
         }
         for (Resource resource : resourceList) {
-            resources.put(resource.getType(),
+            typeToAmount.put(resource.getType(),
                 getAmountOfResource(resource.getType()) - resource.getAmount());
         }
 
