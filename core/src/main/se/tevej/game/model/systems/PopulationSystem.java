@@ -16,12 +16,12 @@ public class PopulationSystem extends TSystem {
 
     private Engine engine;
     private float gestationProgress;
-    private int alivePop;
+    private int alivePopulation;
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
-    private final int popHunger = 10;
+    private final int populationHunger = 10;
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
@@ -43,7 +43,7 @@ public class PopulationSystem extends TSystem {
             HomeComponent homeC = homes.get(i).getComponent(HomeComponent.class);
             if (homeC.getCurrentPopulation() < homeC.getMaxPopulation()) {
                 homeC.updateCurrentPopulation((int) homeC.getCurrentPopulation() + 1);
-                alivePop += 1;
+                alivePopulation += 1;
                 inventoryC.addResource(new Resource(1, ResourceType.CURRENTPOPULATION));
             }
         }
@@ -53,33 +53,28 @@ public class PopulationSystem extends TSystem {
         InventoryComponent inventoryC = engine.getEntitiesFor(
             Family.all(InventoryComponent.class).get())
             .first().getComponent(InventoryComponent.class);
-        float foodCost = popHunger * deltaTime;
+        float foodCost = populationHunger * deltaTime;
         try {
             inventoryC.removeFromInventory(
-                new Resource(foodCost * alivePop, ResourceType.FOOD));
+                new Resource(foodCost * alivePopulation, ResourceType.FOOD));
         } catch (NotEnoughResourcesException e) {
             killPopulation(foodCost, inventoryC);
         }
     }
 
     private void killPopulation(float foodCost, InventoryComponent inventoryC) {
-        int survivors = (int) (inventoryC.getAmountOfResource(ResourceType.FOOD) / foodCost);
-        int deaths = alivePop - survivors;
+        int numSurvivable = (int) (inventoryC.getAmountOfResource(ResourceType.FOOD) / foodCost);
+        int deaths = 0;
+        if (numSurvivable < alivePopulation) {
+            deaths = alivePopulation - numSurvivable;
+        }
         try {
             inventoryC.removeFromInventory(
-                new Resource(deaths * foodCost, ResourceType.FOOD));
-        } catch (NotEnoughResourcesException e) {
-            System.out.println("This should never happen");
+                new Resource(deaths, ResourceType.CURRENTPOPULATION));
+        } catch (NotEnoughResourcesException ex) {
+            System.out.println("Not enough available population to kill");
         }
-        if (inventoryC.getAmountOfResource(ResourceType.CURRENTPOPULATION) > survivors) {
-            try {
-                inventoryC.removeFromInventory(
-                    new Resource(survivors, ResourceType.CURRENTPOPULATION));
-            } catch (NotEnoughResourcesException ex) {
-                System.out.println("This should never happen!");
-            }
-        }
-        alivePop -= deaths;
+        alivePopulation -= deaths;
     }
 
     @Override
