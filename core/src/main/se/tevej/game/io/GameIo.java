@@ -60,6 +60,11 @@ public class GameIo {
         return entities;
     }
 
+    /***
+     * This method saves every entity in the engine except for the Tiles. All the tiles do is store
+     * occupiers and all occupiers has a position so saving the Tiles is a unnecessary action
+     * since they can be created during the loading phase.
+     */
     public void save(ModelManager modelManager) throws IOException {
         Gson gson = createGson();
 
