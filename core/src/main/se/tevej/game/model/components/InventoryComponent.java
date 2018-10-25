@@ -10,6 +10,10 @@ import main.se.tevej.game.model.resources.NotEnoughResourcesException;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * There is only supposed to be on entity with an inventory component and it represents the
+ * players inventory.
+ */
 public class InventoryComponent implements Component {
     private Map<ResourceType, Double> typeToAmount;
 

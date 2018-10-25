@@ -12,6 +12,10 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.gamerendering.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.gui.BuildingInfoGui;
 
+/**
+ * InfoControllers purpose is to set up and manage the gui-information flow
+ * when selecting a building to build.
+ */
 public class InfoController implements OnMouseClickedListener, OnBuildingSelectedToBuild {
     private WorldComponent worldC;
     private CameraController cameraController;

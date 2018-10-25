@@ -11,6 +11,9 @@ import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
 import main.se.tevej.game.view.gui.base.TTable;
 
+/**
+ * The MainMenuScreen shall help the user to start och exit the game.
+ */
 public class MainMenuScreen extends DigitScreen {
 
     private final TTable table;

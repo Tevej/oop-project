@@ -7,6 +7,9 @@ import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.signals.SignalListener;
 
+/**
+ * An abstract base upon which all system depend upon.
+ */
 public abstract class TSystem extends EntitySystem implements SignalListener, Listener<Entity> {
 
     public TSystem() {

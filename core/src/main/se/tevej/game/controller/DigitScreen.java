@@ -2,6 +2,9 @@ package main.se.tevej.game.controller;
 
 import main.se.tevej.game.view.gui.ChangeScreen;
 
+/**
+ * DigitScreen is a abstract class which helps define and reuse code for our other screens.
+ */
 public abstract class DigitScreen {
 
     //This is package private, it is only used in this package.

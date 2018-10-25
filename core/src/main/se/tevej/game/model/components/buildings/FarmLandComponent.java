@@ -5,6 +5,9 @@ import com.badlogic.ashley.core.Component;
 import main.se.tevej.game.model.resources.MismatchedResourceException;
 import main.se.tevej.game.model.resources.Resource;
 
+/**
+ * An entity with a FarmLandComponent is placed adjacent to a Farm and is used to generate food.
+ */
 public class FarmLandComponent implements Component {
     private Resource resourcePerSecond;
 

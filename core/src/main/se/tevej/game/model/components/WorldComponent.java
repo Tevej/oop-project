@@ -3,6 +3,10 @@ package main.se.tevej.game.model.components;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 
+/**
+ * The world component is the world. it has all the tiles and by extension everything on the tiles.
+ * Therefore, almost every interaction with the tiles in the world goes through this class.
+ */
 public class WorldComponent implements Component {
     private Entity[] tiles;
     private int width;

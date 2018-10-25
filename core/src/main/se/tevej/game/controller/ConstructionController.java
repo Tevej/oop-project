@@ -22,6 +22,9 @@ import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gamerendering.OnBuildingSelectedToBuild;
 import main.se.tevej.game.view.gamerendering.SelectedBuildingRenderer;
 
+/**
+ * It is from here all signals to build a building originates from.
+ */
 public class ConstructionController implements OnTappedListener,
     OnMovedListener, OnMouseClickedListener, OnBuildingSelectedToBuild {
 

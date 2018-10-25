@@ -11,6 +11,10 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * The world entity creates our world. Upon startup, based on user input, it either restores the
+ * previous world or generates a new.
+ */
 public class WorldEntity extends Entity {
 
     private final int width;

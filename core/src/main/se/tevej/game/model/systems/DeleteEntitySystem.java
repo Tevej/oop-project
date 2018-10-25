@@ -9,6 +9,9 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.signals.SignalComponent;
 
+/**
+ * If something needs to be removed this system is called. For example when a resource depletes.
+ */
 public class DeleteEntitySystem extends TSystem {
 
     private Engine engine;
