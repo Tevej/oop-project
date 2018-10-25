@@ -4,7 +4,7 @@
 
 # Starting the project
 
-## Run the game with intellij
+## Run the project with intellij
 1. Go to edit configuration...
 2. Press the + button.
 3. Choose Application.
@@ -18,3 +18,12 @@
 11. Now there should be a gradle tab on the right edge of intellij, open this.
 12. Press the "Refresh all Gradle projects" (The button with the two arrows in a circle).x
 13. Press the play button.
+
+## Run the project with gradle
+```gradle desktop:run```
+
+## Build the project with gradle
+```gradle build```  
+This will also generate reports in the  
+```core/build/reports/``` folder.
+
