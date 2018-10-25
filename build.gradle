@@ -88,15 +88,15 @@ project(":core") {
         ruleSetFiles = files("config/pmd/ruleSet.xml", "config/pmd/bestpractices.xml", "config/pmd/design.xml", "config/pmd/errorprone.xml")
     }
 
+    jacoco  {
+        toolVersion '0.8.2'
+        reportsDir = file("$buildDir/reports")
+    }
+
     jacocoTestReport {
         reports {
             html.enabled = true
         }
-    }
-
-    jacoco  {
-        toolVersion '0.8.2'
-        reportsDir = file("$buildDir/reports")
     }
 
     checkstyle {
@@ -141,9 +141,7 @@ project(":core") {
 
     test {
         useJUnitPlatform()
-
-        jacoco {
-        }
+        jacocoTestReport
     }
 }
 

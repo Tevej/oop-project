@@ -8,9 +8,9 @@
 1. Go to edit configuration...
 2. Press the + button.
 3. Choose Application.
-4. Choose the mainclass se.tevej.game.desktop.DesktopLauncher.
-5. The working directory should be **your path to the project**/DayInGothenburgInTime/core/assets.
-6. The "Use classpath of module" should be the "desktop_main" package.
+4. Choose the mainclass ```se.tevej.game.desktop.DesktopLauncher```.
+5. The working directory should be **your path to the project**```/DayInGothenburgInTime/core/assets```.
+6. The "Use classpath of module" should be the ```desktop_main```" package.
 7. The java version should be the project default (java 8)
 8. Leave the rest as is.
 9. Press apply and then ok.
@@ -27,3 +27,6 @@
 This will also generate reports in the  
 ```core/build/reports/``` folder.
 
+## Generate test coverage report
+To generate a jacoco test coverage report run ```gradle jacocoTestReport```
+The report can then be found as ```index.html``` in ```core/build/reports/test/html```
