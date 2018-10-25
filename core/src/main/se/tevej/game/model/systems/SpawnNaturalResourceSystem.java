@@ -28,7 +28,7 @@ public class SpawnNaturalResourceSystem extends TSystem {
         signalEntity.add(new PositionComponent(x, y));
         Resource resource = new Resource(amount, type);
         signalEntity.add(new NaturalResourceComponent(resource));
-        signalEntity.add(new SignalComponent(SignalType.SPAWNENTITY));
+        signalEntity.add(new SignalComponent(SignalType.SPAWN_ENTITY));
         return signalEntity;
     }
 
@@ -65,7 +65,7 @@ public class SpawnNaturalResourceSystem extends TSystem {
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case SPAWNENTITY:
+            case SPAWN_ENTITY:
                 spawnNaturalResource(signalEntity);
                 break;
             default:

@@ -53,7 +53,7 @@ public class NaturalResourceGatheringSystem extends TSystem {
             Resource remainingResource = new Resource(naturalResourceC.getAmountLeft(),
                 naturalResourceC.getType());
             inventory.addResource(remainingResource);
-            occupier.add(new SignalComponent(SignalType.DELETEENTITY));
+            occupier.add(new SignalComponent(SignalType.DELETE_ENTITY));
             signalHolder.getSignal().dispatch(occupier);
         }
     }
@@ -113,11 +113,12 @@ public class NaturalResourceGatheringSystem extends TSystem {
         List<Vector2> locations = new ArrayList<Vector2>();
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++) {
-                Vector2 loc = new Vector2(i + gatherPosition.getX(), j + gatherPosition.getY());
-                if (isInvalidLocation(loc, gatherer, world)) {
+                Vector2 location = new Vector2(i + gatherPosition.getX(),
+                        j + gatherPosition.getY());
+                if (isInvalidLocation(location, gatherer, world)) {
                     continue;
                 }
-                locations.add(loc);
+                locations.add(location);
             }
 
         }
@@ -130,15 +131,15 @@ public class NaturalResourceGatheringSystem extends TSystem {
                         float deltaTime) {
 
         int radius = gatherer.getComponent(RadiusComponent.class).getRadius();
-        List<Vector2> locations = getLocationsInRadius(radius, gatherer, world);
-        if (locations.isEmpty()) {
+        List<Vector2> locationList = getLocationsInRadius(radius, gatherer, world);
+        if (locationList.isEmpty()) {
             return;
         }
 
         PositionComponent positionC = gatherer.getComponent(PositionComponent.class);
         GathererComponent gatherC = gatherer.getComponent(GathererComponent.class);
 
-        Vector2 nearest = nearestLocation(positionC, locations);
+        Vector2 nearest = nearestLocation(positionC, locationList);
         float distance = nearest.dst(positionC.getX(), positionC.getY());
 
         Entity occupier = world.getTileOccupier((int) nearest.x, (int) nearest.y);

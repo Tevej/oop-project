@@ -25,7 +25,7 @@ import main.se.tevej.game.view.gamerendering.SelectedBuildingRenderer;
 public class ConstructionController implements OnTappedListener,
     OnMovedListener, OnMouseClickedListener, OnBuildingSelectedToBuild {
 
-    private ModelManager em;
+    private ModelManager modelManager;
     private Entity worldEntity;
     private int mouseX = 0;
     private int mouseY = 0;
@@ -33,14 +33,18 @@ public class ConstructionController implements OnTappedListener,
     private boolean buildingSelected;
     private BuildingType selectedBuilding;
     private SelectedBuildingRenderer buildingRenderer;
-    private ViewManager view;
+    private ViewManager viewManager;
 
-    public ConstructionController(ModelManager em, Entity worldEntity, CameraController camera,
-                                  TKeyBoard keyboard, TMouse mouse,
-                                  SelectedBuildingRenderer buildingRenderer, ViewManager view) {
-        this.view = view;
+    public ConstructionController(ModelManager modelManager,
+                                  Entity worldEntity,
+                                  CameraController camera,
+                                  TKeyBoard keyboard,
+                                  TMouse mouse,
+                                  SelectedBuildingRenderer buildingRenderer,
+                                  ViewManager viewManager) {
+        this.viewManager = viewManager;
         buildingSelected = false;
-        this.em = em;
+        this.modelManager = modelManager;
         this.worldEntity = worldEntity;
         mouse.addMovedListener(this);
         mouse.addClickedListener(this);
@@ -57,8 +61,8 @@ public class ConstructionController implements OnTappedListener,
             entity.add(new BuildingComponent(type));
             entity.add(tileAt.getComponent(PositionComponent.class));
             entity.add(worldEntity.getComponent(WorldComponent.class));
-            entity.add(new SignalComponent(SignalType.PAYFORCONSTRUCTION));
-            em.getSignal().dispatch(entity);
+            entity.add(new SignalComponent(SignalType.PAY_FOR_CONSTRUCTION));
+            modelManager.getSignal().dispatch(entity);
         }
     }
 
@@ -78,11 +82,11 @@ public class ConstructionController implements OnTappedListener,
 
     @Override
     public void onMoved(TMouse mouse) {
-        float zoom = view.getZoomMultiplier();
+        float zoom = viewManager.getZoomMultiplier();
         Vector2 v2 = camera.getScreenToWorldCoord(mouse.getX(), mouse.getY());
         mouseX = (int) v2.x;
         mouseY = (int) v2.y;
-        float pixelPerTile = view.getPixelPerTile();
+        float pixelPerTile = viewManager.getPixelPerTile();
 
         buildingRenderer.setPosition(
             (mouseX - camera.getCameraPosX()) * (pixelPerTile * zoom),

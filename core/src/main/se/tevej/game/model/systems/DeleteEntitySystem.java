@@ -18,10 +18,10 @@ public class DeleteEntitySystem extends TSystem {
     }
 
     private void deleteEntity(Entity signalEntity) {
-        WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
+        WorldComponent worldC = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
             .first().getComponent(WorldComponent.class);
         PositionComponent pc = signalEntity.getComponent(PositionComponent.class);
-        wc.removeOccupier(pc.getX(), pc.getY());
+        worldC.removeOccupier(pc.getX(), pc.getY());
         engine.removeEntity(signalEntity);
     }
 
@@ -34,7 +34,7 @@ public class DeleteEntitySystem extends TSystem {
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case DELETEENTITY:
+            case DELETE_ENTITY:
                 deleteEntity(signalEntity);
                 break;
             default:
