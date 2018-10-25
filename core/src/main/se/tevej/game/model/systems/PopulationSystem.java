@@ -12,6 +12,10 @@ import main.se.tevej.game.model.resources.NotEnoughResourcesException;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * A system that handles the logic for the population. it decides how many to givebirth to,
+ * how many that can survive and the upper limit of population.
+ */
 public class PopulationSystem extends TSystem {
 
     private Engine engine;

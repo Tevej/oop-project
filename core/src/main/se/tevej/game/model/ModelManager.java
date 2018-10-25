@@ -33,6 +33,9 @@ import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
 import main.se.tevej.game.model.systems.TSystem;
 import main.se.tevej.game.model.systems.TreeGrowthSystem;
 
+/**
+ * The ModelManager is responsible for that the model is set up correctly.
+ */
 @SuppressWarnings("PMD.ExcessiveImports")
 public class ModelManager implements AddToEngineListener, SignalHolder, EntityCreator {
 
@@ -45,10 +48,9 @@ public class ModelManager implements AddToEngineListener, SignalHolder, EntityCr
     private WorldEntity worldEntity;
     private Entity inventoryEntity;
 
-    /** This constructor is called if there is no previously saved game. It passes null to the
+    /* This constructor is called if there is no previously saved game. It passes null to the
      * entity_parameter which then prompts the constructor to create a new world from scratch.
      */
-
     public ModelManager(int worldWidth, int worldHeight) {
         this(worldWidth, worldHeight, null);
     }

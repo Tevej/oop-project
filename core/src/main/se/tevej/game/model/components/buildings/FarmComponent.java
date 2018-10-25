@@ -8,7 +8,10 @@ import com.badlogic.ashley.core.Entity;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
-
+/**
+ * An entity meant to be a farm has a FarmComponent which adds methods to gather food from
+ * nearby farmLand.
+ */
 public class FarmComponent implements Component {
     private List<Entity> farmLandEntities;
 

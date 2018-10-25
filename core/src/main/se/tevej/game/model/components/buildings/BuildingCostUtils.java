@@ -9,6 +9,9 @@ import java.util.Map;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * This class defines the cost of each building and is used i PaySystem.
+ */
 public final class BuildingCostUtils {
 
     private static final Map<BuildingType, List<Resource>> BUILDING_COST = new HashMap<>();

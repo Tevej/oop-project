@@ -4,7 +4,10 @@ import java.util.Objects;
 
 import com.badlogic.ashley.core.Component;
 
-
+/**
+ * All entities meant to appear in the game-world have a position component so that its position
+ * can be determined and rendered there.
+ */
 public class PositionComponent implements Component {
     private int posX;
     private int posY;

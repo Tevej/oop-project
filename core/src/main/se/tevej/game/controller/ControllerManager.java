@@ -10,6 +10,9 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.view.ViewManager;
 import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
 
+/**
+ * This is the central hub for all controllers and the one place to manage and initialize them.
+ */
 public class ControllerManager {
 
     private ViewManager viewManager;

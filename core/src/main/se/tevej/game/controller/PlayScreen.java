@@ -14,6 +14,9 @@ import main.se.tevej.game.view.gui.ChangeScreen;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
 
+/**
+ * PlayScreen is the game, it is here we initialize the MVC, the backbone of the application.
+ */
 public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
 
     private ModelManager modelManager;

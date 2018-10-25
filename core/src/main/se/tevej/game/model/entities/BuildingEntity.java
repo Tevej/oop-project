@@ -18,7 +18,10 @@ import main.se.tevej.game.model.components.buildings.HomeComponent;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
-
+/**
+ * A building entity is a predefined set of components which altogether meets the requirements
+ * of a building.
+ */
 public class BuildingEntity extends Entity {
 
     public BuildingEntity(

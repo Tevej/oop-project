@@ -2,6 +2,10 @@ package main.se.tevej.game.model.components;
 
 import com.badlogic.ashley.core.Component;
 
+/**
+ * When something is rendered in the world the size component specifies
+ * what area is it suppoed to cover.
+ */
 public class SizeComponent implements Component {
     private int width;
     private int height;

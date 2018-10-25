@@ -14,6 +14,9 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * A system with the logic for how, when and where new trees should spawn.
+ */
 public class TreeGrowthSystem extends TSystem implements EntityListener {
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
