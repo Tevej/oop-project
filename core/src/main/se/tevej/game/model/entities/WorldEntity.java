@@ -86,7 +86,7 @@ public class WorldEntity extends Entity {
         double n = Math.random();
         Resource resource = null;
         List<PositionComponent> locations = new ArrayList<>();
-        List<Entity> nrelist = new ArrayList<>();
+        List<Entity> natResEntityList = new ArrayList<>();
         if (n < waterSpawnProb) {
             locations = generateCluster(waterClusterSize, startPos, world, occupiedSpots);
             resource = new Resource(waterAmount, ResourceType.WATER);
@@ -100,10 +100,10 @@ public class WorldEntity extends Entity {
         for (PositionComponent loc : locations) {
             Entity resourceEntity =
                 new NaturalResourceEntity(loc.getX(), loc.getY(), resource);
-            nrelist.add(resourceEntity);
+            natResEntityList.add(resourceEntity);
             listener.addEntityToEngine(resourceEntity);
         }
-        return nrelist;
+        return natResEntityList;
     }
 
     private List<PositionComponent> generateCluster(double prob, PositionComponent startPos,
