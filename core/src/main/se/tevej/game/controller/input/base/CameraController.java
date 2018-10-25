@@ -121,6 +121,9 @@ public class CameraController implements OnDraggedListener,
         zoom();
     }
 
+    /*** Zoom updates the cameras position with the new zoomMultiplier which creates the
+     * zoom effect. It could be called updateZoom but we choose a more descriptive name.
+     */
     private void zoom() {
         newPosX = cameraPosX;
         newPosY = cameraPosY;
