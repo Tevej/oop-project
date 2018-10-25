@@ -69,6 +69,8 @@ public class WorldEntity extends Entity {
         }
     }
 
+
+
     private List<Entity> generateRandomClusters(PositionComponent startPos,
                                                 List<PositionComponent> occupiedSpots,
                                                 WorldComponent world,
@@ -79,6 +81,7 @@ public class WorldEntity extends Entity {
         double waterSpawnProb = 0.001;
         double woodSpawnProb = 0.004;
         double stoneSpawnProb = 0.003;
+        //Water having a negative amount indicates that it has an infinite amount
         int waterAmount = -1;
         int woodAmount = 1000;
         int stoneAmount = 1000;
