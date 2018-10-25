@@ -1,10 +1,8 @@
-package components;
+package main.se.tevej.game.model.components;
 
 import static org.junit.Assert.assertEquals;
 
 import main.se.tevej.game.model.ModelManager;
-import main.se.tevej.game.model.components.PositionComponent;
-import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.entities.WorldEntity;
 import org.junit.Test;
 

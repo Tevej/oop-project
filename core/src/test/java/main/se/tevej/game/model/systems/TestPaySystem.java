@@ -1,4 +1,4 @@
-package systems;
+package main.se.tevej.game.model.systems;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,9 +21,6 @@ import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalComponent;
 import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.signals.SignalType;
-import main.se.tevej.game.model.systems.BuildBuildingSystem;
-import main.se.tevej.game.model.systems.PaySystem;
-import main.se.tevej.game.model.systems.SignalHolder;
 import org.junit.Test;
 
 public class TestPaySystem {
