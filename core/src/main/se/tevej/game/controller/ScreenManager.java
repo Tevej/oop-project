@@ -15,7 +15,7 @@ import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
 
 /**
- * The entrypoint of the application
+ * The entrypoint of the application.
  */
 public class ScreenManager extends ApplicationAdapter {
 
