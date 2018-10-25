@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.view.ViewManager;
 
-// A class to translate the user inputs to camera changes.
+/**
+ * The class responsible for translating userinput to camera change.
+ * Both moving the camera and zooming in and out.
+ */
 public class CameraController implements OnDraggedListener,
     OnMouseClickedListener, OnTappedListener {
 
