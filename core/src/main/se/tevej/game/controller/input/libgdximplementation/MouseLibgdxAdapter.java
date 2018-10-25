@@ -17,6 +17,10 @@ import main.se.tevej.game.controller.input.base.TKey;
 import main.se.tevej.game.controller.input.base.TMouse;
 import main.se.tevej.game.view.gui.base.InputProcessorListener;
 
+/**
+ * In the input Adapters is where we map the relevant input from the framework to TKey and
+ * define how we use the frameworks listener.
+ */
 public class MouseLibgdxAdapter implements TMouse {
 
     private static final Map<Integer, TKey> INPUT_MAP;
