@@ -1,4 +1,4 @@
-package systems;
+package main.se.tevej.game.model.systems;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,9 +14,6 @@ import main.se.tevej.game.model.entities.NaturalResourceEntity;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
-import main.se.tevej.game.model.systems.EntityCreator;
-import main.se.tevej.game.model.systems.SignalHolder;
-import main.se.tevej.game.model.systems.TreeGrowthSystem;
 import org.junit.Test;
 
 public class TestTreeGrowthSystem {
