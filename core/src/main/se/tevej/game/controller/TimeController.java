@@ -6,11 +6,11 @@ import java.util.List;
 import main.se.tevej.game.controller.input.base.OnTappedListener;
 import main.se.tevej.game.controller.input.base.TKey;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
-import main.se.tevej.game.view.gui.time.ChangeTimeScale;
 import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
 import main.se.tevej.game.view.gui.time.RegisterTimeController;
+import main.se.tevej.game.view.gui.time.SetTimeMultiplier;
 
-public class TimeController implements OnTappedListener, RegisterTimeController, ChangeTimeScale {
+public class TimeController implements OnTappedListener, RegisterTimeController, SetTimeMultiplier {
     private List<OnTimeChangeListener> onChangeListeners;
 
     public TimeController(TKeyBoard keyBoard) {
@@ -58,7 +58,7 @@ public class TimeController implements OnTappedListener, RegisterTimeController,
     }
 
     @Override
-    public void setScale(float newScale) {
+    public void setTimeMultiplier(float newScale) {
         setMultiplierTo(newScale);
     }
 }

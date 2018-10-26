@@ -15,8 +15,8 @@ import main.se.tevej.game.view.gui.ChangeScreen;
 import main.se.tevej.game.view.gui.GameControlsGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
-import main.se.tevej.game.view.gui.time.ChangeTimeScale;
 import main.se.tevej.game.view.gui.time.RegisterTimeController;
+import main.se.tevej.game.view.gui.time.SetTimeMultiplier;
 import main.se.tevej.game.view.gui.time.TimeControlGui;
 
 public class ViewManager {
@@ -172,9 +172,9 @@ public class ViewManager {
     }
 
     public void setTimeControllers(RegisterTimeController registerTime,
-                                   ChangeTimeScale changeTimeScale) {
+                                   SetTimeMultiplier setTimeMultiplier) {
         registerTime.registerTimeController(timeControlGui);
-        timeControlGui.setChangeTimeScale(changeTimeScale);
+        timeControlGui.setSetTimeMultiplier(setTimeMultiplier);
     }
 
 }

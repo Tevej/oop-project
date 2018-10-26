@@ -16,6 +16,7 @@ public class DesktopLauncher {
         config.vSyncEnabled = false;
         config.foregroundFPS = 0;
         config.forceExit = false;
+        config.title = "DayInGotherburgInTime";
         new LwjglApplication(new ScreenManager(), config);
     }
 }

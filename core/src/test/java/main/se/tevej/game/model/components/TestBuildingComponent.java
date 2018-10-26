@@ -1,4 +1,4 @@
-package components;
+package main.se.tevej.game.model.components;
 
 import static org.junit.Assert.assertEquals;
 

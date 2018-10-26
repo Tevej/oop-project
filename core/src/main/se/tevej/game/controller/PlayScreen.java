@@ -16,8 +16,8 @@ import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
 
 public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
 
-    private ModelManager model;
-    private ViewManager view;
+    private ModelManager modelManager;
+    private ViewManager viewManager;
     private GameIo gameIo;
     private float timeMultiplier;
 
@@ -33,14 +33,14 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
     @Override
     public void update(float deltaTime) {
         float newDeltaTime = deltaTime * timeMultiplier;
-        model.update(newDeltaTime);
-        view.update(newDeltaTime);
+        modelManager.update(newDeltaTime);
+        viewManager.update(newDeltaTime);
     }
 
     @Override
     public void dispose() {
         try {
-            gameIo.save(model);
+            gameIo.save(modelManager);
         } catch (IOException e) {
             System.out.println("Saving didn't work");
         }
@@ -59,13 +59,14 @@ public class PlayScreen extends DigitScreen implements OnTimeChangeListener {
         }
 
         if (entities == null || entities.isEmpty()) {
-            model = new ModelManager(worldWidth, worldHeight);
+            modelManager = new ModelManager(worldWidth, worldHeight);
         } else {
-            model = new ModelManager(worldWidth, worldHeight, entities);
+            modelManager = new ModelManager(worldWidth, worldHeight, entities);
         }
 
-        view = new ViewManager(model, renderingFactory, guiFactory, screenChanger);
-        new ControllerManager(view, model, worldWidth, worldHeight, inputFactory, this);
+        viewManager = new ViewManager(modelManager, renderingFactory, guiFactory, screenChanger);
+        new ControllerManager(viewManager, modelManager, worldWidth,
+                worldHeight, inputFactory, this);
     }
 
     @Override
