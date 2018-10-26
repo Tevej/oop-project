@@ -19,6 +19,9 @@ import main.se.tevej.game.view.gui.time.RegisterTimeController;
 import main.se.tevej.game.view.gui.time.SetTimeMultiplier;
 import main.se.tevej.game.view.gui.time.TimeControlGui;
 
+/**
+ * The view of the game. Manages the game rendering as well as the gui updating and rendering.
+ */
 public class ViewManager {
 
     private ModelManager modelManager;

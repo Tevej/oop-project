@@ -13,6 +13,9 @@ import main.se.tevej.game.view.gui.base.TSelectableList;
 import main.se.tevej.game.view.gui.base.TTable;
 import main.se.tevej.game.view.gui.base.TTextField;
 
+/**
+ * The libGDX implementation of the GuiFactory.
+ */
 public class GuiLibgdxFactory implements GuiFactory {
 
     private static final Skin SKIN = new Skin(Gdx.files.internal("skin/plain-james-ui.json"));

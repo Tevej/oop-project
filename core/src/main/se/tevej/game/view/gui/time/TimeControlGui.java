@@ -8,6 +8,11 @@ import main.se.tevej.game.view.gui.base.TButton;
 import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TTable;
 
+/**
+ * The gui for controlling the time multiplier in the game. There's a play, pause and
+ * change scale button. The fourth element is a label that displays the games current time
+ * multiplier.
+ */
 public class TimeControlGui implements OnTimeChangeListener {
 
     private TTable timeControlTable;

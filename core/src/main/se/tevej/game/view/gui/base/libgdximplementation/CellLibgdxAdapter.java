@@ -4,6 +4,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 
 import main.se.tevej.game.view.gui.base.TCell;
 
+/**
+ * The libGDX implementation of the TCell.
+ */
 public class CellLibgdxAdapter implements TCell {
 
     private Cell cell;

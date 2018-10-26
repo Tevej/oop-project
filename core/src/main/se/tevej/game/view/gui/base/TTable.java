@@ -2,6 +2,10 @@ package main.se.tevej.game.view.gui.base;
 
 // Not our fault that the libgdx class has too many methods ¯\_(ツ)_/¯
 @SuppressWarnings("PMD.TooManyMethods")
+
+/**
+ * TTable organizes every element, lays them out in a grid, updates them and renders them.
+ */
 public interface TTable {
 
     TCell addElement(TUiElement element);
