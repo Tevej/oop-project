@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.systems;
+package main.java.se.tevej.game.model.systems;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,19 +7,18 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.components.TileComponent;
-import main.se.tevej.game.model.components.WorldComponent;
-import main.se.tevej.game.model.entities.AddToEngineListener;
-import main.se.tevej.game.model.entities.NaturalResourceEntity;
-import main.se.tevej.game.model.entities.WorldEntity;
-import main.se.tevej.game.model.resources.Resource;
-import main.se.tevej.game.model.resources.ResourceType;
+import main.java.se.tevej.game.model.components.TileComponent;
+import main.java.se.tevej.game.model.components.WorldComponent;
+import main.java.se.tevej.game.model.entities.AddToEngineListener;
+import main.java.se.tevej.game.model.entities.NaturalResourceEntity;
+import main.java.se.tevej.game.model.entities.WorldEntity;
+import main.java.se.tevej.game.model.resources.Resource;
+import main.java.se.tevej.game.model.resources.ResourceType;
 import org.junit.Test;
 
-public class TestTreeGrowthSystem {
-    public TestTreeGrowthSystem() {
-        super();
-    }
+class TreeGrowthSystemTest {
+
+    public TreeGrowthSystemTest() { super(); }
 
     @Test
     public void testTreeGrowthSystem() {

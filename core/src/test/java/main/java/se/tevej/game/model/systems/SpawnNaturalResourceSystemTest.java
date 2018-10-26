@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.systems;
+package main.java.se.tevej.game.model.systems;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -7,19 +7,18 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.components.NaturalResourceComponent;
-import main.se.tevej.game.model.components.TileComponent;
-import main.se.tevej.game.model.components.WorldComponent;
-import main.se.tevej.game.model.entities.AddToEngineListener;
-import main.se.tevej.game.model.entities.WorldEntity;
-import main.se.tevej.game.model.resources.ResourceType;
-import main.se.tevej.game.model.signals.SignalListener;
+import main.java.se.tevej.game.model.components.NaturalResourceComponent;
+import main.java.se.tevej.game.model.components.TileComponent;
+import main.java.se.tevej.game.model.components.WorldComponent;
+import main.java.se.tevej.game.model.entities.AddToEngineListener;
+import main.java.se.tevej.game.model.entities.WorldEntity;
+import main.java.se.tevej.game.model.resources.ResourceType;
+import main.java.se.tevej.game.model.signals.SignalListener;
 import org.junit.Test;
 
-public class TestSpawnNaturalResourceSystem {
-    public TestSpawnNaturalResourceSystem() {
-        super();
-    }
+class SpawnNaturalResourceSystemTest {
+
+    public SpawnNaturalResourceSystemTest() { super(); }
 
     @Test
     public void testSpawnNaturalResource() {

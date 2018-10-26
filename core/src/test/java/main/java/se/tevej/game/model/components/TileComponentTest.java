@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.components;
+package main.java.se.tevej.game.model.components;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,11 +9,9 @@ import com.badlogic.ashley.core.Entity;
 
 import org.junit.Test;
 
-public class TestTileComponent {
+class TileComponentTest {
 
-    public TestTileComponent() {
-        super();
-    }
+    public TileComponentTest() { super(); }
 
     @Test
     public void occupant() {

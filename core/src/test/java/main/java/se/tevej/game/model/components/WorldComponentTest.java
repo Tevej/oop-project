@@ -1,16 +1,16 @@
-package main.se.tevej.game.model.components;
+package main.java.se.tevej.game.model.components;
 
 import static org.junit.Assert.assertEquals;
 
-import main.se.tevej.game.model.ModelManager;
-import main.se.tevej.game.model.entities.WorldEntity;
+import main.java.se.tevej.game.model.ModelManager;
+import main.java.se.tevej.game.model.entities.WorldEntity;
 import org.junit.Test;
 
-public class TestWorldAndPositionComponent {
+class WorldComponentTest {
     private ModelManager modelManager = new ModelManager(100, 100);
     private WorldComponent worldEntity = new WorldEntity(34, 23, modelManager).getComponent(WorldComponent.class);
 
-    public TestWorldAndPositionComponent() {
+    public WorldComponentTest() {
         super();
     }
 
