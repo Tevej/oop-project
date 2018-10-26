@@ -16,7 +16,7 @@ import main.se.tevej.game.view.gui.base.InputProcessorListener;
 @SuppressWarnings("PMD.TooManyMethods")
 
 /**
- * This is the central hub for all events and one it's responsibilities
+ * This is the central hub for all events and one of it's responsibilities
  * is to give priority to gui changes.
  */
 public class OrderedInputMultiplexer implements InputProcessor, InputProcessorListener {
