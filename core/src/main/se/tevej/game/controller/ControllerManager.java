@@ -4,7 +4,6 @@ import main.se.tevej.game.controller.input.base.CameraController;
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.controller.input.base.TMouse;
-import main.se.tevej.game.controller.time.TimeController;
 import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.view.ViewManager;

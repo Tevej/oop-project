@@ -1,4 +1,4 @@
-package main.se.tevej.game.controller.time;
+package main.se.tevej.game.controller;
 
 import java.util.ArrayList;
 import java.util.List;
