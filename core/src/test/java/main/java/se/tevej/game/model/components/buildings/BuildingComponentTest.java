@@ -1,14 +1,12 @@
-package main.se.tevej.game.model.components;
+package main.java.se.tevej.game.model.components.buildings;
 
 import static org.junit.Assert.assertEquals;
 
-import main.se.tevej.game.model.components.buildings.BuildingComponent;
-import main.se.tevej.game.model.components.buildings.BuildingType;
 import org.junit.Test;
 
-public class TestBuildingComponent {
+class BuildingComponentTest {
 
-    public TestBuildingComponent() {
+    public BuildingComponentTest() {
         super();
     }
 

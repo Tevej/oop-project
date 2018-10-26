@@ -1,17 +1,14 @@
-package main.se.tevej.game.model.components;
+package main.java.se.tevej.game.model.components.buildings;
 
 import static org.junit.Assert.assertEquals;
 
-import main.se.tevej.game.model.components.buildings.HomeComponent;
-import main.se.tevej.game.model.resources.Resource;
-import main.se.tevej.game.model.resources.ResourceType;
+import main.java.se.tevej.game.model.resources.Resource;
+import main.java.se.tevej.game.model.resources.ResourceType;
 import org.junit.Test;
 
-public class TestHomeComponent {
+class HomeComponentTest {
 
-    public TestHomeComponent() {
-        super();
-    }
+    public HomeComponentTest() { super(); }
 
     @Test
     public void testMethod() {
