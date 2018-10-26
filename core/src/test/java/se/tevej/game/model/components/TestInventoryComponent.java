@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.components;
+package se.tevej.game.model.components;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.resources.NotEnoughResourcesException;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;

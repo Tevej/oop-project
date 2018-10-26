@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.components;
+package se.tevej.game.model.components;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.badlogic.ashley.core.Entity;
 
+import main.se.tevej.game.model.components.TileComponent;
 import org.junit.Test;
 
 public class TestTileComponent {
