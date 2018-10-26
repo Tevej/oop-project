@@ -8,10 +8,6 @@ public interface GuiFactory {
 
     TTable createTable();
 
-    TTextField createTextField();
-
-    TSelectableList createSelectableList();
-
     TImage createImage();
 
 }
