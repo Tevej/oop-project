@@ -1,4 +1,4 @@
-package main.se.tevej.game.model.systems;
+package main.java.se.tevej.game.model.systems;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,23 +9,20 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.signals.Signal;
 
-import main.se.tevej.game.model.components.PositionComponent;
-import main.se.tevej.game.model.components.TileComponent;
-import main.se.tevej.game.model.components.WorldComponent;
-import main.se.tevej.game.model.components.buildings.BuildingComponent;
-import main.se.tevej.game.model.components.buildings.BuildingType;
-import main.se.tevej.game.model.entities.AddToEngineListener;
-import main.se.tevej.game.model.entities.WorldEntity;
-import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
-import main.se.tevej.game.model.signals.SignalType;
+import main.java.se.tevej.game.model.components.PositionComponent;
+import main.java.se.tevej.game.model.components.TileComponent;
+import main.java.se.tevej.game.model.components.WorldComponent;
+import main.java.se.tevej.game.model.components.buildings.BuildingComponent;
+import main.java.se.tevej.game.model.components.buildings.BuildingType;
+import main.java.se.tevej.game.model.entities.AddToEngineListener;
+import main.java.se.tevej.game.model.entities.WorldEntity;
+import main.java.se.tevej.game.model.signals.SignalComponent;
+import main.java.se.tevej.game.model.signals.SignalListener;
+import main.java.se.tevej.game.model.signals.SignalType;
 import org.junit.Test;
 
-public class TestDeleteEntitySystem {
-
-    public TestDeleteEntitySystem() {
-        super();
-    }
+class DeleteEntitySystemTest {
+    public DeleteEntitySystemTest() { super(); }
 
     @Test
     public void testDeleteBuilding() {
