@@ -18,8 +18,6 @@ public class ControllerManager {
     private ViewManager viewManager;
     private ModelManager modelManager;
 
-    private TimeController timeController;
-
     private TMouse mouse;
     private TKeyBoard keyBoard;
 
@@ -33,10 +31,6 @@ public class ControllerManager {
         this.modelManager = modelManager;
         initInput(inputFactory);
         initControllers(worldWidth, worldHeight, timeListener);
-    }
-
-    public void registerTimeController(OnTimeChangeListener onTimeChange) {
-        timeController.registerOnTimeChange(onTimeChange);
     }
 
     private void initInput(InputFactory inputFactory) {
@@ -65,7 +59,7 @@ public class ControllerManager {
     }
 
     private void initTime(OnTimeChangeListener listener) {
-        timeController = new TimeController(keyBoard);
+        TimeController timeController = new TimeController(keyBoard);
         timeController.registerOnTimeChange(listener);
         viewManager.setTimeControllers(timeController, timeController);
     }

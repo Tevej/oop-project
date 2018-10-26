@@ -1,4 +1,4 @@
-package systems;
+package main.se.tevej.game.model.systems;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -19,8 +19,6 @@ import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.signals.SignalComponent;
 import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.signals.SignalType;
-import main.se.tevej.game.model.systems.BuildBuildingSystem;
-import main.se.tevej.game.model.systems.DeleteEntitySystem;
 import org.junit.Test;
 
 public class TestDeleteEntitySystem {

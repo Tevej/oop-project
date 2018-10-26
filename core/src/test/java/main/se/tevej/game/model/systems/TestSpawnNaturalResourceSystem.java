@@ -1,4 +1,4 @@
-package systems;
+package main.se.tevej.game.model.systems;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -14,7 +14,6 @@ import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.WorldEntity;
 import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalListener;
-import main.se.tevej.game.model.systems.SpawnNaturalResourceSystem;
 import org.junit.Test;
 
 public class TestSpawnNaturalResourceSystem {
