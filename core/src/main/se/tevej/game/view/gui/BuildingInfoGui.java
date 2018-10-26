@@ -13,6 +13,11 @@ import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TTable;
 import main.se.tevej.game.view.gui.base.TUiElement;
 
+/**
+ * The gui for showing information about the currently selected building by the user.
+ * It displays the cost of each resource for the selected building in the bottom left corner.
+ * If no building is selected, then this gui will be hidden.
+ */
 public class BuildingInfoGui {
     private static final int ROW_HEIGHT = 40;
     private static final int NUMBER_OF_ROWS = 5;

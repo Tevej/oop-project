@@ -7,6 +7,9 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.resources.Resource;
 
+/**
+ * A predefined set of components attached to an entity which represents a resource on the map.
+ */
 public class NaturalResourceEntity extends Entity {
     public NaturalResourceEntity(int x, int y, Resource resource) {
         super();

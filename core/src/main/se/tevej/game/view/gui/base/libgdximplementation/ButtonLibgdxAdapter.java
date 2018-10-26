@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
 
+/**
+ * The libGDX implementation of the TButton.
+ */
 public class ButtonLibgdxAdapter extends ImageTextButton implements TButton {
     private Skin skin;
 

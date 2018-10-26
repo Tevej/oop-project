@@ -21,6 +21,9 @@ import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalComponent;
 import main.se.tevej.game.model.signals.SignalType;
 
+/**
+ * The system responsible for gathering resources for every gatherer.
+ */
 public class NaturalResourceGatheringSystem extends TSystem {
 
     private Engine engine;

@@ -15,6 +15,10 @@ import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.NoSuchBuildingException;
 import main.se.tevej.game.model.signals.SignalComponent;
 
+/**
+ * This system's only purpose is to build buildings and place them on the map and it is the only
+ * class with that purpose.
+ */
 public class BuildBuildingSystem extends TSystem implements AddToEngineListener {
 
     private Engine engine;

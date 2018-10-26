@@ -6,6 +6,9 @@ import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.SizeComponent;
 import main.se.tevej.game.model.components.TileComponent;
 
+/**
+ * A predefined set of components attached to an entity which represents a tile.
+ */
 public class TileEntity extends Entity {
     public TileEntity(int x, int y) {
         super();

@@ -15,6 +15,10 @@ import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalComponent;
 import main.se.tevej.game.model.signals.SignalType;
 
+/**
+ * The system responsible for create resources in the world. Be it upon world generation or
+ * trees dropping seeds.
+ */
 public class SpawnNaturalResourceSystem extends TSystem {
 
     private Engine engine;

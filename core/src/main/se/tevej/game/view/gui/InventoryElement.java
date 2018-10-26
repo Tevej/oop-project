@@ -9,6 +9,10 @@ import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TTable;
 
+/**
+ * A label and an icon for a resource type. InventoryGui will update the current amount
+ * of the players inventory for the given resource type.
+ */
 public class InventoryElement {
 
     private TLabel label;

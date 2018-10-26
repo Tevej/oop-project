@@ -6,6 +6,10 @@ import main.se.tevej.game.model.components.InventoryComponent;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * Inventory entity defines the contents of your inventory, which is for the best since there is
+ * only supposed to exist one and it makes editing the starting amounts very easy.
+ */
 public class InventoryEntity extends Entity {
     public InventoryEntity() {
         super();

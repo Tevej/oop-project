@@ -18,6 +18,9 @@ import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.TTexture;
 
+/**
+ * Renders every entity that has the NaturalResourceComponent.
+ */
 public class NaturalResourceEntityRenderable extends TextureLoader implements EntityRenderable {
 
     private Map<ResourceType, TTexture> resourceImageMap;

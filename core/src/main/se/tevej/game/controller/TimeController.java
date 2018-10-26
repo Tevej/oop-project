@@ -10,6 +10,9 @@ import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
 import main.se.tevej.game.view.gui.time.RegisterTimeController;
 import main.se.tevej.game.view.gui.time.SetTimeMultiplier;
 
+/**
+ * The controller responsible for changing time as user input dictates.
+ */
 public class TimeController implements OnTappedListener, RegisterTimeController, SetTimeMultiplier {
     private List<OnTimeChangeListener> onChangeListeners;
 

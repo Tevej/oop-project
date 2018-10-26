@@ -7,6 +7,10 @@ import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TTable;
 import main.se.tevej.game.view.gui.base.TUiElement;
 
+/**
+ * The gui for the game control. It only has one button for the user to go to the main menu.
+ * The game will automatically save the world when the user presses this button.
+ */
 public class GameControlsGui {
 
     private TTable controlsTable;

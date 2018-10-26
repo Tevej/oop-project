@@ -11,6 +11,11 @@ import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.TTable;
 
+/**
+ * The gui for the players inventory. It displays the amount of each resource type along with
+ * an icon. It does this with the help of InventoryElement class.
+ * Every update, it pulls from the model for new updates.
+ */
 public class InventoryGui {
 
     private static final int NUMBER_OF_COLUMNS = 2;

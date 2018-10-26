@@ -1,5 +1,8 @@
 package main.se.tevej.game.model.resources;
 
+/**
+ * A custom datatype we use to more easily pass data from one class to another.
+ */
 public class Resource {
     private final double amount;
     private final ResourceType type;

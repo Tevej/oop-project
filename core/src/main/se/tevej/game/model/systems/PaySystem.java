@@ -18,6 +18,9 @@ import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.signals.SignalComponent;
 import main.se.tevej.game.model.signals.SignalType;
 
+/**
+ * A system that removes the amount specified by BuildingCostUtil when building a building.
+ */
 public class PaySystem  extends TSystem {
 
     private Engine engine;

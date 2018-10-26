@@ -5,6 +5,10 @@ import com.badlogic.ashley.core.Component;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * An entity with HomeComponent is a Home. It has a population which is necessary to
+ * build other buildings.
+ */
 public class HomeComponent implements Component {
     private Resource population;
     private Resource maxPopulation;

@@ -13,7 +13,12 @@ import main.se.tevej.game.view.gui.base.TButton;
 import main.se.tevej.game.view.gui.base.TTable;
 import main.se.tevej.game.view.gui.base.TUiElement;
 
-
+/**
+ * The gui for the selection of buildings to build. The user clicks on one of the different
+ * buildings, then the building gets selected and the user can click on the world to place it
+ * if they have enough resources. To deselect, the user needs to press the same building icon again
+ * or press another building.
+ */
 public class BuildingGui {
     private static final int NUMBER_OF_ROWS = 5;
     private static final int IMAGE_SIZE = 32;

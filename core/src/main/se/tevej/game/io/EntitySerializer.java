@@ -10,6 +10,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+/**
+ * Serializes entities to a json file.
+ */
 public class EntitySerializer implements JsonSerializer<Entity> {
 
     public EntitySerializer() {

@@ -11,7 +11,9 @@ import main.se.tevej.game.model.components.buildings.FarmComponent;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
-
+/**
+ * Handles the logic for all farms to gather their respective food.
+ */
 public class FoodGatheringSystem extends TSystem {
 
     private Engine engine;

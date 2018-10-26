@@ -6,6 +6,10 @@ import main.se.tevej.game.model.resources.NotEnoughResourcesException;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * Natural resources, resources scattered around the world are defined by their
+ * NaturalResourceComponent. It gives the entities a type and an amount.
+ */
 public class NaturalResourceComponent implements Component {
     private Resource resource;
     private boolean undepletable = false;
