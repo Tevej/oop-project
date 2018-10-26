@@ -8,7 +8,7 @@
 1. Go to edit configuration...
 2. Press the + button.
 3. Choose Application.
-4. Choose the mainclass ```se.tevej.game.desktop.DesktopLauncher```.
+4. Choose the mainclass ```DesktopLauncher```.
 5. The working directory should be **your path to the project**```/DayInGothenburgInTime/core/assets```.
 6. The "Use classpath of module" should be the ```desktop_main```" package.
 7. The java version should be the project default (java 8)

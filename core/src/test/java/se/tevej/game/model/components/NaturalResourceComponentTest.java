@@ -1,0 +1,30 @@
+package se.tevej.game.model.components;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import main.se.tevej.game.model.components.NaturalResourceComponent;
+import main.se.tevej.game.model.resources.NotEnoughResourcesException;
+import main.se.tevej.game.model.resources.Resource;
+import main.se.tevej.game.model.resources.ResourceType;
+import org.junit.Test;
+
+class NaturalResourceComponentTest {
+
+    public NaturalResourceComponentTest() { super(); }
+
+    @Test
+    public void testMethod() {
+        NaturalResourceComponent nrc = new NaturalResourceComponent
+            (new Resource(20, ResourceType.WOOD));
+        assertEquals(nrc.getAmountLeft(), 20, 0);
+        assertEquals(nrc.getType(), ResourceType.WOOD);
+        try {
+            nrc.extractResource(new Resource(19.9, ResourceType.WOOD));
+            assertTrue(nrc.getAmountLeft() < 0.1000001 && nrc.getAmountLeft() > 0.0999999);
+        } catch (NotEnoughResourcesException e) {
+            fail();
+        }
+    }
+}
