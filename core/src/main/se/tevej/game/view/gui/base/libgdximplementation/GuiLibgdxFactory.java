@@ -1,7 +1,6 @@
 package main.se.tevej.game.view.gui.base.libgdximplementation;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import main.se.tevej.game.view.gui.base.GuiFactory;
