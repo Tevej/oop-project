@@ -1,5 +1,8 @@
 package main.se.tevej.game.view.gamerendering.base;
 
+/**
+ * Renders one type of textures in batches to improve the total time to draw the game.
+ */
 public interface TBatchRenderer {
     void beginRendering();
 

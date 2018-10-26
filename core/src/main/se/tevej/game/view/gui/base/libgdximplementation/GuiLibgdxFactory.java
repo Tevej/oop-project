@@ -10,6 +10,9 @@ import main.se.tevej.game.view.gui.base.TImage;
 import main.se.tevej.game.view.gui.base.TLabel;
 import main.se.tevej.game.view.gui.base.TTable;
 
+/**
+ * The libGDX implementation of the GuiFactory.
+ */
 public class GuiLibgdxFactory implements GuiFactory {
 
     private static final Skin SKIN = new Skin(Gdx.files.internal("skin/plain-james-ui.json"));

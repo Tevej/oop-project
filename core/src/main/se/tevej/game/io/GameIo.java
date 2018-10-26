@@ -20,6 +20,9 @@ import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 
+/**
+ * Manages the saving and the loading of game files.
+ */
 public class GameIo {
 
     private static final String WORLD_FILE = "world.json";

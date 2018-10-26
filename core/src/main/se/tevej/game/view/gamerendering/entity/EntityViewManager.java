@@ -17,6 +17,10 @@ import main.se.tevej.game.model.components.buildings.BuildingComponent;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 
+/**
+ * Manages the rendering of entities. At least for those who has been configured to be rendered.
+ * This class uses EntityRenderable to generically render different kinds of entities.
+ */
 public class EntityViewManager {
 
     /**

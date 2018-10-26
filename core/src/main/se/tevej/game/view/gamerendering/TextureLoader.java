@@ -6,6 +6,9 @@ import java.util.List;
 
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 
+/**
+ * An abstract class to easily load in images in a directory.
+ */
 public abstract class TextureLoader {
 
     protected final String[] imagesTypes;

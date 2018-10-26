@@ -7,6 +7,9 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 
+/**
+ * Renders the currently selected building to build. The building is selected using BuildingGui.
+ */
 public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
 
     private static final Map<BuildingType, String> BUILDING_TO_IMAGE;
