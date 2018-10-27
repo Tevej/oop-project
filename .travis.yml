@@ -1,0 +1,11 @@
+language: Java
+
+notifications:
+    email: false
+
+    slack:
+        on_success: never
+        on_failure: always
+
+        rooms:
+          digit1819:MI9cZ2mjZzXjEM42jwg4hJph
