@@ -5,7 +5,6 @@ import java.util.Random;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntityListener;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -15,22 +14,22 @@ import main.se.tevej.game.model.components.TileComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.resources.ResourceType;
 
-public class TreeGrowthSystem extends EntitySystem implements EntityListener {
-    private Engine engine;
-    private SignalHolder signalHolder;
-
+/**
+ * A system with the logic for how, when and where new trees should spawn.
+ */
+public class TreeGrowthSystem extends TSystem implements EntityListener {
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
     private final double chanceMultiplier = 1.0 / (20 * 1000);
-
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
         justification = "No need to be static and checkbugs will complain if it is."
     )
     private final double baseSpawnChance = 1.0 / (25 * 1000 * 1000);
-
+    private Engine engine;
+    private SignalHolder signalHolder;
     // A matrix that represents the world where the values of8 each tile
     // is the number of trees neighbouring it,
     // or -1 if it's occupied.

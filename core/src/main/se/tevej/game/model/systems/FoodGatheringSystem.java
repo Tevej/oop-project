@@ -2,7 +2,6 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 
@@ -12,8 +11,10 @@ import main.se.tevej.game.model.components.buildings.FarmComponent;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
-
-public class FoodGatheringSystem extends EntitySystem {
+/**
+ * Handles the logic for all farms to gather their respective food.
+ */
+public class FoodGatheringSystem extends TSystem {
 
     private Engine engine;
 
@@ -29,10 +30,10 @@ public class FoodGatheringSystem extends EntitySystem {
     @Override
     public void update(float deltaTime) {
         ImmutableArray<Entity> farms = engine.getEntitiesFor(
-                Family.all(FarmComponent.class, PositionComponent.class).get());
+            Family.all(FarmComponent.class, PositionComponent.class).get());
 
         InventoryComponent inventoryC = engine.getEntitiesFor(
-                Family.all(InventoryComponent.class).get()
+            Family.all(InventoryComponent.class).get()
         ).first().getComponent(InventoryComponent.class);
 
         double totalAmount = 0;

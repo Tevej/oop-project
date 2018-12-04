@@ -7,6 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import main.se.tevej.game.view.gui.base.TImage;
 
+/**
+ * The libGDX implementation of the TImage.
+ */
 public class ImageLibgdxAdapter extends Image implements TImage {
 
     public ImageLibgdxAdapter() {

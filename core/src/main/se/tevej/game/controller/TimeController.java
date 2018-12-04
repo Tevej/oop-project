@@ -6,8 +6,14 @@ import java.util.List;
 import main.se.tevej.game.controller.input.base.OnTappedListener;
 import main.se.tevej.game.controller.input.base.TKey;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
+import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
+import main.se.tevej.game.view.gui.time.RegisterTimeController;
+import main.se.tevej.game.view.gui.time.SetTimeMultiplier;
 
-public class TimeController implements OnTappedListener {
+/**
+ * The controller responsible for changing time as user input dictates.
+ */
+public class TimeController implements OnTappedListener, RegisterTimeController, SetTimeMultiplier {
     private List<OnTimeChangeListener> onChangeListeners;
 
     public TimeController(TKeyBoard keyBoard) {
@@ -32,6 +38,12 @@ public class TimeController implements OnTappedListener {
             case KEY_2:
                 setMultiplierTo(2);
                 break;
+            case KEY_3:
+                setMultiplierTo(5);
+                break;
+            case KEY_4:
+                setMultiplierTo(20);
+                break;
             default:
                 break;
         }
@@ -39,7 +51,17 @@ public class TimeController implements OnTappedListener {
 
     private void setMultiplierTo(float multiplier) {
         for (OnTimeChangeListener listener : onChangeListeners) {
-            listener.updateTimeMultipler(multiplier);
+            listener.updateTimeMultiplier(multiplier);
         }
+    }
+
+    @Override
+    public void registerTimeController(OnTimeChangeListener onTimeChange) {
+        registerOnTimeChange(onTimeChange);
+    }
+
+    @Override
+    public void setTimeMultiplier(float newScale) {
+        setMultiplierTo(newScale);
     }
 }

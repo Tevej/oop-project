@@ -1,7 +1,13 @@
 package main.se.tevej.game.model.components;
 
+import java.util.Objects;
+
 import com.badlogic.ashley.core.Component;
 
+/**
+ * All entities meant to appear in the game-world have a position component so that its position
+ * can be determined and rendered there.
+ */
 public class PositionComponent implements Component {
     private int posX;
     private int posY;
@@ -15,20 +21,20 @@ public class PositionComponent implements Component {
         return new PositionComponent(posX, posY);
     }
 
-    public void setX(int x) {
-        this.posX = x;
-    }
-
-    public void setY(int y) {
-        this.posY = y;
-    }
-
     public int getX() {
         return posX;
     }
 
+    public void setX(int x) {
+        this.posX = x;
+    }
+
     public int getY() {
         return posY;
+    }
+
+    public void setY(int y) {
+        this.posY = y;
     }
 
     @Override
@@ -45,8 +51,7 @@ public class PositionComponent implements Component {
 
     @Override
     public int hashCode() {
-        assert false : "hashCode not designed";
-        return 42; // any arbitrary constant will do
+        return Objects.hash(posX, posY * 1.99);
     }
 
 }

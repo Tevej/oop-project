@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.math.Vector2;
@@ -22,7 +21,10 @@ import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalComponent;
 import main.se.tevej.game.model.signals.SignalType;
 
-public class NaturalResourceGatheringSystem extends EntitySystem {
+/**
+ * The system responsible for gathering resources for every gatherer.
+ */
+public class NaturalResourceGatheringSystem extends TSystem {
 
     private Engine engine;
     private SignalHolder signalHolder;
@@ -39,11 +41,11 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
                                     InventoryComponent inventory,
                                     GathererComponent gathererC) {
         NaturalResourceComponent naturalResourceC = occupier
-                .getComponent(NaturalResourceComponent.class);
+            .getComponent(NaturalResourceComponent.class);
         try {
             // Calculates the Resource gathered
             Resource gatheredResource = gathererC
-                    .getGatheredResource(deltaTime / 2 / distance);
+                .getGatheredResource(deltaTime / 2 / distance);
 
             // Moves the Resource from the natural resource to inventory
             naturalResourceC.extractResource(gatheredResource);
@@ -52,9 +54,9 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
         } catch (NotEnoughResourcesException e) {
             // Extracts the resource left and deletes entity
             Resource remainingResource = new Resource(naturalResourceC.getAmountLeft(),
-                    naturalResourceC.getType());
+                naturalResourceC.getType());
             inventory.addResource(remainingResource);
-            occupier.add(new SignalComponent(SignalType.DELETEENTITY));
+            occupier.add(new SignalComponent(SignalType.DELETE_ENTITY));
             signalHolder.getSignal().dispatch(occupier);
         }
     }
@@ -65,10 +67,10 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
 
     private boolean isOutOfBounds(int x, int y, int maxWidth, int maxHeight) {
         return x == 0 && y == 0
-                || x < 0
-                || y < 0
-                || x >= maxWidth
-                || y >= maxHeight;
+            || x < 0
+            || y < 0
+            || x >= maxWidth
+            || y >= maxHeight;
     }
 
     // Returns true if all of the following are true:
@@ -79,10 +81,10 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
     private boolean isInvalidLocation(Vector2 location, Entity gatherer, WorldComponent world) {
         boolean result = true;
         ResourceType gatherType = gatherer.getComponent(GathererComponent.class)
-                .getResourcePerSecond().getType();
+            .getResourcePerSecond().getType();
         if (!isOutOfBounds((int) location.x, (int) location.y,
-                world.getWidth(), world.getHeight())) {
-            Entity occupier = world.getTileOccupier((int)location.x, (int)location.y);
+            world.getWidth(), world.getHeight())) {
+            Entity occupier = world.getTileOccupier((int) location.x, (int) location.y);
 
             result = occupier == null
                 || occupier.getComponent(NaturalResourceComponent.class) == null
@@ -93,11 +95,11 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
 
     // Returns the location of the nearest location to the gatherer
     private Vector2 nearestLocation(PositionComponent gathererPosition,
-                                  List<Vector2> locations) {
+                                    List<Vector2> locations) {
         Vector2 nearest = locations.get(0);
         double nearestDistance = getDistance(nearest, gathererPosition);
         for (int i = 1; i < locations.size(); i++) {
-            double distance = getDistance(locations.get(i),gathererPosition);
+            double distance = getDistance(locations.get(i), gathererPosition);
             if (distance < nearestDistance) {
                 nearest = locations.get(i);
                 nearestDistance = distance;
@@ -114,11 +116,12 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
         List<Vector2> locations = new ArrayList<Vector2>();
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++) {
-                Vector2 loc = new Vector2(i + gatherPosition.getX(), j + gatherPosition.getY());
-                if (isInvalidLocation(loc, gatherer, world)) {
+                Vector2 location = new Vector2(i + gatherPosition.getX(),
+                        j + gatherPosition.getY());
+                if (isInvalidLocation(location, gatherer, world)) {
                     continue;
                 }
-                locations.add(loc);
+                locations.add(location);
             }
 
         }
@@ -131,18 +134,18 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
                         float deltaTime) {
 
         int radius = gatherer.getComponent(RadiusComponent.class).getRadius();
-        List<Vector2> locations = getLocationsInRadius(radius, gatherer, world);
-        if (locations.isEmpty()) {
+        List<Vector2> locationList = getLocationsInRadius(radius, gatherer, world);
+        if (locationList.isEmpty()) {
             return;
         }
 
         PositionComponent positionC = gatherer.getComponent(PositionComponent.class);
         GathererComponent gatherC = gatherer.getComponent(GathererComponent.class);
 
-        Vector2 nearest = nearestLocation(positionC, locations);
+        Vector2 nearest = nearestLocation(positionC, locationList);
         float distance = nearest.dst(positionC.getX(), positionC.getY());
 
-        Entity occupier = world.getTileOccupier((int) nearest.x,(int) nearest.y);
+        Entity occupier = world.getTileOccupier((int) nearest.x, (int) nearest.y);
         gatherFromLocation(deltaTime, distance, occupier, inventory, gatherC);
     }
 
@@ -156,17 +159,16 @@ public class NaturalResourceGatheringSystem extends EntitySystem {
     public void update(float deltaTime) {
         // Gets all Entities that will gather natural resources
         ImmutableArray<Entity> gatherers = engine.getEntitiesFor(
-                Family.all(GathererComponent.class, PositionComponent.class).get());
+            Family.all(GathererComponent.class, PositionComponent.class).get());
 
         // Saves necessary variables for later use
         InventoryComponent inventory = engine.getEntitiesFor(Family.all(InventoryComponent.class)
-                .get()).first().getComponent(InventoryComponent.class);
+            .get()).first().getComponent(InventoryComponent.class);
         WorldComponent world = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
-                .first().getComponent(WorldComponent.class);
+            .first().getComponent(WorldComponent.class);
 
         for (Entity gatherer : gatherers) {
             gather(gatherer, world, inventory, deltaTime);
         }
     }
-
 }

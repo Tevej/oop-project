@@ -11,18 +11,12 @@ import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
+/**
+ * The world entity creates our world. Upon startup, based on user input, it either restores the
+ * previous world or generates a new.
+ */
 public class WorldEntity extends Entity {
 
-    private double clusterDilution = 0.5;
-    private double waterClusterSize = 2000;
-    private double woodClusterSize = 1;
-    private double stoneClusterSize = 1;
-    private double waterSpawnProb = 0.001;
-    private double woodSpawnProb = 0.004;
-    private double stoneSpawnProb = 0.003;
-    private int waterAmount = -1;
-    private int woodAmount = 1000;
-    private int stoneAmount = 1000;
     private final int width;
     private final int height;
     private final AddToEngineListener engineListener;
@@ -79,14 +73,27 @@ public class WorldEntity extends Entity {
         }
     }
 
+
+
     private List<Entity> generateRandomClusters(PositionComponent startPos,
                                                 List<PositionComponent> occupiedSpots,
                                                 WorldComponent world,
                                                 AddToEngineListener listener) {
+        double waterClusterSize = 2000;
+        double woodClusterSize = 1;
+        double stoneClusterSize = 1;
+        double waterSpawnProb = 0.001;
+        double woodSpawnProb = 0.004;
+        double stoneSpawnProb = 0.003;
+        //Water having a negative amount indicates that it has an infinite amount
+        int waterAmount = -1;
+        int woodAmount = 1000;
+        int stoneAmount = 1000;
+
         double n = Math.random();
         Resource resource = null;
         List<PositionComponent> locations = new ArrayList<>();
-        List<Entity> nrelist = new ArrayList<>();
+        List<Entity> natResEntityList = new ArrayList<>();
         if (n < waterSpawnProb) {
             locations = generateCluster(waterClusterSize, startPos, world, occupiedSpots);
             resource = new Resource(waterAmount, ResourceType.WATER);
@@ -100,15 +107,17 @@ public class WorldEntity extends Entity {
         for (PositionComponent loc : locations) {
             Entity resourceEntity =
                 new NaturalResourceEntity(loc.getX(), loc.getY(), resource);
-            nrelist.add(resourceEntity);
+            natResEntityList.add(resourceEntity);
             listener.addEntityToEngine(resourceEntity);
         }
-        return nrelist;
+        return natResEntityList;
     }
 
     private List<PositionComponent> generateCluster(double prob, PositionComponent startPos,
                                                     WorldComponent world,
                                                     List<PositionComponent> occupiedSpots) {
+        double clusterDilution = 0.5;
+
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 PositionComponent pos =
@@ -118,7 +127,7 @@ public class WorldEntity extends Entity {
                 }
 
                 if (Math.random() < prob && !occupiedSpots.contains(pos)
-                        && !world.isTileOccupied(pos.getX(), pos.getY())) {
+                    && !world.isTileOccupied(pos.getX(), pos.getY())) {
                     occupiedSpots.add(pos);
                     generateCluster(prob * clusterDilution, pos, world, occupiedSpots);
                 }

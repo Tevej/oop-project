@@ -2,17 +2,17 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.components.PositionComponent;
 import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
 
-public class DeleteEntitySystem extends EntitySystem implements SignalListener, Listener<Entity> {
+/**
+ * If something needs to be removed this system is called. For example when a resource depletes.
+ */
+public class DeleteEntitySystem extends TSystem {
 
     private Engine engine;
 
@@ -21,10 +21,10 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener, 
     }
 
     private void deleteEntity(Entity signalEntity) {
-        WorldComponent wc = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
+        WorldComponent worldC = engine.getEntitiesFor(Family.all(WorldComponent.class).get())
             .first().getComponent(WorldComponent.class);
         PositionComponent pc = signalEntity.getComponent(PositionComponent.class);
-        wc.removeOccupier(pc.getX(), pc.getY());
+        worldC.removeOccupier(pc.getX(), pc.getY());
         engine.removeEntity(signalEntity);
     }
 
@@ -34,19 +34,10 @@ public class DeleteEntitySystem extends EntitySystem implements SignalListener, 
     }
 
     @Override
-    public void setSignal(Signal<Entity> signal) {
-    }
-
-    @Override
-    public Listener<Entity> getSignalListener() {
-        return this;
-    }
-
-    @Override
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case DELETEENTITY:
+            case DELETE_ENTITY:
                 deleteEntity(signalEntity);
                 break;
             default:

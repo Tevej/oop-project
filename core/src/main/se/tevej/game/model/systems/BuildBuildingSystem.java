@@ -2,9 +2,7 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.components.PositionComponent;
@@ -16,11 +14,12 @@ import main.se.tevej.game.model.entities.AddToEngineListener;
 import main.se.tevej.game.model.entities.BuildingEntity;
 import main.se.tevej.game.model.entities.NoSuchBuildingException;
 import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
 
-public class BuildBuildingSystem
-    extends EntitySystem
-    implements SignalListener, AddToEngineListener, Listener<Entity> {
+/**
+ * This system's only purpose is to build buildings and place them on the map and it is the only
+ * class with that purpose.
+ */
+public class BuildBuildingSystem extends TSystem implements AddToEngineListener {
 
     private Engine engine;
 
@@ -34,19 +33,10 @@ public class BuildBuildingSystem
     }
 
     @Override
-    public void setSignal(Signal<Entity> signal) {
-    }
-
-    @Override
-    public Listener<Entity> getSignalListener() {
-        return this;
-    }
-
-    @Override
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case BUILDBUILDING:
+            case BUILD_BUILDING:
                 BuildingComponent buildingC =
                     signalEntity.getComponent(BuildingComponent.class);
                 PositionComponent posC = signalEntity.getComponent(PositionComponent.class);

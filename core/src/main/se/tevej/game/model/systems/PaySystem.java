@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.components.InventoryComponent;
@@ -18,10 +16,12 @@ import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.model.resources.NotEnoughResourcesException;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.signals.SignalType;
 
-public class PaySystem extends EntitySystem implements SignalListener, Listener<Entity> {
+/**
+ * A system that removes the amount specified by BuildingCostUtil when building a building.
+ */
+public class PaySystem  extends TSystem {
 
     private Engine engine;
     private SignalHolder signalHolder;
@@ -49,7 +49,7 @@ public class PaySystem extends EntitySystem implements SignalListener, Listener<
 
     private void sendBuildSignal(Entity signalEntity) {
         signalEntity.remove(SignalComponent.class);
-        signalEntity.add(new SignalComponent(SignalType.BUILDBUILDING));
+        signalEntity.add(new SignalComponent(SignalType.BUILD_BUILDING));
         signalHolder.getSignal().dispatch(signalEntity);
     }
 
@@ -66,19 +66,10 @@ public class PaySystem extends EntitySystem implements SignalListener, Listener<
     }
 
     @Override
-    public void setSignal(Signal<Entity> signal) {
-    }
-
-    @Override
-    public Listener<Entity> getSignalListener() {
-        return this;
-    }
-
-    @Override
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case PAYFORCONSTRUCTION:
+            case PAY_FOR_CONSTRUCTION:
                 if (isOccupiedLocation(signalEntity)) {
                     break;
                 } else {

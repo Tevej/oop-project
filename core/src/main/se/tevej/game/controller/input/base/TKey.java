@@ -1,9 +1,13 @@
 package main.se.tevej.game.controller.input.base;
 
+/**
+ * TKey is where we define all our possible inputs. For the Keyboard and Mouse.
+ */
 public enum TKey {
     KEY_1,
     KEY_2,
     KEY_3,
+    KEY_4,
     KEY_L,
     KEY_P,
     KEY_Q,

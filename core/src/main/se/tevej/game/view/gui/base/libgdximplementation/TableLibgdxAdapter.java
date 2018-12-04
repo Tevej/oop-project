@@ -21,6 +21,10 @@ import main.se.tevej.game.view.gui.base.TUiElement;
 
 // Not our fault that the libgdx class has too many methods ¯\_(ツ)_/¯
 @SuppressWarnings("PMD.TooManyMethods")
+
+/**
+ * The libGDX implementation of the TTable.
+ */
 public class TableLibgdxAdapter extends Table implements TTable {
     private Stage stage;
     private Map<Cell, TUiElement> cells;
@@ -54,6 +58,14 @@ public class TableLibgdxAdapter extends Table implements TTable {
                 )
             )
         );
+        return this;
+    }
+
+    @Override
+    public TTable debug(boolean debug) {
+        if (debug) {
+            super.debug();
+        }
         return this;
     }
 
@@ -142,6 +154,12 @@ public class TableLibgdxAdapter extends Table implements TTable {
     @Override
     public TTable padding(float amount) {
         super.pad(amount);
+        return this;
+    }
+
+    @Override
+    public TTable visible(boolean visible) {
+        super.setVisible(visible);
         return this;
     }
 }

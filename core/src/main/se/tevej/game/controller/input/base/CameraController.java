@@ -6,12 +6,19 @@ import com.badlogic.gdx.math.Vector2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import main.se.tevej.game.view.ViewManager;
 
-// A class to translate the user inputs to camera changes.
+/**
+ * The class responsible for translating userinput to camera change.
+ * Both moving the camera and zooming in and out.
+ */
 public class CameraController implements OnDraggedListener,
     OnMouseClickedListener, OnTappedListener {
 
+    @SuppressFBWarnings(
+        value = "SS_SHOULD_BE_STATIC",
+        justification = "No need to be static and checkbugs will complain if it is."
+    )
+    private final float zoomStep = 0.1f;
     private ViewManager view;
-
     // Current camera position in world coordinates!
     private float prevX;
     private float prevY;
@@ -21,12 +28,6 @@ public class CameraController implements OnDraggedListener,
     private float cameraPosY;
     private int worldWidth;
     private int worldHeight;
-
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "No need to be static and checkbugs will complain if it is."
-    )
-    private final float zoomStep = 0.1f;
 
     public CameraController(ViewManager view, float startX, float startY, TMouse mouse,
                             TKeyBoard keyboard, int worldWidth, int worldHeight) {
@@ -123,6 +124,9 @@ public class CameraController implements OnDraggedListener,
         zoom();
     }
 
+    /*** Zoom updates the cameras position with the new zoomMultiplier which creates the
+     * zoom effect. It could be called updateZoom but we choose a more descriptive name.
+     */
     private void zoom() {
         newPosX = cameraPosX;
         newPosY = cameraPosY;
@@ -144,12 +148,8 @@ public class CameraController implements OnDraggedListener,
         float maxX = worldWidth - ((float) Gdx.app.getGraphics().getWidth() / pixelPerTile);
         float maxY = worldHeight - ((float) Gdx.app.getGraphics().getHeight() / pixelPerTile);
 
-        if (newPosX > maxX) {
-            newPosX = maxX;
-        }
-        if (newPosY > maxY) {
-            newPosY = maxY;
-        }
+        newPosX = Math.min(newPosX, maxX);
+        newPosY = Math.min(newPosY, maxY);
 
         cameraPosX = newPosX;
         cameraPosY = newPosY;

@@ -6,55 +6,43 @@ import java.util.Map;
 import main.se.tevej.game.model.components.buildings.BuildingType;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
-import main.se.tevej.game.view.gamerendering.base.TTexture;
 
+/**
+ * Renders the currently selected building to build. The building is selected using BuildingGui.
+ */
 public class SelectedBuildingRenderer implements OnBuildingSelectedToBuild {
 
-    private final Map<BuildingType, TTexture> textureMap;
+    private static final Map<BuildingType, String> BUILDING_TO_IMAGE;
+
+    static {
+        BUILDING_TO_IMAGE = new HashMap<>();
+
+        BUILDING_TO_IMAGE.put(BuildingType.HOME, "buildings/home.png");
+        BUILDING_TO_IMAGE.put(BuildingType.LUMBERMILL, "buildings/lumbermill.png");
+        BUILDING_TO_IMAGE.put(BuildingType.QUARRY, "buildings/quarry.png");
+        BUILDING_TO_IMAGE.put(BuildingType.PUMP, "buildings/pump.png");
+        BUILDING_TO_IMAGE.put(BuildingType.FARM, "buildings/farm.png");
+        BUILDING_TO_IMAGE.put(BuildingType.FARM_LAND, "buildings/farm_land.png");
+    }
 
     private BuildingType selectedBuilding;
     private float positionX;
     private float positionY;
+    private GameRenderingFactory renderingFactory;
 
     public SelectedBuildingRenderer(GameRenderingFactory renderingFactory) {
-        textureMap = new HashMap<>();
-        textureMap.put(
-            BuildingType.HOME,
-            renderingFactory.createTexture("buildings/home.png")
-        );
-
-        textureMap.put(
-            BuildingType.LUMBERMILL,
-            renderingFactory.createTexture("buildings/lumbermill.png")
-        );
-
-        textureMap.put(
-            BuildingType.QUARRY,
-            renderingFactory.createTexture("buildings/quarry.png")
-        );
-
-        textureMap.put(
-            BuildingType.PUMP,
-            renderingFactory.createTexture("buildings/pump.png")
-        );
-
-        textureMap.put(
-            BuildingType.FARM,
-            renderingFactory.createTexture("buildings/farm.png")
-        );
-
-        textureMap.put(
-            BuildingType.FARM_LAND,
-            renderingFactory.createTexture("buildings/farm_land.png")
-        );
+        this.renderingFactory = renderingFactory;
     }
 
     public void render(TBatchRenderer batchRenderer, float pixelPerTile) {
         if (selectedBuilding != null && selectedBuilding != BuildingType.NONE) {
-            TTexture texture = this.textureMap.get(selectedBuilding);
-            batchRenderer.renderTexture(texture, positionX,
-                positionY, pixelPerTile,
-                pixelPerTile);
+            batchRenderer.renderTexture(
+                this.renderingFactory.createTexture(BUILDING_TO_IMAGE.get(selectedBuilding)),
+                positionX,
+                positionY,
+                pixelPerTile,
+                pixelPerTile
+            );
         }
     }
 

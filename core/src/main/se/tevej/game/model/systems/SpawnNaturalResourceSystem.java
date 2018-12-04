@@ -2,9 +2,7 @@ package main.se.tevej.game.model.systems;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 
 import main.se.tevej.game.model.components.NaturalResourceComponent;
@@ -15,12 +13,13 @@ import main.se.tevej.game.model.entities.NaturalResourceEntity;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.model.signals.SignalComponent;
-import main.se.tevej.game.model.signals.SignalListener;
 import main.se.tevej.game.model.signals.SignalType;
 
-public class SpawnNaturalResourceSystem
-    extends EntitySystem
-    implements SignalListener, Listener<Entity> {
+/**
+ * The system responsible for create resources in the world. Be it upon world generation or
+ * trees dropping seeds.
+ */
+public class SpawnNaturalResourceSystem extends TSystem {
 
     private Engine engine;
 
@@ -28,18 +27,18 @@ public class SpawnNaturalResourceSystem
         super();
     }
 
+    public static Entity getSignalEntity(ResourceType type, float amount, int x, int y) {
+        Entity signalEntity = new Entity();
+        signalEntity.add(new PositionComponent(x, y));
+        Resource resource = new Resource(amount, type);
+        signalEntity.add(new NaturalResourceComponent(resource));
+        signalEntity.add(new SignalComponent(SignalType.SPAWN_ENTITY));
+        return signalEntity;
+    }
+
     @Override
     public void addedToEngine(Engine engine) {
         this.engine = engine;
-    }
-
-    @Override
-    public void setSignal(Signal<Entity> signal) {
-    }
-
-    @Override
-    public Listener<Entity> getSignalListener() {
-        return this;
     }
 
     private void spawnNaturalResource(Entity entity) {
@@ -66,20 +65,11 @@ public class SpawnNaturalResourceSystem
         }
     }
 
-    public static Entity getSignalEntity(ResourceType type, float amount, int x, int y) {
-        Entity signalEntity = new Entity();
-        signalEntity.add(new PositionComponent(x, y));
-        Resource resource = new Resource(amount, type);
-        signalEntity.add(new NaturalResourceComponent(resource));
-        signalEntity.add(new SignalComponent(SignalType.SPAWNENTITY));
-        return signalEntity;
-    }
-
     @Override
     public void receive(Signal<Entity> signal, Entity signalEntity) {
         SignalComponent signalComponent = signalEntity.getComponent(SignalComponent.class);
         switch (signalComponent.getType()) {
-            case SPAWNENTITY:
+            case SPAWN_ENTITY:
                 spawnNaturalResource(signalEntity);
                 break;
             default:

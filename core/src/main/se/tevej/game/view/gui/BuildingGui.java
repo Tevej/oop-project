@@ -11,57 +11,29 @@ import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.OnButtonClickedListener;
 import main.se.tevej.game.view.gui.base.TButton;
 import main.se.tevej.game.view.gui.base.TTable;
+import main.se.tevej.game.view.gui.base.TUiElement;
 
-
+/**
+ * The gui for the selection of buildings to build. The user clicks on one of the different
+ * buildings, then the building gets selected and the user can click on the world to place it
+ * if they have enough resources. To deselect, the user needs to press the same building icon again
+ * or press another building.
+ */
 public class BuildingGui {
-    private static final int IMAGESIZE = 32;
+    private static final int NUMBER_OF_ROWS = 5;
+    private static final int IMAGE_SIZE = 32;
     private static final int PADDING = 5;
-    private GuiFactory guiFactory;
+
     private TTable buildingTable;
 
     private List<OnBuildingSelectedToBuild> selectedListeners;
 
     public BuildingGui(GuiFactory guiFactory) {
-        this.guiFactory = guiFactory;
-
         this.selectedListeners = new LinkedList<>();
-        List<TButton> buttonList = new LinkedList<>();
-        buttonList.add(
-            createBuildingButton(BuildingType.PUMP, "buildings/pump.png"));
-        buttonList.add(
-            createBuildingButton(BuildingType.LUMBERMILL, "buildings/lumbermill.png"));
-        buttonList.add(
-            createBuildingButton(BuildingType.QUARRY, "buildings/quarry.png"));
-        buttonList.add(
-            createBuildingButton(BuildingType.HOME, "buildings/home.png"));
-        buttonList.add(
-            createBuildingButton(BuildingType.FARM, "buildings/farm.png"));
+        buildingTable = guiFactory.createTable();
 
-        buildingTable = guiFactory.createTable()
-            .positionX(Gdx.graphics.getWidth() - ((IMAGESIZE + PADDING * 2) / 2f))
-            .positionY(Gdx.graphics.getHeight() / 2f)
-            .grid(buttonList.size(), 1)
-            .backgroundColor(0,0,0,0.7f)
-            .alignCenter()
-            .padding(PADDING);
-
-        for (TButton buildingButton : buttonList) {
-            buildingTable.addElement(buildingButton).width(IMAGESIZE).height(IMAGESIZE);
-        }
-    }
-
-    private TButton createBuildingButton(BuildingType buildingType, String img) {
-        TButton button = guiFactory.createButton();
-
-        return button.image(img).addListener(new OnButtonClickedListener() {
-            @Override
-            public void onClicked() {
-                for (OnBuildingSelectedToBuild selectedListener :
-                    selectedListeners) {
-                    selectedListener.buildingSelectedToBuild(buildingType);
-                }
-            }
-        });
+        initializeTable();
+        populateTable(guiFactory);
     }
 
     public void render() {
@@ -74,5 +46,52 @@ public class BuildingGui {
 
     public void addSelectedListener(OnBuildingSelectedToBuild selectedListener) {
         selectedListeners.add(selectedListener);
+    }
+
+    private void initializeTable() {
+        buildingTable
+            .positionX(Gdx.graphics.getWidth() - ((IMAGE_SIZE + PADDING * 2) / 2f))
+            .positionY(Gdx.graphics.getHeight() / 2f)
+            .grid(NUMBER_OF_ROWS, 1)
+            .backgroundColor(0, 0, 0, 0.7f)
+            .alignCenter()
+            .padding(PADDING);
+    }
+
+    private void populateTable(GuiFactory guiFactory) {
+        createBuildingButton(guiFactory, BuildingType.PUMP, "buildings/pump.png");
+        createBuildingButton(guiFactory, BuildingType.LUMBERMILL, "buildings/lumbermill.png");
+        createBuildingButton(guiFactory, BuildingType.QUARRY, "buildings/quarry.png");
+        createBuildingButton(guiFactory, BuildingType.HOME, "buildings/home.png");
+        createBuildingButton(guiFactory, BuildingType.FARM, "buildings/farm.png");
+    }
+
+    private void createBuildingButton(GuiFactory guiFactory,
+                                      BuildingType buildingType, String img) {
+        TButton button = guiFactory
+            .createButton()
+            .image(img)
+            .addListener(dispatchSelectedEventOnClick(buildingType));
+
+        addToTable(button);
+    }
+
+    private OnButtonClickedListener dispatchSelectedEventOnClick(BuildingType buildingType) {
+        return new OnButtonClickedListener() {
+            @Override
+            public void onClicked() {
+                for (OnBuildingSelectedToBuild selectedListener :
+                    selectedListeners) {
+                    selectedListener.buildingSelectedToBuild(buildingType);
+                }
+            }
+        };
+    }
+
+    private void addToTable(TUiElement element) {
+        buildingTable
+            .addElement(element)
+            .width(IMAGE_SIZE)
+            .height(IMAGE_SIZE);
     }
 }

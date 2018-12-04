@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.TTexture;
 
+/**
+ * The libGDX implementation of the TBatchRenderer.
+ */
 public class BatchRendererLibgdxAdapter extends SpriteBatch implements TBatchRenderer {
 
     public BatchRendererLibgdxAdapter() {

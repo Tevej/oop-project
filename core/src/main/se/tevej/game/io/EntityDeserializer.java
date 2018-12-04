@@ -13,6 +13,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+/**
+ * Deserializes entities to a json file.
+ */
 public class EntityDeserializer implements JsonDeserializer<Entity> {
 
     public EntityDeserializer() {

@@ -7,9 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import main.se.tevej.game.view.gui.base.TLabel;
 
+/**
+ * The libGDX implementation of the TLabel.
+ */
 public class LabelLibgdxAdapter extends Label implements TLabel {
     public LabelLibgdxAdapter(Skin skin) {
         super("", skin);
+        setColor(1, 1, 1, 1);
     }
 
     @Override

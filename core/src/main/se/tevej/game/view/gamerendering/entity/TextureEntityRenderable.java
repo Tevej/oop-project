@@ -8,6 +8,10 @@ import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
 import main.se.tevej.game.view.gamerendering.base.TTexture;
 
+/**
+ * Retrieves PositionComponent, SizeComponent and renders the given texture. This can
+ * be used on multiple components.
+ */
 public class TextureEntityRenderable implements EntityRenderable {
 
     private TTexture texture;

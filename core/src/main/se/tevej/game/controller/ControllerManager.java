@@ -4,10 +4,14 @@ import main.se.tevej.game.controller.input.base.CameraController;
 import main.se.tevej.game.controller.input.base.InputFactory;
 import main.se.tevej.game.controller.input.base.TKeyBoard;
 import main.se.tevej.game.controller.input.base.TMouse;
-import main.se.tevej.game.controller.input.base.libgdximplementation.InputLibgdxFactory;
 import main.se.tevej.game.model.ModelManager;
+import main.se.tevej.game.model.components.WorldComponent;
 import main.se.tevej.game.view.ViewManager;
+import main.se.tevej.game.view.gui.time.OnTimeChangeListener;
 
+/**
+ * This is the central hub for all controllers and the one place to manage and initialize them.
+ */
 public class ControllerManager {
 
     private ViewManager viewManager;
@@ -20,16 +24,15 @@ public class ControllerManager {
 
     public ControllerManager(ViewManager viewManager, ModelManager modelManager,
                              int worldWidth, int worldHeight,
-                             OrderedInputMultiplexer inputMultiplexer,
+                             InputFactory inputFactory,
                              OnTimeChangeListener timeListener) {
         this.viewManager = viewManager;
         this.modelManager = modelManager;
-        initInput(inputMultiplexer);
+        initInput(inputFactory);
         initControllers(worldWidth, worldHeight, timeListener);
     }
 
-    private void initInput(OrderedInputMultiplexer inputMultiplexer) {
-        InputFactory inputFactory = new InputLibgdxFactory(inputMultiplexer);
+    private void initInput(InputFactory inputFactory) {
         mouse = inputFactory.createMouse();
         keyBoard = inputFactory.createKeyBoard();
     }
@@ -38,6 +41,7 @@ public class ControllerManager {
         initCamera(worldWidth, worldHeight);
         initConstructor();
         initTime(listener);
+        initInfo();
     }
 
     private void initCamera(int worldWidth, int worldHeight) {
@@ -56,6 +60,15 @@ public class ControllerManager {
     private void initTime(OnTimeChangeListener listener) {
         TimeController timeController = new TimeController(keyBoard);
         timeController.registerOnTimeChange(listener);
+        viewManager.setTimeControllers(timeController, timeController);
     }
 
+    private void initInfo() {
+        InfoController infoController = new InfoController(
+            modelManager.getWorldEntity().getComponent(WorldComponent.class),
+            camera,
+            viewManager.getBuildingInfoGui(),
+            mouse);
+        viewManager.getBuildingGui().addSelectedListener(infoController);
+    }
 }

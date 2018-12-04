@@ -11,52 +11,93 @@ import main.se.tevej.game.model.resources.ResourceType;
 import main.se.tevej.game.view.gui.base.GuiFactory;
 import main.se.tevej.game.view.gui.base.TTable;
 
+/**
+ * The gui for the players inventory. It displays the amount of each resource type along with
+ * an icon. It does this with the help of InventoryElement class.
+ * Every update, it pulls from the model for new updates.
+ */
 public class InventoryGui {
+
+    private static final int NUMBER_OF_COLUMNS = 2;
+    private static final int NUMBER_OF_ROWS = 5;
+    private static final int TABLE_DIMENSION = 32;
+
     private Entity inventoryEntity;
     private TTable inventoryTable;
-    private GuiFactory guiFactory;
     private List<InventoryElement> inventoryElements;
 
     public InventoryGui(GuiFactory guiFactory, Entity inventoryEntity) {
         this.inventoryEntity = inventoryEntity;
-        this.guiFactory = guiFactory;
-        create();
+        this.inventoryTable = guiFactory.createTable();
+        this.inventoryElements = new LinkedList<>();
+
+        initializeTable();
+        populateTable(guiFactory);
     }
 
-    private void create() {
-        inventoryElements = new LinkedList<>();
-        inventoryElements.add(new InventoryElement(guiFactory,
-            findAmountOfResource(ResourceType.WOOD),
-            "naturalResources/wood.png", ResourceType.WOOD));
-        inventoryElements.add(new InventoryElement(guiFactory,
-            findAmountOfResource(ResourceType.WATER),
-            "naturalResources/water.jpg", ResourceType.WATER));
-        inventoryElements.add(new InventoryElement(guiFactory,
-            findAmountOfResource(ResourceType.STONE),
-            "naturalResources/stone.png", ResourceType.STONE));
-        inventoryElements.add(new InventoryElement(guiFactory,
-            findAmountOfResource(ResourceType.FOOD),
-            "food.png", ResourceType.FOOD));
-        inventoryElements.add(new InventoryElement(guiFactory,
-            findAmountOfResource(ResourceType.POPULATION),
-            "population.png", ResourceType.POPULATION));
+    public void update(float deltaTime) {
+        for (InventoryElement inventoryElement : inventoryElements) {
+            inventoryElement.update(findAmountOfResource(inventoryElement.getResourceType()));
+        }
+        alignTable();
+        inventoryTable.update(deltaTime);
+    }
 
-        int tableDimension = 32;
+    public void render() {
+        inventoryTable.render();
+    }
 
-        inventoryTable = guiFactory.createTable()
-            .positionY(
-                Gdx.graphics.getHeight() - (tableDimension * inventoryElements.size() / 2f))
-            .grid(inventoryElements.size(), 2)
+    private void initializeTable() {
+        float halfHeight = TABLE_DIMENSION * NUMBER_OF_COLUMNS * NUMBER_OF_ROWS / 2f;
+
+        inventoryTable
+            .positionX(0)
+            .positionY(Gdx.graphics.getHeight() - halfHeight)
+            .grid(NUMBER_OF_ROWS, NUMBER_OF_COLUMNS)
             .backgroundColor(0, 0, 0, 0.7f)
             .alignLeft()
             .padding(5);
-        for (InventoryElement inventoryElement : inventoryElements) {
-            inventoryTable.addElement(
-                inventoryElement.getImage()).height(tableDimension).width(tableDimension);
-            inventoryTable.addElement(
-                inventoryElement.getLabel()).height(tableDimension);
-        }
-        alignTable();
+    }
+
+    private void populateTable(GuiFactory guiFactory) {
+        createInventoryElement(
+            guiFactory,
+            ResourceType.WOOD,
+            "naturalResources/wood.png"
+        );
+        createInventoryElement(
+            guiFactory,
+            ResourceType.WATER,
+            "naturalResources/water.jpg"
+        );
+        createInventoryElement(
+            guiFactory,
+            ResourceType.STONE,
+            "naturalResources/stone.png"
+        );
+        createInventoryElement(
+            guiFactory,
+            ResourceType.FOOD,
+            "food.png"
+        );
+        createInventoryElement(
+            guiFactory,
+            ResourceType.CURRENTPOPULATION,
+            "population.png"
+        );
+    }
+
+    private void createInventoryElement(GuiFactory guiFactory,
+                                        ResourceType resourceType, String imagePath) {
+        InventoryElement inventoryElement = new InventoryElement(
+            guiFactory,
+            inventoryTable,
+            findAmountOfResource(resourceType),
+            imagePath,
+            resourceType
+        );
+
+        this.inventoryElements.add(inventoryElement);
     }
 
     private void alignTable() {
@@ -71,17 +112,5 @@ public class InventoryGui {
             amount = (int) inventoryC.getAmountOfResource(resourceType);
         }
         return amount;
-    }
-
-    public void update(float deltaTime) {
-        for (InventoryElement inventoryElement : inventoryElements) {
-            inventoryElement.update(findAmountOfResource(inventoryElement.getResourceType()));
-        }
-        alignTable();
-        inventoryTable.update(deltaTime);
-    }
-
-    public void render() {
-        inventoryTable.render();
     }
 }

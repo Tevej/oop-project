@@ -18,7 +18,10 @@ import main.se.tevej.game.model.components.buildings.HomeComponent;
 import main.se.tevej.game.model.resources.Resource;
 import main.se.tevej.game.model.resources.ResourceType;
 
-
+/**
+ * A building entity is a predefined set of components which altogether meets the requirements
+ * of a building.
+ */
 public class BuildingEntity extends Entity {
 
     public BuildingEntity(
@@ -85,7 +88,7 @@ public class BuildingEntity extends Entity {
 
     // Should only ever be called from createBuilding, hence private access.
     private void createHome() {
-        this.add(new HomeComponent());
+        this.add(new HomeComponent(new Resource(5, ResourceType.MAXPOPULATION)));
     }
 
     private void createLumberMill() {

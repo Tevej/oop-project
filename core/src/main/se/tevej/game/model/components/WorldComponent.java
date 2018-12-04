@@ -3,6 +3,10 @@ package main.se.tevej.game.model.components;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.Entity;
 
+/**
+ * The world component is the world. it has all the tiles and by extension everything on the tiles.
+ * Therefore, almost every interaction with the tiles in the world goes through this class.
+ */
 public class WorldComponent implements Component {
     private Entity[] tiles;
     private int width;
@@ -10,7 +14,7 @@ public class WorldComponent implements Component {
 
     @edu.umd.cs.findbugs.annotations.SuppressFBWarnings(
         value = "EI_EXPOSE_REP2",
-        justification = "Dis is fine.")
+        justification = "We dont want to have the ModelManager as a dependency/parameter.")
     public WorldComponent(int width, int height, Entity[] tiles) {
         this.tiles = tiles;
         this.width = width;

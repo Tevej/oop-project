@@ -8,21 +8,23 @@ import main.se.tevej.game.model.ModelManager;
 import main.se.tevej.game.view.gamerendering.SelectedBuildingRenderer;
 import main.se.tevej.game.view.gamerendering.base.GameRenderingFactory;
 import main.se.tevej.game.view.gamerendering.base.TBatchRenderer;
-import main.se.tevej.game.view.gamerendering.base.libgdximplementation.GameRenderingLibgdxFactory;
 import main.se.tevej.game.view.gamerendering.entity.EntityViewManager;
 import main.se.tevej.game.view.gui.BuildingGui;
+import main.se.tevej.game.view.gui.BuildingInfoGui;
+import main.se.tevej.game.view.gui.ChangeScreen;
+import main.se.tevej.game.view.gui.GameControlsGui;
 import main.se.tevej.game.view.gui.InventoryGui;
 import main.se.tevej.game.view.gui.base.GuiFactory;
-import main.se.tevej.game.view.gui.base.InputProcessorListener;
-import main.se.tevej.game.view.gui.base.libgdximplementation.GuiLibgdxFactory;
+import main.se.tevej.game.view.gui.time.RegisterTimeController;
+import main.se.tevej.game.view.gui.time.SetTimeMultiplier;
+import main.se.tevej.game.view.gui.time.TimeControlGui;
 
+/**
+ * The view of the game. Manages the game rendering as well as the gui updating and rendering.
+ */
 public class ViewManager {
 
     private ModelManager modelManager;
-
-    private GameRenderingFactory renderingFactory;
-    private GuiFactory guiFactory;
-
     private TBatchRenderer batchRenderer;
 
     private EntityViewManager entityViewManager;
@@ -30,16 +32,18 @@ public class ViewManager {
 
     private InventoryGui inventoryGui;
     private BuildingGui buildingGui;
+    private BuildingInfoGui buildingInfoGui;
+    private GameControlsGui gameControlsGui;
+    private TimeControlGui timeControlGui;
+
+    private float zoomMultiplier;
 
     // The current camera positions in world coordinates.
     private float currCameraPosX;
     private float currCameraPosY;
 
-    @SuppressFBWarnings(
-        value = "SS_SHOULD_BE_STATIC",
-        justification = "No need to be static and checkbugs will complain if it is."
-    )
-    private final float minTilesPerScreen = 5;
+    private float maxZoom;
+    private float minZoom;
 
     @SuppressFBWarnings(
         value = "SS_SHOULD_BE_STATIC",
@@ -47,20 +51,21 @@ public class ViewManager {
     )
     private final float pixelPerTile = 32f;
 
-    private float zoomMultiplier;
-
-    public ViewManager(ModelManager modelManager, InputProcessorListener listener) {
+    public ViewManager(ModelManager modelManager, GameRenderingFactory renderingFactory,
+                       GuiFactory guiFactory, ChangeScreen screenChanger) {
         this.modelManager = modelManager;
+
         zoomMultiplier = 1f;
-        initFactories(listener);
-        initGui();
-        initRenders();
+        initGui(guiFactory, screenChanger);
+        initRenders(renderingFactory);
+        calcMinMaxZoom(modelManager);
     }
 
     public void update(float deltaTime) {
         clearScreen();
         renderGameRendering();
-        renderGui(deltaTime);
+        updateGui(deltaTime);
+        renderGui();
     }
 
     public void setPosition(float cameraPosX, float cameraPosY) {
@@ -76,6 +81,10 @@ public class ViewManager {
         return buildingGui;
     }
 
+    public BuildingInfoGui getBuildingInfoGui() {
+        return buildingInfoGui;
+    }
+
     private void renderGameRendering() {
         batchRenderer.beginRendering();
         entityViewManager.render(
@@ -87,24 +96,32 @@ public class ViewManager {
         batchRenderer.endRendering();
     }
 
-    private void renderGui(float deltaTime) {
-        inventoryGui.update(deltaTime);
+    private void renderGui() {
         inventoryGui.render();
-        buildingGui.update(deltaTime);
         buildingGui.render();
+        gameControlsGui.render();
+        buildingInfoGui.render();
+        timeControlGui.render();
     }
 
-    private void initFactories(InputProcessorListener listener) {
-        guiFactory = new GuiLibgdxFactory(listener);
-        renderingFactory = new GameRenderingLibgdxFactory();
+    private void updateGui(float deltaTime) {
+        inventoryGui.update(deltaTime);
+        buildingGui.update(deltaTime);
+        gameControlsGui.update(deltaTime);
+        buildingInfoGui.update(deltaTime);
+        timeControlGui.update(deltaTime);
+        timeControlGui.render();
     }
 
-    private void initGui() {
+    private void initGui(GuiFactory guiFactory, ChangeScreen screenChanger) {
         inventoryGui = new InventoryGui(guiFactory, modelManager.getInventoryEntity());
         buildingGui = new BuildingGui(guiFactory);
+        gameControlsGui = new GameControlsGui(guiFactory, screenChanger);
+        buildingInfoGui = new BuildingInfoGui(guiFactory);
+        timeControlGui = new TimeControlGui(guiFactory);
     }
 
-    private void initRenders() {
+    private void initRenders(GameRenderingFactory renderingFactory) {
         batchRenderer = renderingFactory.createBatchRenderer();
 
         entityViewManager = new EntityViewManager(modelManager, renderingFactory);
@@ -122,34 +139,45 @@ public class ViewManager {
     }
 
     // Number of pixels to zoom
+
     public void zoom(float newMultiplier) {
-        float screenWidth = Gdx.graphics.getWidth();
-        float screenHeight = Gdx.graphics.getHeight();
-
-        float newTilesPerWidth = screenWidth / (newMultiplier * pixelPerTile);
-        float newTilesPerHeight = screenHeight / (newMultiplier * pixelPerTile);
-
-        int worldWidth = modelManager.getWorldWidth();
-        int worldHeight = modelManager.getWorldHeight();
-
-        // Makes sure we keep within reasonable zoom levels.
-        if (newTilesPerWidth < minTilesPerScreen || newTilesPerHeight < minTilesPerScreen) {
-            float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
-            float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
-            zoomMultiplier = Math.min(maxWidthZoomMp, maxHeightZoomMp);
-        } else if (newTilesPerWidth > worldWidth || newTilesPerHeight > worldHeight) {
-            float minWidthZoomMp = screenWidth / (worldWidth * pixelPerTile);
-            float minHeightZoomMp = screenHeight / (worldHeight * pixelPerTile);
-            zoomMultiplier = Math.max(minWidthZoomMp, minHeightZoomMp);
-        } else {
-            zoomMultiplier = newMultiplier;
-        }
-
-
+        zoomMultiplier = limitZoom(newMultiplier);
     }
 
     public float getZoomMultiplier() {
         return zoomMultiplier;
+    }
+
+    private float limitZoom(float newZoom) {
+        float result = newZoom;
+        result = Math.max(minZoom, result);
+        result = Math.min(maxZoom, result);
+        return result;
+    }
+
+    private void calcMinMaxZoom(ModelManager modelManager) {
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+
+        int worldWidth = modelManager.getWorldWidth();
+        int worldHeight = modelManager.getWorldHeight();
+
+        float minWidthZoomMp = screenWidth / (worldWidth * pixelPerTile);
+        float minHeightZoomMp = screenHeight / (worldHeight * pixelPerTile);
+
+        this.minZoom = Math.max(minWidthZoomMp, minHeightZoomMp);
+
+        float minTilesPerScreen = 5;
+        float maxWidthZoomMp = screenWidth / (minTilesPerScreen * pixelPerTile);
+        float maxHeightZoomMp = screenHeight / (minTilesPerScreen * pixelPerTile);
+
+        this.maxZoom = Math.min(maxWidthZoomMp, maxHeightZoomMp);
+    }
+
+    public void setTimeControllers(RegisterTimeController registerTime,
+                                   SetTimeMultiplier setTimeMultiplier) {
+        registerTime.registerTimeController(timeControlGui);
+        timeControlGui.setSetTimeMultiplier(setTimeMultiplier);
     }
 
 }
